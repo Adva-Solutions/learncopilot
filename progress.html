@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progress Board — Copilot Workshop</title>
+<script src="/tenant-config.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Source Sans 3', -apple-system, sans-serif;
+    background: #faf9f6;
+    color: #1a1a2e;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeIn 400ms ease forwards;
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  .top-nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 60px;
+    background: #0c1f3f;
+    border-bottom: 2px solid #c5973e;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px;
+    z-index: 100;
+  }
+  .top-nav-brand {
+    font-size: 22px; font-weight: 700;
+    color: #fff; text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+  .top-nav-brand:hover { opacity: 0.8; }
+  .nav-links { display: flex; gap: 8px; align-items: center; }
+  .nav-link {
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-size: 14px; font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .nav-link-workshop {
+    background: #c5973e; color: #0c1f3f;
+  }
+  .nav-link-workshop:hover { background: #d4a94d; }
+  .nav-link-active {
+    background: rgba(255,255,255,0.1); color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .page { max-width: 960px; margin: 0 auto; padding: 92px 32px 60px; }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .page-header h1 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 32px; font-weight: 600;
+    margin-bottom: 8px;
+    color: #1a1a2e;
+  }
+  .page-header p {
+    color: #999; font-size: 15px;
+  }
+
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #F0FDF4; color: #16A34A;
+    border: 1px solid #BBF7D0;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px; font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .live-dot {
+    width: 7px; height: 7px;
+    background: #16A34A;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: #fff;
+    border: 1px solid #ddd8ce;
+    border-radius: 12px;
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .stat-number {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 36px; font-weight: 700;
+    line-height: 1.1;
+    color: #1a1a2e;
+  }
+  .stat-label {
+    font-size: 13px; color: #999;
+    font-weight: 500; margin-top: 4px;
+  }
+
+  .participants { display: flex; flex-direction: column; gap: 12px; }
+
+  .participant-card {
+    background: #fff;
+    border: 1px solid #ddd8ce;
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: box-shadow 0.2s;
+  }
+  .participant-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+  .participant-card.is-you { border-color: #c5973e; border-width: 2px; }
+
+  .participant-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: #f0ede6;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 17px;
+    color: #5a5a6e;
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+  .participant-card.is-you .participant-avatar {
+    background: #0c1f3f; color: #c5973e;
+  }
+
+  .participant-info { flex: 1; min-width: 0; }
+  .participant-name {
+    font-weight: 600; font-size: 15px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .you-badge {
+    font-size: 10px; font-weight: 700;
+    background: #c5973e; color: #0c1f3f;
+    padding: 2px 8px; border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .progress-courses {
+    display: flex; gap: 12px; margin-top: 8px;
+  }
+  .course-progress {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; color: #999;
+  }
+  .course-progress .bar-bg {
+    width: 60px; height: 5px;
+    background: #e8e4dc;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .course-progress .bar-fill {
+    height: 100%; border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+  .bar-chat { background: #0078d4; }
+  .bar-apps { background: #217346; }
+  .bar-agents { background: #7b5ea7; }
+
+  .participant-points {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .points-number {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px; font-weight: 700;
+    color: #1a1a2e;
+  }
+  .points-label {
+    font-size: 11px; color: #bbb;
+    font-weight: 500;
+  }
+
+  .loading {
+    text-align: center; padding: 60px;
+    color: #bbb; font-size: 15px;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+  }
+  .empty-state h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 20px; margin-bottom: 8px;
+    color: #1a1a2e;
+  }
+
+  @media (max-width: 640px) {
+    .stats-row { grid-template-columns: 1fr; }
+    .progress-courses { flex-direction: column; gap: 4px; }
+    .participant-card { flex-wrap: wrap; }
+    .nav-links { gap: 4px; }
+    .nav-link { padding: 6px 14px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="/" class="top-nav-brand">adva</a>
+  <div class="nav-links">
+    <a href="/" class="nav-link nav-link-workshop">Workshop</a>
+    <a href="/progress.html" class="nav-link nav-link-active">Progress Board</a>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <div class="live-badge"><span class="live-dot"></span> Live</div>
+    <h1>Workshop Progress</h1>
+    <p id="page-desc">See how everyone is progressing through the Copilot workshop</p>
+  </div>
+
+  <div class="stats-row" id="stats-row">
+    <div class="stat-card">
+      <div class="stat-number" id="stat-participants">—</div>
+      <div class="stat-label">Participants</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="stat-steps">—</div>
+      <div class="stat-label">Steps Completed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="stat-points">—</div>
+      <div class="stat-label">Total Points Earned</div>
+    </div>
+  </div>
+
+  <div id="participants-container">
+    <div class="loading">Loading progress...</div>
+  </div>
+</div>
+
+<script>
+const currentUser = localStorage.getItem('workshop_user');
+const CHAT_STEPS = 11, APPS_STEPS = 10, AGENTS_STEPS = 8;
+
+async function loadProgress() {
+  try {
+    const res = await fetch('/api/progress');
+    if (!res.ok) throw new Error('Failed to load');
+    const { participants } = await res.json();
+    render(participants);
+  } catch (e) {
+    document.getElementById('participants-container').innerHTML =
+      '<div class="empty-state"><h3>No progress yet</h3><p>Participants will appear here once they start the workshop.</p></div>';
+    document.getElementById('stat-participants').textContent = '0';
+    document.getElementById('stat-steps').textContent = '0';
+    document.getElementById('stat-points').textContent = '0';
+  }
+}
+
+function render(participants) {
+  const totalSteps = participants.reduce((s, p) =>
+    s + (p.chat?.completed?.length || 0) + (p.apps?.completed?.length || 0) + (p.agents?.completed?.length || 0), 0);
+  const totalPts = participants.reduce((s, p) => s + (p.totalPoints || 0), 0);
+
+  document.getElementById('stat-participants').textContent = participants.length;
+  document.getElementById('stat-steps').textContent = totalSteps;
+  document.getElementById('stat-points').textContent = totalPts;
+
+  const container = document.getElementById('participants-container');
+  if (!participants.length) {
+    container.innerHTML = '<div class="empty-state"><h3>No progress yet</h3><p>Participants will appear here once they start the workshop.</p></div>';
+    return;
+  }
+
+  container.innerHTML = '<div class="participants">' + participants.map(p => {
+    const isYou = p.name === currentUser;
+    const initials = p.name.split(' ').map(w => w[0]).join('').slice(0, 2);
+    const chatPct = Math.round(((p.chat?.completed?.length || 0) / CHAT_STEPS) * 100);
+    const appsPct = Math.round(((p.apps?.completed?.length || 0) / APPS_STEPS) * 100);
+    const agentsPct = Math.round(((p.agents?.completed?.length || 0) / AGENTS_STEPS) * 100);
+
+    return `
+      <div class="participant-card ${isYou ? 'is-you' : ''}">
+        <div class="participant-avatar">${initials}</div>
+        <div class="participant-info">
+          <div class="participant-name">
+            ${p.name}
+            ${isYou ? '<span class="you-badge">You</span>' : ''}
+          </div>
+          <div class="progress-courses">
+            <div class="course-progress">
+              Chat
+              <div class="bar-bg"><div class="bar-fill bar-chat" style="width:${chatPct}%"></div></div>
+              ${chatPct}%
+            </div>
+            <div class="course-progress">
+              Apps
+              <div class="bar-bg"><div class="bar-fill bar-apps" style="width:${appsPct}%"></div></div>
+              ${appsPct}%
+            </div>
+            <div class="course-progress">
+              Agents
+              <div class="bar-bg"><div class="bar-fill bar-agents" style="width:${agentsPct}%"></div></div>
+              ${agentsPct}%
+            </div>
+          </div>
+        </div>
+        <div class="participant-points">
+          <div class="points-number">${p.totalPoints || 0}</div>
+          <div class="points-label">points</div>
+        </div>
+      </div>`;
+  }).join('') + '</div>';
+}
+
+loadProgress();
+setInterval(loadProgress, 10000);
+</script>
+</body>
+</html>

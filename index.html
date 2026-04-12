@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copilot Workshop — Adva Academy</title>
+<script src="/tenant-config.js"></script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230c1f3f'/><text x='16' y='23' font-size='20' font-family='serif' fill='%23c5973e' text-anchor='middle'>H</text></svg>">
+<meta property="og:title" content="Copilot Workshop — Adva Academy">
+<meta property="og:description" content="Hands-on Microsoft Copilot workshop. Learn AI fundamentals, master Copilot in every app, and build your own agents.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #0c1f3f;
+    --accent: #c5973e;
+    --accent-light: rgba(197,151,62,.12);
+    --bg: #faf9f6;
+    --bg-warm: #f0ede6;
+    --text: #1a1a2e;
+    --text-secondary: #5a5a6e;
+    --text-light: #999;
+    --border: #ddd8ce;
+    --border-light: #e8e4dc;
+    --white: #fff;
+    --green: #3a7a5c;
+    --chat-color: #0078d4;
+    --apps-color: #217346;
+    --agents-color: #7b5ea7;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Source Sans 3', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeIn 500ms ease forwards;
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* TOP NAV */
+  .top-nav {
+    background: var(--dark);
+    padding: 0 48px;
+    border-bottom: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-left { display: flex; align-items: center; gap: 16px; }
+  .nav-brand {
+    font-size: 22px; font-weight: 700;
+    color: var(--white); text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+  .nav-brand:hover { opacity: 0.8; }
+  .nav-divider {
+    width: 1px; height: 24px;
+    background: rgba(255,255,255,0.15);
+  }
+  .nav-subtitle {
+    font-size: 13px; color: rgba(255,255,255,0.5);
+    font-weight: 500; letter-spacing: 0.3px;
+  }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .nav-link {
+    padding: 7px 18px; border-radius: 20px;
+    font-size: 13px; font-weight: 600;
+    text-decoration: none; transition: all 0.15s;
+    color: rgba(255,255,255,0.6);
+  }
+  .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+  .nav-link-progress { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+  .nav-user {
+    font-size: 13px; color: rgba(255,255,255,0.5);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-user-avatar {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(197,151,62,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .nav-logout {
+    font-size: 12px; color: rgba(255,255,255,0.35);
+    text-decoration: none; cursor: pointer;
+  }
+  .nav-logout:hover { color: rgba(255,255,255,0.7); }
+
+  /* HERO */
+  .hero {
+    background: var(--dark);
+    padding: 48px 48px 52px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -5%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(197,151,62,.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 42px; font-weight: 400;
+    line-height: 1.15; color: var(--white);
+    margin-bottom: 12px;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--accent);
+  }
+  .hero-desc {
+    font-size: 17px; color: rgba(255,255,255,0.6);
+    max-width: 540px; font-weight: 300;
+    margin-bottom: 8px;
+  }
+  .hero-branding {
+    font-size: 13px; color: rgba(255,255,255,0.35);
+    margin-top: 20px;
+  }
+  .hero-branding a {
+    color: var(--accent); text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* COURSE GRID */
+  .courses-section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 48px 60px;
+  }
+  .section-label {
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+  }
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .course-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .course-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+  }
+  .course-card-accent {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .course-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 18px; color: var(--white);
+    margin-bottom: 16px;
+  }
+  .course-card h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px; font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .course-card p {
+    font-size: 14px; color: var(--text-secondary);
+    line-height: 1.6; flex: 1;
+    margin-bottom: 16px;
+  }
+  .course-meta {
+    display: flex; justify-content: space-between;
+    align-items: center;
+    font-size: 12px; color: var(--text-light);
+    padding-top: 14px;
+    border-top: 1px solid var(--border-light);
+  }
+  .course-meta-steps { font-weight: 600; }
+  .course-meta-pts { color: var(--accent); font-weight: 600; }
+
+  /* PROGRESS SUMMARY */
+  .progress-row {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 16px;
+  }
+  .progress-bar-mini {
+    flex: 1; height: 6px;
+    background: var(--border-light);
+    border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill-mini {
+    height: 100%; border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+  .progress-pct {
+    font-size: 12px; font-weight: 600; min-width: 32px;
+    text-align: right;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 32px 48px;
+    font-size: 13px;
+    color: var(--text-light);
+    border-top: 1px solid var(--border-light);
+  }
+  .footer a {
+    color: var(--accent); text-decoration: none; font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .course-grid { grid-template-columns: 1fr; }
+    .top-nav { padding: 0 20px; }
+    .hero { padding: 32px 20px 36px; }
+    .hero h1 { font-size: 32px; }
+    .courses-section { padding: 32px 20px 48px; }
+    .nav-user { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-left">
+    <a href="/" class="nav-brand">adva</a>
+    <div class="nav-divider"></div>
+    <span class="nav-subtitle" id="nav-subtitle">Copilot Workshop</span>
+  </div>
+  <div class="nav-right">
+    <a href="/progress.html" class="nav-link nav-link-progress">Progress Board</a>
+    <div class="nav-user" id="nav-user"></div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <h1 id="hero-title">Your AI Playbook, <em>Built for You.</em></h1>
+    <p class="hero-desc" id="hero-desc">Learn Microsoft Copilot hands-on during our live workshop. Master AI fundamentals, use Copilot across every app, and build your own agents.</p>
+    <div class="hero-branding">
+      Prepared by <a href="https://adva-solutions.com" target="_blank" id="branding-link">Adva Solutions</a>
+    </div>
+  </div>
+</header>
+
+<section class="courses-section">
+  <div class="section-label">Workshop Modules</div>
+
+  <div class="course-grid">
+
+    <a href="/courses/copilot-chat/copilot-chat.html" class="course-card" id="card-chat">
+      <div class="course-card-accent" style="background:#0078d4"></div>
+      <div class="course-icon" style="background:#0078d4">C</div>
+      <h3>Copilot Chat</h3>
+      <p>AI fundamentals, prompting techniques, Work vs Web mode, workflows, and the full Copilot Chat experience.</p>
+      <div class="progress-row">
+        <div class="progress-bar-mini">
+          <div class="progress-fill-mini" id="prog-chat" style="width:0%; background:#0078d4"></div>
+        </div>
+        <span class="progress-pct" id="pct-chat" style="color:#0078d4">0%</span>
+      </div>
+      <div class="course-meta">
+        <span class="course-meta-steps">11 steps</span>
+        <span class="course-meta-pts">180 pts</span>
+      </div>
+    </a>
+
+    <a href="/courses/copilot-apps/copilot-apps.html" class="course-card" id="card-apps">
+      <div class="course-card-accent" style="background:#217346"></div>
+      <div class="course-icon" style="background:#217346">A</div>
+      <h3>Copilot in Apps</h3>
+      <p>Master Copilot in Outlook, Word, Excel, PowerPoint, and Teams. Agent Mode, cross-app workflows, and more.</p>
+      <div class="progress-row">
+        <div class="progress-bar-mini">
+          <div class="progress-fill-mini" id="prog-apps" style="width:0%; background:#217346"></div>
+        </div>
+        <span class="progress-pct" id="pct-apps" style="color:#217346">0%</span>
+      </div>
+      <div class="course-meta">
+        <span class="course-meta-steps">10 steps</span>
+        <span class="course-meta-pts">200 pts</span>
+      </div>
+    </a>
+
+    <a href="/courses/building-agents/building-agents.html" class="course-card" id="card-agents">
+      <div class="course-card-accent" style="background:#7b5ea7"></div>
+      <div class="course-icon" style="background:#7b5ea7">B</div>
+      <h3>Building Agents</h3>
+      <p>Understand AI agents, use Copilot Studio, build custom agents like Write Like Me and Report Writer.</p>
+      <div class="progress-row">
+        <div class="progress-bar-mini">
+          <div class="progress-fill-mini" id="prog-agents" style="width:0%; background:#7b5ea7"></div>
+        </div>
+        <span class="progress-pct" id="pct-agents" style="color:#7b5ea7">0%</span>
+      </div>
+      <div class="course-meta">
+        <span class="course-meta-steps">8 steps</span>
+        <span class="course-meta-pts">200 pts</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer class="footer">
+  Prepared by <a href="https://adva-solutions.com" target="_blank">Adva Solutions</a>
+</footer>
+
+<script>
+/* Apply tenant config */
+if (typeof TENANT !== 'undefined') {
+  document.getElementById('nav-subtitle').textContent = TENANT.workshopTitle || 'Copilot Workshop';
+  document.title = (TENANT.workshopTitle || 'Copilot Workshop') + ' — Adva Academy';
+}
+
+/* Show user info */
+const user = localStorage.getItem('workshop_user');
+if (user) {
+  const initials = user.split(' ').map(w => w[0]).join('').slice(0, 2);
+  document.getElementById('nav-user').innerHTML =
+    '<div class="nav-user-avatar">' + initials + '</div>' +
+    '<span>' + user + '</span>' +
+    ' <a class="nav-logout" onclick="logout()">Sign out</a>';
+}
+
+function logout() {
+  fetch('/api/logout').then(() => {
+    localStorage.removeItem('workshop_user');
+    window.location.href = '/login.html';
+  });
+}
+
+/* Load progress from localStorage for instant display */
+function updateDashboardProgress() {
+  const chatCompleted = JSON.parse(localStorage.getItem('chat-completed') || '[]');
+  const appsCompleted = JSON.parse(localStorage.getItem('apps-completed') || '[]');
+  const agentsCompleted = JSON.parse(localStorage.getItem('agents-completed') || '[]');
+
+  const chatPct = Math.round((chatCompleted.length / 11) * 100);
+  const appsPct = Math.round((appsCompleted.length / 10) * 100);
+  const agentsPct = Math.round((agentsCompleted.length / 8) * 100);
+
+  document.getElementById('prog-chat').style.width = chatPct + '%';
+  document.getElementById('pct-chat').textContent = chatPct + '%';
+
+  document.getElementById('prog-apps').style.width = appsPct + '%';
+  document.getElementById('pct-apps').textContent = appsPct + '%';
+
+  document.getElementById('prog-agents').style.width = agentsPct + '%';
+  document.getElementById('pct-agents').textContent = agentsPct + '%';
+}
+
+updateDashboardProgress();
+
+/* Auth check - redirect to login if not authenticated.
+   On Vercel (production), /api/me returns proper JSON.
+   On static servers (local dev), /api/me returns 404 HTML — detect and skip redirect. */
+fetch('/api/me').then(async r => {
+  if (!r.ok) {
+    const ct = r.headers.get('content-type') || '';
+    if (ct.includes('application/json')) window.location.href = '/login.html';
+    /* else: static server returned 404 HTML — skip redirect for local preview */
+  }
+}).catch(() => {});
+</script>
+</body>
+</html>

@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building Agents - Learn Copilot</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #faf9f6;
+    color: #1a1a2e;
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  .app {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: 300px;
+    min-width: 300px;
+    background: #fff;
+    border-right: 1px solid #ddd8ce;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+  }
+
+  .sidebar-header {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid #ddd8ce;
+  }
+
+  .sidebar-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a1a2e;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo {
+    background: #7b5ea7;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .sidebar-progress {
+    padding: 16px 20px;
+    border-bottom: 1px solid #ddd8ce;
+    font-size: 14px;
+  }
+
+  .sidebar-progress .progress-bar {
+    height: 6px;
+    background: #eee8df;
+    border-radius: 3px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+
+  .sidebar-progress .progress-fill {
+    height: 100%;
+    background: #7b5ea7;
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 12px 0;
+    overflow-y: auto;
+  }
+
+  .nav-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+  }
+
+  .nav-item:hover {
+    background: #f5f3ef;
+  }
+
+  .nav-item.active {
+    background: #f5f0fa;
+    color: #7b5ea7;
+    border-left-color: #7b5ea7;
+    font-weight: 600;
+  }
+
+  .nav-item.completed {
+    color: #7b5ea7;
+  }
+
+  .nav-item .nav-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .nav-item.completed .nav-icon {
+    background: #7b5ea7;
+    border-color: #7b5ea7;
+    color: #fff;
+  }
+
+  .nav-item.active .nav-icon {
+    border-color: #7b5ea7;
+  }
+
+  .nav-item .nav-label { flex: 1; }
+
+  .nav-item .nav-pts {
+    font-size: 11px;
+    color: #999;
+    font-weight: 500;
+  }
+
+  .nav-item .nav-badge {
+    font-size: 9px;
+    background: #f0ecff;
+    color: #7b5ea7;
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #ddd8ce;
+    font-size: 13px;
+    color: #888;
+  }
+
+  .sidebar-footer a {
+    color: #7b5ea7;
+    text-decoration: none;
+  }
+
+  .sidebar-footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Main Content ── */
+  .main {
+    flex: 1;
+    padding: 40px 56px 80px;
+    max-width: 880px;
+  }
+
+  .lesson-header {
+    margin-bottom: 32px;
+  }
+
+  .lesson-header .lesson-number {
+    font-size: 13px;
+    font-weight: 600;
+    color: #7b5ea7;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+  }
+
+  .lesson-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: #1a1a2e;
+    line-height: 1.2;
+  }
+
+  .lesson-header .lesson-meta {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #888;
+  }
+
+  .lesson-header .lesson-meta span {
+    margin-right: 16px;
+  }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #ddd8ce;
+    margin-bottom: 32px;
+  }
+
+  .tab {
+    padding: 10px 24px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #888;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+  }
+
+  .tab:hover {
+    color: #555;
+  }
+
+  .tab.active {
+    color: #7b5ea7;
+    border-bottom-color: #7b5ea7;
+    font-weight: 600;
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* ── Typography ── */
+  .content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 32px 0 12px;
+  }
+
+  .content h3:first-child {
+    margin-top: 0;
+  }
+
+  .content h4 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 24px 0 8px;
+  }
+
+  .content p {
+    margin-bottom: 16px;
+    color: #444;
+  }
+
+  .content ul, .content ol {
+    margin: 0 0 16px 24px;
+    color: #444;
+  }
+
+  .content li {
+    margin-bottom: 6px;
+  }
+
+  .content strong {
+    color: #1a1a2e;
+  }
+
+  /* ── Code/Prompt Blocks ── */
+  .code-block {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 8px;
+    margin: 16px 0;
+    overflow: hidden;
+  }
+
+  .code-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background: #2d2d2d;
+    font-size: 12px;
+    color: #888;
+  }
+
+  .copy-btn {
+    background: transparent;
+    border: 1px solid #555;
+    color: #aaa;
+    padding: 3px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: all 0.2s;
+  }
+
+  .copy-btn:hover {
+    background: #444;
+    color: #fff;
+  }
+
+  .code-block pre {
+    padding: 16px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* ── Tip Box ── */
+  .tip-box {
+    background: #f5f0fa;
+    border-left: 4px solid #7b5ea7;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+
+  .tip-box .tip-title {
+    font-weight: 600;
+    color: #7b5ea7;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .tip-box p {
+    color: #555;
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+
+  /* ── Note Box ── */
+  .note-box {
+    background: #f0f4ff;
+    border-left: 4px solid #4a7ae8;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+
+  .note-box .note-title {
+    font-weight: 600;
+    color: #4a7ae8;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .note-box p {
+    color: #555;
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+
+  /* ── Buttons ── */
+  .mark-complete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #7b5ea7;
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 32px;
+    transition: all 0.2s;
+  }
+
+  .mark-complete-btn:hover {
+    background: #6a4f94;
+    transform: translateY(-1px);
+  }
+
+  .mark-complete-btn:disabled {
+    background: #bbb;
+    cursor: default;
+    transform: none;
+  }
+
+  .continue-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: #7b5ea7;
+    border: 2px solid #7b5ea7;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: all 0.2s;
+  }
+
+  .continue-btn:hover {
+    background: #f5f0fa;
+  }
+
+  /* ── Option Tabs ── */
+  .option-tabs {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+
+  .option-tab {
+    padding: 8px 18px;
+    border: 2px solid #ddd8ce;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    background: #fff;
+    transition: all 0.2s;
+  }
+
+  .option-tab:hover {
+    border-color: #7b5ea7;
+    color: #7b5ea7;
+  }
+
+  .option-tab.active {
+    border-color: #7b5ea7;
+    background: #f5f0fa;
+    color: #7b5ea7;
+    font-weight: 600;
+  }
+
+  .option-content {
+    display: none;
+  }
+
+  .option-content.active {
+    display: block;
+  }
+
+  /* ── Comparison Table ── */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+
+  .comparison-table th {
+    background: #f5f0fa;
+    color: #7b5ea7;
+    font-weight: 600;
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 2px solid #ddd8ce;
+  }
+
+  .comparison-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #eee8df;
+    color: #444;
+  }
+
+  .comparison-table tr:hover td {
+    background: #faf8f5;
+  }
+
+  /* ── Step List ── */
+  .step-list {
+    counter-reset: step-counter;
+    list-style: none;
+    margin: 16px 0;
+    padding: 0;
+  }
+
+  .step-list li {
+    counter-increment: step-counter;
+    padding: 12px 0 12px 48px;
+    position: relative;
+    border-bottom: 1px solid #eee8df;
+  }
+
+  .step-list li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f5f0fa;
+    color: #7b5ea7;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .step-list li:last-child {
+    border-bottom: none;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .app { flex-direction: column; }
+    .sidebar {
+      width: 100%;
+      min-width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sidebar-nav { display: flex; overflow-x: auto; padding: 8px; }
+    .nav-item { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; }
+    .nav-item.active { border-bottom-color: #7b5ea7; border-left: none; }
+    .main { padding: 24px 20px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1><span class="logo">B</span> Building Agents</h1>
+    </div>
+    <div class="sidebar-progress">
+      <div><strong id="progress-text">0 / 6 core lessons</strong> &middot; <span id="points-text">0 pts</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav"></nav>
+    <div class="sidebar-footer">
+      <a href="/">&#8592; All Courses</a>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <div class="main" id="main-content"></div>
+</div>
+
+<script>
+/* ================================================================
+   LESSONS DATA
+   ================================================================ */
+const LESSONS = [
+  // ── Lesson 0 ──
+  {
+    title: "What's an Agent?",
+    points: 15,
+    bonus: false,
+    learn: `
+<h3>See the Difference</h3>
+<p>When you ask Copilot to summarize an email, it reads and responds. That is a chatbot. When you ask it to research a topic, draft a memo, create slides, AND email them to your team &mdash; that is an agent.</p>
+<p>The difference is not what it knows. It is what it <strong>does</strong>. A chatbot answers questions. An agent completes tasks.</p>
+
+<h3>The Agent Equation</h3>
+<p><strong>Agent = LLM + Tools + Knowledge + Autonomy</strong></p>
+<ul>
+  <li><strong>LLM</strong> &mdash; the brain that reasons about what to do next (GPT, Claude, etc.)</li>
+  <li><strong>Tools</strong> &mdash; the actions it can take (send email, query a database, create a file)</li>
+  <li><strong>Knowledge</strong> &mdash; your documents, data, and context it draws on</li>
+  <li><strong>Autonomy</strong> &mdash; how much it decides on its own vs. asking you first</li>
+</ul>
+
+<h3>Three Real Examples</h3>
+<ul>
+  <li><strong>Copilot in Outlook</strong> &mdash; reads an email thread, drafts a reply in your voice, and suggests a meeting time based on your calendar. Three tools, one action.</li>
+  <li><strong>Copilot in Excel</strong> &mdash; analyzes your sales data, adds trend columns, builds a chart, and highlights anomalies. Multi-step reasoning on your spreadsheet.</li>
+  <li><strong>A custom Copilot Studio agent</strong> &mdash; a new-hire onboarding bot that answers policy questions, creates accounts, and schedules orientation meetings without human intervention.</li>
+</ul>
+
+<div class="tip-box">
+  <div class="tip-title">Tip</div>
+  <p>Think about tasks you do repeatedly that follow a pattern. Those are your best agent candidates.</p>
+</div>
+    `,
+    implement: `
+<h3>Try It: Experience Agent vs. Chatbot Behavior</h3>
+
+<h4>Step 1: Open Copilot Chat</h4>
+<p>Open <strong>Microsoft Copilot Chat</strong> (in Teams, Edge, or copilot.microsoft.com).</p>
+
+<h4>Step 2: See the Difference in a Table</h4>
+<p>Send this prompt:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Explain the difference between a chatbot and an AI agent. Use a table with columns: Feature, Chatbot, Agent.</pre>
+</div>
+<p>Read the table. Note the key difference: agents can take ACTIONS, chatbots only respond.</p>
+
+<h4>Step 3: Trigger Agent Behavior</h4>
+<p>Now send this prompt to make Copilot act like an agent:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>You are an AI agent helping me plan a team offsite. First, ask me 5 questions about the event before making any suggestions.</pre>
+</div>
+
+<h4>Step 4: Answer All 5 Questions</h4>
+<p>Copilot will ask you questions one at a time (or all at once). Answer each one with real or made-up details about a team event.</p>
+
+<h4>Step 5: See the Agent Create a Multi-Part Output</h4>
+<p>After answering all questions, send:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Based on my answers, create a complete plan including venue suggestions, agenda, and budget estimate.</pre>
+</div>
+
+<h4>Step 6: Observe the Pattern</h4>
+<p>Notice what happened: Copilot gathered information FIRST, then created a multi-part output combining venue research, scheduling, and budget calculations. That is agent behavior &mdash; it reasoned about your goals, collected context, and produced a structured plan. A chatbot would have just answered each question in isolation.</p>
+    `,
+    advanced: `
+<h3>Agent Architectures</h3>
+<h4>ReAct (Reason + Act)</h4>
+<p>The agent alternates between <em>thinking</em> (reasoning about what to do) and <em>acting</em> (calling a tool). This is the most common pattern in modern agents. The loop continues until the task is complete.</p>
+
+<h4>Chain-of-Thought Planning</h4>
+<p>Before acting, the agent writes out its full plan, then executes steps in order. This is useful when tasks have dependencies between steps.</p>
+
+<h4>Tool-Use Patterns</h4>
+<p>Some agents are given a toolbox and choose tools dynamically. Others follow a fixed pipeline of tools in a predetermined order. The choice depends on how predictable the task is.</p>
+
+<h3>The Spectrum of Autonomy</h3>
+<p>Not every task needs full autonomy. Consider this spectrum:</p>
+<ul>
+  <li><strong>Level 0 &mdash; Copilot:</strong> Suggests actions, human approves every one.</li>
+  <li><strong>Level 1 &mdash; Supervised Agent:</strong> Executes a plan, pauses for approval at key checkpoints.</li>
+  <li><strong>Level 2 &mdash; Trusted Agent:</strong> Acts independently within guardrails, notifies human of results.</li>
+  <li><strong>Level 3 &mdash; Autonomous Agent:</strong> Self-directs with minimal oversight. Use only for low-risk, well-tested tasks.</li>
+</ul>
+
+<h3>When NOT to Use an Agent</h3>
+<div class="tip-box">
+  <div class="tip-title">Avoid agents when:</div>
+  <p>The task requires nuanced human judgment (hiring decisions, legal review), the cost of error is very high and irreversible, or the task is so infrequent that building an agent costs more than doing it manually.</p>
+</div>
+    `
+  },
+
+  // ── Lesson 1 ──
+  {
+    title: "The Excel Agent",
+    points: 25,
+    bonus: false,
+    learn: `
+<h3>Your First Agent &mdash; You Already Have It</h3>
+<p>The Excel agent is the easiest way to see what agents can do &mdash; because you have already used Excel. Open a spreadsheet with sales data and ask Copilot to analyze it. Watch what happens: it reads your columns, reasons about patterns, adds new formula columns, builds a chart, and highlights outliers. That is not autocomplete. That is an agent making decisions about your data.</p>
+
+<h3>What Makes It Agentic</h3>
+<ul>
+  <li><strong>It reads your data first</strong> &mdash; column headers, data types, ranges &mdash; before deciding what to do.</li>
+  <li><strong>It chains actions</strong> &mdash; clean data, then pivot, then chart, then format. Multiple steps from one request.</li>
+  <li><strong>It explains itself</strong> &mdash; you can see its reasoning at each step and undo anything.</li>
+</ul>
+
+<h3>Key Features</h3>
+<p><strong>Agent Mode</strong> (rolling out 2026): Instead of one action per prompt, Copilot plans a full sequence of changes, adjusts if intermediate results look wrong, and works across multiple sheets.</p>
+<p><strong>Work IQ</strong>: The Excel agent pulls context from across Microsoft 365. Say "Add last quarter's targets from the planning email" and it finds and integrates that data.</p>
+<p><strong>Local file support</strong>: Works with files on OneDrive, SharePoint, or your local machine (formatted as a Table with Ctrl+T).</p>
+
+<div class="note-box">
+  <div class="note-title">Requirements</div>
+  <p>Copilot in Excel requires a Microsoft 365 Copilot license. Files work best formatted as a Table (Ctrl+T) and saved to OneDrive or SharePoint.</p>
+</div>
+    `,
+    implement: `
+<h3>Try It: Watch the Excel Agent in Action</h3>
+
+<h4>Step 1: Create a Sample Workbook</h4>
+<p>Open Excel. Create a new workbook. In cells A1:D1, type these headers: <strong>Employee</strong>, <strong>Department</strong>, <strong>Q1 Sales</strong>, <strong>Q2 Sales</strong>. Then enter this data in rows 2-11:</p>
+<table class="comparison-table" style="font-size:13px;">
+<tr><td>Alice Chen</td><td>North</td><td>45000</td><td>52000</td></tr>
+<tr><td>Bob Martinez</td><td>North</td><td>38000</td><td>41000</td></tr>
+<tr><td>Carol Davis</td><td>South</td><td>51000</td><td>48000</td></tr>
+<tr><td>Dan Wilson</td><td>South</td><td>29000</td><td>35000</td></tr>
+<tr><td>Eva Park</td><td>East</td><td>62000</td><td>67000</td></tr>
+<tr><td>Frank Lee</td><td>East</td><td>44000</td><td>43000</td></tr>
+<tr><td>Grace Kim</td><td>West</td><td>33000</td><td>39000</td></tr>
+<tr><td>Hank Brown</td><td>West</td><td>57000</td><td>54000</td></tr>
+<tr><td>Iris Patel</td><td>North</td><td>41000</td><td>49000</td></tr>
+<tr><td>Jake Turner</td><td>South</td><td>36000</td><td>42000</td></tr>
+</table>
+<p>Select all the data (A1:D11) and press <strong>Ctrl+T</strong> to format it as a Table. Save the file to OneDrive.</p>
+
+<h4>Step 2: Ask Copilot to Analyze</h4>
+<p>Click the <strong>Copilot</strong> icon in the Excel ribbon. Send:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Excel Copilot</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Analyze this sales data. Which department is performing best? Which employees improved the most from Q1 to Q2?</pre>
+</div>
+<p>Watch how Copilot reads multiple columns, compares values, and identifies top performers. It examined the entire dataset simultaneously.</p>
+
+<h4>Step 3: Make Copilot Add New Columns</h4>
+<p>Send:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Excel Copilot</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Add columns for: Q2 vs Q1 change (%), Performance rating (High if change > 10%, Medium if 0-10%, Low if negative), and a Department average of Q2 Sales.</pre>
+</div>
+<p>Copilot should add three new columns with formulas. Pick one cell and verify the formula manually. If you see =((D2-C2)/C2)*100 or similar, it worked.</p>
+
+<h4>Step 4: Create a Dashboard</h4>
+<p>Send:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Excel Copilot</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Create a dashboard: bar chart of Q2 Sales by department, and highlight any employees whose Q2 Sales are below their department average in red.</pre>
+</div>
+<p>If you see a chart and conditional formatting applied, it worked.</p>
+
+<h4>Step 5: Observe Agent Mode</h4>
+<p>You just watched the Excel agent do 3 rounds of analysis and creation: (1) read and reason about data, (2) generate formulas and new columns, (3) build a chart and apply formatting. That is Agent Mode &mdash; chained, multi-step actions from a single conversation.</p>
+    `,
+    advanced: `
+<h3>Advanced Excel Agent Techniques</h3>
+
+<h4>Complex Multi-Sheet Analysis</h4>
+<p>The Excel agent can work across sheets. Try: "Compare the data in Sheet1 with the targets in Sheet2 and highlight where we missed our goals by more than 10%."</p>
+
+<h4>Python in Excel</h4>
+<p>With Python in Excel (GA in 2026), Copilot can generate and run Python code directly in your spreadsheet. This enables advanced statistical analysis, machine learning models, and custom visualizations that go beyond native Excel capabilities.</p>
+
+<h4>External Data Sources</h4>
+<p>When connected to Power Query or Dataverse, the Excel agent can pull live data, refresh analyses, and even suggest data cleaning steps before analysis.</p>
+
+<div class="tip-box">
+  <div class="tip-title">Power Prompt</div>
+  <p>Try: "Using Python, run a regression analysis on this data and predict next month's values. Show me the R-squared value and a confidence interval chart."</p>
+</div>
+    `
+  },
+
+  // ── Lesson 2 ──
+  {
+    title: "Copilot Studio Basics",
+    points: 25,
+    bonus: false,
+    learn: `
+<h3>Where You Build Your Own Agents</h3>
+<p>Copilot Studio is where you build your own agents &mdash; without writing code. Go to <strong>copilotstudio.microsoft.com</strong>, sign in with your work account, and you will see a dashboard with your agents, a Create button, and a test panel.</p>
+
+<h3>Three Building Blocks</h3>
+<table class="comparison-table">
+<tr><th>Building Block</th><th>What It Does</th><th>Example</th></tr>
+<tr><td><strong>Topics</strong></td><td>Conversation triggers &mdash; what makes the agent respond</td><td>User says "order status" and the Order Status topic fires</td></tr>
+<tr><td><strong>Actions</strong></td><td>What the agent does &mdash; the tools it can call</td><td>Look up an order in a database, send an email, create a ticket</td></tr>
+<tr><td><strong>Knowledge</strong></td><td>What the agent knows &mdash; its reference material</td><td>SharePoint docs, websites, uploaded files, Dataverse tables</td></tr>
+</table>
+
+<h3>What's New in 2026</h3>
+<ul>
+  <li><strong>Natural language agent creation:</strong> Describe your agent in plain English ("Create an agent that helps employees submit expense reports") and Copilot Studio generates the full agent from your description.</li>
+  <li><strong>Multiple model choices:</strong> Pick GPT, Claude, or other supported LLMs depending on your needs for speed, accuracy, or cost.</li>
+  <li><strong>Agent evaluations (GA):</strong> Define test inputs and expected outputs, run evaluations, compare agent versions side-by-side, and track quality over time.</li>
+</ul>
+
+<div class="note-box">
+  <div class="note-title">Access</div>
+  <p>Go to <strong>copilotstudio.microsoft.com</strong>. You need a Microsoft 365 or Power Platform license. A free trial is available.</p>
+</div>
+    `,
+    implement: `
+<h3>Build Your First Agent in Copilot Studio</h3>
+
+<h4>Step 1: Sign In</h4>
+<p>Go to <code>copilotstudio.microsoft.com</code>. Sign in with your work account.</p>
+
+<h4>Step 2: Create a New Agent</h4>
+<p>Click <strong>"Create"</strong> in the left navigation. Then click <strong>"New agent."</strong></p>
+
+<h4>Step 3: Name and Describe It</h4>
+<p>Name it <strong>"Workshop FAQ Bot."</strong> In the description field, type: <em>"Answers common questions about our organization."</em></p>
+
+<h4>Step 4: Add a Knowledge Source</h4>
+<p>Click <strong>"Knowledge"</strong> in the left panel. Click <strong>"Add knowledge"</strong>. Choose <strong>"Website"</strong>. Enter your organization's main website URL (or any public site you want the bot to know about). Click <strong>"Add."</strong></p>
+<p>Wait for indexing to complete (1-2 minutes). You will see a green checkmark when it is ready.</p>
+
+<h4>Step 5: Review Default Topics</h4>
+<p>Click <strong>"Topics"</strong> in the left panel. You will see default topics like "Greeting" and "Fallback." Click on "Greeting" to see how it is structured.</p>
+
+<h4>Step 6: Test Your Agent</h4>
+<p>Click <strong>"Test"</strong> (bottom-left chat panel). Type:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Test Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>What does our organization do?</pre>
+</div>
+<p>If it answers using content from your website, your first agent works.</p>
+
+<h4>Step 7: Create a Custom Topic</h4>
+<p>Click <strong>"Topics"</strong> &rarr; <strong>"Create topic"</strong> &rarr; <strong>"From blank."</strong></p>
+<ol>
+  <li>Name the topic: <strong>"Contact Info"</strong></li>
+  <li>Add trigger phrases: <code>how do I contact</code>, <code>phone number</code>, <code>email address</code></li>
+  <li>Add a <strong>Message</strong> node with your organization's real contact info (or placeholder text like "Call us at 555-0100 or email info@example.com")</li>
+  <li>Click <strong>Save</strong></li>
+</ol>
+
+<h4>Step 8: Test the Custom Topic</h4>
+<p>In the test panel, type:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Test Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>How do I contact you?</pre>
+</div>
+<p>If it returns your custom contact info instead of a generic answer, the topic is working. You have built your first Copilot Studio agent with both knowledge-grounded answers and custom topic responses.</p>
+    `,
+    advanced: `
+<h3>Advanced Copilot Studio</h3>
+
+<h4>Multi-Agent Orchestration</h4>
+<p>In 2026, Copilot Studio supports agent-to-agent communication via A2A (Agent-to-Agent) protocols. This means your IT help desk agent can hand off to a specialized networking agent or an HR benefits agent seamlessly.</p>
+
+<h4>Computer Use Capability</h4>
+<p>For advanced scenarios, agents can interact with web applications on behalf of users: filling forms, navigating portals, and extracting information from legacy systems that don't have APIs.</p>
+
+<h4>Deployment Channels</h4>
+<p>Once built, deploy your agent to:</p>
+<ul>
+  <li><strong>Microsoft Teams</strong> &mdash; available in the chat sidebar</li>
+  <li><strong>Your website</strong> &mdash; embeddable chat widget</li>
+  <li><strong>SharePoint</strong> &mdash; integrated into your intranet</li>
+  <li><strong>Custom apps</strong> &mdash; via the Direct Line API</li>
+</ul>
+    `
+  },
+
+  // ── Lesson 3 ──
+  {
+    title: "Write Like Me Agent",
+    points: 30,
+    bonus: false,
+    learn: `
+<h3>An Agent That Writes Like You</h3>
+<p>Imagine an agent that writes emails in YOUR voice &mdash; matching your tone, your phrases, your structure. Instead of editing generic AI output to sound like you, you get a first draft that already reads like something you wrote.</p>
+
+<h3>How It Works</h3>
+<ol>
+  <li><strong>Feed it your writing samples</strong> &mdash; 3 emails from your Sent folder is enough to start.</li>
+  <li><strong>It extracts your voice profile</strong> &mdash; tone, sentence length, greetings, sign-offs, vocabulary.</li>
+  <li><strong>It drafts in your style</strong> &mdash; use the profile as instructions whenever you need a draft.</li>
+</ol>
+
+<h3>Before and After</h3>
+<p><strong>Generic AI email:</strong> "Dear Team, I hope this message finds you well. I wanted to provide an update regarding the project timeline..."</p>
+<p><strong>Voice-matched email:</strong> "Hey team - quick update on the timeline. We're ahead on the backend work but the design review is slipping. Here's where we stand..."</p>
+<p>The second version sounds like a real person. That is the difference a voice profile makes.</p>
+
+<div class="tip-box">
+  <div class="tip-title">Privacy Tip</div>
+  <p>Use writing samples you are comfortable sharing with Copilot. Avoid content with confidential business data unless you are within your organization's Copilot boundary.</p>
+</div>
+    `,
+    implement: `
+<h3>Build Your Write-Like-Me Agent</h3>
+
+<h4>Step 1: Gather Your Writing Samples</h4>
+<p>Open your <strong>Sent Items</strong> in Outlook. Find 3 emails you wrote that represent your natural style. Copy the full text of all three.</p>
+
+<h4>Step 2: Create Your Voice Profile</h4>
+<p>Open Copilot Chat. Paste your 3 emails into this prompt:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Analyze these 3 writing samples and create a detailed "Voice Profile" for me. For context, I am a {{ROLE}} at {{ORG}}. Include: (1) Typical sentence length, (2) Formality level (1-10), (3) Common phrases I use, (4) Tone characteristics, (5) How I structure my messages (greeting style, closing style, paragraph length). Here are my samples:
+
+---SAMPLE 1---
+[Paste email 1]
+
+---SAMPLE 2---
+[Paste email 2]
+
+---SAMPLE 3---
+[Paste email 3]</pre>
+</div>
+
+<h4>Step 3: Review and Correct the Profile</h4>
+<p>Read the Voice Profile Copilot creates. Does it sound like you? If something is off, tell it:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>That's close, but I'm actually more [formal/casual] than that, and I never use [phrase]. Update the profile.</pre>
+</div>
+<p>Replace the bracketed parts with your actual corrections.</p>
+
+<h4>Step 4: Copy Your Final Voice Profile</h4>
+<p>Once the profile sounds right, copy the entire output. Save it in a note or document &mdash; you will use it again in future exercises.</p>
+
+<h4>Step 5: Test It</h4>
+<p>Send this prompt to see if Copilot can write like you:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Using this voice profile, draft an email from {{NAME}} declining a meeting invitation politely:
+
+[Paste your voice profile here]</pre>
+</div>
+
+<h4>Step 6: Compare</h4>
+<p>Read the draft Copilot wrote. Open one of your real email samples side-by-side. Ask yourself:</p>
+<ul>
+  <li>Does the greeting match how you actually start emails?</li>
+  <li>Is the sentence length similar?</li>
+  <li>Does the sign-off match yours?</li>
+</ul>
+<p>If the draft reads like something you would send, the voice profile is working. If not, go back to Step 3 and refine.</p>
+
+<h4>Step 7: Save for Reuse</h4>
+<p>Store your final voice profile somewhere permanent (a Word doc, a note in OneNote, or your Copilot custom instructions). You will use this in the Report Writer lesson next.</p>
+    `,
+    advanced: `
+<h3>Advanced: Persistent Write-Like-Me Agent</h3>
+
+<h4>Build in Copilot Studio</h4>
+<p>For a truly persistent agent, create it in Copilot Studio with your voice profile as the system instructions. Add your recent emails and documents as knowledge sources so it can reference your actual content when drafting.</p>
+
+<h4>Multi-Persona Support</h4>
+<p>Create separate voice profiles for different contexts:</p>
+<ul>
+  <li><strong>Executive communication:</strong> Formal, data-driven, concise</li>
+  <li><strong>Team messages:</strong> Casual, encouraging, action-oriented</li>
+  <li><strong>Client-facing:</strong> Professional, warm, solution-focused</li>
+</ul>
+<p>Let the agent choose the right persona based on the recipient or channel.</p>
+
+<h4>Outlook Integration</h4>
+<p>When using Copilot in Outlook, your voice profile influences draft suggestions. Over time, Copilot in Outlook learns your style organically from your sent messages as well.</p>
+    `
+  },
+
+  // ── Lesson 4 ──
+  {
+    title: "Report Writer Agent",
+    points: 30,
+    bonus: false,
+    learn: `
+<h3>Automate the Reports You Write Every Week</h3>
+<p>You write the same reports every week. Status updates, board memos, research summaries. An agent can do it in seconds &mdash; and the output is consistent every time.</p>
+
+<h3>The Pattern</h3>
+<p>Every report agent follows the same flow: <strong>raw data or notes in, structured document out.</strong> But the key insight is this: a good report agent asks YOU questions first, then drafts &mdash; like a smart assistant who clarifies before working.</p>
+
+<h3>Three Report Types You Can Automate</h3>
+<ul>
+  <li><strong>Weekly Status Reports:</strong> Progress, blockers, next steps. The agent interviews you, then formats everything in your team's standard template.</li>
+  <li><strong>Board Briefing Memos:</strong> Executive summary, key metrics, strategic recommendations. The agent asks one question at a time to extract the important details.</li>
+  <li><strong>Research Summaries:</strong> Key findings, implications, recommended actions. The agent searches, synthesizes, and structures &mdash; you verify the sources.</li>
+</ul>
+
+<div class="note-box">
+  <div class="note-title">Key Principle</div>
+  <p>Rough notes in, polished report out. The agent's quality depends on the completeness of what you give it &mdash; but it only needs bullet points, not prose.</p>
+</div>
+    `,
+    implement: `
+<h3>Build a Report Writer</h3>
+<p>Pick the report type most relevant to your work. Each option walks you through a concrete, step-by-step process.</p>
+
+<div class="option-tabs" id="report-options">
+  <div class="option-tab active" onclick="switchOption('report', 0)">Weekly Status</div>
+  <div class="option-tab" onclick="switchOption('report', 1)">Board Memo</div>
+  <div class="option-tab" onclick="switchOption('report', 2)">Research Summary</div>
+</div>
+
+<div class="option-content active" id="report-option-0">
+<h4>Option A: Weekly Status Report</h4>
+
+<p><strong>Step 1:</strong> Open Copilot Chat. Start by letting the agent interview you:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>I need to write my weekly status report. I am a {{ROLE}} at {{ORG}} and my key areas are {{TOPICS}}. Ask me the questions you need answered before you can draft it.</pre>
+</div>
+
+<p><strong>Step 2:</strong> Answer each question Copilot asks. Give it real details: what you finished, what is in progress, any blockers, and key metrics.</p>
+
+<p><strong>Step 3:</strong> Once you have answered everything, send:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Now draft my weekly status report using this format: Summary (2 sentences), Completed This Week (bullet points), In Progress (bullet points), Blockers (if any), Next Week's Plan (bullet points). Keep it under 200 words.</pre>
+</div>
+
+<p><strong>Step 4:</strong> Review the draft. Now refine it:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Make the tone more confident and add specific metrics where possible.</pre>
+</div>
+<p>If the final version reads like a report you would send to your manager, it worked. Compare it to a status report you wrote manually &mdash; the agent version should be comparable quality in a fraction of the time.</p>
+</div>
+
+<div class="option-content" id="report-option-1">
+<h4>Option B: Board Briefing Memo</h4>
+
+<p><strong>Step 1:</strong> Open Copilot Chat. Let the agent interview you one topic at a time:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>I'm preparing a board briefing memo. Interview me about the key topics I need to cover - ask me one question at a time.</pre>
+</div>
+
+<p><strong>Step 2:</strong> Answer 5-7 questions as Copilot asks them. Include revenue figures, project updates, risks, and any decisions the board needs to make.</p>
+
+<p><strong>Step 3:</strong> After answering, send:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Draft a 1-page board briefing memo with: Header (date, from, subject), Executive Summary (3 sentences), Key Metrics (table format), Strategic Updates (3 bullet points), Action Items for Board (numbered list).</pre>
+</div>
+
+<p><strong>Step 4:</strong> If the memo is longer than one page, send: "Tighten this to exactly one page. Cut anything that is not essential for board decision-making." If the Executive Summary buries the key ask, send: "Move the most important decision to the first sentence of the Executive Summary."</p>
+</div>
+
+<div class="option-content" id="report-option-2">
+<h4>Option C: Research Summary</h4>
+
+<p><strong>Step 1:</strong> Open Copilot Chat. Ask it to do the research:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Research the latest developments in {{TOPICS}} from 2025-2026 using web search. Focus on the top 5 most impactful changes.</pre>
+</div>
+<p>The prompt above auto-fills with your topics. If you want to research a different area, replace it with your specific interest (e.g., "enterprise cybersecurity," "healthcare AI," "supply chain automation").</p>
+
+<p><strong>Step 2:</strong> Review what Copilot finds. Then send:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Now turn that research into a structured summary with: Key Findings (numbered), Implications for {{ORG}} (bullet points), Recommended Actions (prioritized list), Sources (with dates).</pre>
+</div>
+
+<p><strong>Step 3:</strong> Check the sources. Are they real? Are the dates accurate? Send: "Verify each source link is real and accessible. Flag any that might be incorrect." This is your quality check &mdash; always verify AI-generated citations.</p>
+</div>
+    `,
+    advanced: `
+<h3>Automating Report Generation</h3>
+
+<h4>Scheduled Reports with Power Automate</h4>
+<p>Connect your report agent to Power Automate so it runs on a schedule: pull data from your project management tool every Friday, generate a status report, and email it to your team.</p>
+
+<h4>Live Data Sources</h4>
+<p>Connect your agent to live dashboards (Power BI, Azure DevOps, CRM) so reports always reflect current data instead of manual input.</p>
+
+<h4>Template Libraries</h4>
+<p>Build a library of report templates for your organization. Store them as knowledge sources in Copilot Studio so any team member can generate consistent reports by selecting a template and providing their data.</p>
+    `
+  },
+
+  // ── Lesson 5 ──
+  {
+    title: "Agent Best Practices",
+    points: 20,
+    bonus: false,
+    learn: `
+<h3>Building Good Agents Takes Testing</h3>
+<p>Building an agent is easy. Building a GOOD agent takes testing. The difference between a demo and something people actually use comes down to three things: test with real scenarios, iterate from simple to complex, and deploy carefully.</p>
+
+<h3>Test with Real Scenarios</h3>
+<p>Copilot Studio's Agent Evaluations (GA in 2026) let you test systematically. Define input-output pairs from real user scenarios, run them against your agent, compare versions side-by-side, and catch regressions before they reach users.</p>
+
+<h3>Iterate: Start Simple, Add Complexity</h3>
+<ol>
+  <li><strong>Get one topic working perfectly.</strong></li>
+  <li><strong>Add knowledge sources</strong> &mdash; ground it in real documents.</li>
+  <li><strong>Add actions one at a time</strong> &mdash; test after each addition.</li>
+  <li><strong>Expand scope gradually</strong> &mdash; more topics, more edge cases.</li>
+</ol>
+
+<h3>Deploy Carefully: Internal First</h3>
+<p>Start with yourself and 2-3 testers (alpha). Expand to your team (beta). Then one department (pilot). Only then go organization-wide. Each phase has one job: find what breaks before more people see it.</p>
+
+<div class="tip-box">
+  <div class="tip-title">The Agent Lifecycle</div>
+  <p>Build &#8594; Test &#8594; Deploy &#8594; Monitor &#8594; Improve. Repeat. Agents are never "done."</p>
+</div>
+    `,
+    implement: `
+<h3>Test and Improve an Agent</h3>
+
+<h4>Step 1: Pick Your Agent</h4>
+<p>Choose one agent you built or used in this course: the FAQ Bot (Lesson 2), Write Like Me (Lesson 3), or Report Writer (Lesson 4).</p>
+
+<h4>Step 2: Generate a Test Plan</h4>
+<p>Open Copilot Chat. Send:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>I built a [describe your agent in one sentence]. I work as a {{ROLE}} at {{ORG}}. Help me create a test plan with 5 test scenarios. For each scenario, give me: the exact input I should test, what a good response looks like, and what a bad response looks like.</pre>
+</div>
+<p>Replace the bracket with your actual agent description (e.g., "FAQ bot that answers questions about our company website" or "voice-profile writing agent that drafts emails in my style").</p>
+
+<h4>Step 3: Run All 5 Tests</h4>
+<p>Go to your agent (Copilot Studio test panel or Copilot Chat with your saved prompt). Send each test input one at a time. For each response, rate it:</p>
+<ul>
+  <li><strong>Good</strong> &mdash; matches the expected output</li>
+  <li><strong>Acceptable</strong> &mdash; mostly correct but could be better</li>
+  <li><strong>Needs Improvement</strong> &mdash; wrong, incomplete, or off-topic</li>
+</ul>
+<p>Write down the rating and a one-sentence note for each.</p>
+
+<h4>Step 4: Fix the Worst Result</h4>
+<p>For any response you rated "Needs Improvement," go back to Copilot Chat and send:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>The agent gave this response to "[paste the test input]": "[paste the agent's actual response]". The expected response was "[paste what you wanted]". How should I modify the agent's instructions to get better results?</pre>
+</div>
+
+<h4>Step 5: Apply the Fix and Retest</h4>
+<p>Update your agent's instructions (system prompt, topic, or knowledge source) based on Copilot's suggestion. Then run the same test input again.</p>
+<p>If the response improves from "Needs Improvement" to "Acceptable" or "Good," the fix worked. If not, iterate: ask Copilot for a different approach and test again.</p>
+
+<h4>Step 6: Record Your Results</h4>
+<p>You should now have: 5 test scenarios, a rating for each, and at least one fix applied and verified. This is the core agent improvement loop: test, identify failures, fix, retest.</p>
+    `,
+    advanced: `
+<h3>Production Operations</h3>
+
+<h4>Monitoring</h4>
+<p>Track key metrics: response accuracy, user satisfaction ratings, fallback/escalation rate, average handling time, and cost per interaction. Set alerts for anomalies.</p>
+
+<h4>Cost Management</h4>
+<p>Every agent interaction consumes AI tokens. Monitor usage, set budget caps, optimize prompts for efficiency (shorter system instructions, fewer round-trips), and use cheaper models for simple routing tasks.</p>
+
+<h4>Compliance & Governance</h4>
+<p>Establish an agent registry: document every agent in production, its purpose, data access, owners, and review schedule. Conduct quarterly reviews to ensure agents still meet compliance requirements.</p>
+
+<h4>Scaling</h4>
+<p>Move from pilot to organization-wide deployment by documenting the agent's value with concrete metrics (time saved, error reduction, user satisfaction), then getting executive sponsorship for broader rollout.</p>
+    `
+  },
+
+  // ── Lesson 6 (BONUS) ──
+  {
+    title: "Custom Agent Challenge",
+    points: 40,
+    bonus: true,
+    learn: `
+<h3>Build Something Real</h3>
+<p>Time to build something real for your organization. Everything from the previous lessons &mdash; the agent equation, Copilot Studio, voice profiles, report patterns, and testing practices &mdash; comes together in one custom agent that solves a problem you actually have.</p>
+
+<p>Pick a recurring task that takes at least 30 minutes, follows a predictable pattern, and uses information Copilot can access (emails, documents, data). Build an agent for it in Copilot Studio or as a reusable Copilot Chat prompt. Test it with real inputs. Share it with a colleague.</p>
+
+<div class="tip-box">
+  <div class="tip-title">Choosing the Right Problem</div>
+  <p>The best project is one you will actually use after this course. Pick a real pain point, not a theoretical exercise.</p>
+</div>
+    `,
+    implement: `
+<h3>Build Your Custom Agent</h3>
+
+<h4>Step 1: Describe Your Agent in One Sentence</h4>
+<p>Think of an agent you wish existed for your daily work. Write it down in one sentence. Examples: "An agent that drafts meeting follow-up emails from my notes." "An agent that turns support tickets into categorized weekly reports." "An agent that prepares briefing documents before my client calls."</p>
+
+<h4>Step 2: Get a Full Blueprint</h4>
+<p>Open Copilot Chat. Send this prompt with your one-sentence idea:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>I want to build a Copilot Studio agent that [your one sentence]. I am a {{ROLE}} at {{ORG}} working on {{TOPICS}}. Walk me through exactly how to set this up step by step, including: what to name the agent, what description to give it, what knowledge sources to connect, what topics to create, and what trigger phrases to use.</pre>
+</div>
+
+<h4>Step 3: Build It</h4>
+<p>Follow the steps Copilot gives you. Use either Copilot Studio (for a persistent agent) or create a reusable prompt template in Copilot Chat (for a quick version). Refer back to Lesson 2 if you need a refresher on Copilot Studio setup.</p>
+
+<h4>Step 4: Test with 3 Real Inputs</h4>
+<p>Use your agent with 3 real examples from your actual work. After each test, note: did it produce something usable? What was missing or wrong?</p>
+
+<h4>Step 5: Fix and Retest</h4>
+<p>For any result that was not usable, refine the agent's instructions or knowledge, then retest with the same input. One round of fixes is enough for this exercise.</p>
+
+<h4>Step 6: Share with a Colleague</h4>
+<p>Send your agent (or prompt template) to one colleague. Ask them to try it with their own inputs and tell you one thing that worked and one thing that did not. Real-world testing with another person always reveals blind spots you missed.</p>
+    `,
+    advanced: `
+<h3>Taking It Further</h3>
+
+<h4>Presenting to Stakeholders</h4>
+<p>Build a business case: time saved per use, number of potential users, error reduction, and qualitative benefits (consistency, employee satisfaction). Demonstrate with a live walkthrough.</p>
+
+<h4>Building Adoption</h4>
+<p>Adoption follows a pattern: enthusiasts first, then skeptics. Create a short demo video, a FAQ, and a feedback channel. Assign an agent champion to support early users.</p>
+
+<h4>Measuring ROI</h4>
+<p>Track before-and-after metrics: time to complete the task, number of errors, user satisfaction scores, and adoption rate. Report monthly to maintain sponsorship.</p>
+    `
+  },
+
+  // ── Lesson 7 (BONUS) ──
+  {
+    title: "Agent Ecosystem Design",
+    points: 15,
+    bonus: true,
+    learn: `
+<h3>From Single Agents to Agent Teams</h3>
+<p>Think beyond single agents to coordinated systems. A router agent receives requests and delegates to specialists (IT, HR, facilities). A pipeline passes data from a collection agent to an analysis agent to a report writer. With A2A protocol support in Copilot Studio (2026), agents can discover each other, exchange context, and hand off conversations &mdash; even across platforms.</p>
+
+<div class="note-box">
+  <div class="note-title">The Future</div>
+  <p>The trend is moving from "one agent per task" to "agent teams per process." Design your ecosystem intentionally.</p>
+</div>
+    `,
+    implement: `
+<h3>Design Your Agent Ecosystem</h3>
+
+<h4>Step 1: Map 3 Agents for Your Team</h4>
+<p>Think of 3 agents that could help your team. For each, you need: a name, what it does, and what data it uses. Open Copilot Chat and design the first one:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Design an agent for {{ORG}} called [name] that does [task]. It should connect to [data source] and output [format]. What topics, knowledge sources, and actions would it need in Copilot Studio?</pre>
+</div>
+<p>Replace the brackets with your specifics. Example: "Design an agent called Meeting Prep that creates briefing docs before my calendar events. It should connect to my Outlook calendar and SharePoint documents and output a one-page summary."</p>
+
+<h4>Step 2: Repeat for Agents 2 and 3</h4>
+<p>Run the same prompt pattern for your second and third agents. Now you have 3 agent blueprints.</p>
+
+<h4>Step 3: Design the Handoffs</h4>
+<p>Pick two of your agents that could work together. Send:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Design an agent for {{ORG}} called [name] that does [task]. It should connect to [data source] and output [format]. How would this agent hand off to [another agent name]? Define: what triggers the handoff, what information gets passed, and what happens if the second agent cannot handle the request.</pre>
+</div>
+
+<h4>Step 4: Check Your Work</h4>
+<p>You should now have: 3 agent designs with names, purposes, data sources, and outputs, plus at least one handoff pattern between two agents. If any design feels too vague, pick the vaguest one and send: "Make this agent design more specific. What exact trigger phrases, knowledge sources, and output formats should it use?"</p>
+
+<div class="tip-box">
+  <div class="tip-title">Tip</div>
+  <p>Start by building 2 agents that work together on a single process. Once that handoff works reliably, expand to the broader ecosystem. Do not try to build all 3 at once.</p>
+</div>
+    `,
+    advanced: `
+<h3>Enterprise Agent Architecture</h3>
+
+<h4>A2A Protocol Implementation</h4>
+<p>Use Copilot Studio's A2A capabilities to build discoverable agents. Each agent publishes an "agent card" describing its capabilities, so other agents (and the router) know what it can handle.</p>
+
+<h4>Microsoft Fabric Integration</h4>
+<p>Connect your agent ecosystem to Microsoft Fabric for unified data access. Agents can query lakehouses, run notebook-based analyses, and access real-time data streams &mdash; all through a single governance layer.</p>
+
+<h4>Enterprise Governance Framework</h4>
+<p>For organization-wide agent ecosystems, establish:</p>
+<ul>
+  <li>An agent registry with ownership, purpose, and data access documentation</li>
+  <li>Standardized testing requirements before production deployment</li>
+  <li>Centralized monitoring and alerting across all agents</li>
+  <li>Quarterly review cycles to retire unused agents and update active ones</li>
+  <li>Clear escalation paths from agent to human for every process</li>
+</ul>
+    `
+  }
+];
+
+/* ================================================================
+   ENGINE
+   ================================================================ */
+const CORE_COUNT = 6;
+const CORE_POINTS = 145;
+let completed = JSON.parse(localStorage.getItem('agents-completed') || '[]');
+let currentLesson = 0;
+let currentTab = 'learn';
+
+/* ── Points ── */
+function getCompletedPoints() {
+  return completed.reduce((sum, i) => sum + LESSONS[i].points, 0);
+}
+
+function getCoreCompleted() {
+  return completed.filter(i => i < CORE_COUNT).length;
+}
+
+/* ── Sync progress to server ── */
+function syncProgress() {
+  const user = localStorage.getItem('workshop_user');
+  if (!user) return;
+  const agentsData = { completed, points: getCompletedPoints() };
+  const body = { agents: agentsData };
+  try {
+    const chatCompleted = JSON.parse(localStorage.getItem('chat-completed') || '[]');
+    const appsCompleted = JSON.parse(localStorage.getItem('apps-completed') || '[]');
+    body.chat = { completed: chatCompleted, points: 0 };
+    body.apps = { completed: appsCompleted, points: 0 };
+  } catch(e) {}
+  fetch('/api/progress', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  }).catch(() => {});
+}
+
+/* ── Render sidebar ── */
+function renderSidebar() {
+  const nav = document.getElementById('sidebar-nav');
+  nav.innerHTML = LESSONS.map((l, i) => {
+    const done = completed.includes(i);
+    const active = i === currentLesson;
+    let cls = 'nav-item';
+    if (active) cls += ' active';
+    if (done) cls += ' completed';
+    return `
+      <div class="${cls}" onclick="goToLesson(${i})">
+        <div class="nav-icon">${done ? '&#10003;' : i + 1}</div>
+        <span class="nav-label">${l.title}</span>
+        ${l.bonus ? '<span class="nav-badge">Bonus</span>' : ''}
+        <span class="nav-pts">${l.points} pts</span>
+      </div>`;
+  }).join('');
+
+  const core = getCoreCompleted();
+  const pct = Math.round((core / CORE_COUNT) * 100);
+  document.getElementById('progress-text').textContent = `${core} / ${CORE_COUNT} core lessons`;
+  document.getElementById('points-text').textContent = `${getCompletedPoints()} pts`;
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+/* ── Render lesson ── */
+function renderLesson() {
+  const l = LESSONS[currentLesson];
+  const done = completed.includes(currentLesson);
+  const main = document.getElementById('main-content');
+
+  main.innerHTML = `
+    <div class="lesson-header">
+      <div class="lesson-number">${l.bonus ? 'Bonus' : 'Lesson ' + currentLesson}</div>
+      <h2>${l.title}</h2>
+      <div class="lesson-meta">
+        <span>${l.points} points</span>
+        ${done ? '<span style="color:#7b5ea7;font-weight:600;">&#10003; Completed</span>' : ''}
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab ${currentTab === 'learn' ? 'active' : ''}" onclick="switchTab('learn')">Learn</div>
+      <div class="tab ${currentTab === 'implement' ? 'active' : ''}" onclick="switchTab('implement')">Exercises</div>
+      <div class="tab ${currentTab === 'advanced' ? 'active' : ''}" onclick="switchTab('advanced')">Advanced</div>
+    </div>
+
+    <div class="tab-content content ${currentTab === 'learn' ? 'active' : ''}" id="tab-learn">
+      ${l.learn}
+      <button class="continue-btn" onclick="switchTab('implement')">Continue to Exercises &#8594;</button>
+    </div>
+
+    <div class="tab-content content ${currentTab === 'implement' ? 'active' : ''}" id="tab-implement">
+      ${l.implement}
+      <button class="mark-complete-btn" onclick="markComplete(${currentLesson})" ${done ? 'disabled' : ''}>
+        ${done ? '&#10003; Completed' : '&#10003; Mark Complete'}
+      </button>
+    </div>
+
+    <div class="tab-content content ${currentTab === 'advanced' ? 'active' : ''}" id="tab-advanced">
+      ${l.advanced}
+    </div>
+  `;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── Navigation ── */
+function goToLesson(i) {
+  currentLesson = i;
+  currentTab = 'learn';
+  renderSidebar();
+  renderLesson();
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  renderLesson();
+}
+
+/* ── Mark complete ── */
+function markComplete(i) {
+  if (!completed.includes(i)) {
+    completed.push(i);
+    localStorage.setItem('agents-completed', JSON.stringify(completed));
+    syncProgress();
+  }
+  renderSidebar();
+  renderLesson();
+
+  // auto-advance to next lesson
+  if (i < LESSONS.length - 1) {
+    setTimeout(() => goToLesson(i + 1), 600);
+  }
+}
+
+/* ── Copy code ── */
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1500);
+  });
+}
+
+/* ── Option tabs (for report exercise) ── */
+function switchOption(group, idx) {
+  document.querySelectorAll(`#${group}-options .option-tab`).forEach((t, i) => {
+    t.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll(`[id^="${group}-option-"]`).forEach((c, i) => {
+    c.classList.toggle('active', i === idx);
+  });
+}
+
+/* ── Init ── */
+renderSidebar();
+renderLesson();
+syncProgress();
+</script>
+<script src="/participant-context.js"></script>
+</body>
+</html>

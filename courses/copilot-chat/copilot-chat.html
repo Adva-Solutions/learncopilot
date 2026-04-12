@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copilot Chat — Workshop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --accent: #0078d4;
+  --accent-light: #e8f4fd;
+  --accent-hover: #106ebe;
+  --bg: #faf9f6;
+  --sidebar-bg: #fff;
+  --text: #1a1a2e;
+  --text-muted: #6b7280;
+  --border: #ddd8ce;
+  --code-bg: #1e1e1e;
+  --note-bg: #f0f4ff;
+  --note-border: #4a7ae8;
+  --tip-bg: var(--accent-light);
+  --tip-border: var(--accent);
+  --radius: 10px;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Source Sans 3', -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  min-height: 100vh;
+  opacity:0;
+  animation: fadeIn 500ms ease forwards;
+}
+@keyframes fadeIn { to { opacity:1; } }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 300px;
+  min-width: 300px;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+}
+.sidebar-header {
+  padding: 28px 24px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-header h1 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 700;
+}
+.subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  padding-left: 44px;
+}
+
+/* Progress */
+.progress-bar-container {
+  padding: 18px 24px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.progress-bar {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+/* Nav */
+.nav-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 16px 24px 6px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s ease;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { background: #f5f4f1; }
+.nav-item.active {
+  background: var(--accent-light);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+.nav-item .check {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 11px;
+  color: transparent;
+  transition: all 0.2s ease;
+}
+.nav-item .check.done {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.nav-item .pts {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: #f0eeeb;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* ── Main ── */
+.main {
+  flex: 1;
+  padding: 48px 56px 80px;
+  max-width: 860px;
+  overflow-y: auto;
+}
+.step-header {
+  margin-bottom: 28px;
+}
+.step-header h2 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.step-header .pts-badge {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 28px;
+}
+.tab-btn {
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.15s ease;
+  font-family: var(--font-body);
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+/* Content */
+.tab-content { animation: fadeIn 300ms ease; }
+.tab-content h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  margin: 28px 0 12px;
+}
+.tab-content h3:first-child { margin-top: 0; }
+.tab-content p { line-height: 1.7; margin-bottom: 14px; font-size: 15px; }
+.tab-content ul, .tab-content ol {
+  margin: 0 0 16px 20px;
+  line-height: 1.7;
+  font-size: 15px;
+}
+.tab-content li { margin-bottom: 6px; }
+.tab-content strong { font-weight: 600; }
+
+/* Tip / Note boxes */
+.tip-box {
+  background: var(--tip-bg);
+  border-left: 4px solid var(--tip-border);
+  padding: 16px 20px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 18px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.tip-box strong { color: var(--accent); }
+.note-box {
+  background: var(--note-bg);
+  border-left: 4px solid var(--note-border);
+  padding: 16px 20px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 18px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.note-box strong { color: var(--note-border); }
+
+/* Code */
+.code-block {
+  position: relative;
+  background: var(--code-bg);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 14px 0 18px;
+  overflow-x: auto;
+}
+.code-block code {
+  color: #d4d4d4;
+  font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+.copy-btn {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #aaa;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.15s ease;
+}
+.copy-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+
+/* Visual Equation */
+.equation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.eq-block {
+  background: var(--code-bg);
+  color: #d4d4d4;
+  padding: 14px 20px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  min-width: 100px;
+}
+.eq-op { font-size: 22px; font-weight: 700; color: var(--text-muted); }
+
+/* Options switcher */
+.option-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 18px 0;
+  flex-wrap: wrap;
+}
+.option-btn {
+  padding: 8px 18px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: var(--font-body);
+  transition: all 0.15s ease;
+}
+.option-btn:hover { border-color: var(--accent); color: var(--accent); }
+.option-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.option-content { animation: fadeIn 250ms ease; }
+
+/* Checklist */
+.checklist { list-style: none; margin: 16px 0; padding: 0; }
+.checklist li {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+.checklist li::before {
+  content: '';
+  width: 18px; height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Buttons */
+.mark-complete-btn {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 12px 32px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.2s ease;
+}
+.mark-complete-btn:hover { background: var(--accent-hover); }
+.mark-complete-btn.completed {
+  background: #16a34a;
+  cursor: default;
+}
+.continue-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 28px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.2s ease;
+}
+.continue-btn:hover { background: var(--accent-hover); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  body { flex-direction: column; }
+  .sidebar { width: 100%; min-width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+  .main { padding: 28px 20px 60px; }
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <h1><span class="logo">C</span> Copilot Chat</h1>
+    <div class="subtitle">Workshop</div>
+  </div>
+  <div class="progress-bar-container">
+    <div class="progress-info">
+      <span id="progress-label">0 of 11 core steps</span>
+      <span id="progress-pts">0 / 180 pts</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+  <div class="nav-section-label">Core Steps</div>
+  <div id="nav-list"></div>
+</aside>
+
+<div class="main" id="main-content">
+  <div id="lesson-content"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   LESSONS — Single source of truth
+   ═══════════════════════════════════════════════════════════ */
+const LESSONS = [
+// ── 0: How AI Actually Works ──
+{
+  id: 'how-ai-works',
+  title: 'How AI Actually Works',
+  points: 10,
+  learn: `
+<h3>60 Seconds Under the Hood</h3>
+<p>You are about to use Microsoft Copilot. Before you dive in, here is what is actually happening when you type a prompt — in 60 seconds flat.</p>
+
+<div class="equation">
+  <div class="eq-block">LLM<br><span style="font-size:11px;font-weight:400;color:#888">Frozen model</span></div>
+  <div class="eq-op">+</div>
+  <div class="eq-block">Context<br><span style="font-size:11px;font-weight:400;color:#888">Your input</span></div>
+  <div class="eq-op">+</div>
+  <div class="eq-block">Tools<br><span style="font-size:11px;font-weight:400;color:#888">Capabilities</span></div>
+  <div class="eq-op">=</div>
+  <div class="eq-block" style="background:var(--accent)">Agentic AI<br><span style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.7)">Useful output</span></div>
+</div>
+
+<p><strong>The model</strong> is a pattern-matching engine trained on enormous amounts of text. It is frozen — it does not learn new things on its own. Think of it as a very well-read assistant who missed the last few months of news.</p>
+
+<p><strong>Context</strong> is everything you give it: your prompt, attached files, conversation history, and your organization's data. This is the ingredient you control. Better context = better answers. That is the whole game.</p>
+
+<p><strong>Tools</strong> let it take action: search your SharePoint, draft an email, build a slide deck, pull your calendar. Without tools, it can only talk. With tools, it can <em>do</em>.</p>
+
+<div class="tip-box">
+  <strong>What this means for you:</strong> You cannot change the model. But you control context and tools. The better you brief Copilot, the better it performs. That single skill — giving great context — is what this entire course teaches.
+</div>
+
+<button class="continue-btn" onclick="switchTab(0,'implement')">Continue to Exercises &rarr;</button>
+`,
+  implement: `
+<h3>See the AI Equation in Action</h3>
+
+<p><strong>1.</strong> Open Microsoft Copilot at <strong>m365.cloud.microsoft</strong> and sign in with your work account.</p>
+
+<p><strong>2.</strong> Send this exact prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Describe yourself in plain language. Specifically tell me: (1) what type of AI model you are, (2) what data sources you currently have access to, and (3) what actions you can take on my behalf right now.</code></div>
+
+<p><strong>3.</strong> Read the response. Find where it describes:</p>
+<ul>
+  <li>(a) What it is (the <strong>LLM</strong> part of the equation)</li>
+  <li>(b) What data it can see (the <strong>Context</strong> part)</li>
+  <li>(c) What actions it can take (the <strong>Tools</strong> part)</li>
+</ul>
+
+<p><strong>4.</strong> Now send this follow-up:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>List every tool and data source you currently have access to. Format as a numbered list. Include search, file access, app integrations, and anything else.</code></div>
+
+<p><strong>5.</strong> Count the tools in the numbered list. Write that number down — you will compare it to what you discover in later lessons.</p>
+
+<p><strong>6.</strong> Send one more prompt to see the model's limits:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What is something you cannot do? Give me 3 specific examples of tasks that are beyond your current capabilities.</code></div>
+
+<p><strong>7.</strong> Review: you now have a clear picture of what Copilot is (LLM), what it can see (context), and what it can do (tools). That is the AI equation.</p>
+
+<div class="note-box">
+  <strong>Success check:</strong> If Copilot listed at least 5 tools or data sources and described itself as a language model, you have completed this exercise.
+</div>
+
+<button class="mark-complete-btn" id="complete-btn-0" onclick="markComplete(0)">Mark Complete</button>
+`,
+  advanced: `
+<h3>Under the Hood</h3>
+
+<h3>Tokens</h3>
+<p>LLMs don't read words — they read <strong>tokens</strong>, which are word fragments. The word "understanding" might be split into "under" + "standing." Copilot has a context window limit measured in tokens (currently up to 128K tokens for GPT-4o). This is why very long documents may get truncated.</p>
+
+<h3>Temperature</h3>
+<p><strong>Temperature</strong> controls how "creative" versus "deterministic" the model's output is. A temperature of 0 produces nearly identical responses each time. Higher temperatures introduce more randomness. When Copilot writes a poem, it uses higher temperature; when it summarizes a document, it uses lower temperature.</p>
+
+<h3>System Prompts</h3>
+<p>Every Copilot interaction begins with a hidden <strong>system prompt</strong> that defines the assistant's behavior, safety guidelines, and capabilities. When you set Custom Instructions (covered in Lesson 3), you are effectively adding to this system prompt. You never see it directly, but it shapes every response.</p>
+
+<h3>Training Data vs. Live Context</h3>
+<p>The model's training data is historical — it was frozen at a point in time. But Copilot can access <strong>live context</strong> through web search and your organizational data via Microsoft Graph. This is why Copilot can answer questions about current events (via web search) or your specific project files (via Work mode) even though the model's training data may not include that information.</p>
+`
+},
+
+// ── 1: The Art of Prompting ──
+{
+  id: 'art-of-prompting',
+  title: 'The Art of Prompting',
+  points: 15,
+  learn: `
+<h3>Bad Prompt vs. Good Prompt</h3>
+<p>Here is what most people type on day one:</p>
+<div class="code-block"><code>Help me with the budget.</code></div>
+<p>Here is what gets a actually useful result:</p>
+<div class="code-block"><code>You are a finance director at a mid-size nonprofit. Summarize this Q3 data for our board: revenue $2.1M (+12% YoY), program costs $1.4M, fundraising $320K, admin $280K, surplus $100K. 3 paragraphs, under 250 words, professional tone. Highlight the 6.5:1 fundraising ROI.</code></div>
+<p>The second prompt works because it gives Copilot a <strong>role</strong>, <strong>real data</strong>, a <strong>specific format</strong>, and <strong>constraints</strong>. The first one forces Copilot to guess everything.</p>
+
+<h3>The Brilliant Intern</h3>
+<p>Think of Copilot as a brilliant intern on their first day. Fast, well-read, eager — but knows nothing about your situation. A vague ask gets a vague answer. A specific brief gets excellent work. Your job is to be a good manager: tell it who it is, what it is working with, and exactly what you need back.</p>
+
+<h3>The Formula</h3>
+<p><strong>Role + Context + Task + Format + Constraints = Great Output</strong></p>
+<ul>
+  <li><strong>Role:</strong> "You are a grants coordinator at a mid-size nonprofit..."</li>
+  <li><strong>Context:</strong> Background, data, audience, attached files</li>
+  <li><strong>Task:</strong> One clear thing to produce</li>
+  <li><strong>Format:</strong> Bullet points, table, 3 paragraphs, email with subject line</li>
+  <li><strong>Constraints:</strong> Word count, tone, audience, what to avoid</li>
+</ul>
+
+<p>And then <strong>iterate</strong>. Your first prompt is a rough draft. Say "make it shorter," "add data," "warmer tone." The conversation is your editing tool.</p>
+
+<div class="tip-box">
+  <strong>One rule:</strong> One task per prompt. Do not cram five requests into one message. Copilot handles focused requests far better than sprawling ones.
+</div>
+
+<button class="continue-btn" onclick="switchTab(1,'implement')">Continue to Exercises &rarr;</button>
+`,
+  implement: `
+<h3>Before and After: See Prompting in Action</h3>
+
+<p><strong>1.</strong> Open Copilot at <strong>m365.cloud.microsoft</strong>. Send this vague prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Write a budget summary.</code></div>
+
+<p><strong>2.</strong> Read the response. Note how long it is, how specific it is, and whether it matches any real situation.</p>
+
+<p><strong>3.</strong> Now start a NEW conversation. Send this improved prompt that uses Role + Context + Output format:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are a finance director at a mid-size nonprofit focused on youth education.
+
+Given this budget data:
+- Total revenue: $2.1M (up 12% YoY)
+- Program expenses: $1.4M
+- Fundraising costs: $320K
+- Admin overhead: $280K
+- Net surplus: $100K
+
+Write a 3-paragraph financial summary for our board of directors. Highlight the revenue growth, note that our fundraising ROI is 6.5:1, and recommend allocating the surplus to our reserve fund. Use confident, professional language. Keep it under 250 words.</code></div>
+
+<p><strong>4.</strong> Compare the two responses side by side. The second response should be shorter, more specific, contain real numbers, and sound like it was written by a finance professional.</p>
+
+<p><strong>5.</strong> Now it is your turn. Rewrite this bad prompt into a good one using the formula <strong>Role + Context + Task + Format + Constraints</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Help me with fundraising.</code></div>
+
+<p>Use this template to build your improved version:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>{{ROLE}}.
+
+Context: [background info, numbers, situation]
+
+Task: [what specifically to create]
+
+Format: [bullet points / paragraphs / table / email]
+
+Constraints: [length, tone, audience]</code></div>
+
+<p><strong>6.</strong> Send both versions (the vague one, then your improved one) and compare the results.</p>
+
+<div class="note-box">
+  <strong>Success check:</strong> Your improved prompt should produce a response that is at least twice as specific and immediately usable compared to the vague version.
+</div>
+
+<button class="mark-complete-btn" id="complete-btn-1" onclick="markComplete(1)">Mark Complete</button>
+`,
+  advanced: `
+<h3>Advanced Prompting Techniques</h3>
+
+<h3>Chain-of-Thought Prompting</h3>
+<p>Adding "think step by step" or "explain your reasoning before giving the final answer" forces the model to show its work. This produces more accurate results, especially for analysis and math. Example: "Analyze our donor retention rate. Think step by step: first calculate the rate, then identify trends, then suggest improvements."</p>
+
+<h3>Few-Shot Examples</h3>
+<p>Provide 2-3 examples of the input/output pattern you want. The model will match the pattern with high fidelity. This is particularly powerful for formatting, categorization, and tone matching.</p>
+
+<h3>Temperature and Creativity</h3>
+<p>While you cannot directly set temperature in Copilot's chat interface, you can influence it with your prompt. Asking for "creative brainstorming" or "multiple diverse options" encourages higher-temperature behavior. Asking for "precise, factual analysis" encourages lower-temperature behavior.</p>
+
+<h3>Prompt Chaining</h3>
+<p>For complex tasks, break them into a chain of prompts within one conversation. Step 1: "Research the topic and outline key points." Step 2: "Now draft a memo based on that outline." Step 3: "Revise the memo to be more concise and add an executive summary." Each step builds on the last, and Copilot retains the full conversation context.</p>
+`
+},
+
+// ── 2: Meet Microsoft Copilot ──
+{
+  id: 'meet-copilot',
+  title: 'Meet Microsoft Copilot',
+  points: 15,
+  learn: `
+<h3>Open It Up</h3>
+<p>You have used AI before. But have you used Copilot inside your own work data? Let's walk through where everything lives.</p>
+
+<p>Go to <strong>m365.cloud.microsoft</strong> and sign in with your work account. Here is what you see:</p>
+
+<ul>
+  <li><strong>Chat input (bottom center):</strong> This is where you type prompts. The big text box.</li>
+  <li><strong>Mode toggle (top of chat):</strong> Work on the left, Web on the right. This controls what data Copilot searches. More on this in the next lesson.</li>
+  <li><strong>Attachment button (paperclip icon):</strong> Attach files, images, or paste content for Copilot to analyze.</li>
+  <li><strong>Conversation history (left sidebar):</strong> Your recent chats. Click any to pick up where you left off.</li>
+  <li><strong>Profile icon (top right):</strong> Click it, then <strong>Settings</strong>. This is where the important stuff lives.</li>
+</ul>
+
+<h3>Two Things to Set Up Now</h3>
+<p><strong>Custom Instructions</strong> (in Settings): Tell Copilot your name, role, organization, and preferences once. It will remember them for every conversation. Think of it like filling out your profile on a new app — do it once, benefit forever.</p>
+
+<p><strong>Memory</strong> (in Settings): Copilot now learns your preferences as you chat. You will see a "memory updated" signal occasionally. You can view, edit, or delete memories anytime in <strong>Settings &gt; Memory</strong>.</p>
+
+<div class="tip-box">
+  <strong>Think of this like the first time you got a new phone.</strong> You spend 10 minutes in Settings — wallpaper, notifications, accounts — and then the phone works the way you want. Same here. Set up Custom Instructions and Memory now, and Copilot gets smarter for every future conversation.
+</div>
+
+<button class="continue-btn" onclick="switchTab(2,'implement')">Continue to Exercises &rarr;</button>
+`,
+  implement: `
+<h3>Set Up Your Copilot Workspace</h3>
+
+<p><strong>1.</strong> Go to <strong>m365.cloud.microsoft</strong>. Sign in with your work or school account. You should see the Copilot chat interface.</p>
+
+<p><strong>2.</strong> Click your <strong>profile icon</strong> (top right corner) and select <strong>Settings</strong>.</p>
+
+<p><strong>3.</strong> Find <strong>Custom Instructions</strong>. Click into it and paste this starter template:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Name: {{NAME}}
+Role: {{ROLE}}
+Focus: {{TOPICS}}
+Preferences:
+- I prefer concise responses with bullet points
+- Use professional but approachable tone
+- Default to plain language, no jargon
+- When I ask for drafts, keep them under 300 words unless I say otherwise</code></div>
+
+<p><strong>4.</strong> Review the pre-filled details (your name, role, and focus areas). Edit anything that needs adjusting, then save your changes.</p>
+
+<p><strong>5.</strong> Go back to Settings and find <strong>Memory</strong>. Confirm that memory is turned on. You should see a toggle or checkbox — make sure it is enabled.</p>
+
+<p><strong>6.</strong> Close Settings. Open a <strong>NEW conversation</strong> (this is important — do not use the same chat where you were testing before).</p>
+
+<p><strong>7.</strong> Send this prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What do you know about my preferences and role? List everything you can see from my Custom Instructions.</code></div>
+
+<p><strong>8.</strong> Read the response. If Copilot references your name, role, and preferences from the Custom Instructions you just set, your setup is complete.</p>
+
+<p><strong>9.</strong> Send one more test to confirm organizational access:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Can you access my organization's files, emails, and calendar? Tell me which data sources are available to you right now.</code></div>
+
+<div class="note-box">
+  <strong>Success check:</strong> Copilot should reference your Custom Instructions by name/role AND confirm access to organizational data (Work mode). If it says it cannot access your data, check with your IT admin that your Copilot license is properly assigned.
+</div>
+
+<button class="mark-complete-btn" id="complete-btn-2" onclick="markComplete(2)">Mark Complete</button>
+`,
+  advanced: `
+<h3>Custom Instructions Deep Dive</h3>
+<p>Custom Instructions act like a persistent system prompt. They are sent with every conversation. Here is a power-user template:</p>
+
+<div class="code-block"><code>Name: [Your Name]
+Role: [Your Title] at [Organization]
+Focus Areas: [Your key responsibilities]
+Preferences:
+- Response style: concise, use bullet points
+- Tone: professional but approachable
+- Always cite sources when using web search
+- Default to formal language for external communications
+- Use plain language (no jargon) for internal memos</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+<h3>Memory Management</h3>
+<p>Copilot Memory stores facts like "user prefers tables over paragraphs" or "user works on the annual gala." Review your memories periodically to ensure they are accurate. You can explicitly tell Copilot to remember something: "Remember that our fiscal year starts July 1." You can also say "Forget that my favorite color is blue" to remove a memory.</p>
+
+<h3>Keyboard Shortcuts</h3>
+<ul>
+  <li><strong>/ (slash):</strong> Opens the command menu for quick actions</li>
+  <li><strong>Shift + Enter:</strong> New line without sending</li>
+  <li><strong>Ctrl + Shift + C:</strong> Open Copilot sidebar in Edge</li>
+</ul>
+`
+},
+
+// ── 3: Work vs Web Mode ──
+{
+  id: 'work-web-mode',
+  title: 'Work vs Web Mode',
+  points: 15,
+  learn: `
+<h3>The Most Important Button in Copilot</h3>
+<p>See that toggle at the top of your chat? <strong>Work</strong> on the left, <strong>Web</strong> on the right. That one button controls where Copilot looks for answers.</p>
+
+<p><strong>Work mode = your filing cabinet.</strong> It searches your emails, OneDrive files, SharePoint documents, Teams messages, meeting transcripts, calendar, and people directory. If the answer lives inside your organization, use Work mode.</p>
+
+<p><strong>Web mode = the public library.</strong> It searches the internet — news, research, public data, articles. If you need information from the outside world, use Web mode.</p>
+
+<h3>Quick Decision Guide</h3>
+<ul>
+  <li>"What did Sarah say in yesterday's meeting?" &rarr; <strong>Work</strong></li>
+  <li>"What are best practices for donor retention?" &rarr; <strong>Web</strong></li>
+  <li>"Summarize the Q3 report in SharePoint" &rarr; <strong>Work</strong></li>
+  <li>"What is the federal grant deadline for Title I?" &rarr; <strong>Web</strong></li>
+</ul>
+<p>You can switch modes mid-conversation. Research a topic on the web, then flip to Work to see if your organization is already doing anything about it.</p>
+
+<h3>Ask Copilot (Highlight Feature)</h3>
+<p>When Copilot gives you a long response, <strong>highlight any sentence</strong> and click <strong>"Ask Copilot"</strong> to drill into just that part. No need to retype context — Copilot already knows what you are looking at.</p>
+
+<div class="tip-box">
+  <strong>Remember:</strong> Work mode searches your filing cabinet. Web mode searches the library. Pick the wrong one and you get the wrong answers — or no answers at all.
+</div>
+
+<button class="continue-btn" onclick="switchTab(3,'implement')">Continue to Exercises &rarr;</button>
+`,
+  implement: `
+<h3>Compare Work Mode vs Web Mode</h3>
+
+<p><strong>1.</strong> Open Copilot. Confirm you are in <strong>Work mode</strong> (check the toggle at the top of the chat). Send this prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What files have I worked on recently? List the 5 most recent documents or emails you can find.</code></div>
+
+<p><strong>2.</strong> Read the results. Copilot should pull from your OneDrive, SharePoint, and Outlook. If you see file names and email subjects from your organization, Work mode is functioning.</p>
+
+<p><strong>3.</strong> If no results appear, try this alternative (your org data may still be indexing):</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Search for any SharePoint sites I have access to and list them.</code></div>
+
+<p><strong>4.</strong> Now switch to <strong>Web mode</strong> (click the toggle). Send this prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the top 3 trends in nonprofit technology for 2026? Include one statistic for each trend and cite your sources.</code></div>
+
+<p><strong>5.</strong> Compare what just happened: Work mode pulled from <strong>your organization's data</strong>. Web mode pulled from <strong>the public internet</strong>. These are two completely different data sources.</p>
+
+<p><strong>6.</strong> Try the "Ask Copilot" feature: in the Web mode response, <strong>highlight one sentence</strong> with your cursor. A small menu should appear — click <strong>"Ask Copilot"</strong>. Then type a follow-up question about just that sentence, such as:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Explain this in more detail and give me a concrete example of how a nonprofit could apply this.</code></div>
+
+<p><strong>7.</strong> Finally, try combining both modes in one conversation. Switch back to <strong>Work mode</strong> and send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the technology trends we just discussed, look at my recent files and emails. Is our organization already doing anything related to these trends? If so, what?</code></div>
+
+<div class="note-box">
+  <strong>Success check:</strong> You should have seen (1) organizational data in Work mode, (2) internet results in Web mode, and (3) Copilot connecting the two in the combined query.
+</div>
+
+<button class="mark-complete-btn" id="complete-btn-3" onclick="markComplete(3)">Mark Complete</button>
+`,
+  advanced: `
+<h3>Copilot Pages</h3>
+<p>When Copilot generates a response you want to keep and share, click <strong>"Edit in Pages"</strong> to open it as a collaborative Copilot Page. Pages persist outside the chat conversation and can be shared with colleagues. They are great for turning a Copilot research session into a shared reference document.</p>
+
+<h3>Organizational Search Tips</h3>
+<ul>
+  <li>Be specific about file names or people: "Find the email from Maria about the Johnson Foundation grant"</li>
+  <li>Reference time: "Show me Teams messages from last week about the gala"</li>
+  <li>Copilot searches content you have access to — it respects SharePoint permissions and email access</li>
+  <li>If Copilot cannot find something, try different keywords or check that the file is in an indexed location (OneDrive or SharePoint, not a local drive)</li>
+</ul>
+
+<h3>Scheduling Prompts</h3>
+<p>You can ask Copilot to check on things that recur: "Every Monday, I need a summary of the past week's fundraising emails." While Copilot does not have a built-in scheduler, you can save this prompt and reuse it, or set a recurring Outlook task to remind you to run it.</p>
+`
+},
+
+// ── 4: Copilot in Your Apps ──
+{
+  id: 'copilot-pages',
+  title: 'Copilot Pages',
+  points: 10,
+  learn: `
+<h3>Your AI Outputs Don't Have to Disappear</h3>
+<p>Every time Copilot gives you a great response, it lives in that chat — and only that chat. Copilot Pages change that. A Page is a <strong>shareable, editable document</strong> that you create from any Copilot response with one click.</p>
+
+<p>Think of it like this: the chat is your scratchpad. A Page is the finished artifact you share with your team.</p>
+
+<h3>Where to Find It</h3>
+<p>At the bottom of any Copilot response, look for the <strong>"Edit in Pages"</strong> button (or the Page icon). Click it, and your response becomes an editable document in a new view.</p>
+
+<h3>What You Can Do with Pages</h3>
+<ul>
+  <li><strong>Edit directly:</strong> Add your own text, headings, bullet points — just like a Word doc</li>
+  <li><strong>Ask Copilot to add more:</strong> Click the Copilot icon on the Page and prompt for additional content</li>
+  <li><strong>Share via link:</strong> Click Share, copy the link, paste it in Teams or email. Anyone with access can view or edit.</li>
+  <li><strong>Collaborate live:</strong> Multiple people can edit the same Page simultaneously</li>
+</ul>
+
+<h3>When to Use Pages vs. Word</h3>
+<p><strong>Pages</strong> are best for quick, collaborative outputs — meeting notes, brainstorm results, project plans you're iterating on. <strong>Word</strong> is best for formal documents that need formatting, templates, or printing. If you need it fast and shared, use a Page. If you need it polished and permanent, use Word.</p>
+
+<button class="continue-btn" onclick="switchTab(4,'implement')">Continue to Exercises &rarr;</button>
+`,
+  implement: `
+<h3>Create, Edit, and Share a Page</h3>
+
+<p><strong>1.</strong> Open <strong>Copilot Chat</strong>. Send this prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a project plan for organizing a team training session on AI tools. Include: objectives (3 bullet points), logistics checklist (5 items), a 2-hour agenda outline, and a list of materials needed.</code></div>
+
+<p><strong>2.</strong> Read the response. At the bottom, click <strong>"Edit in Pages"</strong> (or the Page icon).</p>
+
+<p><strong>3.</strong> A Copilot Page opens. Confirm you can see the project plan as an editable document.</p>
+
+<p><strong>4.</strong> Click at the bottom of the Page. Type a new heading: <strong>## Assigned Roles</strong></p>
+
+<p><strong>5.</strong> Below it, manually add 3 bullet points:</p>
+<ul>
+  <li>- Facilitator: [Your name]</li>
+  <li>- Tech setup: [Colleague name]</li>
+  <li>- Materials prep: [Colleague name]</li>
+</ul>
+
+<p><strong>6.</strong> Now use Copilot on the Page. Click the Copilot icon and type:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a section called "Follow-Up Actions" with 5 post-training tasks including sending a feedback survey, sharing recorded sessions, and scheduling a 2-week check-in.</code></div>
+
+<p><strong>7.</strong> Click <strong>Share</strong> (top right). Copy the link.</p>
+
+<p><strong>8.</strong> Paste the link somewhere you can find it (Teams chat, email draft, or your browser bookmarks).</p>
+
+<div class="note-box">
+  <strong>Success check:</strong> Your Page should have: (1) the original AI-generated plan, (2) your manually added "Assigned Roles" section, (3) the Copilot-added "Follow-Up Actions" section, and (4) a shareable link copied. Three sources of content on one collaborative Page.
+</div>
+
+<button class="mark-complete-btn" id="complete-btn-4" onclick="markComplete(4)">Mark Complete</button>
+`,
+  advanced: `
+<h3>Pages as a Team Knowledge Hub</h3>
+<p>Some teams use Copilot Pages as living project documents — updated weekly with new Copilot-generated content and team edits. Unlike a static Word doc, a Page stays connected to Copilot so you can always ask it to update, summarize, or expand sections.</p>
+
+<h3>Connecting Pages to Notebooks</h3>
+<p>Copilot Notebooks (covered in the next lesson) can reference Pages as sources. This means research you save in a Page can automatically inform your notebook-based analysis. Build a workflow: Chat &rarr; Page &rarr; Notebook &rarr; refined output.</p>
+
+<h3>Pages vs. Loop Components</h3>
+<p>Microsoft Loop also offers collaborative components that can be embedded in Teams chats and emails. The difference: Loop components are small, embeddable blocks (tables, checklists). Pages are full-page documents with AI integration. Use Loop for quick collaborative edits in context; use Pages for standalone AI-powered documents.</p>
+`
+},
+
+// ── 5: NotebookLM & Copilot Notebooks ──
+{
+  id: 'notebooklm-notebooks',
+  title: 'NotebookLM & Copilot Notebooks',
+  points: 15,
+  learn: `
+<h3>Two Research Tools. Here Is When to Use Each.</h3>
+<p>Sometimes a quick chat prompt is not enough. You have a stack of PDFs, a long report, or five source documents and you need real analysis. You have two tools for this:</p>
+
+<p><strong>NotebookLM</strong> (notebooklm.google.com) — Deep document analysis with audio.</p>
+<ul>
+  <li>Upload up to 50 sources (PDFs, Google Docs, URLs, YouTube, audio)</li>
+  <li>Ask questions and get answers with inline citations to specific passages</li>
+  <li>Generate a <strong>podcast-style Audio Overview</strong> — two AI hosts discuss your documents conversationally</li>
+</ul>
+
+<p><strong>Copilot Notebooks</strong> (in m365.cloud.microsoft) — Integrated with your M365 data.</p>
+<ul>
+  <li>New side-by-side UX: references on the left, AI chat on the right</li>
+  <li>Pull in files from OneDrive, SharePoint, emails — or paste content</li>
+  <li>Convert responses into shareable Copilot Pages</li>
+  <li>Use Notebooks as knowledge bases to ground Copilot Agents</li>
+</ul>
+
+<div class="tip-box">
+  <strong>The quick decision:</strong> Working with external documents or want an Audio Overview? Use NotebookLM. Sources already in Microsoft 365 and you want everything connected? Use Copilot Notebooks.
+</div>
+
+<button class="continue-btn" onclick="switchTab(5,'implement')">Continue to Exercises &rarr;</button>
+`,
+  implement: `
+<h3>Try Deep Document Analysis</h3>
+<p>Choose one of the two tools below and complete the exercise:</p>
+
+<div class="option-tabs" id="options-5">
+  <button class="option-btn active" onclick="switchOption(5,'A',this)">Option A: NotebookLM</button>
+  <button class="option-btn" onclick="switchOption(5,'B',this)">Option B: Copilot Notebooks</button>
+</div>
+
+<div class="option-content" id="option-5-A">
+<p><strong>Option A: Google NotebookLM</strong></p>
+
+<p><strong>1.</strong> Go to <strong>notebooklm.google.com</strong>. Sign in with a Google account.</p>
+
+<p><strong>2.</strong> Click <strong>"New Notebook"</strong>.</p>
+
+<p><strong>3.</strong> Click <strong>"Add Source"</strong> and select <strong>"Website"</strong>. Paste this URL:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai</code></div>
+
+<p><strong>4.</strong> Wait for NotebookLM to process the source (10-30 seconds). You should see a green checkmark when it is ready.</p>
+
+<p><strong>5.</strong> In the chat panel, send this prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the three main arguments in this article? Cite the specific section where each argument appears.</code></div>
+
+<p><strong>6.</strong> Read the response. Each answer should include a citation linking back to a specific passage in the source.</p>
+
+<p><strong>7.</strong> Now click <strong>"Audio Overview"</strong> in the top area of the notebook. Click <strong>"Generate"</strong>. Wait for it to finish (1-2 minutes). Listen to at least the first 30 seconds — two AI hosts will discuss the key points from your source.</p>
+
+<p><strong>8.</strong> Try one more query to test depth:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What practical recommendations does this article make? List them as action items for a nonprofit leader.</code></div>
+</div>
+
+<div class="option-content" id="option-5-B" style="display:none">
+<p><strong>Option B: Copilot Notebooks</strong></p>
+
+<p><strong>1.</strong> Open Copilot at <strong>m365.cloud.microsoft</strong>.</p>
+
+<p><strong>2.</strong> Click <strong>"Notebooks"</strong> in the left sidebar.</p>
+
+<p><strong>3.</strong> Click <strong>"New Notebook"</strong>. Name it <strong>"Workshop Notes"</strong>.</p>
+
+<p><strong>4.</strong> Click <strong>"Add Reference"</strong>. Choose one of these options:</p>
+<ul>
+  <li>Pick a document from your OneDrive or SharePoint</li>
+  <li>Paste a URL to a public article about AI or nonprofit strategy</li>
+</ul>
+
+<p><strong>5.</strong> Once the reference is loaded, send this prompt in the chat panel:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize the key points from my references in 5 bullet points. For each point, note which reference it came from.</code></div>
+
+<p><strong>6.</strong> Read the summary. Check that each bullet cites a specific reference.</p>
+
+<p><strong>7.</strong> Click <strong>"Edit in Pages"</strong> to turn the response into a shareable Copilot Page. Confirm the Page opens with your summary content.</p>
+
+<p><strong>8.</strong> Send one more follow-up:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on these references, what are 3 questions I should investigate further?</code></div>
+</div>
+
+<div class="note-box">
+  <strong>Success check:</strong> You should have (1) added at least one source, (2) received cited answers grounded in that source, and (3) either generated an Audio Overview (NotebookLM) or created a Copilot Page (Notebooks).
+</div>
+
+<button class="mark-complete-btn" id="complete-btn-5" onclick="markComplete(5)">Mark Complete</button>
+`,
+  advanced: `
+<h3>Multi-Source Research Workflows</h3>
+<p>For serious research, combine tools. Use NotebookLM for external document analysis and Audio Overviews. Then bring your synthesized findings into Copilot Notebooks alongside your organizational data for a complete picture.</p>
+
+<h3>Grounding Agents on Notebooks</h3>
+<p>In the Microsoft ecosystem, you can use a Copilot Notebook as a knowledge source for a Copilot Agent. This means you can create a "Grant Writing Assistant" agent that is grounded in your organization's grant templates, past successful applications, and funder guidelines — all stored in a Notebook.</p>
+
+<h3>Export Options</h3>
+<p>Both tools support various export formats. NotebookLM lets you copy responses as text. Copilot Notebooks can export to Word documents and PowerPoint presentations, making it easy to turn research into deliverables.</p>
+`
+},
+
+// ── 6: Team Workflows ──
+{
+  id: 'research-mode',
+  title: 'Research Mode',
+  points: 20,
+  learn: `
+<h3>Copilot Can Do Your Research</h3>
+<p>When you start a prompt with the word <strong>"Research"</strong> (or select the Research button), Copilot switches into a deep research mode. Instead of giving you a quick answer, it searches multiple sources, synthesizes what it finds, and delivers a structured report with citations.</p>
+
+<h3>How It Works</h3>
+<p>Regular Copilot gives you one answer based on what it knows. Research mode:</p>
+<ol>
+  <li><strong>Searches broadly</strong> — multiple web sources, not just the first result</li>
+  <li><strong>Reads deeply</strong> — actually processes the content of pages, not just snippets</li>
+  <li><strong>Synthesizes</strong> — combines findings into a structured report</li>
+  <li><strong>Cites sources</strong> — every claim links back to where it came from</li>
+</ol>
+
+<h3>What's New in 2026</h3>
+<p>Research reports can now be <strong>exported</strong> to multiple formats with one click:</p>
+<ul>
+  <li><strong>Word document</strong> — for editing and sharing</li>
+  <li><strong>PowerPoint</strong> — auto-generates slides from the research</li>
+  <li><strong>PDF</strong> — for formal distribution</li>
+  <li><strong>Audio overview</strong> — a narrated summary you can listen to on the go</li>
+</ul>
+
+<h3>When to Use Research vs. Regular Chat</h3>
+<p><strong>Regular chat:</strong> "What's the capital of France?" — quick factual answers.<br>
+<strong>Research mode:</strong> "What are the latest trends in nonprofit digital fundraising?" — multi-source, cited, comprehensive.</p>
+
+<div class="tip-box">
+  <strong>Rule of thumb:</strong> If you'd normally spend 30+ minutes Googling and reading articles, use Research mode instead.
+</div>
+
+<button class="continue-btn" onclick="switchTab(6,'implement')">Continue to Exercises &rarr;</button>
+`,
+  implement: `
+<h3>Run Your First Research Report</h3>
+
+<p><strong>1.</strong> Open <strong>Copilot Chat</strong>. Type the word <strong>Research</strong> at the start of your prompt, then add your topic:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Research the impact of AI adoption on nonprofit organizations in 2025-2026. Cover: adoption rates, most-used tools, measurable productivity gains, and common challenges. Include statistics and cite your sources.</code></div>
+
+<p><strong>2.</strong> Wait 30-60 seconds. Research mode takes longer than a regular response because it's searching and reading multiple sources.</p>
+
+<p><strong>3.</strong> Read the report. Check for:</p>
+<ul>
+  <li>Structured sections with headings</li>
+  <li>Specific statistics and data points</li>
+  <li>Numbered citations linking to real sources</li>
+</ul>
+
+<p><strong>4.</strong> Click on 2-3 of the citation links. Confirm they go to real, relevant articles. (AI sometimes generates plausible-sounding but incorrect citations — always spot-check.)</p>
+
+<p><strong>5.</strong> Now ask a follow-up question to go deeper on one finding:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Expand on the productivity gains section. What specific tasks are organizations automating with AI, and what time savings are they reporting? Add more data points.</code></div>
+
+<p><strong>6.</strong> Export the report. Look for the export/download options and try one:</p>
+<ul>
+  <li>Click <strong>export to Word</strong> — opens as an editable document</li>
+  <li>Or click <strong>export to PowerPoint</strong> — auto-generates slides from the research</li>
+</ul>
+
+<div class="note-box">
+  <strong>Success check:</strong> You should have: (1) a multi-section research report with citations, (2) verified at least 2 citation links, (3) a follow-up that deepened one section, and (4) an exported file (Word or PowerPoint).
+</div>
+
+<button class="mark-complete-btn" id="complete-btn-6" onclick="markComplete(6)">Mark Complete</button>
+`,
+  advanced: `
+<h3>Research Workflows</h3>
+<p>Combine Research mode with other Copilot features for end-to-end knowledge work:</p>
+<ol>
+  <li><strong>Research</strong> a topic in Copilot Chat</li>
+  <li><strong>Save</strong> the findings to a Copilot Page</li>
+  <li><strong>Add</strong> the Page as a reference in a Copilot Notebook</li>
+  <li><strong>Ground</strong> a custom agent on that Notebook for ongoing Q&A</li>
+</ol>
+
+<h3>Comparing Research to NotebookLM</h3>
+<p>Research mode searches the <strong>open web</strong> and synthesizes new information. NotebookLM analyzes <strong>documents you provide</strong>. Use Research mode when you need external data. Use NotebookLM when you need deep analysis of your own files. Use both together when you need external context applied to internal documents.</p>
+
+<h3>Research for Competitive Intelligence</h3>
+<p>Try these Research prompts for business intelligence:</p>
+<ul>
+  <li>"Research [competitor name] recent product launches, partnerships, and strategic direction in 2025-2026"</li>
+  <li>"Research regulatory changes affecting [your industry] in the next 12 months"</li>
+  <li>"Research best practices for [specific initiative] at organizations similar to ours"</li>
+</ul>
+<p>Always verify key findings independently before making strategic decisions based on AI research.</p>
+`
+},
+
+// ── 7: Voice & Dictation ──
+{
+  id: 'voice-dictation',
+  title: 'Voice & Dictation',
+  points: 10,
+  learn: `
+<h3>You Can Talk to Copilot Instead of Typing</h3>
+<p>Here are the three ways to do it:</p>
+
+<p><strong>1. Windows Voice Typing (Win + H):</strong> Press Win + H anywhere on your PC. A microphone toolbar appears. Start talking — it works in any text field, including the Copilot chat box. It handles punctuation ("period," "comma," "new line") and processes in real-time.</p>
+
+<p><strong>2. Copilot Voice Button:</strong> Look for the microphone icon in the Copilot chat interface. Click it and dictate your prompt directly. Great for longer, conversational prompts where typing feels slow.</p>
+
+<p><strong>3. Outlook Mobile Voice (new):</strong> Outlook on mobile now lets Copilot <strong>read your email summaries aloud</strong> and you can <strong>reply by voice</strong>. It guides you through your inbox hands-free — commuting, walking, between meetings.</p>
+
+<h3>When to Use Voice</h3>
+<p>Voice is faster when you are brainstorming, dictating long context, working on mobile, or when typing just feels slow. Speak your rough thoughts, then let Copilot polish the text into something professional.</p>
+
+<div class="tip-box">
+  <strong>The move:</strong> Dictate messy thoughts by voice. Then ask Copilot: "Rewrite this to be concise and professional." Two steps, better output than typing carefully for 10 minutes.
+</div>
+
+<button class="continue-btn" onclick="switchTab(7,'implement')">Continue to Exercises &rarr;</button>
+`,
+  implement: `
+<h3>Dictate, Transcribe, and Polish</h3>
+
+<p><strong>1.</strong> Open Copilot Chat at <strong>m365.cloud.microsoft</strong>.</p>
+
+<p><strong>2.</strong> Press <strong>Win + H</strong> (Windows voice typing). A small microphone toolbar should appear at the top of your screen. If you are on mobile, tap the microphone icon on your keyboard.</p>
+
+<p><strong>3.</strong> Say this EXACTLY (speak clearly and at a natural pace):</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft an email to my team about next week's planning meeting on Wednesday at 2 PM in the main conference room. Everyone should bring their project updates and be ready to discuss Q3 priorities. Ask them to RSVP by end of day Friday.</code></div>
+
+<p><strong>4.</strong> Press <strong>Win + H</strong> again to stop voice typing. Read what was transcribed in the Copilot chat input box. Fix any obvious errors by typing.</p>
+
+<p><strong>5.</strong> Do NOT send that text yet. Instead, add this instruction before the transcribed text and then send the full message:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Polish the following rough notes into a professional, friendly email. Add a clear subject line. Keep it under 150 words.
+
+[your transcribed text goes here]</code></div>
+
+<p><strong>6.</strong> Read Copilot's polished email. Compare it to your raw dictation — it should be cleaner, better structured, and ready to send.</p>
+
+<p><strong>7.</strong> Now try it directly in an app. Open <strong>Word</strong> or <strong>Outlook</strong>. Click the <strong>Dictation</strong> button in the ribbon (Home tab, microphone icon). Dictate 2-3 sentences about any topic you are working on. Stop dictation. Then open the Copilot pane and say:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Rewrite the text in this document to be more professional and concise. Keep the same meaning but tighten the language.</code></div>
+
+<div class="note-box">
+  <strong>Success check:</strong> You should have (1) used Win + H to dictate text, (2) sent it to Copilot for polishing, and (3) received a cleaner, more professional version back. If voice typing did not activate, check that your microphone is enabled in Windows Settings > Privacy > Microphone.
+</div>
+
+<button class="mark-complete-btn" id="complete-btn-7" onclick="markComplete(7)">Mark Complete</button>
+`,
+  advanced: `
+<h3>Whisper and Transcription</h3>
+<p>OpenAI's Whisper model (which powers many transcription services) can transcribe audio files with near-human accuracy across many languages. Tools like Microsoft Teams already use advanced transcription for meeting recordings.</p>
+
+<h3>Meeting Transcription Workflows</h3>
+<p>A powerful workflow combines voice transcription with AI summarization:</p>
+<ol>
+  <li>Record a meeting in Teams (with transcription enabled)</li>
+  <li>After the meeting, open the transcript in Teams</li>
+  <li>Use Copilot to summarize: "What were the key decisions and action items from this meeting?"</li>
+  <li>Copy the summary into a Copilot Page or send it as a follow-up email</li>
+</ol>
+
+<h3>Accessibility Benefits</h3>
+<p>Voice input and AI-powered dictation are not just convenience features — they are powerful accessibility tools. Users with mobility limitations, repetitive strain injuries, or visual impairments can interact with Copilot entirely through voice. The combination of voice input + AI processing + voice output creates a fully accessible AI workflow.</p>
+`
+},
+
+// ── 8: Copilot Create ──
+{
+  id: 'copilot-create',
+  title: 'Copilot Create',
+  points: 15,
+  learn: `
+<h3>The Create Tab: Images, Design, and Visual Content</h3>
+<p>In the Copilot app, click <strong>Create</strong> in the left navigation. This opens a dedicated visual creation workspace powered by GPT-Image-1.5 and Microsoft Designer.</p>
+
+<h3>What You Can Make</h3>
+<ul>
+  <li><strong>Images from text</strong> — Describe any scene, concept, or visual and Copilot generates it. "A modern office lobby with natural light and plants" or "A flat-style icon set for a project management dashboard."</li>
+  <li><strong>Design iterations</strong> — Generate an image, then refine it: "Make the background darker," "Add a person on the left," "Change the style to watercolor." The Designer tools give you UX controls for adjustments without re-prompting.</li>
+  <li><strong>Brand-consistent visuals</strong> — With Brand Kit (set up by your admin), Copilot uses your org's colors, fonts, and logo when generating images, presentations, and documents.</li>
+  <li><strong>Scatter effects</strong> — A new 2026 feature that applies modern, stylized visual effects to images with one click.</li>
+</ul>
+
+<h3>Who This Is For</h3>
+<p><strong>Architecture &amp; Design:</strong> Quick concept renders, material studies, presentation visuals — without opening a full rendering tool.<br>
+<strong>Marketing:</strong> Social media graphics, event flyers, campaign visuals, brand content.<br>
+<strong>Everyone:</strong> Presentation images, report covers, team communications that need a visual.</p>
+
+<div class="tip-box">
+  <strong>Create vs. Designer:</strong> Create is inside Copilot Chat for quick generation. Designer (designer.microsoft.com) offers a full editing canvas with templates, layers, and more control. Start in Create, move to Designer when you need polish.
+</div>
+
+<button class="continue-btn" onclick="switchTab(8,'implement')">Continue to Exercises &rarr;</button>
+`,
+  implement: `
+<h3>Generate and Refine a Visual</h3>
+
+<p><strong>1.</strong> Open Copilot at <strong>m365.cloud.microsoft</strong>. Click <strong>Create</strong> in the left navigation pane (or type your image request directly in chat).</p>
+
+<p><strong>2.</strong> Generate your first image:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a professional image of a modern workspace with people collaborating around a large screen showing data visualizations. Clean, bright lighting. Style: photorealistic, suitable for a corporate presentation.</code></div>
+
+<p><strong>3.</strong> Wait 10-30 seconds. When the image appears, look at the options: <strong>download</strong>, <strong>edit</strong>, or <strong>generate more</strong>.</p>
+
+<p><strong>4.</strong> Now iterate on the same image. Send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create the same scene but as a flat vector illustration with a navy and gold color palette. Make it look like an infographic header suitable for a report cover.</code></div>
+
+<p><strong>5.</strong> Compare the two: one photorealistic, one illustrative. Download both.</p>
+
+<p><strong>6.</strong> Now try something specific to your work:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an image that represents {{TOPICS}}. Style: clean, modern, professional. Suitable for a slide presentation.</code></div>
+
+<p><strong>7.</strong> If the result is close but not right, refine: "Make it more abstract" or "Remove the text" or "Change the color scheme to blue and white."</p>
+
+<div class="note-box">
+  <strong>Success check:</strong> You should have (1) two versions of the collaboration scene (photo vs illustration), (2) one image related to your work, and (3) at least one refinement iteration. Three images total.
+</div>
+
+<button class="mark-complete-btn" id="complete-btn-8" onclick="markComplete(8)">Mark Complete</button>
+`,
+  advanced: `
+<h3>Brand Kit Integration</h3>
+<p>If your admin has configured a Brand Kit in the Microsoft 365 admin center, Copilot automatically uses your org's colors, fonts, and logo when generating visual content. This applies to Create, PowerPoint, and document generation. Ask your admin about setting up Brand Kit if it's not already enabled.</p>
+
+<h3>Architecture &amp; Design Use Cases</h3>
+<p>Copilot Create is not a replacement for Revit or Bluebeam, but it's useful for:</p>
+<ul>
+  <li><strong>Concept visualization:</strong> Quick moodboards and concept renders for early-stage design discussions</li>
+  <li><strong>Material studies:</strong> "Show me a facade with terracotta panels and floor-to-ceiling glass" — fast visual references</li>
+  <li><strong>Presentation graphics:</strong> Custom visuals for client presentations and design reviews</li>
+  <li><strong>Marketing materials:</strong> Project renderings for RFP responses and award submissions</li>
+</ul>
+
+<h3>Combining Create with Other Tools</h3>
+<ol>
+  <li>Generate an image with Create</li>
+  <li>Open it in Designer for fine-tuning (text overlays, layout)</li>
+  <li>Insert into a PowerPoint slide created by Copilot</li>
+  <li>Add to a Copilot Page for team review</li>
+</ol>
+<p>What used to take a full day now takes under an hour.</p>
+`
+},
+
+// ── 9: Putting It Together ──
+{
+  id: 'putting-it-together',
+  title: 'Putting It Together',
+  points: 20,
+  learn: `
+<h3>You Have Learned Individual Tools. Now Chain Them Together.</h3>
+<p>The real workflow looks like this: <strong>Research</strong> (Web mode) &rarr; <strong>Draft</strong> (Chat or Word) &rarr; <strong>Present</strong> (PowerPoint) &rarr; <strong>Share</strong> (Outlook). Four steps, one conversation, a finished deliverable.</p>
+
+<h3>When to Use What</h3>
+<ul>
+  <li><strong>Quick question or brainstorm</strong> &rarr; Copilot Chat</li>
+  <li><strong>Work on a specific document</strong> &rarr; Copilot in Word / Excel / PowerPoint</li>
+  <li><strong>Analyze multiple sources</strong> &rarr; NotebookLM or Copilot Notebooks</li>
+  <li><strong>Draft or manage email</strong> &rarr; Copilot in Outlook</li>
+  <li><strong>Catch up on meetings</strong> &rarr; Copilot in Teams</li>
+  <li><strong>Create visuals</strong> &rarr; Designer or Copilot in PowerPoint</li>
+  <li><strong>Deep research with export</strong> &rarr; Researcher tool</li>
+</ul>
+
+<p>The prompting formula works everywhere: <strong>Role + Context + Task + Format + Constraints</strong>. In chat, in apps, in Notebooks. More context, more specificity, better results.</p>
+
+<div class="tip-box">
+  <strong>The exercise ahead:</strong> You will build a full Research &rarr; Memo &rarr; Slides &rarr; Email pipeline in a single Copilot conversation. Each step feeds the next.
+</div>
+
+<button class="continue-btn" onclick="switchTab(9,'implement')">Continue to Exercises &rarr;</button>
+`,
+  implement: `
+<h3>End-to-End Workflow: Research to Deliverable</h3>
+<p>Complete all 4 steps in a single Copilot conversation. Each step builds on the last.</p>
+
+<p><strong>Step 1 — Research (Web Mode):</strong></p>
+<p>Make sure you are in <strong>Web mode</strong>. Send this prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the top 5 AI adoption challenges for nonprofits in 2026? For each challenge, include one supporting statistic or data point. Cite your sources.</code></div>
+<p>Read the response. Confirm you see 5 challenges with data points before continuing.</p>
+
+<p><strong>Step 2 — Draft a Memo:</strong></p>
+<p>In the same conversation, send this next:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the 5 challenges above, draft a 1-page memo to our leadership team recommending 3 specific actions our organization should take to overcome these challenges. Use a professional tone with bullet points. Include an executive summary at the top and a "next steps" section at the bottom.</code></div>
+<p>Read the memo. It should directly reference the research from Step 1.</p>
+
+<p><strong>Step 3 — Create a Presentation:</strong></p>
+<p>Continue in the same conversation:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Turn this memo into a 4-slide presentation outline. Slide 1: Title slide with "AI Strategy Recommendations" as the title. Slide 2: The top 3 challenges with one stat each. Slide 3: Our 3 recommended actions with expected outcomes. Slide 4: Next steps with a timeline showing Month 1, Month 2, and Month 3 milestones.</code></div>
+
+<p><strong>Step 4 — Draft a Sharing Email:</strong></p>
+<p>Final step in the same conversation:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a short email to send with this memo and presentation. Subject line: "AI Strategy Recommendations - Review Requested by Friday." Body: 3 sentences introducing the topic, noting the attached memo and slides, and asking for feedback by end of week. Sign it from me.</code></div>
+
+<div class="note-box">
+  <strong>Success check:</strong> You should have 4 outputs from a single conversation: (1) research findings, (2) a formatted memo, (3) a presentation outline, and (4) a ready-to-send email. All four should be connected — the memo references the research, the slides reference the memo, and the email references both attachments.
+</div>
+
+<button class="mark-complete-btn" id="complete-btn-9" onclick="markComplete(9)">Mark Complete</button>
+`,
+  advanced: `
+<h3>Building a Personal AI Strategy</h3>
+<p>To make AI a permanent part of your work, create a personal AI strategy:</p>
+<ol>
+  <li><strong>Audit your tasks:</strong> List your recurring weekly tasks. Which ones involve drafting, summarizing, researching, or creating? Those are your AI candidates.</li>
+  <li><strong>Start with one workflow:</strong> Pick the highest-impact task and build a reliable Copilot workflow for it.</li>
+  <li><strong>Measure the impact:</strong> Track time saved. Even rough estimates help justify the investment.</li>
+  <li><strong>Expand gradually:</strong> Add one new AI workflow per week until it becomes second nature.</li>
+</ol>
+
+<h3>Daily Habits</h3>
+<ul>
+  <li><strong>Morning:</strong> Ask Copilot to summarize overnight emails and flag priorities</li>
+  <li><strong>Before meetings:</strong> Ask Copilot to prep you on the topic and participants</li>
+  <li><strong>After meetings:</strong> Get an AI summary of decisions and action items</li>
+  <li><strong>End of day:</strong> Draft tomorrow's to-do list based on pending tasks and calendar</li>
+</ul>
+
+<h3>Measuring Impact</h3>
+<p>Track these metrics to quantify your AI adoption:</p>
+<ul>
+  <li>Hours saved per week on drafting and email</li>
+  <li>Number of documents produced with AI assistance</li>
+  <li>Time from research to deliverable (before vs. after AI)</li>
+  <li>Team adoption rate and satisfaction</li>
+</ul>
+`
+},
+
+// ── 10: Your First AI Win ──
+{
+  id: 'first-ai-win',
+  title: 'Your First AI Win',
+  points: 20,
+  learn: `
+<h3>This Is Where You Apply Everything to YOUR Actual Work</h3>
+<p>Not a practice exercise. A real task from your real week. Pick something you actually need to get done — a report, a presentation, a donor email, a project plan — and let Copilot help you do it.</p>
+
+<p>Pick a task that is <strong>real</strong> (you actually need it done), <strong>meaty</strong> (big enough that AI help matters), and <strong>low-risk</strong> (you can review before it goes anywhere).</p>
+
+<div class="tip-box">
+  <strong>This is not a test. It is an experiment.</strong> Even if the output is only 60% there, you saved significant time on the first draft. Your expertise turns that 60% into 100%.
+</div>
+
+<button class="continue-btn" onclick="switchTab(10,'implement')">Continue to Exercises &rarr;</button>
+`,
+  implement: `
+<h3>Your Real-World Capstone</h3>
+
+<p><strong>1.</strong> Pick ONE real task from your work this week. Write it down:</p>
+<p style="font-style:italic;color:var(--text-muted);margin-left:16px;">Example: "Write a progress report for the board" or "Summarize last week's donor meeting" or "Create talking points for the fundraising gala"</p>
+
+<p><strong>2.</strong> Categorize your task. Which type is it?</p>
+<ul>
+  <li><strong>Draft</strong> — writing something new (email, memo, report)</li>
+  <li><strong>Analyze</strong> — making sense of data or information</li>
+  <li><strong>Research</strong> — finding external information</li>
+  <li><strong>Summarize</strong> — condensing something long into something short</li>
+  <li><strong>Create</strong> — building a presentation, image, or plan</li>
+</ul>
+
+<p><strong>3.</strong> Build your prompt using the framework. Fill in every line of this template:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>{{ROLE}}.
+
+Context: {{CONTEXT}}. [Add 2-3 sentences of specific background — names, dates, numbers, or paste relevant text.]
+
+Task: [One clear sentence describing exactly what you need.]
+
+Format: [Choose: bullet points / numbered list / 3 paragraphs / table / email with subject line]
+
+Constraints: Keep it under [word count]. Use [formal/casual/friendly] tone. The audience is [who will read this].</code></div>
+
+<p><strong>4.</strong> Choose the right tool and send your prompt:</p>
+<ul>
+  <li>General drafting or research: <strong>Copilot Chat</strong></li>
+  <li>Working on a specific document: <strong>Copilot in Word/Excel/PowerPoint</strong></li>
+  <li>Analyzing multiple sources: <strong>NotebookLM or Copilot Notebooks</strong></li>
+</ul>
+
+<p><strong>5.</strong> Read the first response. Then iterate at least twice. Try these refinements:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make the opening sentence more compelling. Start with the most important finding.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>This is too long. Cut it by 40% while keeping all the key points.</code></div>
+
+<p><strong>6.</strong> Save or export your final result. Copy it to a document, email, or presentation where you will actually use it.</p>
+
+<p><strong>7.</strong> Reflect: How long did this take with AI compared to your estimate without? If you saved at least 15 minutes, you have found your first AI win.</p>
+
+<div class="note-box">
+  <strong>Success check:</strong> You should have (1) written a specific prompt using the full framework, (2) sent it to the appropriate tool, (3) iterated at least twice, and (4) produced a result you can actually use in your work this week.
+</div>
+
+<button class="mark-complete-btn" id="complete-btn-10" onclick="markComplete(10)">Mark Complete</button>
+`,
+  advanced: `
+<h3>Reflection Questions</h3>
+<ul>
+  <li>What surprised you about working with AI on a real task?</li>
+  <li>Where did you need to correct or improve the AI's output?</li>
+  <li>What additional context would have improved the first response?</li>
+  <li>How could you turn this into a repeatable workflow?</li>
+</ul>
+
+<h3>What's Next</h3>
+<p>You have completed the Copilot Chat workshop. Here is where to go from here:</p>
+<ul>
+  <li><strong>Copilot in Your Apps (Course 2):</strong> Deep dive into Copilot in Outlook, Word, Excel, PowerPoint, and Teams</li>
+  <li><strong>Building Agents (Course 3):</strong> Learn to create custom Copilot Agents for your organization's specific needs</li>
+  <li><strong>Practice:</strong> Use Copilot every day for one week. After that, it will feel natural.</li>
+</ul>
+
+<h3>Continuous Learning Resources</h3>
+<ul>
+  <li>Microsoft Copilot Lab (copilot.cloud.microsoft/prompts) — a library of prompt templates</li>
+  <li>Microsoft Learn (learn.microsoft.com) — official training modules for Copilot</li>
+  <li>Your organization's IT team — for questions about permissions, licensing, and data access</li>
+</ul>
+`
+},
+
+// ── 11 (Bonus): Bonus Challenge ──
+{
+  id: 'bonus-challenge',
+  title: 'Bonus Challenge',
+  points: 0,
+  learn: `
+<h3>Bonus: Build a Workflow for Your Team</h3>
+<p>You have finished the core course. This is extra credit — no points, just the satisfaction of building something your whole team can use.</p>
+
+<p>Design a complete AI workflow that combines at least 3 tools from this course. Document it well enough that a colleague could follow it without your help. Include a trigger, prompt templates with [BRACKETS] for variable data, and a quality checklist.</p>
+
+<button class="continue-btn" onclick="switchTab(11,'implement')">Continue to Exercises &rarr;</button>
+`,
+  implement: `
+<h3>Build and Test a Team Workflow</h3>
+
+<p><strong>1.</strong> Pick a recurring task your team does at least monthly. Choose one:</p>
+<ul>
+  <li>Monthly board report</li>
+  <li>Donor stewardship follow-ups</li>
+  <li>Event planning checklist</li>
+  <li>Grant progress reporting</li>
+  <li>Team meeting prep and follow-up</li>
+</ul>
+
+<p><strong>2.</strong> Open a new Copilot conversation. Send this prompt to generate a workflow template:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>I need to create a repeatable AI workflow for this task: [paste your chosen task here, e.g., "preparing the monthly board report"].
+
+Create a step-by-step workflow document with:
+- A clear trigger (what starts the process)
+- 3-4 numbered steps, each with: which tool to use (Copilot Chat, Word, Excel, Outlook, etc.) and the exact prompt to send
+- A quality checklist at the end
+- Where the final output should be delivered
+
+Make the prompts specific enough that any team member could follow them without extra instructions. Use [BRACKETS] for any information that changes each time.</code></div>
+
+<p><strong>3.</strong> Read the workflow Copilot generated. Now test it: follow each step yourself using a real example from your work.</p>
+
+<p><strong>4.</strong> As you test, note what works and what needs adjustment. Then send this refinement:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Revise the workflow based on these issues I found during testing: [describe what did not work well or what was unclear]. Also add estimated time for each step.</code></div>
+
+<p><strong>5.</strong> Copy the final workflow into a Word document or OneNote page. Share it with one colleague and ask them to try it on their own. Ask them: "Could you follow this without my help?"</p>
+
+<p><strong>6.</strong> Based on their feedback, make one more round of edits. Your workflow is now ready for the team.</p>
+
+<div class="tip-box">
+  <strong>Congratulations:</strong> You have designed, tested, and refined an AI workflow that your whole team can use. You are not just a Copilot user — you are an AI workflow designer.
+</div>
+
+<button class="mark-complete-btn" id="complete-btn-11" onclick="markComplete(11)">Mark Complete</button>
+`,
+  advanced: `
+<h3>Becoming an AI Champion</h3>
+<p>Consider taking on the role of AI champion for your team or organization:</p>
+<ul>
+  <li>Maintain a shared library of prompt templates and workflows</li>
+  <li>Run monthly "AI wins" sessions where team members share successful use cases</li>
+  <li>Stay current with new Copilot features and share updates with your team</li>
+  <li>Advocate for AI training and resources in your organization's budget</li>
+  <li>Connect with other AI champions across your sector to share learnings</li>
+</ul>
+
+<h3>Looking Ahead</h3>
+<p>The AI landscape is evolving rapidly. As of early 2026, the trajectory is clear: AI assistants are becoming more agentic (taking multi-step actions), more personalized (learning your preferences), and more integrated (working across apps seamlessly). The skills you have built in this course — understanding the AI equation, writing great prompts, choosing the right tool, and designing workflows — are foundational. They will apply to whatever comes next.</p>
+`
+}
+];
+
+/* ═══════════════════════════════════════════════════════════
+   ENGINE
+   ═══════════════════════════════════════════════════════════ */
+const CORE_COUNT = 11;
+const CORE_POINTS = 180;
+let completed = JSON.parse(localStorage.getItem('chat-completed') || '[]');
+let currentLesson = 0;
+let currentTab = 'learn';
+
+function getCompletedPoints() {
+  return completed.reduce((sum, i) => sum + (LESSONS[i]?.points || 0), 0);
+}
+
+function updateProgress() {
+  const coreCompleted = completed.filter(i => i < CORE_COUNT).length;
+  const pts = getCompletedPoints();
+  document.getElementById('progress-label').textContent = coreCompleted + ' of ' + CORE_COUNT + ' core steps';
+  document.getElementById('progress-pts').textContent = pts + ' / ' + CORE_POINTS + ' pts';
+  document.getElementById('progress-fill').style.width = (coreCompleted / CORE_COUNT * 100) + '%';
+  syncProgress();
+}
+
+function syncProgress() {
+  const user = localStorage.getItem('workshop_user');
+  if (!user) return;
+  const chatData = { completed: completed, points: getCompletedPoints() };
+  const body = { chat: chatData };
+  try {
+    const appsCompleted = JSON.parse(localStorage.getItem('apps-completed') || '[]');
+    const agentsCompleted = JSON.parse(localStorage.getItem('agents-completed') || '[]');
+    body.apps = { completed: appsCompleted, points: 0 };
+    body.agents = { completed: agentsCompleted, points: 0 };
+  } catch(e) {}
+  fetch('/api/progress', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  }).catch(function() {});
+}
+
+function buildNav() {
+  const nav = document.getElementById('nav-list');
+  let html = '';
+  LESSONS.forEach(function(lesson, i) {
+    if (i === CORE_COUNT) {
+      html += '<div class="nav-section-label" style="margin-top:8px">Bonus</div>';
+    }
+    const isDone = completed.includes(i);
+    const isActive = i === currentLesson;
+    html += '<div class="nav-item' + (isActive ? ' active' : '') + '" onclick="loadLesson(' + i + ')">';
+    html += '<div class="check' + (isDone ? ' done' : '') + '">' + (isDone ? '&#10003;' : '') + '</div>';
+    html += '<span>' + lesson.title + '</span>';
+    if (lesson.points > 0) {
+      html += '<span class="pts">' + lesson.points + ' pts</span>';
+    }
+    html += '</div>';
+  });
+  nav.innerHTML = html;
+}
+
+function loadLesson(idx) {
+  currentLesson = idx;
+  currentTab = 'learn';
+  buildNav();
+  renderLesson();
+  document.getElementById('main-content').scrollTo(0, 0);
+}
+
+function renderLesson() {
+  var lesson = LESSONS[currentLesson];
+  var isDone = completed.includes(currentLesson);
+  var html = '';
+
+  // Step header
+  html += '<div class="step-header">';
+  html += '<h2>' + lesson.title + '</h2>';
+  if (lesson.points > 0) {
+    html += '<span class="pts-badge">' + lesson.points + ' points</span>';
+  }
+  html += '</div>';
+
+  // Tabs
+  html += '<div class="tabs">';
+  html += '<button class="tab-btn' + (currentTab === 'learn' ? ' active' : '') + '" onclick="switchTab(' + currentLesson + ',\'learn\')">Learn</button>';
+  html += '<button class="tab-btn' + (currentTab === 'implement' ? ' active' : '') + '" onclick="switchTab(' + currentLesson + ',\'implement\')">Exercises</button>';
+  html += '<button class="tab-btn' + (currentTab === 'advanced' ? ' active' : '') + '" onclick="switchTab(' + currentLesson + ',\'advanced\')">Advanced</button>';
+  html += '</div>';
+
+  // Content
+  html += '<div class="tab-content">';
+  html += lesson[currentTab] || '<p>No content available for this tab.</p>';
+  html += '</div>';
+
+  document.getElementById('lesson-content').innerHTML = html;
+
+  // Update complete button state
+  if (currentTab === 'implement') {
+    var btn = document.getElementById('complete-btn-' + currentLesson);
+    if (btn && isDone) {
+      btn.textContent = 'Completed \u2713';
+      btn.classList.add('completed');
+      btn.disabled = true;
+    }
+  }
+}
+
+function switchTab(lessonIdx, tab) {
+  currentLesson = lessonIdx;
+  currentTab = tab;
+  renderLesson();
+}
+
+function switchOption(lessonIdx, option, btn) {
+  // Deactivate sibling buttons
+  var container = document.getElementById('options-' + lessonIdx);
+  if (container) {
+    var buttons = container.querySelectorAll('.option-btn');
+    buttons.forEach(function(b) { b.classList.remove('active'); });
+  }
+  if (btn) btn.classList.add('active');
+
+  // Hide all option contents for this lesson, show selected
+  var allOptions = document.querySelectorAll('[id^="option-' + lessonIdx + '-"]');
+  allOptions.forEach(function(el) { el.style.display = 'none'; });
+  var target = document.getElementById('option-' + lessonIdx + '-' + option);
+  if (target) target.style.display = 'block';
+}
+
+function markComplete(idx) {
+  if (completed.includes(idx)) return;
+  completed.push(idx);
+  localStorage.setItem('chat-completed', JSON.stringify(completed));
+
+  var btn = document.getElementById('complete-btn-' + idx);
+  if (btn) {
+    btn.textContent = 'Completed \u2713';
+    btn.classList.add('completed');
+    btn.disabled = true;
+  }
+
+  buildNav();
+  updateProgress();
+
+  // Auto-advance after 600ms
+  setTimeout(function() {
+    if (idx + 1 < LESSONS.length) {
+      loadLesson(idx + 1);
+    }
+  }, 600);
+}
+
+function copyCode(btn) {
+  var block = btn.parentElement.querySelector('code');
+  if (!block) return;
+  navigator.clipboard.writeText(block.textContent).then(function() {
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+  }).catch(function() {
+    btn.textContent = 'Failed';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+  });
+}
+
+// Initialize
+buildNav();
+loadLesson(0);
+updateProgress();
+</script>
+<script src="/participant-context.js"></script>
+</body>
+</html>

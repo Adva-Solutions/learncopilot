@@ -1,0 +1,7 @@
+{
+  "name": "learncopilot",
+  "private": true,
+  "dependencies": {
+    "@upstash/redis": "^1.37.0"
+  }
+}
