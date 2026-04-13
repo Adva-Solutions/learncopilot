@@ -883,7 +883,7 @@ const LESSONS = [
 <p>Open Copilot Chat. Paste your 3 emails into this prompt:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze these 3 writing samples and create a detailed "Voice Profile" for me. For context, I am a {{ROLE}} at {{ORG}}. Include: (1) Typical sentence length, (2) Formality level (1-10), (3) Common phrases I use, (4) Tone characteristics, (5) How I structure my messages (greeting style, closing style, paragraph length). Here are my samples:
+  <pre>Analyze these 3 writing samples and create a detailed "Voice Profile" for me. For context, I am a team lead at ODA, a global architecture and design firm. I coordinate with consultants, manage design teams, and communicate with clients. Include: (1) Typical sentence length, (2) Formality level (1-10), (3) Common phrases I use, (4) Tone characteristics, (5) How I structure my messages (greeting style, closing style, paragraph length). Here are my samples:
 
 ---SAMPLE 1---
 [Paste email 1]
@@ -910,7 +910,7 @@ const LESSONS = [
 <p>Send this prompt to see if Copilot can write like you:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Using this voice profile, draft an email from {{NAME}} declining a meeting invitation politely:
+  <pre>Using this voice profile, draft an email declining a meeting invitation politely. Write it from the perspective of the sender whose voice profile is below:
 
 [Paste your voice profile here]</pre>
 </div>
@@ -987,7 +987,7 @@ const LESSONS = [
 <p><strong>Step 1:</strong> Open Copilot Chat. Start by letting the agent interview you:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>I need to write my weekly status report. I am a {{ROLE}} at {{ORG}} and my key areas are {{TOPICS}}. Ask me the questions you need answered before you can draft it.</pre>
+  <pre>I need to write my weekly status report. I am a project architect at ODA, a global architecture and design firm, and my key areas are design development, consultant coordination, and permit submissions. Ask me the questions you need answered before you can draft it.</pre>
 </div>
 
 <p><strong>Step 2:</strong> Answer each question Copilot asks. Give it real details: what you finished, what is in progress, any blockers, and key metrics.</p>
@@ -1032,14 +1032,14 @@ const LESSONS = [
 <p><strong>Step 1:</strong> Open Copilot Chat. Ask it to do the research:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Research the latest developments in {{TOPICS}} from 2025-2026 using web search. Focus on the top 5 most impactful changes.</pre>
+  <pre>Research the latest developments in architecture technology and AI-assisted design from 2025-2026 using web search. Focus on the top 5 most impactful changes.</pre>
 </div>
 <p>The prompt above auto-fills with your topics. If you want to research a different area, replace it with your specific interest (e.g., "enterprise cybersecurity," "healthcare AI," "supply chain automation").</p>
 
 <p><strong>Step 2:</strong> Review what Copilot finds. Then send:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Now turn that research into a structured summary with: Key Findings (numbered), Implications for {{ORG}} (bullet points), Recommended Actions (prioritized list), Sources (with dates).</pre>
+  <pre>Now turn that research into a structured summary with: Key Findings (numbered), Implications for ODA (bullet points), Recommended Actions (prioritized list), Sources (with dates).</pre>
 </div>
 
 <p><strong>Step 3:</strong> Check the sources. Are they real? Are the dates accurate? Send: "Verify each source link is real and accessible. Flag any that might be incorrect." This is your quality check &mdash; always verify AI-generated citations.</p>
@@ -1097,7 +1097,7 @@ const LESSONS = [
 <p>Open Copilot Chat. Send:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>I built a [describe your agent in one sentence]. I work as a {{ROLE}} at {{ORG}}. Help me create a test plan with 5 test scenarios. For each scenario, give me: the exact input I should test, what a good response looks like, and what a bad response looks like.</pre>
+  <pre>I built a [describe your agent in one sentence]. I work as a team lead at ODA, a global architecture and design firm. Help me create a test plan with 5 test scenarios. For each scenario, give me: the exact input I should test, what a good response looks like, and what a bad response looks like.</pre>
 </div>
 <p>Replace the bracket with your actual agent description (e.g., "FAQ bot that answers questions about our company website" or "voice-profile writing agent that drafts emails in my style").</p>
 
@@ -1167,7 +1167,7 @@ const LESSONS = [
 <p>Open Copilot Chat. Send this prompt with your one-sentence idea:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>I want to build a Copilot Studio agent that [your one sentence]. I am a {{ROLE}} at {{ORG}} working on {{TOPICS}}. Walk me through exactly how to set this up step by step, including: what to name the agent, what description to give it, what knowledge sources to connect, what topics to create, and what trigger phrases to use.</pre>
+  <pre>I want to build a Copilot Studio agent that [your one sentence]. I am a team lead at ODA, a global architecture and design firm, working on project coordination, design documentation, and consultant management. Walk me through exactly how to set this up step by step, including: what to name the agent, what description to give it, what knowledge sources to connect, what topics to create, and what trigger phrases to use.</pre>
 </div>
 
 <h4>Step 3: Build It</h4>
@@ -1217,7 +1217,7 @@ const LESSONS = [
 <p>Think of 3 agents that could help your team. For each, you need: a name, what it does, and what data it uses. Open Copilot Chat and design the first one:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Design an agent for {{ORG}} called [name] that does [task]. It should connect to [data source] and output [format]. What topics, knowledge sources, and actions would it need in Copilot Studio?</pre>
+  <pre>Design an agent for ODA called [name] that does [task]. It should connect to [data source] and output [format]. What topics, knowledge sources, and actions would it need in Copilot Studio?</pre>
 </div>
 <p>Replace the brackets with your specifics. Example: "Design an agent called Meeting Prep that creates briefing docs before my calendar events. It should connect to my Outlook calendar and SharePoint documents and output a one-page summary."</p>
 
@@ -1228,7 +1228,7 @@ const LESSONS = [
 <p>Pick two of your agents that could work together. Send:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Design an agent for {{ORG}} called [name] that does [task]. It should connect to [data source] and output [format]. How would this agent hand off to [another agent name]? Define: what triggers the handoff, what information gets passed, and what happens if the second agent cannot handle the request.</pre>
+  <pre>Design an agent for ODA called [name] that does [task]. It should connect to [data source] and output [format]. How would this agent hand off to [another agent name]? Define: what triggers the handoff, what information gets passed, and what happens if the second agent cannot handle the request.</pre>
 </div>
 
 <h4>Step 4: Check Your Work</h4>
@@ -1418,6 +1418,5 @@ renderSidebar();
 renderLesson();
 syncProgress();
 </script>
-<script src="/participant-context.js"></script>
 </body>
 </html>
