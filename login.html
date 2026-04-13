@@ -33,6 +33,17 @@
     box-shadow: 0 4px 24px rgba(0,0,0,0.04);
   }
 
+  .client-logo {
+    text-align: center;
+    margin-bottom: 16px;
+    display: none;
+  }
+  .client-logo img {
+    max-height: 64px;
+    max-width: 200px;
+    object-fit: contain;
+  }
+
   .brand { text-align: center; margin-bottom: 6px; }
   .brand-name {
     font-family: 'Source Sans 3', sans-serif;
@@ -107,6 +118,7 @@
 <body>
 
 <div class="login-card">
+  <div class="client-logo" id="client-logo"><img id="client-logo-img" src="" alt=""></div>
   <div class="brand"><a class="brand-name" href="/">adva</a></div>
   <div class="subtitle" id="subtitle">Copilot Workshop</div>
   <h1 class="heading">Welcome</h1>
@@ -117,6 +129,10 @@
     <div class="field">
       <label for="name">Your Name</label>
       <input type="text" id="name" name="name" placeholder="Enter your full name" required autocomplete="name" autofocus>
+    </div>
+    <div class="field">
+      <label for="department">Department</label>
+      <input type="text" id="department" name="department" placeholder="e.g. Marketing, Engineering (optional)" autocomplete="organization">
     </div>
     <div class="field">
       <label for="password">Workshop Password</label>
@@ -131,10 +147,35 @@
 </div>
 
 <script>
+/* Read slug from URL */
+const urlParams = new URLSearchParams(window.location.search);
+const slug = urlParams.get('slug') || '';
+
 /* Apply tenant config if available */
 if (typeof TENANT !== 'undefined') {
   document.getElementById('subtitle').textContent = TENANT.workshopTitle || 'Copilot Workshop';
   document.title = 'Sign In — ' + (TENANT.workshopTitle || 'Copilot Workshop');
+}
+
+/* If slug is present, fetch client info for branded login */
+if (slug) {
+  fetch('/api/client-info?slug=' + encodeURIComponent(slug))
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (!data) return;
+      if (data.name) {
+        document.getElementById('subtitle').textContent = data.name;
+        document.title = 'Sign In — ' + data.name;
+      }
+      if (data.logo) {
+        const logoEl = document.getElementById('client-logo');
+        const logoImg = document.getElementById('client-logo-img');
+        logoImg.src = data.logo;
+        logoImg.alt = data.name || 'Client Logo';
+        logoEl.style.display = 'block';
+      }
+    })
+    .catch(() => {});
 }
 
 async function handleLogin(e) {
@@ -143,6 +184,7 @@ async function handleLogin(e) {
   const err = document.getElementById('error');
   const name = document.getElementById('name').value.trim();
   const password = document.getElementById('password').value;
+  const department = document.getElementById('department').value.trim();
 
   if (!name || !password) return;
 
@@ -154,7 +196,7 @@ async function handleLogin(e) {
     const res = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, password })
+      body: JSON.stringify({ name, password, slug, department })
     });
     const data = await res.json();
     if (!res.ok) {
@@ -165,7 +207,7 @@ async function handleLogin(e) {
       return;
     }
     localStorage.setItem('workshop_user', name);
-    window.location.href = '/';
+    window.location.href = slug ? '/?slug=' + encodeURIComponent(slug) : '/';
   } catch (e) {
     err.textContent = 'Connection error. Please try again.';
     err.classList.add('visible');
@@ -175,7 +217,9 @@ async function handleLogin(e) {
 }
 
 // If already logged in, redirect
-fetch('/api/me').then(r => { if (r.ok) window.location.href = '/'; });
+fetch('/api/me').then(r => r.json()).then(data => {
+  if (data.name) window.location.href = data.slug ? '/?slug=' + data.slug : '/';
+}).catch(() => {});
 </script>
 </body>
 </html>

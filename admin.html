@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Copilot Workshop</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230c1f3f'/><text x='16' y='23' font-size='20' font-family='serif' fill='%23c5973e' text-anchor='middle'>A</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark: #0c1f3f;
+  --accent: #c5973e;
+  --accent-light: rgba(197,151,62,.12);
+  --bg: #faf9f6;
+  --bg-warm: #f0ede6;
+  --text: #1a1a2e;
+  --text-secondary: #5a5a6e;
+  --text-light: #999;
+  --border: #ddd8ce;
+  --border-light: #e8e4dc;
+  --white: #fff;
+  --green: #3a7a5c;
+  --red: #c0392b;
+  --red-light: rgba(192,57,43,.08);
+  --radius: 10px;
+  --shadow: 0 2px 12px rgba(12,31,63,.07);
+  --shadow-lg: 0 8px 32px rgba(12,31,63,.12);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Source Sans 3', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeIn 400ms ease forwards;
+}
+@keyframes fadeIn { to { opacity: 1; } }
+h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; color: var(--dark); }
+h1 { font-size: 32px; font-weight: 700; }
+h2 { font-size: 26px; font-weight: 600; }
+h3 { font-size: 20px; font-weight: 600; }
+
+/* NAV */
+.top-nav {
+  background: var(--dark);
+  padding: 0 48px;
+  border-bottom: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-brand {
+  font-size: 22px; font-weight: 700;
+  color: var(--white); text-decoration: none;
+  letter-spacing: 0.04em;
+  font-family: 'Cormorant Garamond', serif;
+}
+.nav-brand:hover { opacity: 0.8; }
+.nav-divider { width: 1px; height: 24px; background: rgba(255,255,255,0.15); }
+.nav-subtitle { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 500; }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-link {
+  padding: 7px 16px; border-radius: 20px;
+  font-size: 13px; font-weight: 600;
+  text-decoration: none; transition: all 0.15s;
+  color: rgba(255,255,255,0.6); cursor: pointer;
+  background: none; border: none;
+}
+.nav-link:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+.nav-link.active { color: var(--white); background: rgba(255,255,255,0.12); }
+
+/* MAIN */
+.main { max-width: 1040px; margin: 0 auto; padding: 40px 24px 80px; }
+
+/* CARDS */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+.card + .card { margin-top: 16px; }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 24px; border-radius: 8px;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; border: none;
+  transition: all 0.15s; text-decoration: none;
+  font-family: inherit;
+}
+.btn-primary { background: var(--dark); color: var(--white); }
+.btn-primary:hover { background: #162d52; }
+.btn-accent { background: var(--accent); color: var(--white); }
+.btn-accent:hover { background: #b3862f; }
+.btn-outline {
+  background: transparent; color: var(--dark);
+  border: 1.5px solid var(--border);
+}
+.btn-outline:hover { border-color: var(--dark); background: var(--bg); }
+.btn-danger { background: var(--red); color: var(--white); }
+.btn-danger:hover { background: #a93226; }
+.btn-sm { padding: 6px 14px; font-size: 13px; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* FORM */
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block; font-size: 13px; font-weight: 600;
+  color: var(--text-secondary); margin-bottom: 6px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px; font-size: 15px;
+  font-family: inherit; background: var(--white);
+  transition: border-color 0.15s;
+  color: var(--text);
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  outline: none; border-color: var(--accent);
+}
+.form-group textarea { min-height: 100px; resize: vertical; }
+.form-group .hint { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* INLINE GROUP */
+.input-with-btn { display: flex; gap: 8px; }
+.input-with-btn input { flex: 1; }
+
+/* TABLE */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text-light); padding: 10px 14px;
+  border-bottom: 2px solid var(--border-light);
+}
+td { padding: 12px 14px; border-bottom: 1px solid var(--border-light); }
+tr:hover td { background: var(--accent-light); }
+.link-cell { color: var(--accent); cursor: pointer; font-weight: 600; }
+.link-cell:hover { text-decoration: underline; }
+
+/* BADGE */
+.badge {
+  display: inline-block; padding: 3px 10px;
+  border-radius: 12px; font-size: 12px; font-weight: 600;
+}
+.badge-active { background: rgba(58,122,92,.1); color: var(--green); }
+.badge-inactive { background: var(--red-light); color: var(--red); }
+.badge-draft { background: var(--accent-light); color: var(--accent); }
+
+/* STEPPER */
+.stepper { display: flex; gap: 0; margin-bottom: 32px; border-bottom: 2px solid var(--border-light); }
+.step-item {
+  flex: 1; text-align: center; padding: 14px 8px;
+  font-size: 13px; font-weight: 600; color: var(--text-light);
+  position: relative; cursor: default;
+}
+.step-item.active { color: var(--dark); }
+.step-item.active::after {
+  content: ''; position: absolute;
+  bottom: -2px; left: 20%; right: 20%; height: 2px;
+  background: var(--accent);
+}
+.step-item.completed { color: var(--green); }
+.step-number {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--border-light); color: var(--text-light);
+  font-size: 13px; margin-right: 6px;
+}
+.step-item.active .step-number { background: var(--accent); color: var(--white); }
+.step-item.completed .step-number { background: var(--green); color: var(--white); }
+
+/* JSON EDITOR */
+.json-editor {
+  width: 100%; min-height: 260px; padding: 16px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 13px; line-height: 1.6;
+  background: #1e1e2e; color: #cdd6f4;
+  border: 1px solid var(--border); border-radius: 8px;
+  resize: vertical; tab-size: 2;
+}
+
+/* STUDY CARDS */
+.study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.study-card {
+  background: var(--white); border: 1.5px solid var(--border-light);
+  border-radius: var(--radius); padding: 20px;
+  cursor: pointer; transition: all 0.15s;
+}
+.study-card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.study-card.selected { border-color: var(--accent); background: var(--accent-light); }
+.study-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 18px; margin-bottom: 8px; }
+.study-card .meta { font-size: 13px; color: var(--text-light); }
+
+/* PARTICIPANT SUMMARY */
+.participant-summary {
+  background: var(--bg); border-radius: 8px;
+  padding: 20px; margin-top: 16px;
+}
+.participant-summary h4 { font-size: 16px; margin-bottom: 12px; font-family: 'Cormorant Garamond', serif; }
+.participant-summary .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.tag {
+  display: inline-block; padding: 3px 10px;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; font-size: 12px; color: var(--text-secondary);
+}
+
+/* CONFIRMATION MODAL */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(12,31,63,.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200; animation: fadeIn 200ms ease;
+}
+.modal {
+  background: var(--white); border-radius: var(--radius);
+  padding: 32px; max-width: 420px; width: 90%;
+  box-shadow: var(--shadow-lg);
+}
+.modal h3 { margin-bottom: 12px; }
+.modal p { margin-bottom: 20px; color: var(--text-secondary); font-size: 15px; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+/* HEADER BAR */
+.page-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 28px;
+}
+.page-header-actions { display: flex; gap: 10px; }
+
+/* LOADING */
+.spinner {
+  display: inline-block; width: 20px; height: 20px;
+  border: 2.5px solid var(--border); border-top-color: var(--accent);
+  border-radius: 50%; animation: spin 0.6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-state {
+  text-align: center; padding: 60px 20px;
+  color: var(--text-light); font-size: 15px;
+}
+
+/* EMPTY STATE */
+.empty-state {
+  text-align: center; padding: 60px 20px; color: var(--text-light);
+}
+.empty-state h3 { color: var(--text-secondary); margin-bottom: 8px; }
+
+/* SUCCESS BANNER */
+.success-box {
+  background: rgba(58,122,92,.08); border: 1px solid rgba(58,122,92,.25);
+  border-radius: 8px; padding: 20px; text-align: center;
+}
+.success-box h3 { color: var(--green); margin-bottom: 8px; }
+.success-box code {
+  display: inline-block; background: var(--white);
+  padding: 8px 16px; border-radius: 6px;
+  font-size: 14px; margin-top: 8px;
+  border: 1px solid var(--border);
+}
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--dark); color: var(--white);
+  padding: 12px 24px; border-radius: 8px;
+  font-size: 14px; font-weight: 500;
+  box-shadow: var(--shadow-lg); z-index: 300;
+  animation: slideUp 300ms ease;
+}
+.toast.error { background: var(--red); }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .top-nav { padding: 0 16px; }
+  .main { padding: 24px 16px 60px; }
+  .form-row { grid-template-columns: 1fr; }
+  .page-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top-nav">
+  <div class="nav-left">
+    <a class="nav-brand" href="#dashboard">Copilot Admin</a>
+    <div class="nav-divider"></div>
+    <span class="nav-subtitle">Workshop Manager</span>
+  </div>
+  <div class="nav-right" id="nav-links"></div>
+</nav>
+
+<!-- APP -->
+<div class="main" id="app"></div>
+
+<!-- MODAL CONTAINER -->
+<div id="modal-root"></div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-root"></div>
+
+<script>
+/* ============================
+   STATE & CONFIG
+   ============================ */
+const API = {
+  auth:       '/api/admin/auth',
+  clients:    '/api/admin/clients',
+  client:     '/api/admin/client',
+  listenLabs: '/api/admin/listen-labs',
+  personalize:'/api/admin/personalize',
+  template:   '/api/admin/template',
+  reset:      '/api/admin/reset',
+  uploadLogo: '/api/admin/upload-logo',
+};
+
+let state = {
+  authenticated: false,
+  workshops: [],
+  wizardStep: 1,
+  wizardData: {},
+  wizardStudies: [],
+  wizardSelectedStudy: null,
+  wizardResponses: null,
+  wizardPersonalization: null,
+};
+
+/* ============================
+   UTILS
+   ============================ */
+function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+function $$(sel, ctx) { return [...(ctx || document).querySelectorAll(sel)]; }
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function slugify(text) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function formatDate(d) {
+  if (!d) return '--';
+  const dt = new Date(d);
+  return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function generatePassword(len = 10) {
+  const chars = 'abcdefghjkmnpqrstuvwxyz23456789';
+  let pw = '';
+  for (let i = 0; i < len; i++) pw += chars[Math.floor(Math.random() * chars.length)];
+  return pw;
+}
+
+/* ============================
+   TOAST
+   ============================ */
+function toast(msg, isError = false) {
+  const el = document.createElement('div');
+  el.className = 'toast' + (isError ? ' error' : '');
+  el.textContent = msg;
+  document.getElementById('toast-root').appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+/* ============================
+   MODAL
+   ============================ */
+function showModal(title, message, onConfirm, confirmLabel = 'Confirm', danger = false) {
+  const root = document.getElementById('modal-root');
+  root.innerHTML = `
+    <div class="modal-backdrop" id="modal-backdrop">
+      <div class="modal">
+        <h3>${esc(title)}</h3>
+        <p>${esc(message)}</p>
+        <div class="modal-actions">
+          <button class="btn btn-outline btn-sm" id="modal-cancel">Cancel</button>
+          <button class="btn ${danger ? 'btn-danger' : 'btn-primary'} btn-sm" id="modal-confirm">${esc(confirmLabel)}</button>
+        </div>
+      </div>
+    </div>`;
+  $('#modal-cancel').onclick = () => root.innerHTML = '';
+  $('#modal-backdrop').onclick = (e) => { if (e.target === e.currentTarget) root.innerHTML = ''; };
+  $('#modal-confirm').onclick = () => { root.innerHTML = ''; onConfirm(); };
+}
+
+/* ============================
+   API HELPERS
+   ============================ */
+async function apiFetch(url, opts = {}) {
+  const res = await fetch(url, {
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json', ...opts.headers },
+    ...opts,
+  });
+  if (res.status === 401) {
+    state.authenticated = false;
+    window.location.hash = '#login';
+    throw new Error('Not authenticated');
+  }
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error || `Request failed (${res.status})`);
+  }
+  if (res.status === 204) return null;
+  return res.json();
+}
+
+async function checkAuth() {
+  try {
+    await apiFetch(API.auth);
+    state.authenticated = true;
+    return true;
+  } catch {
+    state.authenticated = false;
+    return false;
+  }
+}
+
+/* ============================
+   NAV
+   ============================ */
+function renderNav() {
+  const links = document.getElementById('nav-links');
+  if (!state.authenticated) {
+    links.innerHTML = '';
+    return;
+  }
+  const hash = window.location.hash || '#dashboard';
+  links.innerHTML = `
+    <a class="nav-link ${hash === '#dashboard' ? 'active' : ''}" href="#dashboard">Workshops</a>
+    <a class="nav-link ${hash === '#new-workshop' ? 'active' : ''}" href="#new-workshop">New</a>
+    <a class="nav-link ${hash === '#template' ? 'active' : ''}" href="#template">Template</a>
+    <button class="nav-link" id="logout-btn">Logout</button>
+  `;
+  $('#logout-btn').onclick = async () => {
+    try { await apiFetch(API.auth, { method: 'DELETE' }); } catch {}
+    state.authenticated = false;
+    window.location.hash = '#login';
+  };
+}
+
+/* ============================
+   ROUTER
+   ============================ */
+async function route() {
+  const hash = window.location.hash || '#login';
+  const app = document.getElementById('app');
+
+  // Auth guard
+  if (hash !== '#login') {
+    if (!state.authenticated) {
+      const ok = await checkAuth();
+      if (!ok) { window.location.hash = '#login'; return; }
+    }
+  }
+
+  renderNav();
+
+  if (hash === '#login') return renderLogin(app);
+  if (hash === '#dashboard') return renderDashboard(app);
+  if (hash === '#new-workshop') return renderNewWorkshop(app);
+  if (hash === '#template') return renderTemplate(app);
+  if (hash.startsWith('#workshop/')) {
+    const slug = hash.replace('#workshop/', '');
+    return renderWorkshopDetail(app, slug);
+  }
+
+  // Fallback
+  window.location.hash = '#dashboard';
+}
+
+window.addEventListener('hashchange', route);
+
+/* ============================
+   LOGIN
+   ============================ */
+function renderLogin(app) {
+  app.innerHTML = `
+    <div style="max-width:400px;margin:80px auto;">
+      <div class="card" style="text-align:center;">
+        <h2 style="margin-bottom:8px;">Admin Login</h2>
+        <p style="color:var(--text-secondary);margin-bottom:24px;font-size:15px;">
+          Enter the admin password to continue
+        </p>
+        <form id="login-form">
+          <div class="form-group" style="text-align:left;">
+            <label>Password</label>
+            <input type="password" id="login-pw" placeholder="Admin password" autofocus required>
+          </div>
+          <button class="btn btn-primary" type="submit" style="width:100%;">Sign In</button>
+        </form>
+        <p id="login-error" style="color:var(--red);font-size:13px;margin-top:12px;display:none;"></p>
+      </div>
+    </div>`;
+
+  $('#login-form').onsubmit = async (e) => {
+    e.preventDefault();
+    const pw = $('#login-pw').value.trim();
+    if (!pw) return;
+    try {
+      await apiFetch(API.auth, {
+        method: 'POST',
+        body: JSON.stringify({ password: pw }),
+      });
+      state.authenticated = true;
+      window.location.hash = '#dashboard';
+    } catch (err) {
+      const errEl = $('#login-error');
+      errEl.textContent = err.message || 'Invalid password';
+      errEl.style.display = 'block';
+    }
+  };
+}
+
+/* ============================
+   DASHBOARD
+   ============================ */
+async function renderDashboard(app) {
+  app.innerHTML = `
+    <div class="page-header">
+      <h1>Workshops</h1>
+      <div class="page-header-actions">
+        <a class="btn btn-primary" href="#new-workshop">+ New Workshop</a>
+      </div>
+    </div>
+    <div class="loading-state"><div class="spinner"></div><p style="margin-top:12px;">Loading workshops...</p></div>`;
+
+  try {
+    const data = await apiFetch(API.clients);
+    state.workshops = data.clients || data || [];
+    renderWorkshopList(app);
+  } catch (err) {
+    app.querySelector('.loading-state').innerHTML = `<p style="color:var(--red);">Failed to load workshops: ${esc(err.message)}</p>`;
+  }
+}
+
+function renderWorkshopList(app) {
+  const ws = state.workshops;
+  if (!ws.length) {
+    app.innerHTML = `
+      <div class="page-header">
+        <h1>Workshops</h1>
+        <div class="page-header-actions">
+          <a class="btn btn-primary" href="#new-workshop">+ New Workshop</a>
+        </div>
+      </div>
+      <div class="empty-state">
+        <h3>No workshops yet</h3>
+        <p>Create your first workshop to get started.</p>
+      </div>`;
+    return;
+  }
+
+  app.innerHTML = `
+    <div class="page-header">
+      <h1>Workshops</h1>
+      <div class="page-header-actions">
+        <a class="btn btn-primary" href="#new-workshop">+ New Workshop</a>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Name</th><th>Slug</th><th>Participants</th><th>Created</th><th>Status</th>
+          </tr></thead>
+          <tbody id="workshop-tbody"></tbody>
+        </table>
+      </div>
+    </div>`;
+
+  const tbody = $('#workshop-tbody');
+  ws.forEach(w => {
+    const status = w.status || 'active';
+    const badgeClass = status === 'active' ? 'badge-active' : status === 'draft' ? 'badge-draft' : 'badge-inactive';
+    const count = w.participantCount ?? w.participants?.length ?? '--';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="link-cell" data-slug="${esc(w.slug)}">${esc(w.name)}</td>
+      <td><code>${esc(w.slug)}</code></td>
+      <td>${count}</td>
+      <td>${formatDate(w.createdAt || w.created)}</td>
+      <td><span class="badge ${badgeClass}">${esc(status)}</span></td>`;
+    tr.querySelector('.link-cell').onclick = () => window.location.hash = `#workshop/${w.slug}`;
+    tbody.appendChild(tr);
+  });
+}
+
+/* ============================
+   NEW WORKSHOP WIZARD
+   ============================ */
+function renderNewWorkshop(app) {
+  // Reset wizard on fresh visit
+  if (!window._wizardActive) {
+    state.wizardStep = 1;
+    state.wizardData = { departments: [] };
+    state.wizardStudies = [];
+    state.wizardSelectedStudy = null;
+    state.wizardResponses = null;
+    state.wizardPersonalization = null;
+    window._wizardActive = true;
+  }
+  renderWizardStep(app);
+}
+
+function renderWizardStep(app) {
+  const step = state.wizardStep;
+  const steps = ['Basic Info', 'Listen Labs', 'Personalization', 'Create'];
+
+  let stepperHTML = '<div class="stepper">';
+  steps.forEach((s, i) => {
+    const n = i + 1;
+    const cls = n === step ? 'active' : n < step ? 'completed' : '';
+    stepperHTML += `<div class="step-item ${cls}"><span class="step-number">${n < step ? '&#10003;' : n}</span>${s}</div>`;
+  });
+  stepperHTML += '</div>';
+
+  app.innerHTML = `<h1 style="margin-bottom:24px;">New Workshop</h1>${stepperHTML}<div id="wizard-content"></div>`;
+
+  const content = $('#wizard-content');
+  if (step === 1) renderWizardStep1(content);
+  else if (step === 2) renderWizardStep2(content);
+  else if (step === 3) renderWizardStep3(content);
+  else if (step === 4) renderWizardStep4(content);
+}
+
+/* -- Step 1: Basic Info -- */
+function renderWizardStep1(el) {
+  const d = state.wizardData;
+  el.innerHTML = `
+    <div class="card">
+      <h3 style="margin-bottom:20px;">Workshop Details</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Workshop Name</label>
+          <input type="text" id="w-name" value="${esc(d.name || '')}" placeholder="e.g. Contoso Q2 Training">
+        </div>
+        <div class="form-group">
+          <label>Slug</label>
+          <input type="text" id="w-slug" value="${esc(d.slug || '')}" placeholder="auto-generated-from-name">
+          <div class="hint">Lowercase letters, numbers, and hyphens only</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-with-btn">
+            <input type="text" id="w-password" value="${esc(d.password || '')}" placeholder="Workshop login password">
+            <button class="btn btn-outline btn-sm" id="gen-pw">Generate</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Industry</label>
+          <input type="text" id="w-industry" value="${esc(d.industry || '')}" placeholder="e.g. Financial Services">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="w-desc" placeholder="Brief description of the workshop...">${esc(d.description || '')}</textarea>
+      </div>
+      <div class="form-group">
+        <label>Departments</label>
+        <input type="text" id="w-depts" value="${esc((d.departments || []).join(', '))}" placeholder="e.g. Marketing, Sales, Engineering">
+        <div class="hint">Comma-separated list of departments</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;">
+        <button class="btn btn-primary" id="step1-next">Next: Listen Labs</button>
+      </div>
+    </div>`;
+
+  // Auto-slug
+  $('#w-name').oninput = () => {
+    const slugField = $('#w-slug');
+    if (!d._slugEdited) slugField.value = slugify($('#w-name').value);
+  };
+  $('#w-slug').oninput = () => { d._slugEdited = true; };
+  $('#w-slug').addEventListener('blur', () => {
+    $('#w-slug').value = slugify($('#w-slug').value);
+  });
+
+  // Generate password
+  $('#gen-pw').onclick = () => { $('#w-password').value = generatePassword(); };
+
+  // Next
+  $('#step1-next').onclick = () => {
+    const name = $('#w-name').value.trim();
+    const slug = slugify($('#w-slug').value.trim());
+    if (!name || !slug) { toast('Name and slug are required', true); return; }
+    state.wizardData = {
+      ...state.wizardData,
+      name,
+      slug,
+      password: $('#w-password').value.trim(),
+      industry: $('#w-industry').value.trim(),
+      description: $('#w-desc').value.trim(),
+      departments: $('#w-depts').value.split(',').map(s => s.trim()).filter(Boolean),
+    };
+    state.wizardStep = 2;
+    renderWizardStep(document.getElementById('app'));
+  };
+}
+
+/* -- Step 2: Listen Labs -- */
+async function renderWizardStep2(el) {
+  el.innerHTML = `
+    <div class="card">
+      <h3 style="margin-bottom:8px;">Listen Labs Survey</h3>
+      <p style="color:var(--text-secondary);margin-bottom:20px;font-size:14px;">
+        Select a survey study to import participant data. This step is optional.
+      </p>
+      <div id="studies-area">
+        <div class="loading-state"><div class="spinner"></div><p style="margin-top:8px;">Loading studies...</p></div>
+      </div>
+      <div id="study-detail" style="display:none;"></div>
+      <div style="display:flex;justify-content:space-between;margin-top:24px;">
+        <button class="btn btn-outline" id="step2-back">Back</button>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn-outline" id="step2-skip">Skip</button>
+          <button class="btn btn-primary" id="step2-next" disabled>Next: Personalization</button>
+        </div>
+      </div>
+    </div>`;
+
+  $('#step2-back').onclick = () => { state.wizardStep = 1; renderWizardStep(document.getElementById('app')); };
+  $('#step2-skip').onclick = () => { state.wizardStep = 3; renderWizardStep(document.getElementById('app')); };
+  $('#step2-next').onclick = () => {
+    if (!state.wizardResponses) { toast('Select a study first', true); return; }
+    state.wizardStep = 3;
+    renderWizardStep(document.getElementById('app'));
+  };
+
+  try {
+    const data = await apiFetch(`${API.listenLabs}?action=list`);
+    state.wizardStudies = data.studies || data || [];
+    renderStudyGrid();
+  } catch (err) {
+    $('#studies-area').innerHTML = `<p style="color:var(--red);">Failed to load studies: ${esc(err.message)}</p>`;
+  }
+}
+
+function renderStudyGrid() {
+  const area = $('#studies-area');
+  const studies = state.wizardStudies;
+  if (!studies.length) {
+    area.innerHTML = '<div class="empty-state"><h3>No studies found</h3><p>Create a Listen Labs study first, or skip this step.</p></div>';
+    return;
+  }
+  area.innerHTML = '<div class="study-grid" id="study-grid"></div>';
+  const grid = $('#study-grid');
+  studies.forEach(s => {
+    const card = document.createElement('div');
+    card.className = 'study-card' + (state.wizardSelectedStudy === s.id ? ' selected' : '');
+    card.innerHTML = `
+      <h4>${esc(s.title || s.name || 'Untitled')}</h4>
+      <div class="meta">${s.responseCount ?? s.responses ?? '?'} responses &middot; ${formatDate(s.createdAt || s.date)}</div>`;
+    card.onclick = () => selectStudy(s);
+    grid.appendChild(card);
+  });
+}
+
+async function selectStudy(study) {
+  state.wizardSelectedStudy = study.id || study.linkId;
+  renderStudyGrid();
+
+  const detail = $('#study-detail');
+  detail.style.display = 'block';
+  detail.innerHTML = `<div class="loading-state"><div class="spinner"></div><p style="margin-top:8px;">Loading study data...</p></div>`;
+
+  try {
+    const id = study.linkId || study.id;
+    const data = await apiFetch(`${API.listenLabs}?action=study&id=${encodeURIComponent(id)}`);
+    state.wizardResponses = data.responses || data;
+    renderStudyDetail(detail, data);
+    $('#step2-next').disabled = false;
+  } catch (err) {
+    detail.innerHTML = `<p style="color:var(--red);">Failed to load study: ${esc(err.message)}</p>`;
+  }
+}
+
+function renderStudyDetail(el, data) {
+  const responses = data.responses || data || [];
+  const names = [...new Set(responses.map(r => r.name || r.respondent).filter(Boolean))];
+  const roles = [...new Set(responses.map(r => r.role || r.jobTitle).filter(Boolean))];
+  const departments = [...new Set(responses.map(r => r.department).filter(Boolean))];
+  const tools = [...new Set(responses.flatMap(r => r.tools || []))];
+  const painPoints = [...new Set(responses.flatMap(r => r.painPoints || r.challenges || []))];
+
+  el.innerHTML = `
+    <div class="participant-summary">
+      <h4>Participant Summary (${responses.length} responses)</h4>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px;"><strong>Names:</strong> ${names.slice(0, 15).map(n => esc(n)).join(', ') || 'N/A'}</p>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;"><strong>Roles:</strong></p>
+      <div class="tag-list">${roles.map(r => `<span class="tag">${esc(r)}</span>`).join('') || '<span class="tag">N/A</span>'}</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-top:12px;margin-bottom:8px;"><strong>Departments:</strong></p>
+      <div class="tag-list">${departments.map(d => `<span class="tag">${esc(d)}</span>`).join('') || '<span class="tag">N/A</span>'}</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-top:12px;margin-bottom:8px;"><strong>Tools Used:</strong></p>
+      <div class="tag-list">${tools.map(t => `<span class="tag">${esc(t)}</span>`).join('') || '<span class="tag">N/A</span>'}</div>
+      <p style="font-size:14px;color:var(--text-secondary);margin-top:12px;margin-bottom:8px;"><strong>Pain Points:</strong></p>
+      <div class="tag-list">${painPoints.map(p => `<span class="tag">${esc(p)}</span>`).join('') || '<span class="tag">N/A</span>'}</div>
+    </div>`;
+}
+
+/* -- Step 3: AI Personalization -- */
+function renderWizardStep3(el) {
+  const hasResponses = !!state.wizardResponses;
+  el.innerHTML = `
+    <div class="card">
+      <h3 style="margin-bottom:8px;">AI Personalization</h3>
+      <p style="color:var(--text-secondary);margin-bottom:20px;font-size:14px;">
+        Generate personalized lesson overrides using AI based on the workshop details${hasResponses ? ' and survey responses' : ''}.
+      </p>
+      <div style="margin-bottom:20px;">
+        <button class="btn btn-accent" id="generate-btn">
+          Generate Personalization
+        </button>
+      </div>
+      <div id="personalization-area" style="display:none;">
+        <div class="form-group">
+          <label>Generated Personalization (edit as needed)</label>
+          <textarea class="json-editor" id="personalization-json"></textarea>
+        </div>
+        <div style="display:flex;justify-content:flex-end;">
+          <button class="btn btn-primary" id="approve-btn">Approve Personalization</button>
+        </div>
+      </div>
+      <div id="gen-loading" style="display:none;" class="loading-state">
+        <div class="spinner"></div>
+        <p style="margin-top:8px;">Generating personalization... This may take a moment.</p>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:24px;">
+        <button class="btn btn-outline" id="step3-back">Back</button>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn-outline" id="step3-skip">Skip</button>
+          <button class="btn btn-primary" id="step3-next" ${state.wizardPersonalization ? '' : 'disabled'}>Next: Review & Create</button>
+        </div>
+      </div>
+    </div>`;
+
+  // If already generated, show it
+  if (state.wizardPersonalization) {
+    $('#personalization-area').style.display = 'block';
+    $('#personalization-json').value = typeof state.wizardPersonalization === 'string'
+      ? state.wizardPersonalization
+      : JSON.stringify(state.wizardPersonalization, null, 2);
+  }
+
+  $('#step3-back').onclick = () => { state.wizardStep = 2; renderWizardStep(document.getElementById('app')); };
+  $('#step3-skip').onclick = () => { state.wizardStep = 4; renderWizardStep(document.getElementById('app')); };
+
+  $('#generate-btn').onclick = async () => {
+    $('#gen-loading').style.display = 'block';
+    $('#generate-btn').disabled = true;
+    try {
+      const payload = {
+        client: state.wizardData,
+        responses: state.wizardResponses || [],
+      };
+      const data = await apiFetch(API.personalize, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      });
+      const personalization = data.personalization || data.overrides || data;
+      state.wizardPersonalization = personalization;
+      $('#personalization-area').style.display = 'block';
+      $('#personalization-json').value = typeof personalization === 'string'
+        ? personalization
+        : JSON.stringify(personalization, null, 2);
+      $('#step3-next').disabled = false;
+      toast('Personalization generated');
+    } catch (err) {
+      toast('Generation failed: ' + err.message, true);
+    } finally {
+      $('#gen-loading').style.display = 'none';
+      $('#generate-btn').disabled = false;
+    }
+  };
+
+  $('#approve-btn').onclick = () => {
+    try {
+      const raw = $('#personalization-json').value.trim();
+      state.wizardPersonalization = JSON.parse(raw);
+      $('#step3-next').disabled = false;
+      toast('Personalization approved');
+    } catch {
+      // Allow non-JSON too
+      state.wizardPersonalization = $('#personalization-json').value.trim();
+      $('#step3-next').disabled = false;
+      toast('Personalization approved (raw text)');
+    }
+  };
+
+  $('#step3-next').onclick = () => {
+    state.wizardStep = 4;
+    renderWizardStep(document.getElementById('app'));
+  };
+}
+
+/* -- Step 4: Review & Create -- */
+function renderWizardStep4(el) {
+  const d = state.wizardData;
+  const hasPers = !!state.wizardPersonalization;
+  const hasResp = !!state.wizardResponses;
+
+  el.innerHTML = `
+    <div class="card">
+      <h3 style="margin-bottom:20px;">Review & Create</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 32px;margin-bottom:24px;">
+        <div><strong style="font-size:12px;text-transform:uppercase;color:var(--text-light);">Name</strong><p>${esc(d.name)}</p></div>
+        <div><strong style="font-size:12px;text-transform:uppercase;color:var(--text-light);">Slug</strong><p><code>${esc(d.slug)}</code></p></div>
+        <div><strong style="font-size:12px;text-transform:uppercase;color:var(--text-light);">Password</strong><p><code>${esc(d.password || '(none)')}</code></p></div>
+        <div><strong style="font-size:12px;text-transform:uppercase;color:var(--text-light);">Industry</strong><p>${esc(d.industry || '(none)')}</p></div>
+        <div style="grid-column:1/-1;"><strong style="font-size:12px;text-transform:uppercase;color:var(--text-light);">Description</strong><p>${esc(d.description || '(none)')}</p></div>
+        <div><strong style="font-size:12px;text-transform:uppercase;color:var(--text-light);">Departments</strong><p>${d.departments.length ? d.departments.map(x => esc(x)).join(', ') : '(none)'}</p></div>
+        <div><strong style="font-size:12px;text-transform:uppercase;color:var(--text-light);">Survey Data</strong><p>${hasResp ? 'Imported' : 'Skipped'}</p></div>
+        <div><strong style="font-size:12px;text-transform:uppercase;color:var(--text-light);">Personalization</strong><p>${hasPers ? 'Generated' : 'Skipped'}</p></div>
+      </div>
+
+      <div id="create-result"></div>
+
+      <div style="display:flex;justify-content:space-between;margin-top:24px;">
+        <button class="btn btn-outline" id="step4-back">Back</button>
+        <button class="btn btn-accent" id="create-btn">Create Workshop</button>
+      </div>
+    </div>`;
+
+  $('#step4-back').onclick = () => { state.wizardStep = 3; renderWizardStep(document.getElementById('app')); };
+
+  $('#create-btn').onclick = async () => {
+    $('#create-btn').disabled = true;
+    $('#create-btn').innerHTML = '<div class="spinner"></div> Creating...';
+    try {
+      const payload = {
+        ...state.wizardData,
+        responses: state.wizardResponses || undefined,
+        personalization: state.wizardPersonalization || undefined,
+      };
+      const data = await apiFetch(API.clients, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      });
+      const slug = data.slug || state.wizardData.slug;
+      $('#create-result').innerHTML = `
+        <div class="success-box">
+          <h3>Workshop Created Successfully</h3>
+          <p style="color:var(--text-secondary);">Share this login URL with participants:</p>
+          <code>${window.location.origin}/?slug=${esc(slug)}</code>
+          <div style="margin-top:16px;">
+            <a class="btn btn-primary btn-sm" href="#workshop/${esc(slug)}">Manage Workshop</a>
+            <a class="btn btn-outline btn-sm" href="#dashboard" style="margin-left:8px;">Back to Dashboard</a>
+          </div>
+        </div>`;
+      $('#create-btn').style.display = 'none';
+      $('#step4-back').style.display = 'none';
+      window._wizardActive = false;
+    } catch (err) {
+      toast('Failed to create workshop: ' + err.message, true);
+      $('#create-btn').disabled = false;
+      $('#create-btn').textContent = 'Create Workshop';
+    }
+  };
+}
+
+/* ============================
+   WORKSHOP DETAIL
+   ============================ */
+async function renderWorkshopDetail(app, slug) {
+  app.innerHTML = `
+    <div class="loading-state"><div class="spinner"></div><p style="margin-top:12px;">Loading workshop...</p></div>`;
+
+  try {
+    const data = await apiFetch(`${API.client}?slug=${encodeURIComponent(slug)}`);
+    renderWorkshopEditor(app, data);
+  } catch (err) {
+    app.innerHTML = `<div class="card"><p style="color:var(--red);">Failed to load workshop: ${esc(err.message)}</p>
+      <a class="btn btn-outline btn-sm" href="#dashboard" style="margin-top:12px;">Back to Dashboard</a></div>`;
+  }
+}
+
+function renderWorkshopEditor(app, workshop) {
+  const w = workshop.client || workshop;
+  const slug = w.slug;
+  const participants = w.participants || [];
+  const personalization = w.personalization || w.lessonOverrides || null;
+
+  app.innerHTML = `
+    <div class="page-header">
+      <div>
+        <a href="#dashboard" style="font-size:13px;color:var(--text-light);text-decoration:none;">&larr; Back to Workshops</a>
+        <h1 style="margin-top:4px;">${esc(w.name)}</h1>
+      </div>
+      <div class="page-header-actions">
+        <button class="btn btn-outline btn-sm" id="reset-btn">Reset Progress</button>
+        <button class="btn btn-danger btn-sm" id="delete-btn">Delete Workshop</button>
+      </div>
+    </div>
+
+    <!-- Edit Form -->
+    <div class="card" style="margin-bottom:20px;">
+      <h3 style="margin-bottom:16px;">Settings</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="ed-name" value="${esc(w.name)}">
+        </div>
+        <div class="form-group">
+          <label>Slug</label>
+          <input type="text" value="${esc(slug)}" disabled>
+          <div class="hint">Slug cannot be changed after creation</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Password</label>
+          <input type="text" id="ed-password" value="${esc(w.password || '')}">
+        </div>
+        <div class="form-group">
+          <label>Industry</label>
+          <input type="text" id="ed-industry" value="${esc(w.industry || '')}">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Departments</label>
+          <input type="text" id="ed-depts" value="${esc((w.departments || []).join(', '))}">
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select id="ed-status">
+            <option value="active" ${(w.status || 'active') === 'active' ? 'selected' : ''}>Active</option>
+            <option value="draft" ${w.status === 'draft' ? 'selected' : ''}>Draft</option>
+            <option value="inactive" ${w.status === 'inactive' ? 'selected' : ''}>Inactive</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:16px;">
+        <button class="btn btn-primary btn-sm" id="save-settings">Save Changes</button>
+      </div>
+    </div>
+
+    <!-- Participants -->
+    <div class="card" style="margin-bottom:20px;">
+      <h3 style="margin-bottom:16px;">Participants (${participants.length})</h3>
+      ${participants.length ? `
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name</th><th>Role</th><th>Department</th><th>Progress</th><th>Last Active</th></tr></thead>
+            <tbody id="participants-tbody"></tbody>
+          </table>
+        </div>` : '<div class="empty-state"><p>No participants have joined yet.</p></div>'}
+    </div>
+
+    <!-- Personalization -->
+    <div class="card">
+      <h3 style="margin-bottom:16px;">Personalization Overrides</h3>
+      <div class="form-group">
+        <textarea class="json-editor" id="ed-personalization">${personalization ? esc(typeof personalization === 'string' ? personalization : JSON.stringify(personalization, null, 2)) : ''}</textarea>
+      </div>
+      <div style="display:flex;justify-content:flex-end;">
+        <button class="btn btn-primary btn-sm" id="save-personalization">Save Personalization</button>
+      </div>
+    </div>`;
+
+  // Participants table
+  if (participants.length) {
+    const tbody = $('#participants-tbody');
+    participants.forEach(p => {
+      const progress = p.progress || p.completedLessons || 0;
+      const total = p.totalLessons || 12;
+      const pct = total > 0 ? Math.round((progress / total) * 100) : 0;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${esc(p.name || p.email || 'Anonymous')}</td>
+        <td>${esc(p.role || '--')}</td>
+        <td>${esc(p.department || '--')}</td>
+        <td>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="flex:1;height:6px;background:var(--border-light);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:${pct}%;background:var(--green);border-radius:3px;"></div>
+            </div>
+            <span style="font-size:12px;color:var(--text-light);white-space:nowrap;">${progress}/${total}</span>
+          </div>
+        </td>
+        <td style="font-size:13px;color:var(--text-light);">${formatDate(p.lastActive || p.updatedAt)}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Save settings
+  $('#save-settings').onclick = async () => {
+    try {
+      await apiFetch(`${API.client}?slug=${encodeURIComponent(slug)}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          name: $('#ed-name').value.trim(),
+          password: $('#ed-password').value.trim(),
+          industry: $('#ed-industry').value.trim(),
+          departments: $('#ed-depts').value.split(',').map(s => s.trim()).filter(Boolean),
+          status: $('#ed-status').value,
+        }),
+      });
+      toast('Settings saved');
+    } catch (err) {
+      toast('Save failed: ' + err.message, true);
+    }
+  };
+
+  // Save personalization
+  $('#save-personalization').onclick = async () => {
+    let pers = $('#ed-personalization').value.trim();
+    try { pers = JSON.parse(pers); } catch {}
+    try {
+      await apiFetch(`${API.client}?slug=${encodeURIComponent(slug)}`, {
+        method: 'PUT',
+        body: JSON.stringify({ personalization: pers }),
+      });
+      toast('Personalization saved');
+    } catch (err) {
+      toast('Save failed: ' + err.message, true);
+    }
+  };
+
+  // Reset progress
+  $('#reset-btn').onclick = () => {
+    showModal(
+      'Reset Progress',
+      'This will reset all participant progress for this workshop. This action cannot be undone.',
+      async () => {
+        try {
+          await apiFetch(API.reset, {
+            method: 'POST',
+            body: JSON.stringify({ slug }),
+          });
+          toast('Progress reset successfully');
+          renderWorkshopDetail(app, slug);
+        } catch (err) {
+          toast('Reset failed: ' + err.message, true);
+        }
+      },
+      'Reset All Progress',
+      true
+    );
+  };
+
+  // Delete workshop
+  $('#delete-btn').onclick = () => {
+    showModal(
+      'Delete Workshop',
+      `Are you sure you want to permanently delete "${w.name}"? This will remove all participant data and cannot be undone.`,
+      async () => {
+        try {
+          await apiFetch(`${API.client}?slug=${encodeURIComponent(slug)}`, { method: 'DELETE' });
+          toast('Workshop deleted');
+          window.location.hash = '#dashboard';
+        } catch (err) {
+          toast('Delete failed: ' + err.message, true);
+        }
+      },
+      'Delete Permanently',
+      true
+    );
+  };
+}
+
+/* ============================
+   TEMPLATE EDITOR
+   ============================ */
+async function renderTemplate(app) {
+  app.innerHTML = `
+    <div class="page-header">
+      <h1>Global Template</h1>
+      <div class="page-header-actions">
+        <button class="btn btn-primary btn-sm" id="save-template" disabled>Save Template</button>
+      </div>
+    </div>
+    <div class="loading-state"><div class="spinner"></div><p style="margin-top:12px;">Loading template...</p></div>`;
+
+  try {
+    const data = await apiFetch(API.template);
+    renderTemplateEditor(app, data);
+  } catch (err) {
+    app.innerHTML += `<div class="card"><p style="color:var(--red);">Failed to load template: ${esc(err.message)}</p></div>`;
+  }
+}
+
+function renderTemplateEditor(app, templateData) {
+  const template = templateData.template || templateData;
+  const replacements = template.replacements || template.globalReplacements || {};
+  const overrides = template.lessonOverrides || template.overrides || {};
+
+  app.innerHTML = `
+    <div class="page-header">
+      <h1>Global Template</h1>
+      <div class="page-header-actions">
+        <button class="btn btn-primary btn-sm" id="save-template">Save Template</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <h3 style="margin-bottom:16px;">Global Replacements</h3>
+      <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;">
+        Key-value pairs applied to all workshops. Use <code>{{key}}</code> syntax in lesson content.
+      </p>
+      <div class="form-group">
+        <textarea class="json-editor" id="tpl-replacements">${esc(JSON.stringify(replacements, null, 2))}</textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom:16px;">Lesson Overrides</h3>
+      <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;">
+        Override specific lesson content globally. Keyed by lesson ID.
+      </p>
+      <div class="form-group">
+        <textarea class="json-editor" id="tpl-overrides" style="min-height:340px;">${esc(JSON.stringify(overrides, null, 2))}</textarea>
+      </div>
+    </div>`;
+
+  $('#save-template').onclick = async () => {
+    let replacementsVal, overridesVal;
+    try {
+      replacementsVal = JSON.parse($('#tpl-replacements').value);
+    } catch {
+      toast('Invalid JSON in replacements', true);
+      return;
+    }
+    try {
+      overridesVal = JSON.parse($('#tpl-overrides').value);
+    } catch {
+      toast('Invalid JSON in lesson overrides', true);
+      return;
+    }
+    try {
+      await apiFetch(API.template, {
+        method: 'PUT',
+        body: JSON.stringify({
+          replacements: replacementsVal,
+          lessonOverrides: overridesVal,
+        }),
+      });
+      toast('Template saved');
+    } catch (err) {
+      toast('Save failed: ' + err.message, true);
+    }
+  };
+}
+
+/* ============================
+   INIT
+   ============================ */
+(async function init() {
+  // Clean up wizard flag when navigating away
+  window.addEventListener('hashchange', () => {
+    if (!window.location.hash.startsWith('#new-workshop')) {
+      window._wizardActive = false;
+    }
+  });
+  await route();
+})();
+</script>
+</body>
+</html>

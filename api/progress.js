@@ -1,32 +1,43 @@
-import { Redis } from '@upstash/redis';
+import { getRedis } from './lib/redis.js';
 import { getUser } from './me.js';
 
-const redis = new Redis({
-  url: process.env.KV_REST_API_URL,
-  token: process.env.KV_REST_API_TOKEN,
-});
-
-const PREFIX = process.env.REDIS_PREFIX || 'hartman';
-
 export default async function handler(req, res) {
+  const r = getRedis();
+
   if (req.method === 'GET') {
-    const keys = await redis.smembers(`${PREFIX}:users`) || [];
-    const participants = [];
-    for (const key of keys) {
-      const data = await redis.get(`${PREFIX}:progress:${key}`);
-      if (data) participants.push(data);
+    const user = getUser(req);
+    const slug = req.query.slug || (user && user.slug) || '';
+    const prefix = slug ? `client:${slug}:` : 'workshop:';
+
+    try {
+      const keys = await r.smembers(`${prefix}users`);
+      const participants = [];
+      for (const key of keys) {
+        const raw = await r.get(`${prefix}progress:${key}`);
+        if (raw) {
+          try { participants.push(JSON.parse(raw)); } catch { }
+        }
+      }
+      participants.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
+      return res.status(200).json({ participants });
+    } catch (e) {
+      return res.status(500).json({ error: 'Redis error', detail: e.message });
     }
-    participants.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
-    return res.status(200).json({ participants });
   }
 
   if (req.method === 'POST') {
-    const name = getUser(req);
-    if (!name) return res.status(401).json({ error: 'Not logged in' });
+    const user = getUser(req);
+    if (!user) return res.status(401).json({ error: 'Not logged in' });
+
+    const slug = user.slug || '';
+    const prefix = slug ? `client:${slug}:` : 'workshop:';
 
     const { chat, apps, agents } = req.body || {};
+    const userKey = user.uid ? `${user.name}::${user.uid}` : user.name;
     const data = {
-      name,
+      name: user.name,
+      department: user.department || null,
+      slug,
       updatedAt: Date.now(),
       chat: chat || { completed: [], points: 0 },
       apps: apps || { completed: [], points: 0 },
@@ -34,9 +45,13 @@ export default async function handler(req, res) {
       totalPoints: (chat?.points || 0) + (apps?.points || 0) + (agents?.points || 0)
     };
 
-    await redis.sadd(`${PREFIX}:users`, name);
-    await redis.set(`${PREFIX}:progress:${name}`, JSON.stringify(data));
-    return res.status(200).json({ ok: true });
+    try {
+      await r.sadd(`${prefix}users`, userKey);
+      await r.set(`${prefix}progress:${userKey}`, JSON.stringify(data));
+      return res.status(200).json({ ok: true });
+    } catch (e) {
+      return res.status(500).json({ error: 'Redis error', detail: e.message });
+    }
   }
 
   return res.status(405).json({ error: 'Method not allowed' });
