@@ -1,0 +1,71 @@
+ODA Architecture - Design Review Meeting
+Project: The Shore Club Residences (Residential Condo)
+Date: March 18, 2025
+Attendees: Akshay Mehra, Yinxing Liu, Sarah Kim, James Hartwell (Structural Consultant), Lily Tran
+
+[Yinxing]: Alright everyone, thanks for joining. We have a lot to cover today on Shore Club. Let's start with the facade and then move through floor plans and permitting.
+[Akshay]: Before we jump in, just a heads up that the client meeting got moved to next Thursday, so we have a bit more runway on the presentation boards.
+[Yinxing]: Good to know. That actually helps. Okay, Akshay, walk us through where we landed on the facade materials.
+[Akshay]: Sure. So after the last round of client feedback, we explored three options. The first is the fluted precast concrete with bronze anodized aluminum accents. Second is the terracotta rain screen system. Third is a hybrid approach mixing the precast with terracotta on the upper residential floors.
+[James]: From a structural standpoint, the terracotta rain screen adds about twelve percent more dead load on the curtain wall framing compared to the precast. It's manageable but it does affect the connection details at floors eight through fourteen.
+[Akshay]: Right, and that's part of why we're leaning toward option three, the hybrid. We get the terracotta warmth on the residential tower where it matters visually, but keep the precast on the base and parking podium where we need durability and lower cost.
+[Sarah]: I like the hybrid from an interiors perspective too. The terracotta tones on the upper floors connect nicely with the warm palette we're developing for the unit interiors. It gives us a coherent story from outside to inside.
+[Yinxing]: What about the cost delta between option one and option three?
+[Akshay]: We got preliminary numbers from two subcontractors. The hybrid is roughly eight to ten percent more than full precast, but about fifteen percent less than full terracotta. So it's the sweet spot.
+[James]: I should mention the terracotta panels need a minimum six-inch cavity for the rain screen assembly. That eats into the floor plate on the upper levels by about eighteen inches per side.
+[Yinxing]: Eighteen inches per side is significant. How does that affect unit square footage?
+[Akshay]: We lose about forty to sixty square feet per unit on floors eight and above. It's not ideal but we can offset some of that by tightening the corridor widths on those floors. We're currently at six feet which is generous for residential.
+[Sarah]: I wouldn't go below five foot six on the corridors. Below that it starts to feel tight, especially with the wall sconces we planned.
+[Yinxing]: Agreed. Let's target five foot eight and see what that recovers. Akshay, can you run those numbers by Friday?
+[Akshay]: Will do.
+[Lily]: Quick question on the facade. For the marketing renders, should I brief the visualization team on the hybrid option or are we still presenting all three to the client?
+[Yinxing]: Let's present all three but lead with the hybrid as the recommended direction. Can you get the viz team started on that hero angle from the southeast corner?
+[Lily]: Absolutely. I'll need the updated Revit model though. Akshay, when can I get that exported?
+[Akshay]: Priya is updating the model now. I'd say by end of day Wednesday you'll have a clean export.
+[Lily]: Perfect. That gives the viz team about a week for the first round of renders.
+[Yinxing]: Good. Let's move to the floor plan revisions. Sarah, where are we on the interior layouts?
+[Sarah]: We've reworked the two-bedroom units based on the client's comments. The big change is flipping the kitchen orientation so it opens to the living area with an island rather than the galley layout. It tests much better for the target buyer demographic.
+[Akshay]: The plumbing stacks still align with that flip. We confirmed with the MEP team last week.
+[Sarah]: Right. The other change is expanding the primary bathroom in the three-bedroom units. We pushed the closet wall back about two feet to accommodate a freestanding tub. That was a specific client request.
+[James]: Does moving that wall affect the shear wall on grid line C?
+[Akshay]: No, that closet wall is non-structural. The shear wall is on the other side at grid D.
+[James]: Okay good. Just wanted to confirm since we're close to finalizing the structural drawings.
+[Yinxing]: When do you need final architectural backgrounds for the structural set, James?
+[James]: Ideally by April fourth. That gives us three weeks to complete the structural drawings before the permit submission window.
+[Yinxing]: That's tight. Akshay, is April fourth realistic?
+[Akshay]: It's tight but doable if we lock down the floor plans this week. The biggest risk is the ground floor retail layout. The retail tenant hasn't confirmed their space requirements yet.
+[Yinxing]: I'll escalate that with Eran. We can't keep holding the ground floor for a tenant that hasn't committed. Let's design to a generic retail shell and adapt later if needed.
+[Akshay]: That simplifies things. I'll proceed on that basis.
+[Yinxing]: Now let's talk about the permit timeline. Where are we with the city?
+[Akshay]: We had the pre-application meeting with the planning department two weeks ago. Generally positive feedback. They want to see more detail on the streetscape and the public plaza component. The main concern was the setback on the north side.
+[James]: The north setback issue might require us to drop two floors from the tower or step back the upper mass. Have you looked at the zoning implications?
+[Akshay]: We're looking at a step back at floor twelve. It actually creates an opportunity for terrace units on that level which could be a premium product.
+[Sarah]: Terrace units would be great from a sales perspective. Lily, that's a strong marketing angle.
+[Lily]: Definitely. Penthouse-style terraces on a mid-level floor. Very sellable. I can work that into the brochure concept.
+[Yinxing]: Okay, the permit submission target is May first. That gives us about six weeks. Let's map out the critical path.
+[Akshay]: The main deliverables are: finalize floor plans by end of this week, facade design locked by March twenty-eighth, structural backgrounds to James by April fourth, full drawing set assembled by April eighteenth, and two weeks for internal QA before submission.
+[Yinxing]: James, any other coordination items from your side?
+[James]: Yes, two things. First, we need the geotechnical report finalized. The boring logs came back last week and there's a layer of soft clay at about thirty feet that we didn't expect. We may need to go to deeper piles which adds cost and about three weeks to the foundation schedule.
+[Akshay]: That's a significant flag. Have you talked to the geotech engineer about alternatives?
+[James]: We have a meeting Thursday to discuss options. Ground improvement might be feasible and it would save time over deeper piles. I'll report back next week.
+[Yinxing]: Please copy David on that. He's tracking the construction schedule.
+[James]: Will do. The second item is the elevator pit depth. The current design shows a standard five-foot pit but the elevator consultant is now asking for six foot six to accommodate the cab size the client wants. That pushes us further into that clay layer.
+[Akshay]: Everything circles back to the geotech. Let's make sure that Thursday meeting addresses the elevator pit depth too.
+[James]: Agreed. I'll add it to the agenda.
+[Yinxing]: Alright. Lily, any updates on the presentation materials for the client meeting?
+[Lily]: Yes. We're preparing a full presentation deck with the three facade options, updated floor plans, and the amenity level renderings. I'm also putting together a physical materials board with the actual facade samples.
+[Lily]: One issue though. The terracotta sample from the Italian supplier hasn't arrived yet. FedEx shows it stuck in customs. I'm trying to get a rush on it but it might not make it by Thursday.
+[Akshay]: We have a similar sample from the domestic supplier. It's not the exact product but the color and texture are close enough for a client presentation.
+[Lily]: That works as a backup. I'll have both options ready.
+[Sarah]: I'll bring the interior finish boards too. The kitchen and bathroom palettes are finalized for the model unit.
+[Yinxing]: Great. Let's do a dry run of the presentation on Wednesday at two. Everyone available?
+[Akshay]: Works for me.
+[Sarah]: I have a site visit in the morning but I'll be back by two.
+[Lily]: I'm good.
+[James]: I can dial in remotely. I have another project site visit that day.
+[Yinxing]: Perfect. Okay let me summarize the action items. Akshay, corridor width study and square footage impact by Friday. Akshay, Revit model export to Lily by end of day Wednesday. Yinxing, escalate ground floor retail decision with Eran. James, geotech meeting Thursday and report back on piles versus ground improvement. James, address elevator pit depth in that same meeting. Lily, coordinate viz team on hybrid facade renders. Lily, secure facade material samples. Sarah, finalize interior boards for client meeting. Everyone, dry run Wednesday at two PM.
+[Akshay]: Got it all.
+[Sarah]: Clear on my end.
+[Lily]: Same here.
+[James]: All noted. I'll send the geotech meeting invite today.
+[Yinxing]: Good work everyone. We're in a strong position on this project. Let's keep the momentum going. Meeting adjourned.

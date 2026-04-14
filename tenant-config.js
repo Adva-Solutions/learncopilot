@@ -48,7 +48,7 @@ const TENANT = {
 
   /* Course modules — toggle enabled/disabled per tenant */
   courses: {
-    chat:   { enabled: true, label: 'Copilot Chat',    shortLabel: 'Chat',   totalSteps: 11, totalPoints: 180 },
+    chat:   { enabled: true, label: 'Copilot Chat',    shortLabel: 'Chat',   totalSteps: 10, totalPoints: 140 },
     apps:   { enabled: true, label: 'Copilot in Apps',  shortLabel: 'Apps',   totalSteps: 10, totalPoints: 200 },
     agents: { enabled: true, label: 'Building Agents',  shortLabel: 'Agents', totalSteps: 8,  totalPoints: 200 },
   },

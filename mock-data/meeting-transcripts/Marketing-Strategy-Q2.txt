@@ -1,0 +1,61 @@
+ODA Architecture - Marketing Strategy Meeting
+Q2 2025 Planning Session
+Date: March 25, 2025
+Attendees: Lily Tran, Eran Chen, Thalia Morrison, Rachel Simmons (PR Agency Rep)
+
+[Lily]: Good morning everyone. Thanks for making time for this. We have a packed agenda covering award submissions, photography, the website refresh, social media, and RFP templates. Thalia, are you set to capture notes?
+[Thalia]: All set. I'll send the summary out by end of day.
+[Lily]: Great. Let's start with the award submissions since those deadlines are coming up fast.
+[Lily]: We have three projects eligible for submission this cycle. The Wynwood mixed-use building, the Jersey City waterfront tower, and the Fort Lauderdale cultural center. The AIA New York deadline is April fifteenth, and the Architizer A+ Awards close April thirtieth.
+[Eran]: The Wynwood project should be our lead submission. It's gotten strong press coverage and the sustainability story is compelling. That LEED Platinum certification sets it apart.
+[Rachel]: Agreed. From a PR angle, the Wynwood project also has the most visual impact. The media coverage it received last fall gives us a narrative advantage in the award application. Judges notice when a project already has cultural momentum.
+[Lily]: For the AIA submission we need updated photography, a five-hundred-word project narrative, and the full drawing package. Derek is working on the graphic layout. The narrative is drafted but Eran, I need you to review it by April first.
+[Eran]: Send it to me today and I'll have comments back by Thursday.
+[Lily]: Will do. For the Architizer submission, the format is different. They want a shorter narrative but more images. Up to twenty photos plus diagrams.
+[Rachel]: I'd recommend submitting Wynwood and the Fort Lauderdale cultural center to Architizer. The cultural center photographs beautifully and the community engagement story resonates with that audience.
+[Eran]: What about the Jersey City tower? That's arguably our most technically ambitious project.
+[Lily]: I think Jersey City is better suited for the CTBUH awards which open in June. The tall building category is a natural fit. We can prepare that submission in May.
+[Eran]: Good thinking. Let's plan for that.
+[Lily]: Okay, moving to photography. We need professional shoots for three recently completed projects. The Wynwood building needs updated exterior shots since the landscaping is now mature. The Fort Lauderdale cultural center needs a full shoot, both interiors and exteriors. And we need twilight shots of the Hoboken residential project for the website.
+[Rachel]: Who are we using for photography? I'd recommend Paul Clemence or Imagen Subliminal. Both have shot our work before and understand architectural photography.
+[Lily]: Paul is booked through mid-April. I reached out to Imagen Subliminal and they're available the week of April twenty-first. The Wynwood shoot would be a half day, Fort Lauderdale is a full day, and Hoboken is an evening session.
+[Eran]: Budget-wise, where does that put us?
+[Lily]: Imagen quoted eighteen thousand for the three shoots including post-production and licensing. That's within our Q2 photography budget of twenty thousand.
+[Eran]: That's reasonable. Go ahead and book them.
+[Thalia]: Should I block Eran's calendar for any of those shoot days? He usually likes to be on site for major project photography.
+[Eran]: Yes, block me for the Fort Lauderdale shoot. That's the one I want to art direct personally. Lily can handle Wynwood and Hoboken.
+[Lily]: Works for me. I'll coordinate with the building managers for access and any staging needs.
+[Lily]: Next topic is the website refresh. Our current site is three years old and it's starting to feel dated. The project portfolio section especially needs an overhaul. We have twelve completed projects that aren't on the site yet.
+[Rachel]: The architecture industry has shifted heavily toward video content and interactive project pages. A static gallery of photos isn't enough anymore. Prospective clients want to see process, context, and storytelling.
+[Lily]: Exactly. I've been exploring a redesign with our web agency. The concept is a more editorial approach where each project page reads like a short magazine feature with narrative text, photography, process diagrams, and embedded video.
+[Eran]: I like that direction. Our work deserves more context than just a photo grid. What's the timeline and budget?
+[Lily]: The web agency estimates twelve weeks for the full redesign and build, with a budget of forty-five thousand. That includes the new project template system, updated navigation, and mobile optimization. We could launch by mid-July.
+[Eran]: That's a meaningful investment. Can we phase it? Start with the project portfolio section and do the rest of the site in Q3?
+[Lily]: Yes. Phase one would be the portfolio and homepage for about twenty-eight thousand. Phase two would be the team page, news section, and careers page. I think phasing makes sense.
+[Rachel]: I'd also suggest adding a press and media section. When journalists cover your work they need quick access to high-resolution images and project facts. A proper media kit page saves everyone time.
+[Lily]: Great point. I'll add that to phase one since it's relatively simple. Thalia, can you compile a list of all the press contacts we've worked with in the last two years? That'll help us design the media section.
+[Thalia]: Sure. I have most of that in the PR tracker already. I'll clean it up and send it over.
+[Lily]: Now let's talk social media strategy for Q2. Our Instagram has grown to about fourteen thousand followers but engagement has plateaued. LinkedIn is performing better with a thirty percent increase in engagement quarter over quarter.
+[Rachel]: The architecture audience on LinkedIn is more engaged because the content tends to be more substantive. Project case studies, design thinking posts, and industry commentary perform well there. Instagram is more competitive and algorithm-dependent.
+[Lily]: Nina has been doing great work on both platforms but we need a more structured content calendar. I'm proposing we move to a themed weekly schedule. Mondays are project spotlights, Wednesdays are behind-the-scenes or process content, and Fridays are team culture or office life posts.
+[Eran]: I'd add a thought leadership component. Short posts where our principals share perspectives on industry trends, urban design issues, or sustainability. That positions us as experts, not just a portfolio showcase.
+[Rachel]: Love that. We can repurpose those into a LinkedIn newsletter too. It builds a subscriber base that we own, separate from the algorithm.
+[Lily]: Eran, would you be willing to do a monthly LinkedIn article? About eight hundred words on a topic of your choice?
+[Eran]: Monthly is doable. I have strong opinions on the affordable housing design conversation happening right now. That could be the first one.
+[Lily]: Perfect. Let's aim for the first article to go live in mid-April.
+[Lily]: Last item is the RFP visual templates. We've been losing time on every proposal because the team starts from scratch with layouts and graphics each time.
+[Lily]: Derek and I are developing a standardized RFP template system in InDesign. It'll include cover page options, team bio layouts, project sheets, and approach diagrams that can be customized for each submission.
+[Eran]: This is overdue. How many hours do we typically spend on RFP graphics?
+[Lily]: Based on the last six proposals, the average is about twenty-five hours of design time per RFP. With the template system, I think we can cut that to ten to twelve hours. That frees up Derek for other marketing work.
+[Rachel]: Make sure the templates are flexible enough to feel custom. Nothing turns off a client faster than a proposal that looks like it was stamped out of a cookie cutter.
+[Lily]: Absolutely. The system will have interchangeable modules and three distinct color palettes so each proposal can feel tailored. We're also building in placeholder content that guides the architects on what to write for each section.
+[Eran]: When will the templates be ready?
+[Lily]: First draft by April eleventh. I'd like to test them on the next RFP that comes in and iterate from there.
+[Thalia]: There's actually an RFP due April twenty-fifth for a mixed-use project in Miami. That could be the pilot.
+[Lily]: Perfect timing. Let's use that as our test case.
+[Lily]: Okay, let me recap the key actions. Lily sends Eran the Wynwood narrative today for review by Thursday. Lily books Imagen Subliminal for the three photography shoots in late April. Thalia blocks Eran's calendar for the Fort Lauderdale shoot day. Thalia compiles the press contact list from the PR tracker. Lily kicks off website phase one with the web agency targeting a mid-July launch. Nina develops the themed content calendar for Q2 starting next week. Eran writes the first LinkedIn thought leadership article for mid-April publication. Derek completes the first draft of RFP templates by April eleventh. Team tests the RFP template on the Miami mixed-use proposal due April twenty-fifth.
+[Rachel]: I'll also send over the updated media list for architecture press. A few new outlets have launched since we last synced.
+[Lily]: Great, thanks Rachel.
+[Eran]: Strong plan for the quarter. Let's execute and regroup in four weeks to check progress.
+[Thalia]: I'll set up a follow-up meeting for April twenty-second.
+[Lily]: Thanks everyone. Good meeting.

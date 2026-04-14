@@ -73,19 +73,18 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
 .continue-btn { display: inline-block; background: #217346; color: #fff; border: none; padding: 12px 32px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 600; margin-top: 24px; transition: all 0.2s; }
 .continue-btn:hover { opacity: 0.9; }
 
-/* Option Tabs */
-.option-tabs { display: flex; gap: 8px; margin: 14px 0; }
-.option-tab { padding: 8px 18px; border: 1px solid #ddd8ce; border-radius: 6px; cursor: pointer; font-size: 0.88rem; background: #fff; transition: all 0.2s; }
-.option-tab:hover { border-color: #217346; }
-.option-tab.active { background: #217346; color: #fff; border-color: #217346; }
-.option-content { display: none; }
-.option-content.active { display: block; }
-
 /* Comparison Table */
 .comparison-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
 .comparison-table th, .comparison-table td { border: 1px solid #ddd8ce; padding: 10px 14px; text-align: left; }
 .comparison-table th { background: #f5f5f0; font-weight: 600; }
 .comparison-table tr:nth-child(even) { background: #faf9f6; }
+.personalization-note { display: none; }
+.option-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.option-tab { padding: 8px 16px; border-radius: 20px; border: 2px solid #e5e7eb; font-size: 13px; font-weight: 500; cursor: pointer; color: #666; transition: all 0.15s; background: #fff; }
+.option-tab:hover { border-color: #217346; color: #217346; }
+.option-tab.active { background: #217346; border-color: #217346; color: white; }
+.option-content { display: none; }
+.option-content.active { display: block; }
 </style>
 </head>
 <body>
@@ -121,7 +120,9 @@ const LESSONS = [
   id: 1, title: "Outlook Copilot", points: 20, bonus: false,
   learn: `
 <h3>Copilot in Outlook</h3>
-<p>You spend hours in email every day. Copilot in Outlook changes that. Here are the three features you will use most:</p>
+<p>You've mastered Copilot Chat. Now let's put it to work inside the apps you use every day — starting with Outlook, where most of your day begins.</p>
+<p>Think of Copilot in Outlook as having a smart assistant who reads your email before you do and hands you a summary. You walk in, and your briefing is ready.</p>
+<p>Here are the three features you will use most:</p>
 
 <h4>Summarize Threads</h4>
 <p>Open any long email thread and look for the <strong>"Summary by Copilot"</strong> banner at the top. Click it, and Copilot condenses the entire conversation into key decisions, requests, and open questions. No more re-reading 20 replies to find the one action item buried at the bottom.</p>
@@ -156,6 +157,12 @@ const LESSONS = [
 <li>Do not send yet. Confirm that Copilot generated a usable draft with the correct tone and content.</li>
 </ol>
 
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Make this reply more concise — cut anything that doesn't directly address the action items.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Adjust the tone to be warmer and less formal, but keep it professional.</div>
+
+<p class="personalization-note">[PERSONALIZED: swap with organization-specific email threads and stakeholder names from Listen Labs interviews]</p>
+
 <h4>Bonus: Inbox Triage</h4>
 <ol start="9">
 <li>Open Copilot Chat in the Outlook sidebar and type:
@@ -167,7 +174,7 @@ const LESSONS = [
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  You should have: (1) a thread summary with names and decisions, (2) a draft reply ready to send, and (3) a triaged inbox with flagged items.
+  Does the summary capture the key decisions — or did it miss something important? Is the draft reply ready to send, or does it need another pass? Look at your triaged inbox: would you trust this prioritization tomorrow morning? What would you change?
 </div>
 `,
   advanced: `
@@ -188,6 +195,8 @@ const LESSONS = [
   id: 2, title: "Word Copilot", points: 20, bonus: false,
   learn: `
 <h3>Copilot in Word</h3>
+<p>In the last step, you summarized emails and drafted replies. Now take that same AI power and apply it to documents — where your real deliverables live.</p>
+<p>Think of Copilot in Word as a co-author who never gets writer's block. You describe the document you need, and it writes the first draft — your job is to shape it, not start from scratch.</p>
 <p>Open any Word document and look for the <strong>Copilot icon in the Home ribbon</strong>. That button is about to change how you write.</p>
 
 <h4>Generate</h4>
@@ -212,6 +221,7 @@ const LESSONS = [
 `,
   implement: `
 <h3>Exercise: Draft, Rewrite, and Agent-Edit in Word</h3>
+<p>You summarized an email thread in the last step. Now imagine turning that summary into a full memo.</p>
 
 <ol>
 <li>Open <strong>Word</strong>. Create a new blank document.</li>
@@ -223,6 +233,10 @@ const LESSONS = [
 <li>Choose <strong>"Make it more formal"</strong> from the tone options.</li>
 <li>Compare the original Risks text with the rewritten version. The vocabulary should be more professional and the sentences more structured.</li>
 </ol>
+
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Make this more concise — cut anything that doesn't directly support the main point.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add specific metrics or data points where possible.</div>
 
 <h4>Agent Mode: Multi-Step Edit</h4>
 <ol start="8">
@@ -241,7 +255,7 @@ const LESSONS = [
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  You should have: (1) a structured document with headers, (2) a rewritten Risks section in formal tone, (3) Agent Mode edits at two locations, and (4) a casual rewrite for comparison.
+  Does the document read like something you would actually send? Is the structure clear enough that a reader could skim headings and get the full picture? Did Agent Mode place edits where you expected — or did it surprise you? What would you refine before sharing this with a stakeholder?
 </div>
 `,
   advanced: `
@@ -262,7 +276,9 @@ const LESSONS = [
   id: 3, title: "Excel Copilot", points: 25, bonus: false,
   learn: `
 <h3>Copilot in Excel</h3>
-<p>Excel's Copilot is the most capable app integration. It can analyze your data, write formulas, and create charts&mdash;all from plain English. Click the <strong>Copilot icon</strong> in the Home ribbon to get started.</p>
+<p>Words are powerful, but sometimes you need numbers. Excel's Copilot is the most capable app integration — it can analyze data, write formulas, and create charts from plain English.</p>
+<p>Excel's Copilot is like having a data analyst on call — ask questions in plain English, get charts and formulas back. No more Googling XLOOKUP syntax.</p>
+<p>Click the <strong>Copilot icon</strong> in the Home ribbon to get started.</p>
 
 <h4>What It Can Do</h4>
 <p><strong>Analysis:</strong> Ask questions about your data and Copilot identifies trends, outliers, and statistics. <strong>Formulas:</strong> Describe a calculation in words and Copilot writes the formula&mdash;even complex XLOOKUP and dynamic arrays. <strong>Charts:</strong> Ask for a visualization and Copilot picks the right chart type, builds it, and lets you refine.</p>
@@ -304,6 +320,8 @@ Dec	13200	10500</div></li>
 <li>Select all the data (A1:C13). Press <strong>Ctrl+T</strong> to format it as a Table. Click OK.</li>
 </ol>
 
+<p class="personalization-note">[PERSONALIZED: swap sample data above with client-specific financial or project data from Listen Labs interviews]</p>
+
 <h4>Ask Copilot Questions</h4>
 <ol start="5">
 <li>Click the <strong>Copilot icon</strong> in the ribbon.</li>
@@ -329,9 +347,13 @@ Dec	13200	10500</div></li>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add a title "Monthly Financial Overview" to the chart and add data labels to the Profit line only.</div></li>
 </ol>
 
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add a column that calculates month-over-month revenue growth as a percentage.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Highlight any months where expenses exceeded 80% of revenue.</div>
+
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  You should have: (1) a formatted Table with 12 rows of data, (2) a Copilot-generated Profit column with correct formulas, and (3) a line chart with 3 data series.
+  Do the formulas produce the correct numbers — spot-check at least two cells manually. Does the chart tell a clear story at a glance, or is it cluttered? If you handed this spreadsheet to your manager right now, what question would they ask that the data doesn't answer yet?
 </div>
 `,
   advanced: `
@@ -352,7 +374,9 @@ Dec	13200	10500</div></li>
   id: 4, title: "PowerPoint Copilot", points: 20, bonus: false,
   learn: `
 <h3>Copilot in PowerPoint</h3>
-<p>Creating a presentation used to take hours. Now you describe what you want and Copilot builds it. Click the <strong>Copilot icon in the Home ribbon</strong> to start.</p>
+<p>You've drafted documents and analyzed data. Now turn those into presentations — Copilot can build an entire deck from a prompt or a Word doc.</p>
+<p>Think of Copilot in PowerPoint as a presentation designer who works instantly. You hand over your notes, and they hand back a polished deck — your job is art direction, not slide building.</p>
+<p>Click the <strong>Copilot icon in the Home ribbon</strong> to start.</p>
 
 <h4>Three Ways to Create</h4>
 <p><strong>From a prompt:</strong> Describe your topic and Copilot generates a complete deck with title slide, content slides, imagery, and section dividers. <strong>From a Word doc:</strong> Type "/" and reference a document&mdash;Copilot extracts key points and maps them to slides. A 10-page report becomes a crisp 8-slide summary. <strong>From an outline:</strong> Paste bullet points and Copilot turns them into formatted slides with layouts.</p>
@@ -370,6 +394,7 @@ Dec	13200	10500</div></li>
 `,
   implement: `
 <h3>Exercise: Build and Refine a Presentation</h3>
+<p>Take the document you drafted in the Word exercise — or use any Word doc — and let Copilot turn it into slides.</p>
 
 <ol>
 <li>Open <strong>PowerPoint</strong>. Create a new blank presentation.</li>
@@ -390,6 +415,10 @@ Dec	13200	10500</div></li>
 <li>Click on any slide, then click <strong>View > Notes</strong> at the bottom. Confirm that speaker notes text appeared below the slide.</li>
 </ol>
 
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Simplify each slide to a maximum of 3 bullet points. Move extra detail into speaker notes.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Make the closing slide more actionable — add specific next steps with owners and deadlines.</div>
+
 <h4>Standardize Formatting</h4>
 <ol start="10">
 <li>Type:
@@ -399,7 +428,7 @@ Dec	13200	10500</div></li>
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  You should have: (1) a 5-slide deck, (2) slide 2 with a two-column layout, (3) speaker notes on every slide, and (4) consistent formatting across all slides.
+  Could you present this deck right now without embarrassment? Do the speaker notes give you enough to talk through each slide confidently? Is there a slide that feels redundant or unclear — what would you cut or combine? Would your audience walk away knowing the one thing you want them to remember?
 </div>
 `,
   advanced: `
@@ -420,7 +449,8 @@ Dec	13200	10500</div></li>
   id: 5, title: "Teams Copilot", points: 20, bonus: false,
   learn: `
 <h3>Copilot in Teams</h3>
-<p>Missed a meeting? Copilot has you covered. Here is what it does and where to find it.</p>
+<p>You've created documents and presentations. Teams is where you share them, discuss them, and meet about them — and Copilot captures everything.</p>
+<p>Think of Copilot in Teams as a teammate who never misses a meeting and always takes perfect notes. You can walk in late, leave early, or skip entirely — and still know exactly what happened.</p>
 
 <h4>Meeting Recaps</h4>
 <p>After any recorded meeting, go to the <strong>Recap tab</strong> in the meeting details. Copilot provides a written summary with key decisions and action items. NEW: Copilot also generates <strong>video recaps</strong>&mdash;narrated highlight reels showing key moments like screen shares and whiteboard activity. Perfect for stakeholders who want a 2-minute visual overview instead of reading a transcript.</p>
@@ -458,6 +488,12 @@ Dec	13200	10500</div></li>
 <li>Verify: Each action item should have a person's name next to it.</li>
 </ol>
 
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Organize the action items by owner, and add a suggested deadline for each based on the discussion.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Which decisions from this meeting still need follow-up or confirmation?</div>
+
+<p class="personalization-note">[PERSONALIZED: swap with organization-specific meeting types and team names from Listen Labs interviews]</p>
+
 <h4>Path B: You Do Not Have Recorded Meetings</h4>
 <ol>
 <li>Go to a <strong>Teams channel</strong> with recent messages. Click the <strong>Copilot icon</strong> in the channel header.</li>
@@ -476,7 +512,7 @@ Dec	13200	10500</div></li>
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  You should have: (1) a meeting recap or channel summary with specific names and topics, and (2) a list of action items with responsible owners.
+  Does the recap capture what actually mattered in the meeting — or just what was said most? Are the action items specific enough to act on, or do they need more detail? If a colleague who missed the meeting read this summary, would they be fully caught up? What context is missing?
 </div>
 `,
   advanced: `
@@ -497,7 +533,8 @@ Dec	13200	10500</div></li>
   id: 6, title: "Cross-App Workflows", points: 25, bonus: false,
   learn: `
 <h3>Cross-App Workflows</h3>
-<p>The real power of Copilot isn't in any single app&mdash;it's in chaining them together.</p>
+<p>You've used Copilot in five apps individually. The real power is chaining them together.</p>
+<p>Think of cross-app workflows like an assembly line — each app handles one step, and the output flows to the next. Outlook gathers the raw material, Word shapes it, Excel validates it, PowerPoint packages it, and Teams delivers it.</p>
 
 <h4>The Pattern</h4>
 <p>Most Copilot workflows follow this flow:</p>
@@ -518,44 +555,116 @@ Dec	13200	10500</div></li>
 </div>
 `,
   implement: `
-<h3>Exercise: Research to Document to Presentation in 3 Apps</h3>
+<h3>Exercise: Multi-App Workflow by Role</h3>
+<p>Remember the 'You Ask Me' technique from the Chat module? Use it here to scope your workflow before executing.</p>
+<p>Pick the role closest to yours. Each tab walks through a complete multi-app pipeline specific to that role at ODA.</p>
 
-<h4>Step 1: Research in Copilot Chat</h4>
+<div class="option-tabs">
+  <button class="option-tab active" onclick="switchOption(5,'a',this)">Architecture</button>
+  <button class="option-tab" onclick="switchOption(5,'b',this)">HR</button>
+  <button class="option-tab" onclick="switchOption(5,'c',this)">Marketing</button>
+  <button class="option-tab" onclick="switchOption(5,'d',this)">Executive</button>
+  <button class="option-tab" onclick="switchOption(5,'e',this)">Operations</button>
+</div>
+
+<div class="option-content active" data-lesson="5" data-key="a">
+<h4>Architecture: Design Review to Client Presentation</h4>
+<p class="personalization-note">[PERSONALIZED: swap project names and review types with organization-specific workflows from Listen Labs interviews]</p>
 <ol>
-<li>Open <strong>Copilot Chat</strong> (at microsoft365.com/chat or in Teams, Web mode).</li>
-<li>Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Research the top 3 trends in sustainable design and building technology for 2026. Include specific statistics relevant to architecture and design firms like ODA.</div></li>
-<li>Read the response. Copy the key findings (Ctrl+A in the response area, then Ctrl+C). You will paste them in the next step.</li>
+<li><strong>Teams:</strong> Open a recent design review meeting recap. Ask Copilot:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Summarize the key feedback and decisions from this design review. List unresolved items and who owns them.</div></li>
+<li><strong>Word:</strong> Open a new document. Click Copilot and type:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a design review summary memo for the client. Include: Project Status, Design Decisions Made, Open Items, and Next Steps. Base it on these notes: [paste Teams recap].</div></li>
+<li><strong>Excel:</strong> Open your project tracker. Ask Copilot:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Summarize the current project timeline. Flag any milestones that are behind schedule and calculate the overall percent complete.</div></li>
+<li><strong>PowerPoint:</strong> Create the client presentation:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Create a 6-slide client update presentation from /Design Review Memo.docx. Include project status, key decisions, timeline, and next steps. Keep it visual and leadership-ready.</div></li>
 </ol>
 
-<h4>Step 2: Draft a Document in Word</h4>
-<ol start="4">
-<li>Open <strong>Word</strong>. Create a new blank document.</li>
-<li>Click the <strong>Copilot icon</strong>. Type the prompt below, then paste your findings where indicated:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a 1-page proposal for a new sustainable design initiative at ODA based on these findings: [paste the findings here]. Include sections: Executive Summary, Proposed Programs, Budget Estimate, Timeline.</div></li>
-<li>Review the document. Confirm it has all 4 sections. Save the file as "Sustainable Design Proposal.docx".</li>
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Make the timeline slide more visual — use a Gantt-style layout if possible.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add specific square footage and budget figures where placeholders appear.</div>
+</div>
+
+<div class="option-content" data-lesson="5" data-key="b">
+<h4>HR: Onboarding Package Pipeline</h4>
+<p class="personalization-note">[PERSONALIZED: swap with organization-specific onboarding steps and HR documents from Listen Labs interviews]</p>
+<ol>
+<li><strong>Outlook:</strong> Search for recent onboarding-related emails. Ask Copilot:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Find emails about new hire onboarding from the past month. Summarize the key logistics, deadlines, and any unresolved questions.</div></li>
+<li><strong>Word:</strong> Draft the onboarding guide:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a new employee onboarding guide for ODA. Include: Welcome Message, First Week Schedule, Key Contacts, IT Setup Checklist, and HR Policies Overview.</div></li>
+<li><strong>PowerPoint:</strong> Create the orientation deck:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Create a 7-slide new hire orientation presentation from /Onboarding Guide.docx. Make it welcoming and visual with the company culture front and center.</div></li>
+<li><strong>Teams:</strong> Share in the HR channel and ask Copilot:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a message to the HR team introducing the new onboarding package and asking for feedback by Friday.</div></li>
 </ol>
 
-<h4>Step 3: Create a Presentation from the Document</h4>
-<ol start="7">
-<li>Open <strong>PowerPoint</strong>. Click the <strong>Copilot icon</strong>.</li>
-<li>Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Create a presentation from /Sustainable Design Proposal.docx. Keep it to 5 slides suitable for a leadership audience.</div>
-<p>(If the "/" file reference does not work, select all text in the Word document, copy it, then paste into this prompt instead.)</p></li>
-<li>Review the slides. You have now gone from research to document to presentation using 3 apps.</li>
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Make the first-week schedule more specific — add times, locations, and contact names.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add a 30-60-90 day milestone checklist to the onboarding guide.</div>
+</div>
+
+<div class="option-content" data-lesson="5" data-key="c">
+<h4>Marketing: Campaign Brief to Launch</h4>
+<p class="personalization-note">[PERSONALIZED: swap with organization-specific campaign types and brand guidelines from Listen Labs interviews]</p>
+<ol>
+<li><strong>Copilot Chat:</strong> Research the campaign topic:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Research the top 3 trends in sustainable architecture marketing for 2026. Include statistics on client preferences and digital engagement in the AEC industry.</div></li>
+<li><strong>Word:</strong> Draft the campaign brief:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a marketing campaign brief for ODA's sustainability practice. Include: Campaign Objective, Target Audience, Key Messages, Channels, Timeline, and Success Metrics. Use these research findings: [paste findings].</div></li>
+<li><strong>Excel:</strong> Build the budget:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Create a campaign budget table with columns: Channel, Estimated Spend, Expected Reach, Cost Per Lead. Add rows for LinkedIn, Email, Website, Events, and PR.</div></li>
+<li><strong>PowerPoint:</strong> Pitch the campaign:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Create a 5-slide campaign pitch deck from /Campaign Brief.docx. Focus on the business case, creative direction, and expected ROI. Make it compelling for leadership approval.</div></li>
 </ol>
 
-<h4>Bonus Step 4: Save to a Copilot Page</h4>
-<ol start="10">
-<li>Return to <strong>Copilot Chat</strong>. Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Summarize the wellness proposal I created. Format it as a quick reference with the 3 proposed programs, estimated budget, and timeline.</div></li>
-<li>Click <strong>Edit in Pages</strong> at the bottom of the response. A Copilot Page opens with editable content.</li>
-<li>Click <strong>Share</strong> (top right) and copy the link. This Page is now a living document anyone with the link can view.</li>
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add competitor examples to the creative direction slide.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Make the ROI projections more conservative and add a risk scenario.</div>
+</div>
+
+<div class="option-content" data-lesson="5" data-key="d">
+<h4>Executive: Quarterly Business Review</h4>
+<p class="personalization-note">[PERSONALIZED: swap with organization-specific KPIs and review cadence from Listen Labs interviews]</p>
+<ol>
+<li><strong>Copilot Chat (Work mode):</strong> Gather context:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Summarize key themes from my emails and meetings over the past month related to project status, revenue, risks, and team capacity.</div></li>
+<li><strong>Excel:</strong> Analyze the numbers:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Summarize this data. What are the top 3 trends, any areas of concern, and how does this quarter compare to last quarter?</div></li>
+<li><strong>Word:</strong> Draft the QBR document:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a quarterly business review document. Include: Executive Summary, Key Metrics (use these numbers: [paste Excel findings]), Accomplishments, Risks, and Next Quarter Priorities.</div></li>
+<li><strong>PowerPoint:</strong> Build the leadership deck:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Create a leadership-ready presentation from /QBR Document.docx. Focus on metrics, risks, and priorities. Keep it to 6 slides with clear data visualizations.</div></li>
 </ol>
+
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Strengthen the Executive Summary — lead with the single most important takeaway.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add year-over-year comparisons to every metric slide.</div>
+</div>
+
+<div class="option-content" data-lesson="5" data-key="e">
+<h4>Operations: Vendor Review Pipeline</h4>
+<p class="personalization-note">[PERSONALIZED: swap with organization-specific vendor types and evaluation criteria from Listen Labs interviews]</p>
+<ol>
+<li><strong>Outlook:</strong> Gather vendor communications:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Find all emails from vendors or about vendor contracts in the past 60 days. Summarize the key issues, pending decisions, and renewal dates.</div></li>
+<li><strong>Excel:</strong> Build the comparison:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Create a vendor comparison table with columns: Vendor Name, Service Category, Annual Cost, Contract End Date, Performance Rating (1-5), and Renewal Recommendation.</div></li>
+<li><strong>Word:</strong> Draft the review:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a vendor review memo for leadership. Include: Overview of Current Vendors, Performance Summary, Cost Analysis, Recommended Changes, and Action Items. Reference the vendor comparison data.</div></li>
+<li><strong>PowerPoint:</strong> Present findings:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Create a 5-slide vendor review presentation from /Vendor Review Memo.docx. Highlight cost savings opportunities and underperforming contracts. Include a recommendation slide.</div></li>
+</ol>
+
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add a total cost savings projection if we implement all recommended vendor changes.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Flag any contracts expiring in the next 90 days that need immediate attention.</div>
+</div>
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  You should have: (1) research findings from Copilot Chat, (2) a Word document with 4 sections, (3) a PowerPoint deck with 5 slides, and optionally (4) a shared Copilot Page.
+  Did data actually flow between apps — or did you start fresh in each one? Could you trace a line from the first input to the final output? Is the presentation something you would share with a real stakeholder, or does it need another round? What step in the pipeline felt weakest?
 </div>
 `,
   advanced: `
@@ -576,7 +685,8 @@ Dec	13200	10500</div></li>
   id: 7, title: "Copilot Search", points: 15, bonus: false,
   learn: `
 <h3>Copilot Search: Find Anything in Your Organization</h3>
-<p>Forget digging through folders. <strong>Copilot Search</strong> is an AI-powered universal search that understands what you mean, not just what you type.</p>
+<p>You've been working in apps. But what if you can't find the file you need? Copilot Search finds anything in your organization.</p>
+<p>Think of Copilot Search as a librarian who has read every document in your company. You don't need the exact title — just describe what you're looking for, and they'll find it.</p>
 
 <h4>How It's Different from Regular Search</h4>
 <p>Microsoft Search matches keywords. Copilot Search understands <strong>intent</strong>. Instead of searching "Q4 budget spreadsheet marketing," you can ask: <span class="inline-code">Find the budget spreadsheet the marketing team shared last quarter</span>. Copilot searches across OneDrive, SharePoint, Outlook, Teams, and 100+ connected data sources simultaneously.</p>
@@ -622,10 +732,15 @@ Dec	13200	10500</div></li>
 <li>Check: Did Copilot return file names with locations? Click on one of the links to confirm it opens the correct file.</li>
 </ol>
 
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>From those results, show me only files I authored or co-authored, sorted by most recent.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Which of these documents have been updated by someone else since I last opened them?</div>
+
 <h4>People Discovery</h4>
 <ol start="6">
 <li>Pick a topic relevant to your work (e.g., "data migration," "product launch," "compliance"). Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Who in my organization has worked on documents about project documentation, consultant coordination, or design reviews? List their names and which files they edited.</div></li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Who in my organization has worked on documents about project documentation, consultant coordination, or design reviews? List their names and which files they edited.</div>
+<p class="personalization-note">[PERSONALIZED: swap topic keywords above with organization-specific expertise areas from Listen Labs interviews]</p></li>
 <li>If Copilot returns names, follow up:
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>What was the most recent document [first person's name] shared about this topic?</div></li>
 <li>Check: Did Copilot find a specific file with a date? If yes, people discovery is working.</li>
@@ -640,7 +755,7 @@ Dec	13200	10500</div></li>
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  You should have: (1) a list of your recent documents, (2) SharePoint search results with file locations, and (3) at least one person identified as a topic expert.
+  Did Copilot find files you had forgotten about? Were the search results accurate enough to be useful, or did you need multiple attempts to narrow down? Could you find the right person for a question faster this way than by asking around? What search would save you the most time if you ran it every week?
 </div>
 `,
   advanced: `
@@ -661,7 +776,8 @@ Dec	13200	10500</div></li>
   id: 8, title: "Pages & Shared Outputs", points: 15, bonus: false,
   learn: `
 <h3>Pages & Shared Outputs</h3>
-<p>Copilot Pages are like shared Google Docs, but AI-powered.</p>
+<p>You've created outputs in every app. Pages let you share AI-generated work without opening another app.</p>
+<p>Think of Pages as a shared whiteboard that remembers everything. You pin your best Copilot outputs there, your team adds to them, and the result is a living document that grows smarter over time.</p>
 
 <h4>How They Work</h4>
 <p>When Copilot generates something useful in any app&mdash;a summary, a plan, a table&mdash;click <strong>"Edit in Pages"</strong> to save it as a persistent, editable document. From there you can continue editing with Copilot or manually, share it via link with colleagues who can also edit, and drop it into a Teams chat for discussion.</p>
@@ -684,7 +800,8 @@ Dec	13200	10500</div></li>
 <ol>
 <li>Open <strong>Copilot Chat</strong> (in Teams or at microsoft365.com/chat).</li>
 <li>Have a conversation that produces useful content. Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Create a project plan for organizing a team offsite. Include objectives, logistics checklist, agenda outline, and budget categories.</div></li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Create a project plan for organizing a team offsite. Include objectives, logistics checklist, agenda outline, and budget categories.</div>
+<p class="personalization-note">[PERSONALIZED: swap offsite topic with organization-specific recurring planning tasks from Listen Labs interviews]</p></li>
 <li>At the bottom of the response, look for the <strong>"Edit in Pages"</strong> button. Click it.</li>
 <li>A Copilot Page opens in a new view. Confirm you can see the project plan content displayed as an editable document.</li>
 </ol>
@@ -699,6 +816,10 @@ Dec	13200	10500</div></li>
 <li>Check: The Page should now have your manual edits AND the Copilot-generated activities section.</li>
 </ol>
 
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Reorganize this Page with the most actionable items at the top and reference material at the bottom.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add a status column to the checklist so the team can track progress.</div>
+
 <h4>Share the Page</h4>
 <ol start="9">
 <li>Click <strong>Share</strong> (top right of the Page).</li>
@@ -709,7 +830,7 @@ Dec	13200	10500</div></li>
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  You should have: (1) a Copilot Page created from a chat response, (2) manual edits (Next Steps section), (3) Copilot-added content (activities section), and (4) a shareable link copied.
+  Is this Page useful enough that a teammate would actually bookmark it? Does mixing your manual edits with Copilot content feel seamless, or can you tell where the AI stops and you start? Would this Page replace an existing document or process on your team? What would make it more valuable?
 </div>
 `,
   advanced: `
@@ -730,7 +851,9 @@ Dec	13200	10500</div></li>
   id: 9, title: "App Champion Challenge", points: 25, bonus: true,
   learn: `
 <h3>Bonus: App Champion Challenge</h3>
-<p>You have used Copilot in individual apps. Now chain them together. Design and execute a single workflow that touches at least 4 Microsoft 365 apps, with data flowing between them to produce a tangible output. The exercises walk you through one example&mdash;but the real challenge is adapting it to your own work.</p>
+<p>You've built workflows across apps and searched your entire organization. Now prove you can do it end-to-end with your own real work — no hand-holding.</p>
+<p>Think of this as your final exam, except the exam is your actual job. Pick a real task, run the full pipeline, and document it so others can follow.</p>
+<p>Design and execute a single workflow that touches at least 4 Microsoft 365 apps, with data flowing between them to produce a tangible output. The exercises walk you through one example&mdash;but the real challenge is adapting it to your own work.</p>
 `,
   implement: `
 <h3>Bonus: Execute a 4-App Champion Workflow</h3>
@@ -764,6 +887,10 @@ Dec	13200	10500</div></li>
 <li>Review the deck. You have now used 4 apps in one workflow.</li>
 </ol>
 
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Strengthen the executive summary slide — lead with the single biggest win this quarter.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add a risk mitigation slide with proposed actions for each risk identified.</div>
+
 <h4>Step 5: Document Your Workflow</h4>
 <ol start="9">
 <li>Open a <strong>Copilot Page</strong> and type:
@@ -773,7 +900,7 @@ Dec	13200	10500</div></li>
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  You should have outputs from at least 4 apps, with data flowing between them (not just independent tasks). The workflow log documents your process for reuse.
+  Did data genuinely flow between apps, or did you start from scratch in each one? Could a colleague follow your workflow log and reproduce the same result? Which step saved you the most time compared to doing it manually? What would you automate if you ran this workflow every week?
 </div>
 `,
   advanced: `
@@ -794,7 +921,9 @@ Dec	13200	10500</div></li>
   id: 10, title: "Team Workflow Design", points: 15, bonus: true,
   learn: `
 <h3>Bonus: Team Workflow Design</h3>
-<p>The ultimate value of Copilot mastery is creating repeatable workflows your entire team can use. In this challenge, you will pick your most time-consuming recurring task, build a step-by-step Copilot workflow for it, test every prompt, and share the template with your team. The exercises guide you through the process.</p>
+<p>You've built your own workflows and proven they work. Now scale that knowledge — design a workflow someone else can run without you in the room.</p>
+<p>Think of this as writing a recipe. Anyone should be able to follow the steps, use the same prompts, and get a consistent result — even if they've never used Copilot before.</p>
+<p>In this challenge, you will pick your most time-consuming recurring task, build a step-by-step Copilot workflow for it, test every prompt, and share the template with your team.</p>
 `,
   implement: `
 <h3>Bonus: Design a Repeatable Team Workflow</h3>
@@ -822,6 +951,10 @@ Structure the template with:
 <li>Review the template. Replace any generic placeholder text with your real prompts and file names.</li>
 </ol>
 
+<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Make each step more specific — include exact menu locations and button names so a beginner could follow along.</div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add a troubleshooting section for common issues at each step.</div>
+
 <h4>Step 3: Test Each Prompt</h4>
 <ol start="5">
 <li>Open each app listed in the template and run the Copilot prompts one by one.</li>
@@ -839,7 +972,7 @@ Structure the template with:
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  You should have: (1) a documented workflow template with tested prompts, (2) each prompt verified to produce the expected output, and (3) the template shared with at least one other person.
+  Could a teammate follow your template without asking you a single question? Did every prompt produce the expected output on the first try, or did you need to revise? What would break if someone ran this workflow with different data or a different project? Is this template worth maintaining, or was it a one-time exercise?
 </div>
 `,
   advanced: `
@@ -921,9 +1054,14 @@ function switchTab(tab) {
   renderLesson();
 }
 
-function switchOption(idx) {
-  document.querySelectorAll('.option-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
-  document.querySelectorAll('.option-content').forEach((c, i) => c.classList.toggle('active', i === idx));
+function switchOption(lesson, key, btn) {
+  if (btn) {
+    btn.closest('.option-tabs').querySelectorAll('.option-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  document.querySelectorAll('.option-content[data-lesson="'+lesson+'"]').forEach(c => {
+    c.classList.toggle('active', c.dataset.key === key);
+  });
 }
 
 function markComplete(idx) {

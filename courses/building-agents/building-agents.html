@@ -429,20 +429,20 @@
   .option-tabs {
     display: flex;
     gap: 8px;
-    margin: 16px 0;
+    margin-bottom: 20px;
     flex-wrap: wrap;
   }
 
   .option-tab {
-    padding: 8px 18px;
-    border: 2px solid #ddd8ce;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 2px solid #e5e7eb;
+    font-size: 13px;
     font-weight: 500;
+    cursor: pointer;
     color: #666;
+    transition: all 0.15s;
     background: #fff;
-    transition: all 0.2s;
   }
 
   .option-tab:hover {
@@ -451,10 +451,9 @@
   }
 
   .option-tab.active {
+    background: #7b5ea7;
     border-color: #7b5ea7;
-    background: #f5f0fa;
-    color: #7b5ea7;
-    font-weight: 600;
+    color: white;
   }
 
   .option-content {
@@ -463,6 +462,11 @@
 
   .option-content.active {
     display: block;
+  }
+
+  /* ── Personalization Notes ── */
+  .personalization-note {
+    display: none;
   }
 
   /* ── Comparison Table ── */
@@ -576,8 +580,10 @@ const LESSONS = [
     points: 15,
     bonus: false,
     learn: `
+<p><em>You've used Copilot as a chat partner and inside your apps. Now you'll learn what happens when you give it autonomy &mdash; when it doesn't just answer questions, but takes actions on its own.</em></p>
+
 <h3>See the Difference</h3>
-<p>When you ask Copilot to summarize an email, it reads and responds. That is a chatbot. When you ask it to research a topic, draft a memo, create slides, AND email them to your team &mdash; that is an agent.</p>
+<p>When you ask Copilot to summarize an email, it reads and responds. That's a chatbot. When you ask it to research a topic, draft a memo, create slides, AND email them to your team &mdash; all from one instruction &mdash; that's an agent.</p>
 <p>The difference is not what it knows. It is what it <strong>does</strong>. A chatbot answers questions. An agent completes tasks.</p>
 
 <h3>The Agent Equation</h3>
@@ -634,6 +640,12 @@ const LESSONS = [
 
 <h4>Step 6: Observe the Pattern</h4>
 <p>Notice what happened: Copilot gathered information FIRST, then created a multi-part output combining venue research, scheduling, and budget calculations. That is agent behavior &mdash; it reasoned about your goals, collected context, and produced a structured plan. A chatbot would have just answered each question in isolation.</p>
+
+<p><strong>Iterate:</strong> Read the output. Then refine:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>The plan is good but too generic. Make venue suggestions specific to [your city]. Add a risk section: what could go wrong and how we would handle it.</pre></div>
+
+<h4>Reflective Check</h4>
+<p>Does the agent's plan cover what you'd include if you planned this offsite manually? Where does it fall short? What would you add to its instructions?</p>
     `,
     advanced: `
 <h3>Agent Architectures</h3>
@@ -654,6 +666,7 @@ const LESSONS = [
   <li><strong>Level 2 &mdash; Trusted Agent:</strong> Acts independently within guardrails, notifies human of results.</li>
   <li><strong>Level 3 &mdash; Autonomous Agent:</strong> Self-directs with minimal oversight. Use only for low-risk, well-tested tasks.</li>
 </ul>
+<p class="personalization-note">[PERSONALIZED: Map your own recurring tasks to these autonomy levels. Which tasks could safely be Level 2? Which must stay at Level 0?]</p>
 
 <h3>When NOT to Use an Agent</h3>
 <div class="tip-box">
@@ -669,6 +682,8 @@ const LESSONS = [
     points: 25,
     bonus: false,
     learn: `
+<p><em>You just learned what agents are. Now see one in action &mdash; the Excel agent is the easiest way to watch agent behavior happen in real time.</em></p>
+
 <h3>Your First Agent &mdash; You Already Have It</h3>
 <p>The Excel agent is the easiest way to see what agents can do &mdash; because you have already used Excel. Open a spreadsheet with sales data and ask Copilot to analyze it. Watch what happens: it reads your columns, reasons about patterns, adds new formula columns, builds a chart, and highlights outliers. That is not autocomplete. That is an agent making decisions about your data.</p>
 
@@ -734,6 +749,12 @@ const LESSONS = [
 
 <h4>Step 5: Observe Agent Mode</h4>
 <p>You just watched the Excel agent do 3 rounds of analysis and creation: (1) read and reason about data, (2) generate formulas and new columns, (3) build a chart and apply formatting. That is Agent Mode &mdash; chained, multi-step actions from a single conversation.</p>
+
+<p><strong>Iterate:</strong> Read the output. Then refine:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>The chart is helpful but hard to read. Change it to a clustered bar chart with department labels, and sort departments by total sales descending.</pre></div>
+
+<h4>Reflective Check</h4>
+<p>Does the agent's analysis match what you'd produce manually? Where does it fall short? What would you add to its instructions?</p>
     `,
     advanced: `
 <h3>Advanced Excel Agent Techniques</h3>
@@ -760,8 +781,11 @@ const LESSONS = [
     points: 25,
     bonus: false,
     learn: `
+<p><em>You've seen a built-in agent. Now build your own &mdash; Copilot Studio is where you go from using agents to creating them.</em></p>
+
 <h3>Where You Build Your Own Agents</h3>
-<p>Copilot Studio is where you build your own agents &mdash; without writing code. Go to <strong>copilotstudio.microsoft.com</strong>, sign in with your work account, and you will see a dashboard with your agents, a Create button, and a test panel.</p>
+<p>Think of Copilot Studio as a workshop where you build custom tools. You define what the tool knows, what it can do, and who can use it.</p>
+<p>Go to <strong>copilotstudio.microsoft.com</strong>, sign in with your work account, and you will see a dashboard with your agents, a Create button, and a test panel.</p>
 
 <h3>Three Building Blocks</h3>
 <table class="comparison-table">
@@ -798,6 +822,7 @@ const LESSONS = [
 <h4>Step 4: Add a Knowledge Source</h4>
 <p>Click <strong>"Knowledge"</strong> in the left panel. Click <strong>"Add knowledge"</strong>. Choose <strong>"Website"</strong>. Enter your organization's main website URL (or any public site you want the bot to know about). Click <strong>"Add."</strong></p>
 <p>Wait for indexing to complete (1-2 minutes). You will see a green checkmark when it is ready.</p>
+<p class="personalization-note">[PERSONALIZED: Choose a knowledge source that reflects your actual work &mdash; your team's SharePoint site, an internal wiki, or a department handbook.]</p>
 
 <h4>Step 5: Review Default Topics</h4>
 <p>Click <strong>"Topics"</strong> in the left panel. You will see default topics like "Greeting" and "Fallback." Click on "Greeting" to see how it is structured.</p>
@@ -826,6 +851,12 @@ const LESSONS = [
   <pre>How do I contact you?</pre>
 </div>
 <p>If it returns your custom contact info instead of a generic answer, the topic is working. You have built your first Copilot Studio agent with both knowledge-grounded answers and custom topic responses.</p>
+
+<p><strong>Iterate:</strong> Read the output. Then refine:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>The greeting topic is too generic. Update it to mention our organization name and offer to help with the top 3 most common questions.</pre></div>
+
+<h4>Reflective Check</h4>
+<p>Does the agent's output match what you'd produce manually? Where does it fall short? What would you add to its instructions?</p>
     `,
     advanced: `
 <h3>Advanced Copilot Studio</h3>
@@ -853,8 +884,10 @@ const LESSONS = [
     points: 30,
     bonus: false,
     learn: `
+<p><em>You can build agents in Studio. Now build one of the most immediately useful ones &mdash; an agent that writes in YOUR voice.</em></p>
+
 <h3>An Agent That Writes Like You</h3>
-<p>Imagine an agent that writes emails in YOUR voice &mdash; matching your tone, your phrases, your structure. Instead of editing generic AI output to sound like you, you get a first draft that already reads like something you wrote.</p>
+<p>Imagine having a ghostwriter who's studied every email you've ever sent and can draft new ones that sound exactly like you. Instead of editing generic AI output to sound like you, you get a first draft that already reads like something you wrote.</p>
 
 <h3>How It Works</h3>
 <ol>
@@ -875,6 +908,7 @@ const LESSONS = [
     `,
     implement: `
 <h3>Build Your Write-Like-Me Agent</h3>
+<p>Remember the 'You Ask Me' technique from the Chat module? You're about to use it to train an agent. Instead of describing your writing style yourself, let Copilot interview your writing samples.</p>
 
 <h4>Step 1: Gather Your Writing Samples</h4>
 <p>Open your <strong>Sent Items</strong> in Outlook. Find 3 emails you wrote that represent your natural style. Copy the full text of all three.</p>
@@ -905,6 +939,7 @@ const LESSONS = [
 
 <h4>Step 4: Copy Your Final Voice Profile</h4>
 <p>Once the profile sounds right, copy the entire output. Save it in a note or document &mdash; you will use it again in future exercises.</p>
+<p class="personalization-note">[PERSONALIZED: Your voice profile is unique to you. Save it somewhere permanent &mdash; it becomes the foundation for every writing agent you build.]</p>
 
 <h4>Step 5: Test It</h4>
 <p>Send this prompt to see if Copilot can write like you:</p>
@@ -926,6 +961,12 @@ const LESSONS = [
 
 <h4>Step 7: Save for Reuse</h4>
 <p>Store your final voice profile somewhere permanent (a Word doc, a note in OneNote, or your Copilot custom instructions). You will use this in the Report Writer lesson next.</p>
+
+<p><strong>Iterate:</strong> Read the output. Then refine:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>The email draft is close but my real emails are shorter and I never start with "I hope this finds you well." Rewrite it: max 4 sentences, start with the key point, skip pleasantries.</pre></div>
+
+<h4>Reflective Check</h4>
+<p>Does the agent's output match what you'd produce manually? Where does it fall short? What would you add to its instructions?</p>
     `,
     advanced: `
 <h3>Advanced: Persistent Write-Like-Me Agent</h3>
@@ -953,17 +994,22 @@ const LESSONS = [
     points: 30,
     bonus: false,
     learn: `
+<p><em>You built a writing agent. Now build one that handles your most tedious recurring task &mdash; reports.</em></p>
+
 <h3>Automate the Reports You Write Every Week</h3>
+<p>The Write Like Me agent personalizes tone. The Report Writer agent personalizes structure &mdash; it learns your report format and fills it with fresh data.</p>
 <p>You write the same reports every week. Status updates, board memos, research summaries. An agent can do it in seconds &mdash; and the output is consistent every time.</p>
 
 <h3>The Pattern</h3>
 <p>Every report agent follows the same flow: <strong>raw data or notes in, structured document out.</strong> But the key insight is this: a good report agent asks YOU questions first, then drafts &mdash; like a smart assistant who clarifies before working.</p>
 
-<h3>Three Report Types You Can Automate</h3>
+<h3>Five Report Types You Can Automate</h3>
 <ul>
-  <li><strong>Weekly Status Reports:</strong> Progress, blockers, next steps. The agent interviews you, then formats everything in your team's standard template.</li>
-  <li><strong>Board Briefing Memos:</strong> Executive summary, key metrics, strategic recommendations. The agent asks one question at a time to extract the important details.</li>
-  <li><strong>Research Summaries:</strong> Key findings, implications, recommended actions. The agent searches, synthesizes, and structures &mdash; you verify the sources.</li>
+  <li><strong>Project Status Reports:</strong> DD phase progress, consultant coordination, permit status. The agent interviews you, then formats in your team's standard template.</li>
+  <li><strong>Monthly People Reports:</strong> Headcount, open roles, retention, onboarding. The agent pulls key HR metrics and structures them.</li>
+  <li><strong>Campaign Performance Reports:</strong> Award submissions, PR mentions, social media metrics. The agent aggregates and summarizes marketing data.</li>
+  <li><strong>Board Briefing Memos:</strong> Project pipeline, revenue, strategic priorities. The agent asks one question at a time to extract what the board needs.</li>
+  <li><strong>Operations Dashboards:</strong> Project utilization, resource allocation, budget tracking. The agent structures operational data into an actionable summary.</li>
 </ul>
 
 <div class="note-box">
@@ -973,77 +1019,133 @@ const LESSONS = [
     `,
     implement: `
 <h3>Build a Report Writer</h3>
-<p>Pick the report type most relevant to your work. Each option walks you through a concrete, step-by-step process.</p>
+<p>Pick the report type most relevant to your role. Each tab walks you through a concrete, step-by-step process.</p>
 
 <div class="option-tabs" id="report-options">
-  <div class="option-tab active" onclick="switchOption('report', 0)">Weekly Status</div>
-  <div class="option-tab" onclick="switchOption('report', 1)">Board Memo</div>
-  <div class="option-tab" onclick="switchOption('report', 2)">Research Summary</div>
+  <button class="option-tab active" onclick="switchOption(4,'a',this)">Architecture</button>
+  <button class="option-tab" onclick="switchOption(4,'b',this)">HR</button>
+  <button class="option-tab" onclick="switchOption(4,'c',this)">Marketing</button>
+  <button class="option-tab" onclick="switchOption(4,'d',this)">Executive</button>
+  <button class="option-tab" onclick="switchOption(4,'e',this)">Operations</button>
 </div>
 
-<div class="option-content active" id="report-option-0">
-<h4>Option A: Weekly Status Report</h4>
+<div class="option-content active" id="report-option-a">
+<h4>Architecture: Project Status Report</h4>
+<p>DD phase progress, consultant coordination, permit status.</p>
 
-<p><strong>Step 1:</strong> Open Copilot Chat. Start by letting the agent interview you:</p>
+<p><strong>Step 1:</strong> Open Copilot Chat. Let the agent interview you:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>I need to write my weekly status report. I am a project architect at ODA, a global architecture and design firm, and my key areas are design development, consultant coordination, and permit submissions. Ask me the questions you need answered before you can draft it.</pre>
+  <pre>I need to write my weekly project status report. I am a project architect at a global architecture and design firm. My key areas are DD phase progress, consultant coordination, and permit submissions. Ask me the questions you need answered before you can draft it.</pre>
 </div>
 
-<p><strong>Step 2:</strong> Answer each question Copilot asks. Give it real details: what you finished, what is in progress, any blockers, and key metrics.</p>
+<p><strong>Step 2:</strong> Answer each question Copilot asks. Include: which DD milestones hit, consultant RFI status, permit submission dates, and any blockers.</p>
 
 <p><strong>Step 3:</strong> Once you have answered everything, send:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Now draft my weekly status report using this format: Summary (2 sentences), Completed This Week (bullet points), In Progress (bullet points), Blockers (if any), Next Week's Plan (bullet points). Keep it under 200 words.</pre>
+  <pre>Draft my project status report using this format: Summary (2 sentences), DD Phase Progress (bullet points with % complete), Consultant Coordination (status table: consultant name, discipline, status), Permit Status (timeline), Blockers (if any), Next Week's Plan (bullet points). Keep it under 250 words.</pre>
 </div>
 
-<p><strong>Step 4:</strong> Review the draft. Now refine it:</p>
+<p><strong>Iterate:</strong> Read the output. Then refine:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>Make the tone more confident and add specific dates for each permit milestone. The consultant table should include a "Last Contact" column.</pre></div>
+<p class="personalization-note">[PERSONALIZED: Replace discipline names and consultant references with your actual project team structure.]</p>
+</div>
+
+<div class="option-content" id="report-option-b">
+<h4>HR: Monthly People Report</h4>
+<p>Headcount, open roles, retention, onboarding.</p>
+
+<p><strong>Step 1:</strong> Open Copilot Chat. Let the agent interview you:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Make the tone more confident and add specific metrics where possible.</pre>
-</div>
-<p>If the final version reads like a report you would send to your manager, it worked. Compare it to a status report you wrote manually &mdash; the agent version should be comparable quality in a fraction of the time.</p>
+  <pre>I need to write a monthly people report for our HR team. I manage people operations for a mid-size professional services firm. Key areas: headcount changes, open roles, retention metrics, and onboarding status. Ask me the questions you need answered before you can draft it.</pre>
 </div>
 
-<div class="option-content" id="report-option-1">
-<h4>Option B: Board Briefing Memo</h4>
-
-<p><strong>Step 1:</strong> Open Copilot Chat. Let the agent interview you one topic at a time:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>I'm preparing a board briefing memo. Interview me about the key topics I need to cover - ask me one question at a time.</pre>
-</div>
-
-<p><strong>Step 2:</strong> Answer 5-7 questions as Copilot asks them. Include revenue figures, project updates, risks, and any decisions the board needs to make.</p>
+<p><strong>Step 2:</strong> Answer each question. Include: new hires, departures, open requisitions, time-to-fill, retention rate, and onboarding pipeline.</p>
 
 <p><strong>Step 3:</strong> After answering, send:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Draft a 1-page board briefing memo with: Header (date, from, subject), Executive Summary (3 sentences), Key Metrics (table format), Strategic Updates (3 bullet points), Action Items for Board (numbered list).</pre>
+  <pre>Draft my monthly people report: Summary (2 sentences), Headcount Snapshot (table: department, current, target, delta), Open Roles (list with days-open), Retention (rate + trend), Onboarding Pipeline (who, start date, status), Key Risks (bullet points). Keep it under 300 words.</pre>
 </div>
 
-<p><strong>Step 4:</strong> If the memo is longer than one page, send: "Tighten this to exactly one page. Cut anything that is not essential for board decision-making." If the Executive Summary buries the key ask, send: "Move the most important decision to the first sentence of the Executive Summary."</p>
+<p><strong>Iterate:</strong> Read the output. Then refine:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>Add a month-over-month comparison row to the headcount table. Flag any roles open longer than 45 days in red.</pre></div>
+<p class="personalization-note">[PERSONALIZED: Replace department names with your actual org structure and adjust retention benchmarks to your industry.]</p>
 </div>
 
-<div class="option-content" id="report-option-2">
-<h4>Option C: Research Summary</h4>
+<div class="option-content" id="report-option-c">
+<h4>Marketing: Campaign Performance Report</h4>
+<p>Award submissions, PR mentions, social media metrics.</p>
 
-<p><strong>Step 1:</strong> Open Copilot Chat. Ask it to do the research:</p>
+<p><strong>Step 1:</strong> Open Copilot Chat. Let the agent interview you:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Research the latest developments in architecture technology and AI-assisted design from 2025-2026 using web search. Focus on the top 5 most impactful changes.</pre>
+  <pre>I need to write a campaign performance report. I manage marketing for a professional services firm. Key areas: award submissions, PR/media mentions, social media performance, and content pipeline. Ask me the questions you need answered before you can draft it.</pre>
 </div>
-<p>The prompt above auto-fills with your topics. If you want to research a different area, replace it with your specific interest (e.g., "enterprise cybersecurity," "healthcare AI," "supply chain automation").</p>
 
-<p><strong>Step 2:</strong> Review what Copilot finds. Then send:</p>
+<p><strong>Step 2:</strong> Answer each question. Include: campaigns run, award entries and results, press mentions, social engagement numbers, and upcoming content.</p>
+
+<p><strong>Step 3:</strong> After answering, send:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Now turn that research into a structured summary with: Key Findings (numbered), Implications for ODA (bullet points), Recommended Actions (prioritized list), Sources (with dates).</pre>
+  <pre>Draft my campaign performance report: Summary (2 sentences), Award Submissions (table: award name, project, status/result), PR & Media (list of mentions with outlet and date), Social Media Metrics (table: platform, followers, engagement rate, top post), Content Pipeline (upcoming items with dates), Recommendations (3 bullet points). Keep it under 300 words.</pre>
 </div>
 
-<p><strong>Step 3:</strong> Check the sources. Are they real? Are the dates accurate? Send: "Verify each source link is real and accessible. Flag any that might be incorrect." This is your quality check &mdash; always verify AI-generated citations.</p>
+<p><strong>Iterate:</strong> Read the output. Then refine:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>Add month-over-month trends to the social media table. Rank the PR mentions by estimated reach.</pre></div>
+<p class="personalization-note">[PERSONALIZED: Replace platform names and metric benchmarks with your actual marketing channels and KPIs.]</p>
 </div>
+
+<div class="option-content" id="report-option-d">
+<h4>Executive: Board Briefing Memo</h4>
+<p>Project pipeline, revenue, strategic priorities.</p>
+
+<p><strong>Step 1:</strong> Open Copilot Chat. Let the agent interview you one topic at a time:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>I'm preparing a board briefing memo. I lead a professional services firm. Key areas: project pipeline, revenue performance, and strategic priorities. Interview me about the key topics I need to cover &mdash; ask me one question at a time.</pre>
+</div>
+
+<p><strong>Step 2:</strong> Answer 5-7 questions as Copilot asks them. Include revenue figures, project pipeline status, risks, and any decisions the board needs to make.</p>
+
+<p><strong>Step 3:</strong> After answering, send:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Draft a 1-page board briefing memo: Header (date, from, subject), Executive Summary (3 sentences &mdash; lead with the most important decision), Project Pipeline (table: project, phase, value, risk level), Revenue (YTD vs target, forecast), Strategic Priorities (3 bullet points), Action Items for Board (numbered list).</pre>
+</div>
+
+<p><strong>Iterate:</strong> Read the output. Then refine:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>Tighten this to exactly one page. Move the most critical decision to the first sentence. Cut anything that is not essential for board decision-making.</pre></div>
+<p class="personalization-note">[PERSONALIZED: Replace revenue categories and strategic priority areas with your actual business structure.]</p>
+</div>
+
+<div class="option-content" id="report-option-e">
+<h4>Operations: Operations Dashboard</h4>
+<p>Project utilization, resource allocation, budget tracking.</p>
+
+<p><strong>Step 1:</strong> Open Copilot Chat. Let the agent interview you:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>I need to write an operations dashboard report. I manage operations for a professional services firm. Key areas: project utilization rates, resource allocation, budget tracking, and operational risks. Ask me the questions you need answered before you can draft it.</pre>
+</div>
+
+<p><strong>Step 2:</strong> Answer each question. Include: utilization percentages by team, resource conflicts, budget vs actuals, and any operational blockers.</p>
+
+<p><strong>Step 3:</strong> After answering, send:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Draft my operations dashboard report: Summary (2 sentences), Utilization (table: team/department, target %, actual %, delta), Resource Allocation (who is overloaded, who has capacity), Budget Tracking (table: project, budget, spent, remaining, % used), Operational Risks (bullet points with mitigation), Action Items (numbered). Keep it under 300 words.</pre>
+</div>
+
+<p><strong>Iterate:</strong> Read the output. Then refine:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>Flag any project over 90% budget in red. Add a "weeks remaining" column to the budget table. Sort utilization by delta descending.</pre></div>
+<p class="personalization-note">[PERSONALIZED: Replace team names and utilization targets with your actual department structure and benchmarks.]</p>
+</div>
+
+<h4>Reflective Check</h4>
+<p>Does the agent's output match what you'd produce manually? Where does it fall short? What would you add to its instructions?</p>
     `,
     advanced: `
 <h3>Automating Report Generation</h3>
@@ -1065,7 +1167,10 @@ const LESSONS = [
     points: 20,
     bonus: false,
     learn: `
+<p><em>You've built two agents. Before deploying them, let's make sure they actually work well.</em></p>
+
 <h3>Building Good Agents Takes Testing</h3>
+<p>In the Chat module, you learned to iterate on outputs. With agents, iteration means testing with real scenarios and refining the agent's instructions until it consistently delivers quality.</p>
 <p>Building an agent is easy. Building a GOOD agent takes testing. The difference between a demo and something people actually use comes down to three things: test with real scenarios, iterate from simple to complex, and deploy carefully.</p>
 
 <h3>Test with Real Scenarios</h3>
@@ -1100,6 +1205,7 @@ const LESSONS = [
   <pre>I built a [describe your agent in one sentence]. I work as a team lead at ODA, a global architecture and design firm. Help me create a test plan with 5 test scenarios. For each scenario, give me: the exact input I should test, what a good response looks like, and what a bad response looks like.</pre>
 </div>
 <p>Replace the bracket with your actual agent description (e.g., "FAQ bot that answers questions about our company website" or "voice-profile writing agent that drafts emails in my style").</p>
+<p class="personalization-note">[PERSONALIZED: Your test scenarios should reflect real edge cases from your actual work &mdash; the unusual requests, the ambiguous inputs, the things that break.]</p>
 
 <h4>Step 3: Run All 5 Tests</h4>
 <p>Go to your agent (Copilot Studio test panel or Copilot Chat with your saved prompt). Send each test input one at a time. For each response, rate it:</p>
@@ -1123,6 +1229,12 @@ const LESSONS = [
 
 <h4>Step 6: Record Your Results</h4>
 <p>You should now have: 5 test scenarios, a rating for each, and at least one fix applied and verified. This is the core agent improvement loop: test, identify failures, fix, retest.</p>
+
+<p><strong>Iterate:</strong> Read the output. Then refine:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>Two of my test scenarios got "Acceptable" ratings. For each one, suggest a specific change to the agent's instructions that would push the result to "Good." Be concrete &mdash; show me the exact wording to add or change.</pre></div>
+
+<h4>Reflective Check</h4>
+<p>Does the agent's output match what you'd produce manually? Where does it fall short? What would you add to its instructions?</p>
     `,
     advanced: `
 <h3>Production Operations</h3>
@@ -1147,6 +1259,8 @@ const LESSONS = [
     points: 40,
     bonus: true,
     learn: `
+<p><em>You've learned the patterns. Now build something real for your organization.</em></p>
+
 <h3>Build Something Real</h3>
 <p>Time to build something real for your organization. Everything from the previous lessons &mdash; the agent equation, Copilot Studio, voice profiles, report patterns, and testing practices &mdash; comes together in one custom agent that solves a problem you actually have.</p>
 
@@ -1169,6 +1283,7 @@ const LESSONS = [
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
   <pre>I want to build a Copilot Studio agent that [your one sentence]. I am a team lead at ODA, a global architecture and design firm, working on project coordination, design documentation, and consultant management. Walk me through exactly how to set this up step by step, including: what to name the agent, what description to give it, what knowledge sources to connect, what topics to create, and what trigger phrases to use.</pre>
 </div>
+<p class="personalization-note">[PERSONALIZED: Replace the role description and one-sentence idea with your actual job function and a real pain point you face weekly.]</p>
 
 <h4>Step 3: Build It</h4>
 <p>Follow the steps Copilot gives you. Use either Copilot Studio (for a persistent agent) or create a reusable prompt template in Copilot Chat (for a quick version). Refer back to Lesson 2 if you need a refresher on Copilot Studio setup.</p>
@@ -1181,6 +1296,12 @@ const LESSONS = [
 
 <h4>Step 6: Share with a Colleague</h4>
 <p>Send your agent (or prompt template) to one colleague. Ask them to try it with their own inputs and tell you one thing that worked and one thing that did not. Real-world testing with another person always reveals blind spots you missed.</p>
+
+<p><strong>Iterate:</strong> Read the output. Then refine:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>Based on my colleague's feedback, the agent struggles with [describe the issue]. Suggest 3 specific changes to the agent's instructions that would fix this. Show me the exact wording.</pre></div>
+
+<h4>Reflective Check</h4>
+<p>Does the agent's output match what you'd produce manually? Where does it fall short? What would you add to its instructions?</p>
     `,
     advanced: `
 <h3>Taking It Further</h3>
@@ -1202,6 +1323,8 @@ const LESSONS = [
     points: 15,
     bonus: true,
     learn: `
+<p><em>One agent is useful. Multiple agents working together is transformative.</em></p>
+
 <h3>From Single Agents to Agent Teams</h3>
 <p>Think beyond single agents to coordinated systems. A router agent receives requests and delegates to specialists (IT, HR, facilities). A pipeline passes data from a collection agent to an analysis agent to a report writer. With A2A protocol support in Copilot Studio (2026), agents can discover each other, exchange context, and hand off conversations &mdash; even across platforms.</p>
 
@@ -1233,6 +1356,12 @@ const LESSONS = [
 
 <h4>Step 4: Check Your Work</h4>
 <p>You should now have: 3 agent designs with names, purposes, data sources, and outputs, plus at least one handoff pattern between two agents. If any design feels too vague, pick the vaguest one and send: "Make this agent design more specific. What exact trigger phrases, knowledge sources, and output formats should it use?"</p>
+
+<p><strong>Iterate:</strong> Read the output. Then refine:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>The handoff between Agent 1 and Agent 2 is too vague. Define: the exact data payload that gets passed, what happens if Agent 2 is unavailable, and how the user knows the handoff occurred.</pre></div>
+
+<h4>Reflective Check</h4>
+<p>Does the agent's output match what you'd produce manually? Where does it fall short? What would you add to its instructions?</p>
 
 <div class="tip-box">
   <div class="tip-title">Tip</div>
@@ -1404,13 +1533,27 @@ function copyCode(btn) {
 }
 
 /* ── Option tabs (for report exercise) ── */
-function switchOption(group, idx) {
-  document.querySelectorAll(`#${group}-options .option-tab`).forEach((t, i) => {
-    t.classList.toggle('active', i === idx);
-  });
-  document.querySelectorAll(`[id^="${group}-option-"]`).forEach((c, i) => {
-    c.classList.toggle('active', i === idx);
-  });
+function switchOption(lesson, key, btn) {
+  // Support both old index-based and new key-based calls
+  if (typeof key === 'number') {
+    // Legacy index-based call
+    const group = lesson;
+    const idx = key;
+    document.querySelectorAll(`#${group}-options .option-tab`).forEach((t, i) => {
+      t.classList.toggle('active', i === idx);
+    });
+    document.querySelectorAll(`[id^="${group}-option-"]`).forEach((c, i) => {
+      c.classList.toggle('active', i === idx);
+    });
+  } else {
+    // New key-based call for role tabs
+    const container = btn.closest('.option-tabs');
+    container.querySelectorAll('.option-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('[id^="report-option-"]').forEach(c => c.classList.remove('active'));
+    const target = document.getElementById('report-option-' + key);
+    if (target) target.classList.add('active');
+  }
 }
 
 /* ── Init ── */
