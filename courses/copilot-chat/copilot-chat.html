@@ -592,27 +592,51 @@ const LESSONS = [
 <button class="continue-btn" onclick="switchTab(1,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Set Up Your Custom Instructions</h3>
+<h3>Build Your Custom Instructions</h3>
 
-<p><strong>1.</strong> Open Copilot Chat. Ask Copilot to interview you:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>I need to set up my Custom Instructions for work. Interview me — ask about my role, how I like to communicate, what I'm working on, and what I want to avoid. One question at a time.</code></div>
+<p><strong>Step 1: Let Copilot interview you.</strong></p>
+<p>Open Copilot Chat and paste this prompt. It will walk you through five sections, one at a time:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Interview me to build my system configuration — a set of custom instructions that will make you work better for me.
 
-<p><strong>2.</strong> Answer all of Copilot's questions honestly. It will ask about your role, team, preferences, and goals. Take your time — this is the foundation for everything that follows.</p>
+Ask me about:
+1. Who I am and what I do
+2. How I like to communicate
+3. My top priorities right now
+4. My daily schedule and work patterns
+5. Things I want you to never do
 
-<p><strong>3.</strong> When the interview is complete, ask Copilot to generate the output:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on my answers, generate a Custom Instructions block I can paste into Settings. Organize it into sections: Identity, Communication Style, Goals, Schedule, and Avoidances.</code></div>
+Ask one section at a time. Wait for my response before moving to the next section.
 
-<p><strong>4.</strong> Copy the generated text. Go to <strong>Settings &rarr; Custom Instructions</strong>. Paste it in and save.</p>
+When the interview is complete, output the results formatted as a Copilot Custom Instructions block — organized by section, ready to copy and paste into Settings.</code></div>
 
-<p><strong>5.</strong> Open a <strong>NEW conversation</strong> (this is important — Custom Instructions only apply to new conversations). Send this test:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What do you know about my role and preferences?</code></div>
+<p><strong>Step 2: Answer each question honestly.</strong></p>
+<p>Copilot will ask about your role, team, communication style, priorities, and boundaries. Take your time — the more specific you are, the better Copilot will work for you in every future conversation. If a question does not apply, say "skip" and move on.</p>
 
-<p>Copilot should reference your name, role, and preferences from the instructions you just saved.</p>
+<p><strong>Step 3: Review the output.</strong></p>
+<p>When Copilot finishes the interview, it will produce a formatted Custom Instructions block. Read through it. Ask yourself:</p>
+<ul>
+  <li>Does the Identity section capture your actual role and responsibilities?</li>
+  <li>Does the Communication Style match how you actually write?</li>
+  <li>Are the Priorities current — or already outdated?</li>
+  <li>Are the Avoidances specific enough? (e.g., "never use em dashes" is better than "keep it professional")</li>
+</ul>
 
-<p><strong>Iterate:</strong> If something is missing or wrong, go back and refine. Try this:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Adjust my Custom Instructions to also mention that I prefer bullet points over paragraphs.</code></div>
+<p><strong>Step 4: Refine.</strong></p>
+<p>If something is wrong or missing, tell Copilot:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Update my Custom Instructions: add that I prefer bullet points over paragraphs, and that I work primarily on residential condo projects. Remove the section about scheduling — I do not need that.</code></div>
 
-<p>Copy the updated version back into Settings.</p>
+<p><strong>Step 5: Install it.</strong></p>
+<p>Copy the final output. Go to <strong>Settings &rarr; Custom Instructions</strong>. Paste it in. Click <strong>Save</strong>.</p>
+
+<p><strong>Step 6: Test it.</strong></p>
+<p>Open a <strong>NEW conversation</strong> (important — Custom Instructions only apply to new chats). Send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What do you know about my role, preferences, and priorities? List everything you can see from my Custom Instructions.</code></div>
+
+<p>If Copilot references your name, role, communication preferences, and avoidances — it worked. If something is missing, go back to Settings, edit, save, and test in another new chat.</p>
+
+<div class="note-box">
+  <strong>Success check:</strong> You should have Custom Instructions saved in Settings, and a new conversation where Copilot demonstrates it knows who you are without you telling it. This is your AI operating system — it runs in the background of every future chat.
+</div>
 
 <p class="personalization-note">[PERSONALIZED: swap the Custom Instructions template with organization-specific roles, communication preferences, and workflows from Listen Labs interviews]</p>
 
