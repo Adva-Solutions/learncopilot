@@ -654,41 +654,55 @@ When the interview is complete, output the results formatted as a Copilot Custom
 `
 },
 
-// ── 2: Work Mode & Your Organization's Knowledge ──
+// ── 2: Build Your Knowledge Notebook ──
 {
-  id: 'work-mode-org-knowledge',
-  title: "Work Mode & Your Organization's Knowledge",
+  id: 'knowledge-notebook',
+  title: "Build Your Knowledge Notebook",
   points: 15,
   learn: `
-<h3>From HOW to WHAT</h3>
-<p><em>You configured Copilot to know who you are. Now let's teach it what your organization knows.</em></p>
-<p>Custom Instructions tell Copilot <strong>how</strong> to behave. Work Mode tells it <strong>what</strong> to know.</p>
+<h3>Give Copilot a Knowledge Base</h3>
+<p><em>You configured Copilot to know who you are. Now give it a knowledge base — the documents, references, and context it needs to do your actual work.</em></p>
 
-<p>Think of it this way: <strong>Work mode is like searching your filing cabinet.</strong> Web mode is like searching the library. One has your organization's data. The other has the internet.</p>
+<p>In a regular chat, Copilot starts fresh every time. It can search your org data (Work mode) or the web (Web mode) — but it does not <strong>remember</strong> your project context between conversations.</p>
 
-<h3>The Toggle</h3>
-<p>At the top of every Copilot chat, you see the <strong>Work / Web toggle</strong>. This one button controls where Copilot searches for answers.</p>
-
-<p><strong>Work mode</strong> searches:</p>
+<p><strong>Notebooks change that.</strong> A Notebook is a persistent workspace where you:</p>
 <ul>
-  <li>Your emails (Outlook)</li>
-  <li>Your files (OneDrive, SharePoint)</li>
-  <li>Your Teams chats and channels</li>
-  <li>Your calendar</li>
-  <li>People directory</li>
+  <li>Upload or link <strong>reference files</strong> — specs, reports, guidelines, templates</li>
+  <li>Write <strong>custom instructions</strong> specific to that notebook (not your global ones — these are project-level)</li>
+  <li>Chat with Copilot <strong>grounded on those references</strong> — every response draws from your uploaded context</li>
 </ul>
 
-<p><strong>Web mode</strong> searches the public internet — news, research, articles, public data.</p>
+<p>Think of it this way: a regular chat is asking a smart colleague a question in the hallway. A Notebook is sitting them down at your desk, handing them your project folder, and saying "Read this first, then help me."</p>
 
-<h3>Copilot Notebooks</h3>
-<p>Notebooks are persistent workspaces that combine references, Pages content, and chats side-by-side. Think of them as a "project folder" for ongoing work. Click <strong>Notebooks</strong> in the left nav to create one. Add references from your files, and Copilot keeps them available across sessions.</p>
+<h3>When to Use a Notebook</h3>
+<table style="width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;">
+  <thead><tr style="border-bottom:2px solid var(--border);">
+    <th style="text-align:left;padding:8px 12px;">Scenario</th>
+    <th style="text-align:left;padding:8px 12px;">Tool</th>
+  </tr></thead>
+  <tbody>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Quick question, no context needed</td><td style="padding:8px 12px;">Copilot Chat</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Find a file or email from your org</td><td style="padding:8px 12px;">Work Mode search</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Ongoing project with specific documents</td><td style="padding:8px 12px;"><strong>Notebook</strong></td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Team knowledge base with standards and guidelines</td><td style="padding:8px 12px;"><strong>Notebook</strong></td></tr>
+    <tr><td style="padding:8px 12px;">Department reference library (codes, policies, templates)</td><td style="padding:8px 12px;"><strong>Notebook</strong></td></tr>
+  </tbody>
+</table>
+
+<h3>The Power: Custom Instructions + References + Chat</h3>
+<p>A Notebook combines three things that make Copilot dramatically more useful:</p>
+<ol>
+  <li><strong>References:</strong> The files Copilot reads before answering (your project docs, not the whole internet)</li>
+  <li><strong>Notebook instructions:</strong> Rules specific to this context ("always cite the section number when referencing the building code")</li>
+  <li><strong>Persistent chat:</strong> The conversation stays — come back tomorrow and it remembers what you discussed</li>
+</ol>
 
 <button class="continue-btn" onclick="switchTab(2,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Search Your Organization's Data</h3>
+<h3>Build a Notebook for Your Role</h3>
 
-<p>Choose your role to see exercises tailored to your work:</p>
+<p>Choose your role. You will create a Notebook, configure it, upload references, and run two prompts that demonstrate the power of grounded AI.</p>
 
 <div class="option-tabs" id="options-2">
   <button class="option-btn active" onclick="switchOption(2,'arch',this)">Architecture</button>
@@ -699,58 +713,124 @@ When the interview is complete, output the results formatted as a Copilot Custom
 </div>
 
 <div class="option-content active" id="option-2-arch">
-<p><strong>Exercise 1 (Work mode):</strong> Confirm you are in Work mode. Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find the most recent permit submission documents and consultant coordination emails for our residential projects. Show me anything from the last 2 weeks.</code></div>
+<h4>Step 1: Create the Notebook</h4>
+<p>Click <strong>Notebooks</strong> in the left sidebar. Click <strong>New Notebook</strong>. Name it: <strong>Building Code &amp; Project Standards</strong></p>
 
-<p><strong>Exercise 2 (Web mode):</strong> Switch to Web mode. Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the latest NYC and Florida building code changes for residential high-rise construction in 2026? Focus on facade, egress, and accessibility requirements.</code></div>
+<h4>Step 2: Add Custom Instructions</h4>
+<p>In the Notebook settings or instructions area, paste:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are an architecture project assistant for ODA, a global design firm. When answering questions:
+- Always cite the specific section or page number from the reference documents
+- Flag any code compliance concerns with the prefix [CODE ALERT]
+- When comparing materials or systems, use a table format
+- Default to NYC and Florida building codes unless I specify otherwise</code></div>
 
-<p><strong>Exercise 3 (Notebook):</strong> Create a Notebook for your current project. Click Notebooks in the left nav, create a new one, and add a reference from your Exercise 1 results.</p>
+<h4>Step 3: Upload References</h4>
+<p>Add 2-3 files that are relevant to your current project. Examples:</p>
+<ul>
+  <li>A building code PDF (or a section of it)</li>
+  <li>A project specification document</li>
+  <li>A consultant's report or submission</li>
+</ul>
+<p>If you do not have files handy, upload the <a href="/sample-data.csv" download>sample data file</a> or any project-related document from your OneDrive.</p>
+
+<h4>Step 4: Run Power Prompt #1 — Cross-Reference</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the documents I uploaded, what are the top 3 code compliance risks for this project? For each risk, cite the specific code section and the specific page or section in our project documents where the issue exists.</code></div>
+<p>This prompt forces Copilot to cross-reference YOUR documents against the code — something that would take you hours manually.</p>
+
+<h4>Step 5: Run Power Prompt #2 — Generate a Deliverable</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the references in this notebook, draft a consultant coordination email summarizing the open items that need resolution before our next permit submission. Organize by consultant (structural, MEP, facade) and include the specific document references for each item.</code></div>
+<p>Notice how Copilot pulls from your uploaded files to create a real deliverable — not generic advice, but specific references from your actual project documents.</p>
 </div>
 
-<div class="option-content" id="option-2-hr" style="display:none">
-<p><strong>Exercise 1 (Work mode):</strong> Confirm you are in Work mode. Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find the most recent job descriptions or offer letters I have access to.</code></div>
+<div class="option-content" id="option-2-hr">
+<h4>Step 1: Create the Notebook</h4>
+<p>Click <strong>Notebooks</strong> in the left sidebar. Click <strong>New Notebook</strong>. Name it: <strong>HR Policies &amp; Onboarding</strong></p>
 
-<p><strong>Exercise 2 (Web mode):</strong> Switch to Web mode. Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the 2026 best practices for employee onboarding in professional services firms?</code></div>
+<h4>Step 2: Add Custom Instructions</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are an HR assistant for ODA. When answering questions:
+- Always reference the specific policy document and section
+- Flag any compliance concerns with [COMPLIANCE NOTE]
+- When comparing benefits or policies, use a table format
+- Be cautious about legal advice — flag when something needs legal review</code></div>
 
-<p><strong>Exercise 3 (Notebook):</strong> Create a Notebook called "HR Resources." Add a reference from your Exercise 1 results.</p>
+<h4>Step 3: Upload References</h4>
+<p>Add 2-3 files: employee handbook, benefits guide, recent job descriptions, or onboarding checklists.</p>
+
+<h4>Step 4: Power Prompt #1</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on our employee handbook, what is the process for handling a leave of absence request? Walk me through every step, citing the specific handbook sections.</code></div>
+
+<h4>Step 5: Power Prompt #2</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the job descriptions in this notebook, draft an onboarding checklist for a new senior architect. Include role-specific setup items, required software access, and first-week meetings based on what the JD describes.</code></div>
 </div>
 
-<div class="option-content" id="option-2-mktg" style="display:none">
-<p><strong>Exercise 1 (Work mode):</strong> Confirm you are in Work mode. Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find recent presentations or case studies about our completed projects.</code></div>
+<div class="option-content" id="option-2-mktg">
+<h4>Step 1: Create the Notebook</h4>
+<p>Click <strong>Notebooks</strong>. Name it: <strong>Marketing &amp; Awards Pipeline</strong></p>
 
-<p><strong>Exercise 2 (Web mode):</strong> Switch to Web mode. Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the top architecture and design awards to submit to in 2026? Include deadlines.</code></div>
+<h4>Step 2: Add Custom Instructions</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are a marketing assistant for ODA, a global architecture firm. When answering:
+- Reference specific project names and details from uploaded documents
+- Match ODA's brand voice: sophisticated, design-forward, concise
+- When listing awards or deadlines, use a table with submission dates
+- Always include image/visual requirements when discussing submissions</code></div>
 
-<p><strong>Exercise 3 (Notebook):</strong> Create a Notebook called "Marketing Pipeline." Add a reference from your Exercise 1 results.</p>
+<h4>Step 3: Upload References</h4>
+<p>Add: past award submissions, project case studies, brand guidelines, or RFP response templates.</p>
+
+<h4>Step 4: Power Prompt #1</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on our past submissions and project portfolio, which 3 completed projects are the strongest candidates for the AIA Design Awards this year? For each, cite the specific project details from the uploaded documents and explain why it is a strong candidate.</code></div>
+
+<h4>Step 5: Power Prompt #2</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the project details in this notebook, draft a 250-word award submission narrative for our strongest project. Follow the voice and structure from our past submissions.</code></div>
 </div>
 
-<div class="option-content" id="option-2-exec" style="display:none">
-<p><strong>Exercise 1 (Work mode):</strong> Confirm you are in Work mode. Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize my emails and Teams messages from the past week about project status updates.</code></div>
+<div class="option-content" id="option-2-exec">
+<h4>Step 1: Create the Notebook</h4>
+<p>Click <strong>Notebooks</strong>. Name it: <strong>Executive Project Overview</strong></p>
 
-<p><strong>Exercise 2 (Web mode):</strong> Switch to Web mode. Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the market trends in commercial real estate development in the northeastern US for 2026?</code></div>
+<h4>Step 2: Add Custom Instructions</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are an executive briefing assistant for ODA. When answering:
+- Lead with the bottom line — decisions needed, risks, and financial impact
+- Use bullet points, not paragraphs
+- When summarizing multiple projects, use a comparison table
+- Flag anything that needs immediate attention with [ACTION REQUIRED]</code></div>
 
-<p><strong>Exercise 3 (Notebook):</strong> Create a Notebook called "Executive Briefings." Add a reference from your Exercise 1 results.</p>
+<h4>Step 3: Upload References</h4>
+<p>Add: project status reports, financial summaries, staffing plans, or board meeting notes.</p>
+
+<h4>Step 4: Power Prompt #1</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the documents in this notebook, give me a 5-minute executive briefing: what is the status of each active project, what decisions need to be made this week, and what are the top 3 risks across the portfolio?</code></div>
+
+<h4>Step 5: Power Prompt #2</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a board update memo using the project data in this notebook. Format: 3-sentence executive summary at the top, then a table of all projects with status/budget/timeline, then a "Decisions Needed" section with specific asks.</code></div>
 </div>
 
-<div class="option-content" id="option-2-ops" style="display:none">
-<p><strong>Exercise 1 (Work mode):</strong> Confirm you are in Work mode. Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find the most recent project schedules or resource allocation documents I have access to.</code></div>
+<div class="option-content" id="option-2-ops">
+<h4>Step 1: Create the Notebook</h4>
+<p>Click <strong>Notebooks</strong>. Name it: <strong>Operations &amp; Resource Planning</strong></p>
 
-<p><strong>Exercise 2 (Web mode):</strong> Switch to Web mode. Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the latest construction project management software trends for 2026?</code></div>
+<h4>Step 2: Add Custom Instructions</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are an operations assistant for ODA. When answering:
+- Always reference specific project names and dates from the uploaded documents
+- When tracking resources, use a table with columns for project, team size, utilization, and timeline
+- Flag overallocation or scheduling conflicts with [RESOURCE ALERT]
+- Default to weekly planning cycles unless I specify otherwise</code></div>
 
-<p><strong>Exercise 3 (Notebook):</strong> Create a Notebook called "Ops Resources." Add a reference from your Exercise 1 results.</p>
+<h4>Step 3: Upload References</h4>
+<p>Add: project schedules, staffing plans, resource allocation spreadsheets, or budget trackers.</p>
+
+<h4>Step 4: Power Prompt #1</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the staffing and schedule documents in this notebook, which teams are overallocated in the next 2 weeks? Show me a table of each person, their current project assignments, and their utilization percentage.</code></div>
+
+<h4>Step 5: Power Prompt #2</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the project schedule data, draft a weekly resource planning email for the leadership team. Highlight any projects at risk of missing milestones and recommend specific staffing adjustments with justification from the data.</code></div>
 </div>
 
-<p class="personalization-note">[PERSONALIZED: swap role-specific search prompts with actual client project names and document types from Listen Labs interviews]</p>
+<p class="personalization-note">[PERSONALIZED: swap notebook topics and reference file suggestions with actual client project types from Listen Labs interviews]</p>
 
-<p><strong>Iterate:</strong> After completing the exercises, try combining both modes: switch back to Work mode and ask Copilot to connect your web research to your org data.</p>
+<div class="note-box">
+  <strong>Success check:</strong> You should have a Notebook with a name, custom instructions, at least one reference file, and two prompts that produced outputs grounded in YOUR documents — not generic advice. The difference between a regular chat and a Notebook is the difference between "an AI that gives good generic answers" and "an AI that knows your project."
+</div>
 
 <button class="mark-complete-btn" id="complete-btn-2" onclick="markComplete(2)">Mark Complete</button>
 `,
