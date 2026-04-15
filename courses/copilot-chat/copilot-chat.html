@@ -437,18 +437,41 @@ const LESSONS = [
   <p>If you have never used an AI tool beyond a quick Google-style search, you are in the right place. This course starts from zero. Every step tells you exactly where to click and what to type. By the end of today, you will have used AI for real work — not just experiments.</p>
 </div>
 
-<p>Let us start by walking through the Copilot interface at <strong>m365.cloud.microsoft</strong> so you know where everything lives:</p>
-<ul>
-  <li><strong>Chat area (center):</strong> This is where you type prompts and read responses. The big text box at the bottom.</li>
-  <li><strong>Work / Web toggle (top of chat):</strong> Controls whether Copilot searches your organization's data or the public internet. This is critical — you will learn more in Lesson 2.</li>
-  <li><strong>Attachment button (paperclip icon):</strong> Attach files, images, or paste content for Copilot to analyze.</li>
-  <li><strong>Conversation history (left sidebar):</strong> Your recent chats. Click any to pick up where you left off.</li>
-  <li><strong>Settings (profile icon, top right):</strong> Click your profile icon, then Settings. This is where Custom Instructions, Memory, and Connected Apps live.</li>
-</ul>
-
 <div class="note-box">
   <strong>No install required:</strong> Copilot is already part of your Microsoft 365 subscription. Open m365.cloud.microsoft in your browser — no IT tickets, no downloads, no waiting. If you can access Outlook and Teams, you can access Copilot.
 </div>
+
+<p>Let us walk through every part of the interface so you know where everything lives.</p>
+
+<h4>Top Bar</h4>
+<ul>
+  <li><strong>Work / Web toggle (top center):</strong> The most important control. <strong>Work</strong> searches your organization's data — emails, files, Teams chats, SharePoint. <strong>Web</strong> searches the public internet. You will master this in Lesson 2.</li>
+  <li><strong>Auto (model selector, top right):</strong> Shows which AI model Copilot is using. Usually set to "Auto" which picks the best model per task. You do not need to change this.</li>
+  <li><strong>Edit / Compose icons (top right):</strong> Start a new composition or edit mode. The pencil icon opens a fresh editing canvas.</li>
+  <li><strong>Three-dot menu (far right):</strong> Access to settings, plugins, and account preferences.</li>
+</ul>
+
+<h4>Left Sidebar</h4>
+<ul>
+  <li><strong>New chat:</strong> Start a fresh conversation. Each chat has its own context — Copilot does not carry over information between chats unless you set up Custom Instructions or Memory.</li>
+  <li><strong>Search:</strong> Search your previous conversations. Useful when you remember asking something last week but cannot find which chat it was in.</li>
+  <li><strong>Library:</strong> Your saved prompts, templates, and bookmarked responses. Over time this becomes your personal prompt library.</li>
+  <li><strong>Create:</strong> Opens the visual creation workspace — image generation, design tools, and more. We cover this in Lesson 7 (Copilot Create).</li>
+  <li><strong>Agents:</strong> Built-in agents like <strong>Researcher</strong> (deep web research with citations) and <strong>Analyst</strong> (data analysis). You can also create custom agents and access them here. We cover agents in the Building Agents module.</li>
+  <li><strong>Notebooks:</strong> Persistent research workspaces that combine references, notes, and chat side by side. We cover this in Lesson 2.</li>
+  <li><strong>Chats:</strong> Your conversation history. Click any chat to pick up where you left off.</li>
+  <li><strong>Apps:</strong> Links to Copilot features inside your Microsoft 365 apps — Outlook, Word, Excel, PowerPoint, Teams. We cover these in the Copilot in Apps module.</li>
+  <li><strong>Your profile (bottom left):</strong> Shows your name and license tier (e.g., "M365 Copilot Premium"). Click for account settings.</li>
+</ul>
+
+<h4>Chat Area</h4>
+<ul>
+  <li><strong>Message box (center):</strong> Where you type prompts. "Message Copilot" placeholder text.</li>
+  <li><strong>+ button (left of message box):</strong> Attach files, images, or paste content for Copilot to analyze. Supports Word, Excel, PowerPoint, PDF, images, and more.</li>
+  <li><strong>Microphone icon:</strong> Click to dictate instead of typing. We cover voice input in the bonus lesson.</li>
+  <li><strong>Voice mode icon (sound waves):</strong> Opens a full voice conversation mode where you can talk with Copilot like a phone call.</li>
+  <li><strong>Quick action pills:</strong> Below the message box you will see buttons like <strong>Summarize</strong>, <strong>Rewrite</strong>, <strong>Create</strong>, <strong>Learn</strong>, and <strong>...</strong> (more). These are one-click shortcuts to common tasks. Click any pill to start that type of task without typing a prompt.</li>
+</ul>
 
 <div class="tip-box">
   <strong>The AI Equation:</strong>
@@ -464,26 +487,54 @@ const LESSONS = [
   You cannot change the model. But you control <strong>context</strong> (what you tell it) and <strong>tools</strong> (what it can access). Better context + more tools = better results. That is the whole game.
 </div>
 
-<p>Think of this like the first time you got a new phone. You spend 10 minutes in Settings — wallpaper, notifications, accounts — and then the phone works the way you want. Same here.</p>
+<p>Think of this like the first time you got a new phone. You spend 10 minutes poking around — wallpaper, notifications, accounts — and then it works the way you want. Same here.</p>
 
 <button class="continue-btn" onclick="switchTab(0,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Explore the Interface</h3>
+<h3>Explore Every Corner</h3>
 
-<ol class="checklist">
+<p>Work through this checklist. Check off each item as you go.</p>
+
+<h4>Top Bar</h4>
+<ol>
   <li><strong>1.</strong> Open <strong>m365.cloud.microsoft</strong> and sign in with your work account.</li>
-  <li><strong>2.</strong> Find the <strong>Work / Web toggle</strong> at the top of the chat area. Click it once to switch modes, then click it back.</li>
-  <li><strong>3.</strong> Click the <strong>attachment icon</strong> (paperclip). Look at the options available — files, images, etc. Close without attaching anything.</li>
-  <li><strong>4.</strong> Click your <strong>profile icon</strong> (top right) and select <strong>Settings</strong>.</li>
-  <li><strong>5.</strong> Inside Settings, find <strong>Custom Instructions</strong>. Open it — it should be empty for now. Close it.</li>
-  <li><strong>6.</strong> Inside Settings, find <strong>Memory</strong>. Check whether it is turned on or off. Close Settings.</li>
-  <li><strong>7.</strong> Send this test message in the chat:</li>
+  <li><strong>2.</strong> Find the <strong>Work / Web toggle</strong> at the top center. Click <strong>Web</strong>, then click <strong>Work</strong> to switch back. Notice how the label changes.</li>
+  <li><strong>3.</strong> Look at the top right. Find <strong>Auto</strong> (the model selector). Click it — see what options are available. Close without changing anything.</li>
+  <li><strong>4.</strong> Click the <strong>three-dot menu</strong> (far top right). Browse the options. Find <strong>Settings</strong> and click it.</li>
 </ol>
 
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What model are you using and what tools do you have access to?</code></div>
+<h4>Settings</h4>
+<ol start="5">
+  <li><strong>5.</strong> Inside Settings, find <strong>Custom Instructions</strong>. Open it — it should be empty for now. This is where your "AI operating system" will live after Lesson 1. Close it.</li>
+  <li><strong>6.</strong> Find <strong>Memory</strong>. Check whether it is turned on or off. If it is off, turn it on. Close Settings.</li>
+</ol>
 
-<p>Read the response. You now have a map of the interface and know what Copilot can see.</p>
+<h4>Left Sidebar</h4>
+<ol start="7">
+  <li><strong>7.</strong> Click <strong>Search</strong> in the left sidebar. Type a word related to your recent work. See if any past conversations appear. Close search.</li>
+  <li><strong>8.</strong> Click <strong>Create</strong>. You will see the visual creation workspace. Browse for 10 seconds — we will come back to this in Lesson 7. Click <strong>New chat</strong> to go back to the main chat.</li>
+  <li><strong>9.</strong> Look at the <strong>Agents</strong> section. Click <strong>Researcher</strong>. Read the description — this is the agent that does deep web research (Lesson 6). Click the back arrow to return to the main chat.</li>
+  <li><strong>10.</strong> Click <strong>Notebooks</strong> (or "All notebooks"). See what is there — probably empty. We will create one in Lesson 2.</li>
+</ol>
+
+<h4>Chat Area</h4>
+<ol start="11">
+  <li><strong>11.</strong> Click the <strong>+ button</strong> (left of the message box). See the attachment options — files, images, etc. Close without attaching anything.</li>
+  <li><strong>12.</strong> Look at the <strong>quick action pills</strong> below the message box: Summarize, Rewrite, Create, Learn, and "..." for more. Click <strong>...</strong> to see additional options. Close.</li>
+  <li><strong>13.</strong> Click the <strong>microphone icon</strong>. Speak a short sentence. Watch it transcribe. (If prompted for permission, allow microphone access.)</li>
+  <li><strong>14.</strong> Send this test message:</li>
+</ol>
+
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What tools and data sources do you currently have access to? List everything you can see — my files, email, calendar, and any connected apps.</code></div>
+
+<p>Read the response. Copilot should describe what organizational data it can access.</p>
+
+<p><strong>15.</strong> Now click one of the <strong>quick action pills</strong> — try <strong>Summarize</strong>. When prompted, paste any block of text (an email, a paragraph from a document, or even the response Copilot just gave you). See how the pill shortcut works differently from typing a prompt.</p>
+
+<div class="note-box">
+  <strong>Success check:</strong> You have now touched every part of the interface: top bar (Work/Web toggle, model selector, settings), left sidebar (Search, Create, Agents, Notebooks, chat history), chat area (message box, attachments, microphone, voice mode, quick action pills), and Settings (Custom Instructions, Memory). You have a complete map. Everything from here builds on what you just explored.
+</div>
 
 <button class="mark-complete-btn" id="complete-btn-0" onclick="markComplete(0)">Mark Complete</button>
 `,
