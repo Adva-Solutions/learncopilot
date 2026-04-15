@@ -583,7 +583,8 @@ const LESSONS = [
 <p><em>You've used Copilot as a chat partner and inside your apps. Now you'll learn what happens when you give it autonomy &mdash; when it doesn't just answer questions, but takes actions on its own.</em></p>
 
 <h3>See the Difference</h3>
-<p>When you ask Copilot to summarize an email, it reads and responds. That's a chatbot. When you ask it to research a topic, draft a memo, create slides, AND email them to your team &mdash; all from one instruction &mdash; that's an agent.</p>
+<p>You ask Copilot to summarize an email thread about a consultant's deliverable delay. It reads and responds. That's a chatbot.</p>
+<p>You ask it to pull the latest building code requirements for a residential project, compare them against your current drawings, draft a compliance checklist, and email it to the consultant. That's an agent.</p>
 <p>The difference is not what it knows. It is what it <strong>does</strong>. A chatbot answers questions. An agent completes tasks.</p>
 
 <h3>The Agent Equation</h3>
@@ -599,7 +600,7 @@ const LESSONS = [
 <ul>
   <li><strong>Copilot in Outlook</strong> &mdash; reads an email thread, drafts a reply in your voice, and suggests a meeting time based on your calendar. Three tools, one action.</li>
   <li><strong>Copilot in Excel</strong> &mdash; analyzes your sales data, adds trend columns, builds a chart, and highlights anomalies. Multi-step reasoning on your spreadsheet.</li>
-  <li><strong>A custom Copilot Studio agent</strong> &mdash; a new-hire onboarding bot that answers policy questions, creates accounts, and schedules orientation meetings without human intervention.</li>
+  <li><strong>A real ODA use case</strong> &mdash; an architect at ODA asks Copilot to research facade waterproofing standards, summarize the findings, create a specification comparison table in Excel, and draft a recommendation memo in Word &mdash; all from one instruction.</li>
 </ul>
 
 <div class="tip-box">
@@ -806,6 +807,13 @@ const LESSONS = [
   <div class="note-title">Access</div>
   <p>Go to <strong>copilotstudio.microsoft.com</strong>. You need a Microsoft 365 or Power Platform license. A free trial is available.</p>
 </div>
+
+<h4>Agent Ideas for Architecture Firms</h4>
+<ul>
+  <li><strong>Building Code Q&A Agent:</strong> Grounded on your local building code documents. Team members ask code questions and get answers with section references &mdash; no more searching through 500-page PDFs manually.</li>
+  <li><strong>Project Standards Agent:</strong> Knows your firm's drafting standards, naming conventions, and Revit families. New team members ask it instead of interrupting senior staff.</li>
+  <li><strong>RFP Response Agent:</strong> Grounded on your past proposals, firm qualifications, and project portfolio. Generates first-draft RFP responses that match your firm's voice.</li>
+</ul>
     `,
     implement: `
 <h3>Build Your First Agent in Copilot Studio</h3>
@@ -1036,15 +1044,15 @@ const LESSONS = [
 <p><strong>Step 1:</strong> Open Copilot Chat. Let the agent interview you:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>I need to write my weekly project status report. I am a project architect at a global architecture and design firm. My key areas are DD phase progress, consultant coordination, and permit submissions. Ask me the questions you need answered before you can draft it.</pre>
+  <pre>I need to write my weekly project status report. Before you draft anything, ask me about: which projects I'm working on this week, the current design phase for each, any consultant coordination issues, permit submission status, upcoming milestones, and any blockers or risks. One question at a time.</pre>
 </div>
 
-<p><strong>Step 2:</strong> Answer each question Copilot asks. Include: which DD milestones hit, consultant RFI status, permit submission dates, and any blockers.</p>
+<p><strong>Step 2:</strong> Answer each question Copilot asks. Include real details about your active projects, design phases, consultant status, permit timelines, and any blockers or risks.</p>
 
 <p><strong>Step 3:</strong> Once you have answered everything, send:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Draft my project status report using this format: Summary (2 sentences), DD Phase Progress (bullet points with % complete), Consultant Coordination (status table: consultant name, discipline, status), Permit Status (timeline), Blockers (if any), Next Week's Plan (bullet points). Keep it under 250 words.</pre>
+  <pre>Now draft my weekly status report using this format: Project Name and Phase at the top, then sections for: Progress This Week (bullet points per project), Consultant Coordination (any open items), Permit/Submission Status, Risks & Blockers, and Next Week's Priorities. Keep it under 300 words total.</pre>
 </div>
 
 <p><strong>Iterate:</strong> Read the output. Then refine:</p>
@@ -1272,6 +1280,17 @@ const LESSONS = [
 <div class="tip-box">
   <div class="tip-title">Choosing the Right Problem</div>
   <p>The best project is one you will actually use after this course. Pick a real pain point, not a theoretical exercise.</p>
+</div>
+
+<div class="tip-box">
+  <div class="tip-title">Agent Ideas from Your Team</div>
+  <p>Based on your team's interviews, here are high-value agents to consider building:</p>
+  <ul>
+    <li><strong>Building Code Analyzer:</strong> Upload code documents, ask questions, get cited answers (Keith and Akshay's top request)</li>
+    <li><strong>File Finder Agent:</strong> Search your project server by description, not filename (Joseph and Lily's pain point)</li>
+    <li><strong>Revit Training Bot:</strong> Answer team questions about Revit workflows so senior staff don't have to (Yinxing's request)</li>
+    <li><strong>Markup Summarizer:</strong> Extract action items from design review notes and create a markup checklist (Ryoko's workflow)</li>
+  </ul>
 </div>
     `,
     implement: `

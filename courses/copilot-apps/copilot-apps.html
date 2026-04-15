@@ -214,6 +214,9 @@ const LESSONS = [
 <h4>Auto-Citations (NEW)</h4>
 <p>When Copilot pulls from web sources or your organization's data, it now automatically inserts footnotes with citations. No more guessing where the information came from.</p>
 
+<h4>Document Comparison</h4>
+<p>One of Word Copilot's most practical uses for teams that review many document versions: open two versions of a specification or report, and ask Copilot to compare them. It highlights what changed, what was added, and what was removed — faster than reading both documents side by side. Especially useful for reviewing consultant submittals, spec revisions, or contract redlines.</p>
+
 <div class="tip-box">
   <div class="tip-title">Tip</div>
   Use "/" references to ground Copilot in your actual data. Documents built from file references are significantly more accurate than those from prompts alone.
@@ -373,6 +376,9 @@ Dec	13200	10500</div></li>
 
 <h4>Automation with Macros + Copilot</h4>
 <p>Ask Copilot to write VBA macros for repetitive tasks. Combine this with Copilot's analysis capabilities to create powerful automated reporting workflows.</p>
+
+<h4>Architecture & Project Management Use Cases</h4>
+<p>Export your project tracking data from whatever tool you use (Revit schedules, Bluebeam quantity takeoffs, or project management spreadsheets) as CSV or Excel files. Then ask Copilot to analyze trends: "Which projects are over budget?", "Show me resource utilization by month", or "Compare planned vs. actual hours by team member." The key is getting data INTO Excel — once it's there, Copilot handles the analysis.</p>
 `
 },
 
@@ -539,6 +545,9 @@ Dec	13200	10500</div></li>
 
 <h4>Channel Analysis</h4>
 <p>For team leads, Copilot can analyze channel activity: <span class="inline-code">What are the most active discussion topics in our Engineering channel this month?</span> This helps identify team concerns, blockers, and trending topics.</p>
+
+<h4>Connecting Meeting Decisions to Markups</h4>
+<p>After a design review meeting, use Copilot to extract specific decisions: "List every change that was agreed upon for the floor plans." Then use that list as your markup guide in Bluebeam — you will know exactly what needs to be updated without re-watching the recording or re-reading your notes. Export the action items to a Copilot Page so the whole team can reference them.</p>
 `
 },
 
@@ -582,17 +591,16 @@ Dec	13200	10500</div></li>
 </div>
 
 <div class="option-content active" data-lesson="5" data-key="a">
-<h4>Architecture: Design Review to Client Presentation</h4>
-<p class="personalization-note">[PERSONALIZED: swap project names and review types with organization-specific workflows from Listen Labs interviews]</p>
+<h4>Architecture: Facade Material Recommendation Workflow</h4>
 <ol>
-<li><strong>Teams:</strong> Open a recent design review meeting recap. Ask Copilot:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Summarize the key feedback and decisions from this design review. List unresolved items and who owns them.</div></li>
-<li><strong>Word:</strong> Open a new document. Click Copilot and type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a design review summary memo for the client. Include: Project Status, Design Decisions Made, Open Items, and Next Steps. Base it on these notes: [paste Teams recap].</div></li>
-<li><strong>Excel:</strong> Open your project tracker. Ask Copilot:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Summarize the current project timeline. Flag any milestones that are behind schedule and calculate the overall percent complete.</div></li>
+<li><strong>Copilot Chat (Web mode):</strong> Start with research:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Research the latest facade material options for residential high-rises — compare aluminum curtain wall, precast concrete, and terracotta rainscreen systems. Include cost per square foot, maintenance requirements, and energy performance ratings.</div></li>
+<li><strong>Word:</strong> Draft the recommendation memo:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Based on the facade research, draft a 1-page design recommendation memo for the project team. Include: Executive Summary, Material Comparison Table, Our Recommendation with Justification, and Next Steps for consultant coordination.</div></li>
 <li><strong>PowerPoint:</strong> Create the client presentation:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Create a 6-slide client update presentation from /Design Review Memo.docx. Include project status, key decisions, timeline, and next steps. Keep it visual and leadership-ready.</div></li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Create a 5-slide design presentation from this memo for the client review meeting. Include material photos or descriptions, the comparison table, and our recommendation.</div></li>
+<li><strong>Outlook:</strong> Share with the team:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft an email to the project team and facade consultant sharing the memo and presentation. Subject: "Facade Material Recommendation — Review by Friday." Keep it brief.</div></li>
 </ol>
 
 <p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
@@ -721,6 +729,11 @@ Dec	13200	10500</div></li>
   <li><span class="inline-code">What was decided in last Tuesday's meeting about the new hire?</span></li>
 </ul>
 
+<div class="tip-box">
+  <div class="tip-title">For Teams with Disorganized File Servers</div>
+  <p>If your shared drive or server has years of accumulated folders with inconsistent naming, Copilot Search is your best friend. Instead of manually browsing folder trees, ask: "Find the latest facade details for the Fort Lauderdale project" or "Show me all RFP responses we submitted in the last year." Copilot searches by content, not just filename — so even poorly named files can be found if the content matches.</p>
+</div>
+
 <h4>SharePoint AI Pages (NEW 2026)</h4>
 <p>You can now create SharePoint pages using natural language: "Create a project status page with timeline, team members, and deliverables." Copilot generates the page layout and pulls relevant content from your org data.</p>
 
@@ -735,7 +748,7 @@ Dec	13200	10500</div></li>
 <ol>
 <li>Open <strong>Copilot Chat</strong> in Work mode (in Teams or at microsoft365.com/chat). Make sure "Work" is selected, not "Web."</li>
 <li>Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Find all documents I've edited in the past 30 days. List them by date with a one-line summary of each.</div></li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Find all documents related to our active residential projects that were modified in the last 30 days. Include permit submissions, consultant correspondence, and design review notes.</div></li>
 <li>Check: Does Copilot return a list of real files you recognize? If yes, your organizational data is well-indexed. If the list is empty, try "files I created" instead of "edited."</li>
 </ol>
 
