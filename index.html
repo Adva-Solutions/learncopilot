@@ -361,11 +361,11 @@ function logout() {
 
 /* Load progress from localStorage for instant display */
 function updateDashboardProgress() {
-  const chatCompleted = JSON.parse(localStorage.getItem('chat-completed') || '[]');
+  const chatCompleted = JSON.parse(localStorage.getItem('chat-completed-v2') || '[]');
   const appsCompleted = JSON.parse(localStorage.getItem('apps-completed') || '[]');
   const agentsCompleted = JSON.parse(localStorage.getItem('agents-completed') || '[]');
 
-  const chatPct = Math.round((chatCompleted.length / 11) * 100);
+  const chatPct = Math.round((chatCompleted.length / 10) * 100);
   const appsPct = Math.round((appsCompleted.length / 10) * 100);
   const agentsPct = Math.round((agentsCompleted.length / 8) * 100);
 

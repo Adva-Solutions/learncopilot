@@ -554,6 +554,8 @@ const LESSONS = [
 
 <p>Copy the updated version back into Settings.</p>
 
+<p class="personalization-note">[PERSONALIZED: swap the Custom Instructions template with organization-specific roles, communication preferences, and workflows from Listen Labs interviews]</p>
+
 <button class="mark-complete-btn" id="complete-btn-1" onclick="markComplete(1)">Mark Complete</button>
 `,
   advanced: `
@@ -575,6 +577,7 @@ const LESSONS = [
   points: 15,
   learn: `
 <h3>From HOW to WHAT</h3>
+<p><em>You configured Copilot to know who you are. Now let's teach it what your organization knows.</em></p>
 <p>Custom Instructions tell Copilot <strong>how</strong> to behave. Work Mode tells it <strong>what</strong> to know.</p>
 
 <p>Think of it this way: <strong>Work mode is like searching your filing cabinet.</strong> Web mode is like searching the library. One has your organization's data. The other has the internet.</p>
@@ -611,7 +614,7 @@ const LESSONS = [
   <button class="option-btn" onclick="switchOption(2,'ops',this)">Operations</button>
 </div>
 
-<div class="option-content" id="option-2-arch">
+<div class="option-content active" id="option-2-arch">
 <p><strong>Exercise 1 (Work mode):</strong> Confirm you are in Work mode. Send:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find the most recent permit submission documents for our projects.</code></div>
 
@@ -730,6 +733,8 @@ const LESSONS = [
   <strong>Success check:</strong> Your Page should have AI-generated content + your manual edits + a shareable link. Three sources of content on one collaborative Page.
 </div>
 
+<p class="personalization-note">[PERSONALIZED: swap the Page creation topic with organization-specific deliverable types from Listen Labs interviews]</p>
+
 <button class="mark-complete-btn" id="complete-btn-3" onclick="markComplete(3)">Mark Complete</button>
 `,
   advanced: `
@@ -751,6 +756,7 @@ const LESSONS = [
   points: 15,
   learn: `
 <h3>Copilot Without Connectors Is Like a Phone Without Apps</h3>
+<p><em>You've built Pages and searched your org data. Now let's connect Copilot to even more tools.</em></p>
 <p>Pages connect to your data. Now let us see what data sources are already available — and what else you can add.</p>
 
 <p>Functional but limited. That is Copilot without connectors. With them, it becomes the central hub for everything you work on.</p>
@@ -786,6 +792,9 @@ const LESSONS = [
 <p><strong>4.</strong> Browse available plugins. In Settings or the Copilot interface, look at which connectors are available but not yet enabled. Note which ones are relevant to your work (project management tools, CRM, design tools, etc.).</p>
 
 <p class="personalization-note">[PERSONALIZED: swap with client-specific connectors and tools confirmed in Listen Labs interviews]</p>
+
+<p><strong>Iterate:</strong> Try a more specific search. Ask Copilot to find files from a particular person, date range, or project:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Find all PowerPoint files shared in the last 2 weeks that mention the Fort Lauderdale project.</div>
 
 <button class="mark-complete-btn" id="complete-btn-4" onclick="markComplete(4)">Mark Complete</button>
 `,
@@ -837,7 +846,7 @@ const LESSONS = [
   <button class="option-btn" onclick="switchOption(5,'ops',this)">Operations</button>
 </div>
 
-<div class="option-content" id="option-5-arch">
+<div class="option-content active" id="option-5-arch">
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>I need to draft an RFP response for a new residential project. Before you write anything, interview me — ask about the project scope, our firm's qualifications, timeline, and any specific requirements. One question at a time.</code></div>
 </div>
 
@@ -883,7 +892,7 @@ const LESSONS = [
   points: 20,
   learn: `
 <h3>Your Research Assistant</h3>
-<p>The "You Ask Me" technique works in every mode — including Research.</p>
+<p><em>The "You Ask Me" technique works in every mode — including Research, where it's even more powerful.</em></p>
 
 <p>Regular Copilot gives you one answer. Research mode gives you a research assistant who reads dozens of sources and writes you a report.</p>
 
@@ -924,7 +933,7 @@ const LESSONS = [
   <button class="option-btn" onclick="switchOption(6,'ops',this)">Operations</button>
 </div>
 
-<div class="option-content" id="option-6-arch">
+<div class="option-content active" id="option-6-arch">
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Research the latest sustainable building materials and energy-efficient facade systems for residential high-rises in 2025-2026. Include cost comparisons and case studies.</code></div>
 </div>
 
@@ -979,6 +988,7 @@ const LESSONS = [
   points: 15,
   learn: `
 <h3>Research Gave You Words. Create Gives You Visuals.</h3>
+<p><em>Research gave you insights backed by data. Now turn those insights into visuals.</em></p>
 <p>In the Copilot app, click <strong>Create</strong> in the left navigation. This opens a dedicated visual creation workspace.</p>
 
 <h3>What You Can Make</h3>
@@ -1008,6 +1018,8 @@ const LESSONS = [
 <div class="note-box">
   <strong>Success check:</strong> You should have at least 3 images: one photorealistic, one illustrative, and one refined iteration.
 </div>
+
+<p class="personalization-note">[PERSONALIZED: swap image generation prompts with organization-specific visual needs from Listen Labs interviews — e.g., project renderings, marketing materials, event graphics]</p>
 
 <button class="mark-complete-btn" id="complete-btn-7" onclick="markComplete(7)">Mark Complete</button>
 `,
@@ -1189,6 +1201,8 @@ const LESSONS = [
   <strong>Success check:</strong> You produced a real work deliverable using at least one Copilot tool, iterated at least twice, and the result is something you will actually use this week.
 </div>
 
+<p class="personalization-note">[PERSONALIZED: swap the capstone task suggestions with organization-specific high-value tasks identified in Listen Labs interviews]</p>
+
 <button class="mark-complete-btn" id="complete-btn-9" onclick="markComplete(9)">Mark Complete</button>
 `,
   advanced: `
@@ -1254,6 +1268,8 @@ const LESSONS = [
 <div class="note-box">
   <strong>Success check:</strong> You dictated rough text by voice and used Copilot to turn it into a polished, professional message.
 </div>
+
+<p><strong>Iterate:</strong> Try the dictation-to-polish workflow again with a longer, more complex message. Dictate 3-4 sentences about a project update, then ask Copilot to restructure it into bullet points.</p>
 
 <button class="mark-complete-btn" id="complete-btn-10" onclick="markComplete(10)">Mark Complete</button>
 `,
@@ -1372,6 +1388,12 @@ function renderLesson() {
   html += '</div>';
 
   document.getElementById('lesson-content').innerHTML = html;
+
+  // Auto-activate first option-content if present
+  var firstOpt = document.querySelector('.option-content');
+  if (firstOpt && !document.querySelector('.option-content.active')) {
+    firstOpt.classList.add('active');
+  }
 
   // Update complete button state
   if (currentTab === 'implement') {
