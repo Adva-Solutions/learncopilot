@@ -405,8 +405,8 @@ body {
   </div>
   <div class="progress-bar-container">
     <div class="progress-info">
-      <span id="progress-label">0 of 10 core steps</span>
-      <span id="progress-pts">0 / 140 pts</span>
+      <span id="progress-label">0 of 8 core steps</span>
+      <span id="progress-pts">0 / 115 pts</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
   </div>
@@ -448,7 +448,7 @@ const LESSONS = [
   <li><strong>Work / Web toggle (top center):</strong> The most important control. <strong>Work</strong> searches your organization's data — emails, files, Teams chats, SharePoint. <strong>Web</strong> searches the public internet. You will master this in Lesson 2.</li>
   <li><strong>Auto (model selector, top right):</strong> Shows which AI model Copilot is using. Usually set to "Auto" which picks the best model per task. You do not need to change this.</li>
   <li><strong>Edit / Compose icons (top right):</strong> Start a new composition or edit mode. The pencil icon opens a fresh editing canvas.</li>
-  <li><strong>Three-dot menu (far right):</strong> Access to settings, plugins, and account preferences.</li>
+  <li><strong>Three-dot menu (far right):</strong> Opens a dropdown with: <strong>Recent pages</strong>, <strong>Scheduled prompts</strong> (set up recurring AI tasks), <strong>Send feedback</strong>, <strong>Settings</strong> (Custom Instructions, Memory, preferences), <strong>Quick Help</strong>, and a <strong>Web search</strong> toggle that controls whether Copilot includes web results in its responses.</li>
 </ul>
 
 <h4>Left Sidebar</h4>
@@ -471,6 +471,8 @@ const LESSONS = [
   <li><strong>Microphone icon:</strong> Click to dictate instead of typing. We cover voice input in the bonus lesson.</li>
   <li><strong>Voice mode icon (sound waves):</strong> Opens a full voice conversation mode where you can talk with Copilot like a phone call.</li>
   <li><strong>Quick action pills:</strong> Below the message box you will see buttons like <strong>Summarize</strong>, <strong>Rewrite</strong>, <strong>Create</strong>, <strong>Learn</strong>, and <strong>...</strong> (more). These are one-click shortcuts to common tasks. Click any pill to start that type of task without typing a prompt.</li>
+  <li><strong>Suggestion cards:</strong> Below the pills, Copilot shows contextual suggestions based on your recent activity — documents you opened, close collaborators, emails that need attention. Click any card to start a conversation about that topic.</li>
+  <li><strong>Browse more prompts:</strong> At the very bottom, click this link to explore Copilot's full prompt gallery organized by category.</li>
 </ul>
 
 <div class="tip-box">
@@ -966,142 +968,176 @@ When the interview is complete, output the results formatted as a Copilot Custom
 `
 },
 
-// ── 4: Connect Your Tools ──
+// ── 4: Agents & Connectors ──
 {
-  id: 'connect-your-tools',
-  title: 'Connect Your Tools',
+  id: 'agents-connectors',
+  title: 'Agents & Connectors',
   points: 15,
   learn: `
-<h3>Copilot Without Connectors Is Like a Phone Without Apps</h3>
-<p><em>You've built Pages and searched your org data. Now let's connect Copilot to even more tools.</em></p>
-<p>Pages connect to your data. Now let us see what data sources are already available — and what else you can add.</p>
+<h3>Copilot's Extended Reach</h3>
+<p><em>You've built Pages and Notebooks grounded in your documents. But what about the other tools your team uses — project management, CRM, ticketing systems?</em></p>
 
-<p>Functional but limited. That is Copilot without connectors. With them, it becomes the central hub for everything you work on.</p>
+<p>In Copilot, connectors don't live in a settings menu you configure yourself. Instead, they live inside <strong>Agents</strong>. Microsoft and third parties have built specialized agents that connect Copilot to tools like Monday.com, Jira, Salesforce, ServiceNow, and dozens more.</p>
 
-<h3>Microsoft Graph: The Built-In Connection</h3>
-<p>Microsoft Graph connects Copilot to your organization's data automatically. This is what powers Work mode. It includes:</p>
+<h4>How It Works</h4>
+<p>Click <strong>Agents</strong> in the left sidebar. You will see built-in agents (like Researcher and Analyst) and may see additional agents your admin has enabled. Each agent has its own knowledge and tool connections.</p>
+
+<p>For example:</p>
 <ul>
-  <li><strong>Outlook:</strong> Emails, calendar, contacts</li>
-  <li><strong>OneDrive &amp; SharePoint:</strong> Files, documents, sites</li>
-  <li><strong>Teams:</strong> Chats, channels, meeting transcripts</li>
-  <li><strong>People directory:</strong> Org chart, contact info</li>
+  <li>A <strong>Jira agent</strong> can search your tickets, create issues, and summarize sprint progress</li>
+  <li>A <strong>Monday.com agent</strong> can pull project boards, update statuses, and generate reports</li>
+  <li>A <strong>Salesforce agent</strong> can look up accounts, summarize deal pipelines, and draft follow-up emails</li>
 </ul>
 
-<h3>Beyond Graph: Plugins and Connectors</h3>
-<p>Copilot supports 100+ third-party connectors and plugins. These let Copilot read, search, and act on data from external tools — project management, CRM, design tools, and more.</p>
+<p>Your organization's IT admin controls which agents are available. If you do not see a connector you need, ask your admin — or build your own in the <strong>Building Agents</strong> module of this course.</p>
 
-<p>To see what is available: go to <strong>Settings &rarr; Connected apps</strong> (or look for the plugins/connectors section in the Copilot interface).</p>
+<h4>What You Already Have</h4>
+<p>Even without third-party agents, Copilot already connects to your core Microsoft 365 tools through <strong>Microsoft Graph</strong>:</p>
+<ul>
+  <li><strong>Outlook</strong> — email, calendar, contacts</li>
+  <li><strong>OneDrive & SharePoint</strong> — files, documents, sites</li>
+  <li><strong>Teams</strong> — chats, channels, meeting transcripts</li>
+  <li><strong>People directory</strong> — org chart, expertise, collaboration patterns</li>
+</ul>
+<p>These are always on — no setup required. The Agents module later in this course will teach you how to build custom agents that connect to additional tools.</p>
+
+<div class="tip-box">
+  <div class="tip-title">Coming Up</div>
+  <p>In the <strong>Building Agents</strong> module, you will learn how to create custom agents in Copilot Studio — including agents that connect to tools like Bluebeam, project tracking systems, and internal databases. Think of this lesson as the "what's possible" overview; the Agents module is the "how to build it" hands-on.</p>
+</div>
 
 <button class="continue-btn" onclick="switchTab(4,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Discover and Test Your Connections</h3>
+<h3>Explore Available Agents and Graph Connections</h3>
 
-<p><strong>1.</strong> Go to <strong>Settings &rarr; Connected apps</strong>. List what is already connected to your Copilot. Note the names.</p>
+<p><strong>1.</strong> Click <strong>Agents</strong> in the left sidebar. List every agent you see — both built-in and any custom ones your admin has added.</p>
 
-<p><strong>2.</strong> Test a Graph search. Make sure you are in Work mode and send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Show me files shared by [colleague name] in the last month.</code></div>
+<p><strong>2.</strong> Click on <strong>Researcher</strong>. Read its description. This is a built-in agent that does deep web research with citations. We will use it in the next lesson.</p>
+
+<p><strong>3.</strong> Go back to the main chat. Test your Microsoft Graph connections by asking Copilot about your own data. Send this in Work mode:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Show me my most recent emails, my calendar for this week, and the last 3 files I edited. For each, show the date and a one-line summary.</code></div>
+
+<p><strong>4.</strong> Now test people discovery:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Who in my organization has worked on documents related to facade design or building envelope? Show their names and which files they contributed to.</code></div>
+
+<p><strong>5.</strong> Test calendar intelligence:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What meetings do I have this week? For any that already happened, summarize the key decisions and action items.</code></div>
+
+<p><strong>Iterate:</strong> Try a more specific Graph search — ask about a particular project, person, or time range:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find all documents shared by [colleague name] in the last month that mention the Fort Lauderdale project.</code></div>
 <p>(Replace [colleague name] with an actual colleague.)</p>
 
-<p><strong>3.</strong> Test calendar access:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What meetings do I have this week? Summarize any that already happened.</code></div>
+<p class="personalization-note">[PERSONALIZED: swap Graph search prompts with organization-specific project names and colleague references from Listen Labs interviews]</p>
 
-<p><strong>4.</strong> Browse available plugins. In Settings or the Copilot interface, look at which connectors are available but not yet enabled. Note which ones are relevant to your work (project management tools, CRM, design tools, etc.).</p>
-
-<p class="personalization-note">[PERSONALIZED: swap with client-specific connectors and tools confirmed in Listen Labs interviews]</p>
-
-<p><strong>Iterate:</strong> Try a more specific search. Ask Copilot to find files from a particular person, date range, or project:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find all PowerPoint files shared in the last 2 weeks that mention the Fort Lauderdale project.</code></div>
+<div class="note-box">
+  <strong>Success check:</strong> You should have: (1) a list of available agents, (2) verified that Copilot can see your emails, calendar, and files via Graph, and (3) found a colleague through people discovery. If any of these returned no results, your organization's data may still be indexing — try broader searches.
+</div>
 
 <button class="mark-complete-btn" id="complete-btn-4" onclick="markComplete(4)">Mark Complete</button>
 `,
   advanced: `
-<h3>Admin Connector Setup</h3>
-<p>Most third-party connectors require admin approval before they appear in your Connected Apps list. If you see a connector you want but cannot enable it, contact your IT admin. They control which connectors are available to your organization.</p>
+<h3>Third-Party Agent Ecosystem</h3>
+<p>Microsoft's agent marketplace is growing rapidly. As of 2026, there are agents for:</p>
+<ul>
+  <li><strong>Project management:</strong> Monday.com, Jira, Asana, Trello</li>
+  <li><strong>CRM:</strong> Salesforce, HubSpot, Dynamics 365</li>
+  <li><strong>IT service:</strong> ServiceNow, Zendesk, Freshworks</li>
+  <li><strong>Communication:</strong> Slack (bridging), Zoom</li>
+  <li><strong>Development:</strong> GitHub, Azure DevOps</li>
+</ul>
+<p>Ask your IT admin which agents are available for your tenant, or explore building your own in the Agents module.</p>
 
-<h3>Custom Connectors</h3>
-<p>For tools not in the standard connector library, your organization can build custom connectors using Microsoft Copilot Studio. This lets Copilot talk to internal databases, proprietary tools, or niche industry software.</p>
-
-<h3>Data Governance</h3>
-<p>Every connector respects your organization's data governance policies. Copilot can only access data you already have permission to see. Admins can set policies that restrict which connectors are available and what data flows through them.</p>
+<h3>Microsoft Graph Deep Dive</h3>
+<p>Graph is the API layer that connects Copilot to your Microsoft 365 data. It powers Work mode search, people discovery, calendar intelligence, and file recommendations. The more your organization uses Microsoft 365 (saving files to SharePoint instead of local drives, using Teams for communication), the more powerful Graph-connected Copilot becomes.</p>
 `
 },
 
-// ── 5: The "You Ask Me" Technique ──
+// ── 5: Copilot Search ──
 {
-  id: 'you-ask-me-technique',
-  title: 'The "You Ask Me" Technique',
+  id: 'copilot-search',
+  title: 'Copilot Search',
   points: 15,
   learn: `
-<h3>Hand the Pen to Copilot</h3>
-<p>You now know the tools. This lesson teaches a technique that works in ALL of them.</p>
+<h3>Find Anything in Your Organization</h3>
+<p><em>You've explored agents and verified your Graph connections. Now put that to work — Copilot Search finds anything across your entire organization in seconds.</em></p>
 
-<p>Instead of writing a perfect brief, hand the pen to Copilot and let it interview you. It knows what questions to ask better than you know what to volunteer.</p>
+<p>Forget digging through folders. Copilot Search understands what you <strong>mean</strong>, not just what you type. Instead of searching "Q4 budget spreadsheet marketing," you ask: "Find the budget spreadsheet the marketing team shared last quarter."</p>
 
-<h3>The Pattern</h3>
-<p>Tell Copilot what you want to produce, then say <strong>"interview me one question at a time."</strong> Copilot will ask for exactly the context it needs — your role, the audience, the deadline, the constraints — one question at a time. Then it produces the output with all that context baked in.</p>
+<h4>What Copilot Search Covers</h4>
+<ul>
+  <li><strong>Files:</strong> OneDrive, SharePoint, Teams files — even if you don't remember the filename</li>
+  <li><strong>Emails:</strong> Any email in your mailbox, searchable by content, sender, date, or topic</li>
+  <li><strong>Meetings:</strong> Transcripts, recaps, and notes from Teams meetings</li>
+  <li><strong>People:</strong> Find colleagues by expertise, project involvement, or document authorship</li>
+  <li><strong>Messages:</strong> Teams chats and channel conversations</li>
+</ul>
 
-<h3>Why It Works</h3>
-<p>Most people stare at a blank prompt and wonder what to include. The "You Ask Me" technique flips this: Copilot asks, you answer. No blank-page anxiety. No forgotten context.</p>
+<h4>Natural Language Queries</h4>
+<p>The real power is searching the way you think:</p>
+<ul>
+  <li><span class="inline-code">Where is the spreadsheet that breaks down project costs by phase?</span></li>
+  <li><span class="inline-code">Show me everything related to the Fort Lauderdale project from the last 2 months</span></li>
+  <li><span class="inline-code">What was decided in last Tuesday's design review about the facade materials?</span></li>
+  <li><span class="inline-code">Who has experience with waterproofing specifications?</span></li>
+</ul>
 
 <div class="tip-box">
-  <strong>Cross-reference:</strong> Remember in Lesson 1 when Copilot interviewed you for Custom Instructions? That was this technique — now you will use it for everything.
+  <div class="tip-title">For Teams with Disorganized File Servers</div>
+  <p>If your shared drives are chaotic (no consistent naming, deep nested folders), Copilot Search is your best friend. It searches by <strong>content</strong>, not filename. Even if a critical document is buried in a folder called "Misc_2024_old," Copilot can find it if you describe what's in it.</p>
 </div>
 
 <button class="continue-btn" onclick="switchTab(5,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Let Copilot Interview You</h3>
+<h3>Search Your Organization's Data</h3>
 
-<p>Choose your role to see a tailored prompt:</p>
+<p>Make sure you are in <strong>Work mode</strong> (not Web) for all exercises.</p>
 
-<div class="option-tabs" id="options-5">
-  <button class="option-btn active" onclick="switchOption(5,'arch',this)">Architecture</button>
-  <button class="option-btn" onclick="switchOption(5,'hr',this)">HR</button>
-  <button class="option-btn" onclick="switchOption(5,'mktg',this)">Marketing</button>
-  <button class="option-btn" onclick="switchOption(5,'exec',this)">Executive</button>
-  <button class="option-btn" onclick="switchOption(5,'ops',this)">Operations</button>
+<h4>Exercise 1: Find Your Recent Work</h4>
+<p><strong>1.</strong> Send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find all documents related to our active residential projects that were modified in the last 30 days. Include permit submissions, consultant correspondence, and design review notes.</code></div>
+<p><strong>2.</strong> Check: Did Copilot return real files you recognize? Click on one to confirm it opens the right document.</p>
+
+<h4>Exercise 2: Search by Content</h4>
+<p><strong>3.</strong> Send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Search for any documents that mention "facade" or "building envelope" or "waterproofing." Show me the 5 most recent, with the author and last modified date.</code></div>
+<p><strong>4.</strong> Try narrowing the results:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>From those results, show me only files authored by consultants (not internal team members).</code></div>
+
+<h4>Exercise 3: People Discovery</h4>
+<p><strong>5.</strong> Send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Who in my organization has worked on documents about project coordination, consultant management, or permit submissions? List their names and the specific files they edited.</code></div>
+<p><strong>6.</strong> Follow up on someone from the results:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What was the most recent document [name from results] shared about this topic? Summarize it in 2 sentences.</code></div>
+
+<h4>Exercise 4: Meeting Search</h4>
+<p><strong>7.</strong> Send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Search my recent Teams meetings for any discussion about project timelines or deadlines. What was decided and who has outstanding action items?</code></div>
+
+<p><strong>Iterate:</strong> Try combining search types — find a file, then ask about the person who created it, then ask about meetings where that topic was discussed:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Connect the dots: find the latest permit submission document, tell me who submitted it, and search for any meetings in the last month where permit timelines were discussed.</code></div>
+
+<p class="personalization-note">[PERSONALIZED: swap search queries with organization-specific project names, document types, and colleague names from Listen Labs interviews]</p>
+
+<div class="note-box">
+  <strong>Success check:</strong> You should have found real files by content (not just filename), discovered a colleague through expertise search, and searched meeting transcripts. If results are sparse, try broader terms — Copilot Search improves as your organization stores more content in Microsoft 365.
 </div>
-
-<div class="option-content active" id="option-5-arch">
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>I need to draft a response to a consultant's RFI about facade waterproofing details for a residential condo project. Before you write anything, interview me — ask about the building envelope system, the specific question from the consultant, our design intent, any code requirements that apply, and the timeline for response. One question at a time.</code></div>
-</div>
-
-<div class="option-content" id="option-5-hr" style="display:none">
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>I need to write a job description for a senior architect. Interview me about the role, reporting structure, required skills, and what makes our firm special. One question at a time.</code></div>
-</div>
-
-<div class="option-content" id="option-5-mktg" style="display:none">
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>I need to create a case study for our latest completed project. Interview me about the project details, challenges, solutions, and outcomes. One question at a time.</code></div>
-</div>
-
-<div class="option-content" id="option-5-exec" style="display:none">
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>I need to prepare talking points for a client presentation. Interview me about the client, the project status, key decisions needed, and our recommendations. One question at a time.</code></div>
-</div>
-
-<div class="option-content" id="option-5-ops" style="display:none">
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>I need to draft a project kick-off checklist for a new commission. Interview me about the project type, team size, timeline, and critical milestones. One question at a time.</code></div>
-</div>
-
-<p>Answer all the questions. When Copilot produces its output, iterate:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make it more concise and add a stronger opening paragraph.</code></div>
-
-<p class="personalization-note">[PERSONALIZED: swap role-specific prompts with actual client deliverables from Listen Labs interviews]</p>
 
 <button class="mark-complete-btn" id="complete-btn-5" onclick="markComplete(5)">Mark Complete</button>
 `,
   advanced: `
-<h3>"You Ask Me" for Job Descriptions</h3>
-<p>Start with: "I need to write a job description. Interview me about the role." Copilot will ask about level, responsibilities, team structure, qualifications, and culture fit. The result is more thorough than anything you would write from scratch.</p>
+<h3>Search Tips</h3>
+<p>Copilot Search works best when you:</p>
+<ul>
+  <li><strong>Describe what you're looking for</strong>, not the filename: "the proposal we sent to the client in March" beats "proposal_v3_final.docx"</li>
+  <li><strong>Add time constraints:</strong> "from the last 2 weeks" or "before our December deadline"</li>
+  <li><strong>Name people:</strong> "files Sarah shared" or "emails from the structural engineer"</li>
+  <li><strong>Chain searches:</strong> Start broad, then narrow with follow-up prompts</li>
+</ul>
 
-<h3>"You Ask Me" for Difficult Emails</h3>
-<p>For sensitive communications — feedback, bad news, negotiations — say: "I need to write a difficult email. Interview me about the situation, the recipient, the tone I want, and what outcome I need." Copilot will ask the right questions to help you strike the right tone.</p>
-
-<h3>Building a Context File Portfolio</h3>
-<p>For tasks you do repeatedly, save Copilot's interview questions as a template. Fill them in before you start next time. Over time, you build a portfolio of "context files" — pre-filled briefing documents that make every Copilot interaction faster.</p>
-
-<h3>What is Coming: Copilot Cowork (Wave 3)</h3>
-<p>Microsoft launched <strong>Copilot Cowork</strong> in March 2026 — a new mode where Copilot plans and executes long-running, multi-step tasks across files, chats, and apps <em>autonomously</em>, while keeping you in control. Think of it as the "You Ask Me" technique taken to its logical extreme: you describe the end state, and Copilot plans the steps, executes them across multiple apps, and reports back. Ask your admin if Copilot Cowork is enabled for your tenant.</p>
+<h3>Organizational Search Tips</h3>
+<p>The quality of Copilot Search depends on your organization's data hygiene. Descriptive filenames, consistent folder structures, and storing files in SharePoint (not personal OneDrive) all improve search accuracy. If you're responsible for a team's files, invest 30 minutes in organizing shared folders — it pays off every time someone searches.</p>
 `
 },
 
@@ -1112,7 +1148,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
   points: 20,
   learn: `
 <h3>Your Research Assistant</h3>
-<p><em>The "You Ask Me" technique works in every mode — including Research, where it's even more powerful.</em></p>
+<p><em>You've searched your organization's data with Copilot Search. Now search the entire web — Research mode gives you a research assistant who reads dozens of sources and writes you a report.</em></p>
 
 <p>Regular Copilot gives you one answer. Research mode gives you a research assistant who reads dozens of sources and writes you a report.</p>
 
@@ -1219,27 +1255,71 @@ When the interview is complete, output the results formatted as a Copilot Custom
   <li><strong>Scatter effects (2026)</strong> — Modern, stylized visual effects applied to images with one click</li>
 </ul>
 
+<h3>Saving Your Work: The Library</h3>
+<p>Everything you create can be saved to your <strong>Library</strong> (left sidebar). The Library stores your saved images, prompts, and responses — think of it as your personal asset collection. Save anything you want to reuse: presentation graphics, concept visuals, templates, or prompts that worked well.</p>
+
 <button class="continue-btn" onclick="switchTab(7,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Generate and Refine a Visual</h3>
+<h3>Create Visuals for Your Role</h3>
 
-<p><strong>1.</strong> Open Copilot. Click <strong>Create</strong> in the left nav. Generate your first image:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a professional image of a modern architecture studio with people collaborating around a large screen showing building designs. Clean, bright lighting. Style: photorealistic.</code></div>
+<p>Click <strong>Create</strong> in the left sidebar to open the visual workspace. Pick your role below for a tailored creation exercise.</p>
 
-<p><strong>2.</strong> Now generate a variation with a different style:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create the same scene but as a flat vector illustration with a navy and teal color palette. Make it look like an infographic header.</code></div>
-
-<p><strong>3.</strong> Generate something specific to your work role. Describe a visual you actually need — a presentation cover, a concept image, a team slide graphic.</p>
-
-<p><strong>4.</strong> Refine your favorite result. Try:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make it more abstract and change the color scheme to warm earth tones.</code></div>
-
-<div class="note-box">
-  <strong>Success check:</strong> You should have at least 3 images: one photorealistic, one illustrative, and one refined iteration.
+<div class="option-tabs" id="options-7">
+  <button class="option-btn active" onclick="switchOption(7,'arch',this)">Architecture</button>
+  <button class="option-btn" onclick="switchOption(7,'hr',this)">HR</button>
+  <button class="option-btn" onclick="switchOption(7,'mktg',this)">Marketing</button>
+  <button class="option-btn" onclick="switchOption(7,'exec',this)">Executive</button>
+  <button class="option-btn" onclick="switchOption(7,'ops',this)">Operations</button>
 </div>
 
-<p class="personalization-note">[PERSONALIZED: swap image generation prompts with organization-specific visual needs from Listen Labs interviews — e.g., project renderings, marketing materials, event graphics]</p>
+<div class="option-content active" id="option-7-arch">
+<p><strong>1.</strong> Generate a concept visualization:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an exterior rendering of a modern residential tower with a terracotta and glass facade, surrounded by landscaped public space. Warm afternoon light. Style: architectural visualization, photorealistic.</code></div>
+<p><strong>2.</strong> Create a variation for a client presentation:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create the same building but as a clean line drawing with minimal color — suitable for a design review presentation slide background.</code></div>
+<p><strong>3.</strong> Generate a material study:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Show me a close-up facade detail: terracotta rainscreen panels with dark metal mullions and floor-to-ceiling glass. Focus on the material texture and how light hits the surface. Photorealistic.</code></div>
+</div>
+
+<div class="option-content" id="option-7-hr">
+<p><strong>1.</strong> Generate an onboarding welcome graphic:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a warm, professional welcome graphic for new employees at a design firm. Show a modern open-plan office with natural light, collaborative spaces, and a "Welcome to the team" theme. Style: clean illustration, suitable for an email header.</code></div>
+<p><strong>2.</strong> Create a company culture visual:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an illustration representing teamwork and collaboration in a creative workplace — people sketching, reviewing models, and discussing designs around a table. Flat vector style with warm earth tones.</code></div>
+</div>
+
+<div class="option-content" id="option-7-mktg">
+<p><strong>1.</strong> Generate a social media graphic:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a social media graphic announcing that our firm won an AIA Design Award. Show a modern building exterior at golden hour with "Award Winner" text overlay. Style: polished, Instagram-ready, square format.</code></div>
+<p><strong>2.</strong> Create an RFP proposal cover:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a sophisticated cover image for an architecture RFP proposal. Abstract geometric shapes suggesting building forms, deep navy background with gold accents. Clean and corporate. No text.</code></div>
+</div>
+
+<div class="option-content" id="option-7-exec">
+<p><strong>1.</strong> Generate a presentation cover:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a cover slide image for a board presentation at an architecture firm. Show an abstract aerial view of a modern urban development — clean lines, green spaces, mixed-use buildings. Style: sophisticated, minimal, suitable for a dark slide background.</code></div>
+<p><strong>2.</strong> Create a strategic vision graphic:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an infographic-style illustration showing a firm's growth trajectory: from small studio to global practice. Use a timeline visual with architectural landmarks at each stage. Flat design, corporate colors.</code></div>
+</div>
+
+<div class="option-content" id="option-7-ops">
+<p><strong>1.</strong> Generate a project milestone visual:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an illustration of a construction project timeline showing 5 phases: schematic design, design development, construction documents, permitting, and construction. Use a horizontal flowchart style with icons for each phase. Clean, professional, suitable for a project kickoff presentation.</code></div>
+<p><strong>2.</strong> Create a team utilization graphic:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a visual showing a team resource dashboard — abstract representations of people assigned to different colored project streams. Modern infographic style, clean layout.</code></div>
+</div>
+
+<p><strong>Refine your favorite result:</strong></p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make it more abstract and change the color scheme to warm earth tones.</code></div>
+
+<p><strong>Save to Library:</strong> When you create something you like, click the three-dot menu on the image and select <strong>Save</strong>. Go to <strong>Library</strong> in the left sidebar to find all your saved creations. Your Library is your personal asset collection — saved prompts, images, and responses you can reuse.</p>
+
+<div class="note-box">
+  <strong>Success check:</strong> You should have at least 2 role-specific images, one refined iteration, and at least one image saved to your Library.
+</div>
+
+<p class="personalization-note">[PERSONALIZED: swap image generation prompts with organization-specific visual needs from Listen Labs interviews]</p>
 
 <button class="mark-complete-btn" id="complete-btn-7" onclick="markComplete(7)">Mark Complete</button>
 `,
@@ -1259,239 +1339,70 @@ When the interview is complete, output the results formatted as a Copilot Custom
 `
 },
 
-// ── 8: Choosing the Right Tool ──
+// ── 8: Bonus: Voice, Scheduled Prompts & Web Search ──
 {
-  id: 'choosing-right-tool',
-  title: 'Choosing the Right Tool',
-  points: 5,
+  id: 'voice-scheduled-web',
+  title: 'Bonus: Voice, Scheduling & Web Search',
+  points: 20,
   learn: `
-<h3>Decision Matrix</h3>
-<p>You now know all the tools. Here is when to use each one:</p>
+<h3>Three Features You Should Try Before You Leave</h3>
 
-<table style="width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;">
-  <thead><tr style="border-bottom:2px solid var(--border);">
-    <th style="text-align:left;padding:8px 12px;">Scenario</th>
-    <th style="text-align:left;padding:8px 12px;">Tool</th>
-  </tr></thead>
-  <tbody>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Quick question or brainstorm</td><td style="padding:8px 12px;">Copilot Chat</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Find internal files, emails, messages</td><td style="padding:8px 12px;">Work Mode</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Persistent project workspace</td><td style="padding:8px 12px;">Copilot Notebooks</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Share AI output with your team</td><td style="padding:8px 12px;">Copilot Pages</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Multi-source cited report</td><td style="padding:8px 12px;">Research Mode</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Images and visuals</td><td style="padding:8px 12px;">Copilot Create</td></tr>
-    <tr><td style="padding:8px 12px;">Work in Word, Excel, PowerPoint, Outlook</td><td style="padding:8px 12px;">Copilot in Apps (Course 2)</td></tr>
-  </tbody>
-</table>
+<h4>1. Voice Conversation</h4>
+<p>Copilot has two voice features:</p>
+<ul>
+  <li><strong>Microphone icon (dictation):</strong> Click the microphone in the chat box to dictate text. Copilot transcribes your speech into the message box. Good for typing prompts hands-free.</li>
+  <li><strong>Voice mode icon (sound waves):</strong> Click the sound waves icon to start a full voice conversation. You speak, Copilot speaks back. It is like a phone call with an AI — no typing at all. Try it for brainstorming, thinking through a problem, or when you are away from your keyboard.</li>
+</ul>
+
+<h4>2. Scheduled Prompts</h4>
+<p>Click the <strong>three-dot menu</strong> (top right) and select <strong>Scheduled prompts</strong>. This lets you set up recurring AI tasks that run automatically:</p>
+<ul>
+  <li>"Every Monday at 9 AM, summarize my unread emails and flag anything urgent"</li>
+  <li>"Every Friday, compile my completed tasks from Teams into a weekly summary"</li>
+  <li>"Every morning, check my calendar and prepare a briefing of today's meetings"</li>
+</ul>
+<p>Scheduled prompts are Copilot's version of automation — they run in the background and have results waiting for you when you open Copilot.</p>
+
+<h4>3. Web Search Toggle</h4>
+<p>In the same three-dot menu, you will see a <strong>Web search</strong> toggle. When turned on, Copilot includes public web results in its responses (even in Work mode). When turned off, it only uses your organization's data. Toggle this based on whether you want external information mixed in.</p>
 
 <button class="continue-btn" onclick="switchTab(8,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Tool Selection Quiz</h3>
-<p>For each scenario, pick the best tool. Click the answer to check yourself.</p>
+<h3>Try All Three</h3>
 
-<div class="quiz-question">
-  <h4>Q1: You need to find an email from last week about the permit timeline.</h4>
-  <label><input type="radio" name="q1" disabled> Copilot Chat (Web mode)</label>
-  <label><input type="radio" name="q1" disabled> Research Mode</label>
-  <label><input type="radio" name="q1" disabled checked> Work Mode</label>
-  <label><input type="radio" name="q1" disabled> Copilot Create</label>
-  <details><summary style="cursor:pointer;color:var(--accent);margin-top:8px;font-size:13px;">Show answer</summary><p style="margin-top:6px;font-size:13px;"><strong>Work Mode.</strong> Internal emails live in your organization's data, which Work mode searches.</p></details>
-</div>
+<h4>Exercise 1: Voice Conversation</h4>
+<p><strong>1.</strong> Click the <strong>voice mode icon</strong> (sound waves, right side of the message box). Allow microphone access if prompted.</p>
+<p><strong>2.</strong> Have a real conversation with Copilot. Try this opener — speak it, do not type it:</p>
+<p><em>"I need help thinking through a project I am working on. Ask me a few questions about it and then give me some suggestions."</em></p>
+<p><strong>3.</strong> Answer Copilot's spoken questions out loud. Go back and forth for 2-3 exchanges.</p>
+<p><strong>4.</strong> End the voice conversation. Notice how different it feels from typing — voice is better for brainstorming and thinking through ambiguous problems.</p>
 
-<div class="quiz-question">
-  <h4>Q2: You want a narrated overview of a long policy document.</h4>
-  <label><input type="radio" name="q2" disabled> Copilot Pages</label>
-  <label><input type="radio" name="q2" disabled checked> Research Mode</label>
-  <label><input type="radio" name="q2" disabled> Work Mode</label>
-  <label><input type="radio" name="q2" disabled> Copilot Create</label>
-  <details><summary style="cursor:pointer;color:var(--accent);margin-top:8px;font-size:13px;">Show answer</summary><p style="margin-top:6px;font-size:13px;"><strong>Research Mode.</strong> It can synthesize long documents and export as audio overview.</p></details>
-</div>
+<h4>Exercise 2: Dictate and Polish</h4>
+<p><strong>5.</strong> Click the <strong>microphone icon</strong> (not voice mode — the other icon). Dictate a rough message about a project update. Speak naturally for 30 seconds.</p>
+<p><strong>6.</strong> Stop dictation. Add this instruction above your transcribed text and send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Polish the following rough dictation into a professional, concise email. Add a clear subject line. Keep it under 150 words.
 
-<div class="quiz-question">
-  <h4>Q3: You need to create a social media graphic for a project completion.</h4>
-  <label><input type="radio" name="q3" disabled> Work Mode</label>
-  <label><input type="radio" name="q3" disabled> Research Mode</label>
-  <label><input type="radio" name="q3" disabled> Copilot Pages</label>
-  <label><input type="radio" name="q3" disabled checked> Copilot Create</label>
-  <details><summary style="cursor:pointer;color:var(--accent);margin-top:8px;font-size:13px;">Show answer</summary><p style="margin-top:6px;font-size:13px;"><strong>Copilot Create.</strong> It generates images and visuals from text descriptions.</p></details>
-</div>
+[your dictated text is already above — just add this instruction before it]</code></div>
 
-<div class="quiz-question">
-  <h4>Q4: You want to collaborate with a colleague on a meeting summary.</h4>
-  <label><input type="radio" name="q4" disabled> Copilot Chat</label>
-  <label><input type="radio" name="q4" disabled checked> Copilot Pages</label>
-  <label><input type="radio" name="q4" disabled> Research Mode</label>
-  <label><input type="radio" name="q4" disabled> Work Mode</label>
-  <details><summary style="cursor:pointer;color:var(--accent);margin-top:8px;font-size:13px;">Show answer</summary><p style="margin-top:6px;font-size:13px;"><strong>Copilot Pages.</strong> Pages are shareable, editable documents with live collaboration.</p></details>
-</div>
+<h4>Exercise 3: Set Up a Scheduled Prompt</h4>
+<p><strong>7.</strong> Click the <strong>three-dot menu</strong> (top right). Click <strong>Scheduled prompts</strong>.</p>
+<p><strong>8.</strong> Create a new scheduled prompt. Set it to run every Monday morning with this text:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize my unread emails from the weekend and this morning. Flag anything urgent or time-sensitive. List any meetings I have today with a one-line prep note for each.</code></div>
+<p><strong>9.</strong> Save the scheduled prompt. Next Monday, Copilot will run this automatically and have results waiting for you.</p>
 
-<div class="quiz-question">
-  <h4>Q5: You want to research competitor projects and export a slide deck.</h4>
-  <label><input type="radio" name="q5" disabled> Copilot Pages</label>
-  <label><input type="radio" name="q5" disabled> Work Mode</label>
-  <label><input type="radio" name="q5" disabled checked> Research Mode</label>
-  <label><input type="radio" name="q5" disabled> Copilot Create</label>
-  <details><summary style="cursor:pointer;color:var(--accent);margin-top:8px;font-size:13px;">Show answer</summary><p style="margin-top:6px;font-size:13px;"><strong>Research Mode.</strong> It synthesizes multiple sources and exports to PowerPoint.</p></details>
-</div>
+<h4>Exercise 4: Toggle Web Search</h4>
+<p><strong>10.</strong> Click the <strong>three-dot menu</strong> again. Find the <strong>Web search</strong> toggle.</p>
+<p><strong>11.</strong> Turn it OFF. Ask Copilot a question that requires external info:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the latest changes to NYC building code for residential construction?</code></div>
+<p><strong>12.</strong> Read the response — it should only reference your org data (or say it cannot find the answer).</p>
+<p><strong>13.</strong> Now turn Web search back ON and ask the same question. Notice how the response now includes public web sources.</p>
 
-<div class="quiz-question">
-  <h4>Q6: You need to keep project documents organized for ongoing AI reference.</h4>
-  <label><input type="radio" name="q6" disabled> Copilot Chat</label>
-  <label><input type="radio" name="q6" disabled> Copilot Create</label>
-  <label><input type="radio" name="q6" disabled checked> Copilot Notebooks</label>
-  <label><input type="radio" name="q6" disabled> Research Mode</label>
-  <details><summary style="cursor:pointer;color:var(--accent);margin-top:8px;font-size:13px;">Show answer</summary><p style="margin-top:6px;font-size:13px;"><strong>Copilot Notebooks.</strong> Notebooks are persistent workspaces that keep references across sessions.</p></details>
-</div>
-
-<div class="quiz-question">
-  <h4>Q7: You want Copilot to help you write a document by asking you questions first.</h4>
-  <label><input type="radio" name="q7" disabled> Research Mode</label>
-  <label><input type="radio" name="q7" disabled checked> "You Ask Me" technique (any tool)</label>
-  <label><input type="radio" name="q7" disabled> Copilot Pages</label>
-  <label><input type="radio" name="q7" disabled> Work Mode</label>
-  <details><summary style="cursor:pointer;color:var(--accent);margin-top:8px;font-size:13px;">Show answer</summary><p style="margin-top:6px;font-size:13px;"><strong>"You Ask Me" technique.</strong> Say "interview me one question at a time" in any Copilot tool.</p></details>
-</div>
-
-<div class="quiz-question">
-  <h4>Q8: You need to check what third-party tools Copilot can access.</h4>
-  <label><input type="radio" name="q8" disabled> Work Mode</label>
-  <label><input type="radio" name="q8" disabled> Research Mode</label>
-  <label><input type="radio" name="q8" disabled checked> Settings &rarr; Connected Apps</label>
-  <label><input type="radio" name="q8" disabled> Copilot Notebooks</label>
-  <details><summary style="cursor:pointer;color:var(--accent);margin-top:8px;font-size:13px;">Show answer</summary><p style="margin-top:6px;font-size:13px;"><strong>Settings &rarr; Connected Apps.</strong> This shows all plugins and connectors available to your Copilot.</p></details>
+<div class="note-box">
+  <strong>Success check:</strong> You had a voice conversation (not just dictation), set up a scheduled prompt for next week, and saw the difference between web search on vs. off.
 </div>
 
 <button class="mark-complete-btn" id="complete-btn-8" onclick="markComplete(8)">Mark Complete</button>
-`,
-  advanced: `
-<h3>Building Tool Chains</h3>
-<p>The real power comes from chaining tools together. A typical workflow: Research (Web mode) &rarr; Draft (Chat) &rarr; Save (Pages) &rarr; Reference (Notebooks) &rarr; Present (PowerPoint). Each step feeds the next, and Copilot retains context within a conversation.</p>
-`
-},
-
-// ── 9: Your First AI Win ──
-{
-  id: 'first-ai-win',
-  title: 'Your First AI Win',
-  points: 20,
-  learn: `
-<h3>Apply Everything to One Real Task</h3>
-<p>You passed the quiz. Now apply everything to one real task from your actual work.</p>
-
-<p>This is not a test. It is an experiment. Even if the output is only 60% there, you saved significant time on the first draft. Your expertise turns that 60% into 100%.</p>
-
-<div class="tip-box">
-  <strong>Cross-reference:</strong> Use the "You Ask Me" technique from Lesson 5 if you need help scoping your task. Tell Copilot what you want to produce and let it interview you.
-</div>
-
-<button class="continue-btn" onclick="switchTab(9,'implement')">Continue to Exercises &rarr;</button>
-`,
-  implement: `
-<h3>Your Real-Work Capstone</h3>
-
-<p><strong>1.</strong> Pick a real task from your work this week. Something you actually need to get done.</p>
-<p style="font-style:italic;color:var(--text-muted);margin-left:16px;">Example: "Write a progress report for the client" or "Summarize last week's project meeting" or "Create talking points for the board presentation"</p>
-
-<p><strong>2.</strong> Categorize your task. Which type is it?</p>
-<ul>
-  <li><strong>Draft</strong> — writing something new (email, memo, report)</li>
-  <li><strong>Analyze</strong> — making sense of data or information</li>
-  <li><strong>Research</strong> — finding external information</li>
-  <li><strong>Summarize</strong> — condensing something long into something short</li>
-  <li><strong>Create</strong> — building a presentation, image, or plan</li>
-</ul>
-
-<p><strong>3.</strong> Choose the right tool based on the Lesson 8 decision matrix.</p>
-
-<p><strong>4.</strong> Apply the "You Ask Me" technique. Start with:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>I need to [describe your task]. Before you start, interview me — ask about the context, audience, format, and any constraints. One question at a time.</code></div>
-
-<p><strong>5.</strong> Answer Copilot's questions. Let it generate the output.</p>
-
-<p><strong>6.</strong> Iterate at least twice. Try these refinements:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make the opening more compelling. Start with the most important finding.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>This is too long. Cut it by 40% while keeping all the key points.</code></div>
-
-<p><strong>7.</strong> Save or export your final result. Copy it to a document, email, or presentation where you will actually use it.</p>
-
-<p><strong>Reflect:</strong> How long did this take with AI compared to your estimate without? If you saved at least 15 minutes, you have found your first AI win.</p>
-
-<div class="note-box">
-  <strong>Success check:</strong> You produced a real work deliverable using at least one Copilot tool, iterated at least twice, and the result is something you will actually use this week.
-</div>
-
-<p class="personalization-note">[PERSONALIZED: swap the capstone task suggestions with organization-specific high-value tasks identified in Listen Labs interviews]</p>
-
-<button class="mark-complete-btn" id="complete-btn-9" onclick="markComplete(9)">Mark Complete</button>
-`,
-  advanced: `
-<h3>Reflection Questions</h3>
-<ul>
-  <li>What surprised you about working with AI on a real task?</li>
-  <li>Where did you need to correct or improve the AI's output?</li>
-  <li>What additional context would have improved the first response?</li>
-  <li>How could you turn this into a repeatable workflow?</li>
-</ul>
-
-<h3>What is Next</h3>
-<p>You have completed the core Copilot Chat workshop. Here is where to go from here:</p>
-<ul>
-  <li><strong>Copilot in Your Apps (Course 2):</strong> Deep dive into Copilot in Outlook, Word, Excel, PowerPoint, and Teams</li>
-  <li><strong>Building Agents (Course 3):</strong> Learn to create custom Copilot Agents for your organization's specific needs</li>
-  <li><strong>Practice:</strong> Use Copilot every day for one week. After that, it will feel natural.</li>
-</ul>
-`
-},
-
-// ── 10: Bonus: Voice & Advanced Features ──
-{
-  id: 'voice-advanced',
-  title: 'Bonus: Voice & Advanced Features',
-  points: 20,
-  learn: `
-<h3>Voice Input</h3>
-<p>You do not have to type everything. There are three ways to use voice with Copilot:</p>
-
-<p><strong>1. Windows Voice Typing (Win + H):</strong> Press Win + H anywhere. A microphone toolbar appears. Start talking — it works in any text field, including the Copilot chat box. It handles punctuation ("period," "comma," "new line") and processes in real-time.</p>
-
-<p><strong>2. Copilot Voice Button:</strong> Look for the microphone icon in the Copilot chat interface. Click it and dictate your prompt directly.</p>
-
-<p><strong>3. Outlook Mobile Voice:</strong> Outlook on mobile now lets Copilot read your email summaries aloud and you can reply by voice. Hands-free inbox management.</p>
-
-<h3>Copilot Actions for Email Triage</h3>
-<p>Copilot Actions let you set up automated workflows: "Every morning, summarize my unread emails and flag anything urgent." These run in the background and surface results when you open Copilot.</p>
-
-<h3>Advanced Memory Management</h3>
-<p>Proactively tell Copilot what to remember: "Remember that our design review meetings are every Thursday at 2 PM" or "Remember that I prefer metric units." Periodically review and clean up memories in Settings to keep them accurate.</p>
-
-<button class="continue-btn" onclick="switchTab(10,'implement')">Continue to Exercises &rarr;</button>
-`,
-  implement: `
-<h3>Dictate and Polish</h3>
-
-<p><strong>1.</strong> Open Copilot Chat. Press <strong>Win + H</strong> to activate voice typing.</p>
-
-<p><strong>2.</strong> Dictate a rough message — something you actually need to send. Speak naturally for 30-60 seconds about a project update, a meeting follow-up, or a request to a colleague. Do not worry about perfection.</p>
-
-<p><strong>3.</strong> Stop voice typing (Win + H again). Read what was transcribed.</p>
-
-<p><strong>4.</strong> Add this instruction above your transcribed text and send the full message:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Polish the following rough dictation into a professional, concise email. Add a clear subject line. Keep it under 150 words.
-
-[your transcribed text goes here]</code></div>
-
-<p><strong>5.</strong> Compare Copilot's polished version to your raw dictation. The difference is the value of the "dictate then polish" workflow.</p>
-
-<p><strong>6.</strong> Try one more round — dictate something different and polish it. The more you do this, the more natural it becomes.</p>
-
-<div class="note-box">
-  <strong>Success check:</strong> You dictated rough text by voice and used Copilot to turn it into a polished, professional message.
-</div>
-
-<p><strong>Iterate:</strong> Try the dictation-to-polish workflow again with a longer, more complex message. Dictate 3-4 sentences about a project update, then ask Copilot to restructure it into bullet points.</p>
-
-<button class="mark-complete-btn" id="complete-btn-10" onclick="markComplete(10)">Mark Complete</button>
 `,
   advanced: `
 <h3>Meeting Transcription Workflows</h3>
@@ -1517,8 +1428,8 @@ When the interview is complete, output the results formatted as a Copilot Custom
 /* ═══════════════════════════════════════════════════════════
    ENGINE
    ═══════════════════════════════════════════════════════════ */
-const CORE_COUNT = 10;
-const CORE_POINTS = 140;
+const CORE_COUNT = 8;
+const CORE_POINTS = 115;
 let completed = JSON.parse(localStorage.getItem('chat-completed-v2') || '[]');
 let currentLesson = 0;
 let currentTab = 'learn';
