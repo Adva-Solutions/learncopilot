@@ -50,7 +50,7 @@ const TENANT = {
   courses: {
     chat:   { enabled: true, label: 'Copilot Chat',    shortLabel: 'Chat',   totalSteps: 6, totalPoints: 80 },
     apps:   { enabled: true, label: 'Copilot in Apps',  shortLabel: 'Apps',   totalSteps: 5, totalPoints: 105 },
-    agents: { enabled: true, label: 'Building Agents',  shortLabel: 'Agents', totalSteps: 8,  totalPoints: 200 },
+    agents: { enabled: true, label: 'Building Agents',  shortLabel: 'Agents', totalSteps: 10, totalPoints: 200 },
   },
 
   /* Redis key prefix for multi-tenant isolation */
