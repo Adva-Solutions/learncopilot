@@ -405,8 +405,8 @@ body {
   </div>
   <div class="progress-bar-container">
     <div class="progress-info">
-      <span id="progress-label">0 of 8 core steps</span>
-      <span id="progress-pts">0 / 115 pts</span>
+      <span id="progress-label">0 of 6 core steps</span>
+      <span id="progress-pts">0 / 80 pts</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
   </div>
@@ -968,101 +968,22 @@ When the interview is complete, output the results formatted as a Copilot Custom
 `
 },
 
-// ── 4: Agents & Connectors ──
-{
-  id: 'agents-connectors',
-  title: 'Agents & Connectors',
-  points: 15,
-  learn: `
-<h3>Copilot's Extended Reach</h3>
-<p><em>You've built Pages and Notebooks grounded in your documents. But what about the other tools your team uses — project management, CRM, ticketing systems?</em></p>
-
-<p>In Copilot, connectors don't live in a settings menu you configure yourself. Instead, they live inside <strong>Agents</strong>. Microsoft and third parties have built specialized agents that connect Copilot to tools like Monday.com, Jira, Salesforce, ServiceNow, and dozens more.</p>
-
-<h4>How It Works</h4>
-<p>Click <strong>Agents</strong> in the left sidebar. You will see built-in agents (like Researcher and Analyst) and may see additional agents your admin has enabled. Each agent has its own knowledge and tool connections.</p>
-
-<p>For example:</p>
-<ul>
-  <li>A <strong>Jira agent</strong> can search your tickets, create issues, and summarize sprint progress</li>
-  <li>A <strong>Monday.com agent</strong> can pull project boards, update statuses, and generate reports</li>
-  <li>A <strong>Salesforce agent</strong> can look up accounts, summarize deal pipelines, and draft follow-up emails</li>
-</ul>
-
-<p>Your organization's IT admin controls which agents are available. If you do not see a connector you need, ask your admin — or build your own in the <strong>Building Agents</strong> module of this course.</p>
-
-<h4>What You Already Have</h4>
-<p>Even without third-party agents, Copilot already connects to your core Microsoft 365 tools through <strong>Microsoft Graph</strong>:</p>
-<ul>
-  <li><strong>Outlook</strong> — email, calendar, contacts</li>
-  <li><strong>OneDrive & SharePoint</strong> — files, documents, sites</li>
-  <li><strong>Teams</strong> — chats, channels, meeting transcripts</li>
-  <li><strong>People directory</strong> — org chart, expertise, collaboration patterns</li>
-</ul>
-<p>These are always on — no setup required. The Agents module later in this course will teach you how to build custom agents that connect to additional tools.</p>
-
-<div class="tip-box">
-  <div class="tip-title">Coming Up</div>
-  <p>In the <strong>Building Agents</strong> module, you will learn how to create custom agents in Copilot Studio — including agents that connect to tools like Bluebeam, project tracking systems, and internal databases. Think of this lesson as the "what's possible" overview; the Agents module is the "how to build it" hands-on.</p>
-</div>
-
-<button class="continue-btn" onclick="switchTab(4,'implement')">Continue to Exercises &rarr;</button>
-`,
-  implement: `
-<h3>Explore Available Agents and Graph Connections</h3>
-
-<p><strong>1.</strong> Click <strong>Agents</strong> in the left sidebar. List every agent you see — both built-in and any custom ones your admin has added.</p>
-
-<p><strong>2.</strong> Click on <strong>Researcher</strong>. Read its description. This is a built-in agent that does deep web research with citations. We will use it in the next lesson.</p>
-
-<p><strong>3.</strong> Go back to the main chat. Test your Microsoft Graph connections by asking Copilot about your own data. Send this in Work mode:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Show me my most recent emails, my calendar for this week, and the last 3 files I edited. For each, show the date and a one-line summary.</code></div>
-
-<p><strong>4.</strong> Now test people discovery:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Who in my organization has worked on documents related to facade design or building envelope? Show their names and which files they contributed to.</code></div>
-
-<p><strong>5.</strong> Test calendar intelligence:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What meetings do I have this week? For any that already happened, summarize the key decisions and action items.</code></div>
-
-<p><strong>Iterate:</strong> Try a more specific Graph search — ask about a particular project, person, or time range:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find all documents shared by [colleague name] in the last month that mention the Fort Lauderdale project.</code></div>
-<p>(Replace [colleague name] with an actual colleague.)</p>
-
-<p class="personalization-note">[PERSONALIZED: swap Graph search prompts with organization-specific project names and colleague references from Listen Labs interviews]</p>
-
-<div class="note-box">
-  <strong>Success check:</strong> You should have: (1) a list of available agents, (2) verified that Copilot can see your emails, calendar, and files via Graph, and (3) found a colleague through people discovery. If any of these returned no results, your organization's data may still be indexing — try broader searches.
-</div>
-
-<button class="mark-complete-btn" id="complete-btn-4" onclick="markComplete(4)">Mark Complete</button>
-`,
-  advanced: `
-<h3>Third-Party Agent Ecosystem</h3>
-<p>Microsoft's agent marketplace is growing rapidly. As of 2026, there are agents for:</p>
-<ul>
-  <li><strong>Project management:</strong> Monday.com, Jira, Asana, Trello</li>
-  <li><strong>CRM:</strong> Salesforce, HubSpot, Dynamics 365</li>
-  <li><strong>IT service:</strong> ServiceNow, Zendesk, Freshworks</li>
-  <li><strong>Communication:</strong> Slack (bridging), Zoom</li>
-  <li><strong>Development:</strong> GitHub, Azure DevOps</li>
-</ul>
-<p>Ask your IT admin which agents are available for your tenant, or explore building your own in the Agents module.</p>
-
-<h3>Microsoft Graph Deep Dive</h3>
-<p>Graph is the API layer that connects Copilot to your Microsoft 365 data. It powers Work mode search, people discovery, calendar intelligence, and file recommendations. The more your organization uses Microsoft 365 (saving files to SharePoint instead of local drives, using Teams for communication), the more powerful Graph-connected Copilot becomes.</p>
-`
-},
-
-// ── 5: Copilot Search ──
+// ── 4: Copilot Search ──
 {
   id: 'copilot-search',
   title: 'Copilot Search',
   points: 15,
   learn: `
 <h3>Find Anything in Your Organization</h3>
-<p><em>You've explored agents and verified your Graph connections. Now put that to work — Copilot Search finds anything across your entire organization in seconds.</em></p>
+<p><em>You've built Pages from your conversations. Now find anything across your entire organization — files, emails, meetings, people — in seconds.</em></p>
 
 <p>Forget digging through folders. Copilot Search understands what you <strong>mean</strong>, not just what you type. Instead of searching "Q4 budget spreadsheet marketing," you ask: "Find the budget spreadsheet the marketing team shared last quarter."</p>
+
+<h4>Two Ways to Search</h4>
+<ul>
+  <li><strong>From the chat:</strong> Type <strong>/</strong> (forward slash) in the message box to start a search directly from any conversation. Or simply ask in Work mode: "Find the document about..."</li>
+  <li><strong>From the sidebar:</strong> Click <strong>Search</strong> in the left sidebar to search your past Copilot conversations.</li>
+</ul>
 
 <h4>What Copilot Search Covers</h4>
 <ul>
@@ -1087,7 +1008,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
   <p>If your shared drives are chaotic (no consistent naming, deep nested folders), Copilot Search is your best friend. It searches by <strong>content</strong>, not filename. Even if a critical document is buried in a folder called "Misc_2024_old," Copilot can find it if you describe what's in it.</p>
 </div>
 
-<button class="continue-btn" onclick="switchTab(5,'implement')">Continue to Exercises &rarr;</button>
+<button class="continue-btn" onclick="switchTab(4,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
 <h3>Search Your Organization's Data</h3>
@@ -1124,7 +1045,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
   <strong>Success check:</strong> You should have found real files by content (not just filename), discovered a colleague through expertise search, and searched meeting transcripts. If results are sparse, try broader terms — Copilot Search improves as your organization stores more content in Microsoft 365.
 </div>
 
-<button class="mark-complete-btn" id="complete-btn-5" onclick="markComplete(5)">Mark Complete</button>
+<button class="mark-complete-btn" id="complete-btn-4" onclick="markComplete(4)">Mark Complete</button>
 `,
   advanced: `
 <h3>Search Tips</h3>
@@ -1141,139 +1062,71 @@ When the interview is complete, output the results formatted as a Copilot Custom
 `
 },
 
-// ── 6: Research Mode ──
-{
-  id: 'research-mode',
-  title: 'Research Mode',
-  points: 20,
-  learn: `
-<h3>Your Research Assistant</h3>
-<p><em>You've searched your organization's data with Copilot Search. Now search the entire web — Research mode gives you a research assistant who reads dozens of sources and writes you a report.</em></p>
-
-<p>Regular Copilot gives you one answer. Research mode gives you a research assistant who reads dozens of sources and writes you a report.</p>
-
-<h3>How It Works</h3>
-<p>Type <strong>"Research"</strong> at the start of a prompt (or click the Research button). Copilot then:</p>
-<ol>
-  <li><strong>Searches broadly</strong> — multiple web sources, not just the first result</li>
-  <li><strong>Reads deeply</strong> — actually processes the content of pages, not just snippets</li>
-  <li><strong>Synthesizes</strong> — combines findings into a structured report</li>
-  <li><strong>Cites sources</strong> — every claim links back to where it came from</li>
-</ol>
-
-<h3>What is New in 2026</h3>
-<p>Research reports can now be <strong>exported</strong> to multiple formats with one click:</p>
-<ul>
-  <li><strong>Word document</strong> — for editing and sharing</li>
-  <li><strong>PowerPoint</strong> — auto-generates slides from the research</li>
-  <li><strong>PDF</strong> — for formal distribution</li>
-  <li><strong>Audio overview</strong> — a narrated summary you can listen to on the go</li>
-</ul>
-
-<div class="tip-box">
-  <strong>Rule of thumb:</strong> If you would normally spend 30+ minutes Googling and reading articles, use Research mode instead.
-</div>
-
-<button class="continue-btn" onclick="switchTab(6,'implement')">Continue to Exercises &rarr;</button>
-`,
-  implement: `
-<h3>Run Your First Research Report</h3>
-
-<p>Choose your role to see a tailored research prompt:</p>
-
-<div class="option-tabs" id="options-6">
-  <button class="option-btn active" onclick="switchOption(6,'arch',this)">Architecture</button>
-  <button class="option-btn" onclick="switchOption(6,'hr',this)">HR</button>
-  <button class="option-btn" onclick="switchOption(6,'mktg',this)">Marketing</button>
-  <button class="option-btn" onclick="switchOption(6,'exec',this)">Executive</button>
-  <button class="option-btn" onclick="switchOption(6,'ops',this)">Operations</button>
-</div>
-
-<div class="option-content active" id="option-6-arch">
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Research the latest building code updates and sustainable facade systems for residential high-rises in the northeastern US, 2025-2026. Include code compliance requirements, material cost comparisons, and case studies of projects that achieved LEED certification. Cite sources.</code></div>
-</div>
-
-<div class="option-content" id="option-6-hr" style="display:none">
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Research best practices for employee retention in architecture and design firms. Include industry benchmarks, exit interview insights, and successful retention programs.</code></div>
-</div>
-
-<div class="option-content" id="option-6-mktg" style="display:none">
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Research the top 10 architecture awards and publications we should be submitting to in 2026. Include deadlines, submission requirements, and past winners in our category.</code></div>
-</div>
-
-<div class="option-content" id="option-6-exec" style="display:none">
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Research market trends in residential condo development in the northeastern US for 2026. Include pricing trends, demand indicators, and competitor project pipelines.</code></div>
-</div>
-
-<div class="option-content" id="option-6-ops" style="display:none">
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Research construction technology trends for 2026. Focus on tools that improve coordination between architects, engineers, and contractors.</code></div>
-</div>
-
-<p>Wait 30-60 seconds for the report. Then:</p>
-
-<p><strong>Export step:</strong> Look for the export options and click <strong>Export to PowerPoint</strong> (or Word). Confirm the export works.</p>
-
-<p><strong>Iterate:</strong> Pick the most relevant section and send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Expand the section on [most relevant finding]. Add more data points and practical recommendations.</code></div>
-
-<p class="personalization-note">[PERSONALIZED: swap research prompts with client-specific topics from Listen Labs interviews]</p>
-
-<button class="mark-complete-btn" id="complete-btn-6" onclick="markComplete(6)">Mark Complete</button>
-`,
-  advanced: `
-<h3>Research Workflows</h3>
-<p>Combine Research mode with other Copilot features for end-to-end knowledge work: Research a topic &rarr; Save to a Page &rarr; Add the Page to a Notebook &rarr; Ground a custom agent on that Notebook for ongoing Q&amp;A.</p>
-
-<h3>Competitive Intelligence Prompts</h3>
-<ul>
-  <li>"Research [competitor name] recent project wins, partnerships, and strategic hires in 2025-2026"</li>
-  <li>"Research regulatory changes affecting [your industry] in the next 12 months"</li>
-  <li>"Research best practices for [specific initiative] at organizations similar to ours"</li>
-</ul>
-<p>Always verify key findings independently before making strategic decisions based on AI research.</p>
-
-<h3>Combining Research with Notebooks</h3>
-<p>Export a Research report to a Page, then add that Page as a reference in a Notebook. Now you have a persistent research hub that Copilot can reference in future conversations about that topic.</p>
-`
-},
-
-// ── 7: Copilot Create ──
+// ── 5: Copilot Create ──
 {
   id: 'copilot-create',
   title: 'Copilot Create',
   points: 15,
   learn: `
-<h3>Research Gave You Words. Create Gives You Visuals.</h3>
-<p><em>Research gave you insights backed by data. Now turn those insights into visuals.</em></p>
-<p>In the Copilot app, click <strong>Create</strong> in the left navigation. This opens a dedicated visual creation workspace.</p>
+<h3>From Iteration to Publishing</h3>
+<p><em>You searched your org data and found what you needed. Now package your best work into reusable, shareable assets.</em></p>
 
-<h3>What You Can Make</h3>
+<h3>Create Is for Publishing and Reuse</h3>
+<p>Click <strong>Create</strong> in the left navigation. This is not a scratchpad — it is a <strong>publishing workspace</strong>. Use Create when you want to:</p>
+<ul>
+  <li>Turn an approved dashboard, chart, or visual into a <strong>reusable asset</strong></li>
+  <li>Package content for others to consume <strong>without re-running the logic</strong></li>
+  <li>Create organizational artifacts: reports, apps, shared pages, visual assets</li>
+  <li>Align with governance, sharing, and access controls</li>
+</ul>
+
+<h4>Create vs. Notebooks</h4>
+<table style="width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;">
+  <thead><tr style="border-bottom:2px solid var(--border);">
+    <th style="text-align:left;padding:8px 12px;"></th>
+    <th style="text-align:left;padding:8px 12px;">Notebooks</th>
+    <th style="text-align:left;padding:8px 12px;">Create</th>
+  </tr></thead>
+  <tbody>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Purpose</td><td style="padding:8px 12px;">Experimentation and iteration</td><td style="padding:8px 12px;">Publishing and reuse</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Best for</td><td style="padding:8px 12px;">Exploring ideas, drafting, refining</td><td style="padding:8px 12px;">Finalized visuals, shareable assets</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Audience</td><td style="padding:8px 12px;">You (and collaborators)</td><td style="padding:8px 12px;">Your organization</td></tr>
+    <tr><td style="padding:8px 12px;font-weight:600;">Lifecycle</td><td style="padding:8px 12px;">Fluid, ongoing</td><td style="padding:8px 12px;">Approve → publish → distribute</td></tr>
+  </tbody>
+</table>
+
+<h3>What You Can Create</h3>
 <ul>
   <li><strong>Images from text</strong> — Describe any scene, concept, or visual and Copilot generates it</li>
-  <li><strong>Design iterations</strong> — Generate an image, then refine: "Make the background darker," "Change the style to watercolor." The Designer tools give you controls for adjustments without re-prompting.</li>
+  <li><strong>Design iterations</strong> — Generate, then refine: "Make the background darker," "Change to watercolor." Designer tools give you controls for adjustments.</li>
   <li><strong>Brand-consistent visuals</strong> — With Brand Kit (set up by your admin), Copilot uses your org's colors, fonts, and logo</li>
-  <li><strong>Scatter effects (2026)</strong> — Modern, stylized visual effects applied to images with one click</li>
+  <li><strong>Organizational artifacts</strong> — Reports, dashboards, shared pages that others can consume without rebuilding</li>
 </ul>
 
 <h3>Saving Your Work: The Library</h3>
-<p>Everything you create can be saved to your <strong>Library</strong> (left sidebar). The Library stores your saved images, prompts, and responses — think of it as your personal asset collection. Save anything you want to reuse: presentation graphics, concept visuals, templates, or prompts that worked well.</p>
+<p>Everything you create can be saved to your <strong>Library</strong> (left sidebar). The Library stores your saved images, prompts, and responses — your personal asset collection. Save anything you want to reuse: presentation graphics, concept visuals, templates, or prompts that worked well.</p>
 
-<button class="continue-btn" onclick="switchTab(7,'implement')">Continue to Exercises &rarr;</button>
+<div class="tip-box">
+  <div class="tip-title">Workflow</div>
+  <p><strong>Iterate</strong> in Notebooks and Chat. When something is ready, <strong>publish</strong> it through Create. Save your best assets to the <strong>Library</strong> for reuse.</p>
+</div>
+
+<button class="continue-btn" onclick="switchTab(5,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
 <h3>Create Visuals for Your Role</h3>
 
 <p>Click <strong>Create</strong> in the left sidebar to open the visual workspace. Pick your role below for a tailored creation exercise.</p>
 
-<div class="option-tabs" id="options-7">
-  <button class="option-btn active" onclick="switchOption(7,'arch',this)">Architecture</button>
-  <button class="option-btn" onclick="switchOption(7,'hr',this)">HR</button>
-  <button class="option-btn" onclick="switchOption(7,'mktg',this)">Marketing</button>
-  <button class="option-btn" onclick="switchOption(7,'exec',this)">Executive</button>
-  <button class="option-btn" onclick="switchOption(7,'ops',this)">Operations</button>
+<div class="option-tabs" id="options-5">
+  <button class="option-btn active" onclick="switchOption(5,'arch',this)">Architecture</button>
+  <button class="option-btn" onclick="switchOption(5,'hr',this)">HR</button>
+  <button class="option-btn" onclick="switchOption(5,'mktg',this)">Marketing</button>
+  <button class="option-btn" onclick="switchOption(5,'exec',this)">Executive</button>
+  <button class="option-btn" onclick="switchOption(5,'ops',this)">Operations</button>
 </div>
 
-<div class="option-content active" id="option-7-arch">
+<div class="option-content active" id="option-5-arch">
 <p><strong>1.</strong> Generate a concept visualization:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an exterior rendering of a modern residential tower with a terracotta and glass facade, surrounded by landscaped public space. Warm afternoon light. Style: architectural visualization, photorealistic.</code></div>
 <p><strong>2.</strong> Create a variation for a client presentation:</p>
@@ -1282,28 +1135,28 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Show me a close-up facade detail: terracotta rainscreen panels with dark metal mullions and floor-to-ceiling glass. Focus on the material texture and how light hits the surface. Photorealistic.</code></div>
 </div>
 
-<div class="option-content" id="option-7-hr">
+<div class="option-content" id="option-5-hr">
 <p><strong>1.</strong> Generate an onboarding welcome graphic:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a warm, professional welcome graphic for new employees at a design firm. Show a modern open-plan office with natural light, collaborative spaces, and a "Welcome to the team" theme. Style: clean illustration, suitable for an email header.</code></div>
 <p><strong>2.</strong> Create a company culture visual:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an illustration representing teamwork and collaboration in a creative workplace — people sketching, reviewing models, and discussing designs around a table. Flat vector style with warm earth tones.</code></div>
 </div>
 
-<div class="option-content" id="option-7-mktg">
+<div class="option-content" id="option-5-mktg">
 <p><strong>1.</strong> Generate a social media graphic:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a social media graphic announcing that our firm won an AIA Design Award. Show a modern building exterior at golden hour with "Award Winner" text overlay. Style: polished, Instagram-ready, square format.</code></div>
 <p><strong>2.</strong> Create an RFP proposal cover:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a sophisticated cover image for an architecture RFP proposal. Abstract geometric shapes suggesting building forms, deep navy background with gold accents. Clean and corporate. No text.</code></div>
 </div>
 
-<div class="option-content" id="option-7-exec">
+<div class="option-content" id="option-5-exec">
 <p><strong>1.</strong> Generate a presentation cover:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a cover slide image for a board presentation at an architecture firm. Show an abstract aerial view of a modern urban development — clean lines, green spaces, mixed-use buildings. Style: sophisticated, minimal, suitable for a dark slide background.</code></div>
 <p><strong>2.</strong> Create a strategic vision graphic:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an infographic-style illustration showing a firm's growth trajectory: from small studio to global practice. Use a timeline visual with architectural landmarks at each stage. Flat design, corporate colors.</code></div>
 </div>
 
-<div class="option-content" id="option-7-ops">
+<div class="option-content" id="option-5-ops">
 <p><strong>1.</strong> Generate a project milestone visual:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an illustration of a construction project timeline showing 5 phases: schematic design, design development, construction documents, permitting, and construction. Use a horizontal flowchart style with icons for each phase. Clean, professional, suitable for a project kickoff presentation.</code></div>
 <p><strong>2.</strong> Create a team utilization graphic:</p>
@@ -1321,7 +1174,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <p class="personalization-note">[PERSONALIZED: swap image generation prompts with organization-specific visual needs from Listen Labs interviews]</p>
 
-<button class="mark-complete-btn" id="complete-btn-7" onclick="markComplete(7)">Mark Complete</button>
+<button class="mark-complete-btn" id="complete-btn-5" onclick="markComplete(5)">Mark Complete</button>
 `,
   advanced: `
 <h3>Brand Kit Setup</h3>
@@ -1366,7 +1219,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <h4>3. Web Search Toggle</h4>
 <p>In the same three-dot menu, you will see a <strong>Web search</strong> toggle. When turned on, Copilot includes public web results in its responses (even in Work mode). When turned off, it only uses your organization's data. Toggle this based on whether you want external information mixed in.</p>
 
-<button class="continue-btn" onclick="switchTab(8,'implement')">Continue to Exercises &rarr;</button>
+<button class="continue-btn" onclick="switchTab(6,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
 <h3>Try All Three</h3>
@@ -1402,7 +1255,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
   <strong>Success check:</strong> You had a voice conversation (not just dictation), set up a scheduled prompt for next week, and saw the difference between web search on vs. off.
 </div>
 
-<button class="mark-complete-btn" id="complete-btn-8" onclick="markComplete(8)">Mark Complete</button>
+<button class="mark-complete-btn" id="complete-btn-6" onclick="markComplete(6)">Mark Complete</button>
 `,
   advanced: `
 <h3>Meeting Transcription Workflows</h3>
@@ -1428,8 +1281,8 @@ When the interview is complete, output the results formatted as a Copilot Custom
 /* ═══════════════════════════════════════════════════════════
    ENGINE
    ═══════════════════════════════════════════════════════════ */
-const CORE_COUNT = 8;
-const CORE_POINTS = 115;
+const CORE_COUNT = 6;
+const CORE_POINTS = 80;
 let completed = JSON.parse(localStorage.getItem('chat-completed-v2') || '[]');
 let currentLesson = 0;
 let currentTab = 'learn';

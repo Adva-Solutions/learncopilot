@@ -596,16 +596,48 @@ const LESSONS = [
   <li><strong>Autonomy</strong> &mdash; how much it decides on its own vs. asking you first</li>
 </ul>
 
+<h3>Tools: How Agents Connect to Your World</h3>
+<p>An agent without tools is just a chatbot. <strong>Tools</strong> are what give agents the ability to act &mdash; and in Copilot, tools come in several forms:</p>
+<ul>
+  <li><strong>Microsoft Graph (built-in):</strong> Every Copilot agent automatically connects to your email, calendar, files, Teams, and people directory. No setup needed.</li>
+  <li><strong>Third-party connectors:</strong> Microsoft and partners have built agent connectors for tools like <strong>Jira</strong>, <strong>Monday.com</strong>, <strong>Salesforce</strong>, <strong>ServiceNow</strong>, <strong>GitHub</strong>, and dozens more. Your admin enables these at the org level.</li>
+  <li><strong>Custom connectors:</strong> In Copilot Studio, you can build your own connectors to internal databases, APIs, or industry-specific tools like Bluebeam, Procore, or project tracking systems.</li>
+</ul>
+<p>This is why agents matter for your daily work: they are Copilot's way of connecting to the tools you already use. In the Chat module, you searched your org data directly. Here, you will learn to build agents that can <strong>act</strong> on that data &mdash; not just find it, but process it, transform it, and deliver results.</p>
+
+<h3>Built-In Agents You Already Have</h3>
+<p>Before you build anything, Copilot comes with two powerful agents ready to use. Click <strong>Agents</strong> in the left sidebar to find them:</p>
+
+<h4>Researcher</h4>
+<p>The Researcher agent does deep, multi-source web research with citations. Unlike a regular web search, it:</p>
+<ul>
+  <li>Breaks your question into sub-questions and searches each one separately</li>
+  <li>Reads full articles (not just snippets) and synthesizes across sources</li>
+  <li>Produces a structured report with numbered citations</li>
+  <li>Exports directly to <strong>Word, PowerPoint, PDF, or audio overview</strong></li>
+</ul>
+<p>Use it when you would normally spend 30+ minutes Googling and reading articles. Example: "Research the latest sustainable facade systems for residential high-rises, including cost comparisons and LEED certification case studies."</p>
+
+<h4>Analyst</h4>
+<p>The Analyst agent is built for data work. Give it a file (Excel, CSV, or data from your org) and it:</p>
+<ul>
+  <li>Analyzes patterns, trends, and anomalies in your data</li>
+  <li>Creates charts and visualizations</li>
+  <li>Answers questions about the data in plain English</li>
+  <li>Generates summary reports with key insights</li>
+</ul>
+<p>Use it when you have data but need insights fast. Example: upload a project budget spreadsheet and ask "Which projects are over budget and by how much? Show me a trend chart."</p>
+
 <h3>Three Real Examples</h3>
 <ul>
-  <li><strong>Copilot in Outlook</strong> &mdash; reads an email thread, drafts a reply in your voice, and suggests a meeting time based on your calendar. Three tools, one action.</li>
-  <li><strong>Copilot in Excel</strong> &mdash; analyzes your sales data, adds trend columns, builds a chart, and highlights anomalies. Multi-step reasoning on your spreadsheet.</li>
-  <li><strong>A real ODA use case</strong> &mdash; an architect at ODA asks Copilot to research facade waterproofing standards, summarize the findings, create a specification comparison table in Excel, and draft a recommendation memo in Word &mdash; all from one instruction.</li>
+  <li><strong>Researcher agent</strong> &mdash; you ask it to analyze building code changes across three jurisdictions. It reads dozens of sources, compares the requirements, and delivers a formatted comparison table with citations. That is an agent &mdash; not a chatbot.</li>
+  <li><strong>Analyst agent</strong> &mdash; you upload 12 months of project financials. It identifies the three highest-cost projects, shows a burn-rate trend, and flags two projects approaching budget limits. Multi-step reasoning on your data.</li>
+  <li><strong>A real ODA use case</strong> &mdash; an architect uses the Researcher to find facade waterproofing standards, then uses the Analyst to compare material costs from a vendor spreadsheet, then chains the findings into a recommendation memo. Three agents, one workflow.</li>
 </ul>
 
 <div class="tip-box">
   <div class="tip-title">Tip</div>
-  <p>Think about tasks you do repeatedly that follow a pattern. Those are your best agent candidates.</p>
+  <p>Think about tasks you do repeatedly that follow a pattern, especially ones that span multiple tools. Those are your best agent candidates. If you catch yourself switching between Outlook, Excel, and Word to complete a single deliverable &mdash; that is a workflow an agent can own.</p>
 </div>
     `,
     implement: `
@@ -645,8 +677,17 @@ const LESSONS = [
 <p><strong>Iterate:</strong> Read the output. Then refine:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre>The plan is good but too generic. Make venue suggestions specific to [your city]. Add a risk section: what could go wrong and how we would handle it.</pre></div>
 
+<h4>Step 7: Try the Researcher Agent</h4>
+<p>Click <strong>Agents</strong> in the left sidebar. Click <strong>Researcher</strong>. Send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Research the latest sustainable building materials for residential facade systems in 2025-2026. Include cost comparisons, durability ratings, and at least 3 project case studies. Cite all sources.</code></div>
+<p>Wait 30-60 seconds. Read the structured report. Click <strong>Export to PowerPoint</strong> if the option appears.</p>
+
+<h4>Step 8: Try the Analyst Agent</h4>
+<p>Go back to Agents and click <strong>Analyst</strong>. Upload the <a href="/sample-data.csv" download>sample data file</a> (or any spreadsheet you have). Then send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Analyze this data. What are the top 3 trends? Which months had the highest and lowest profit margins? Create a chart showing the trend over time.</code></div>
+
 <h4>Reflective Check</h4>
-<p>Does the agent's plan cover what you'd include if you planned this offsite manually? Where does it fall short? What would you add to its instructions?</p>
+<p>You have now used three types of agent behavior: (1) a prompted agent that interviewed you and built a plan, (2) the Researcher that read dozens of web sources, and (3) the Analyst that processed your data. Which one is most relevant to your daily work?</p>
     `,
     advanced: `
 <h3>Agent Architectures</h3>
@@ -802,6 +843,15 @@ const LESSONS = [
   <li><strong>Multiple model choices:</strong> Pick GPT, Claude, or other supported LLMs depending on your needs for speed, accuracy, or cost.</li>
   <li><strong>Agent evaluations (GA):</strong> Define test inputs and expected outputs, run evaluations, compare agent versions side-by-side, and track quality over time.</li>
 </ul>
+
+<h3>Connecting Agents to External Tools</h3>
+<p>This is where agents become truly powerful. In Copilot Studio, you can connect your agent to:</p>
+<ul>
+  <li><strong>Pre-built connectors:</strong> Jira, Monday.com, Salesforce, ServiceNow, GitHub, Asana, Trello, HubSpot, and 100+ more. These are ready to use &mdash; select the connector, authenticate, and your agent can read/write data.</li>
+  <li><strong>Custom APIs:</strong> Connect to any system that has an API &mdash; your internal project tracker, a city permit database, or a vendor portal. You define the endpoints and the agent calls them.</li>
+  <li><strong>SharePoint &amp; Dataverse:</strong> Ground your agent on your organization's structured data &mdash; project records, HR databases, inventory systems.</li>
+</ul>
+<p>If you think "I wish Copilot could talk to our [tool]" &mdash; the answer is almost always an agent. The Chat module showed you how to search your org data. Agents let you <strong>act</strong> on data across systems.</p>
 
 <div class="note-box">
   <div class="note-title">Access</div>

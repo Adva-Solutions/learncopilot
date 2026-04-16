@@ -289,8 +289,8 @@
         <span class="progress-pct" id="pct-chat" style="color:#0078d4">0%</span>
       </div>
       <div class="course-meta">
-        <span class="course-meta-steps">8 steps</span>
-        <span class="course-meta-pts">115 pts</span>
+        <span class="course-meta-steps">6 steps</span>
+        <span class="course-meta-pts">80 pts</span>
       </div>
     </a>
 
@@ -365,7 +365,7 @@ function updateDashboardProgress() {
   const appsCompleted = JSON.parse(localStorage.getItem('apps-completed') || '[]');
   const agentsCompleted = JSON.parse(localStorage.getItem('agents-completed') || '[]');
 
-  const chatPct = Math.round((chatCompleted.length / 8) * 100);
+  const chatPct = Math.round((chatCompleted.length / 6) * 100);
   const appsPct = Math.round((appsCompleted.length / 10) * 100);
   const agentsPct = Math.round((agentsCompleted.length / 8) * 100);
 
