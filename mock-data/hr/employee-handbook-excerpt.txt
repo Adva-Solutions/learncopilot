@@ -1,0 +1,189 @@
+===============================================================================
+ODA ARCHITECTURE - EMPLOYEE HANDBOOK (EXCERPT)
+Last Updated: October 2023
+===============================================================================
+
+NOTE: This handbook excerpt covers the most frequently referenced policies.
+The complete handbook is available from Human Resources upon request.
+
+===============================================================================
+SECTION 1: PAID TIME OFF (PTO)
+===============================================================================
+
+1.1 PTO Accrual
+
+ODA provides a combined PTO bank that covers vacation, personal days, and sick time.
+
+Years of Service          Annual PTO Accrual     Monthly Accrual
+0-2 years                 15 days (120 hours)    1.25 days/month
+3-5 years                 20 days (160 hours)    1.67 days/month
+6-10 years                25 days (200 hours)    2.08 days/month
+10+ years                 30 days (240 hours)    2.50 days/month
+
+PTO begins accruing on the first day of employment. New employees may use accrued PTO after completing 90 days of employment.
+
+1.2 PTO Carryover
+- Maximum carryover: 5 unused days may be carried into the following calendar year
+- Carried-over days must be used by March 31 of the following year
+- PTO days beyond the 5-day carryover limit are forfeited on December 31
+
+1.3 PTO Request Process
+- Requests of 1-2 days: Submit to your direct supervisor at least 3 business days in advance
+- Requests of 3-5 days: Submit at least 2 weeks in advance
+- Requests of 5+ days: Submit at least 4 weeks in advance
+- All requests are subject to project schedule and team coverage requirements
+- Requests during critical project milestones (CD issuance, permit submissions) may be deferred at the discretion of the project lead
+
+1.4 Holidays
+ODA observes the following paid holidays:
+- New Year's Day
+- Martin Luther King Jr. Day
+- Presidents' Day
+- Memorial Day
+- Independence Day
+- Labor Day
+- Thanksgiving Day
+- Day after Thanksgiving
+- Christmas Eve (half day)
+- Christmas Day
+- New Year's Eve (half day)
+
+Total: 12 paid holidays per year (including 2 half-days)
+
+===============================================================================
+SECTION 2: REMOTE WORK POLICY (Updated Q4 2024)
+===============================================================================
+
+2.1 Standard Schedule
+ODA operates on a hybrid work model:
+- In-office days: Tuesday, Wednesday, Thursday (mandatory)
+- Remote-eligible days: Monday, Friday
+- Core hours (all days): 10:00 AM - 4:00 PM EST
+
+2.2 Eligibility
+- All full-time employees who have completed their 90-day probationary period
+- Employees in the Fort Lauderdale office follow the same schedule
+- Remote-only positions (approved by COO): Case-by-case basis
+
+2.3 Remote Work Requirements
+- Reliable internet connection (minimum 25 Mbps download)
+- Functional webcam and microphone for video meetings
+- Access to all required software (Revit, Rhino, etc. via office VPN or BIM 360)
+- Responsiveness to Teams/email within 30 minutes during core hours
+- Private workspace suitable for client calls and team meetings
+
+2.4 Exceptions
+- Project deadlines may require additional in-office days at the discretion of the project lead
+- Client meetings and presentations are always in-office or on-site
+- New employees during their first 90 days are expected to be in-office 5 days per week
+- Design reviews and pin-ups are conducted in-office
+
+===============================================================================
+SECTION 3: BENEFITS SUMMARY
+===============================================================================
+
+3.1 Health Insurance
+Provider: Oxford (UnitedHealthcare)
+Plans available:
+- Oxford Liberty EPO: Employee only $85/month; Employee + Family $340/month
+- Oxford Freedom POS: Employee only $120/month; Employee + Family $480/month
+Enrollment: Within 30 days of hire date. Open enrollment in November annually.
+Coverage effective: First of the month following enrollment completion.
+
+3.2 Dental Insurance
+Provider: MetLife
+Coverage: Preventive 100%, Basic 80%, Major 50%
+Annual maximum: $2,000 per person
+Employee cost: $15/month (employee only); $45/month (family)
+
+3.3 Vision Insurance
+Provider: VSP
+Coverage: Annual eye exam (copay $10), frames allowance $200, contact lens allowance $150
+Employee cost: $8/month (employee only); $22/month (family)
+
+3.4 401(k) Retirement Plan
+Provider: Fidelity
+Eligibility: After 6 months of employment
+Company match: 50% of employee contribution up to 4% of salary (maximum 2% match)
+Vesting: 3-year graded vesting (33% per year)
+
+3.5 Professional Development
+- AIA membership dues: Reimbursed for licensed architects
+- ARE exam fees: Reimbursed upon passing (up to 2 attempts per division)
+- Conference attendance: One conference per year (approved by supervisor), up to $2,000
+- Continuing education: 18 AIA CEU credits per year supported through firm-sponsored sessions
+
+3.6 Additional Benefits
+- Life insurance: 1x annual salary (company-paid)
+- Short-term disability: 60% of salary for up to 12 weeks
+- Long-term disability: 60% of salary after 12 weeks (company-paid)
+- Commuter benefits: Pre-tax transit and parking (up to IRS limits)
+- Employee Assistance Program (EAP): 6 sessions per year (confidential)
+
+===============================================================================
+SECTION 4: CODE OF CONDUCT (HIGHLIGHTS)
+===============================================================================
+
+4.1 Professional Standards
+- All employees are expected to maintain the highest standards of professional conduct
+- Client confidentiality must be maintained at all times
+- Project files, drawings, and design concepts are proprietary to ODA
+- Use of personal AI tools (ChatGPT, Claude, etc.) for client project work must follow the firm's AI Usage Policy (see Section 4.5)
+
+4.2 Workplace Behavior
+- ODA is committed to a respectful, inclusive, and harassment-free workplace
+- Discrimination based on race, gender, age, religion, sexual orientation, disability, or any other protected class will not be tolerated
+- All complaints should be reported to HR Director Robert Flanagan or Senior HR Manager Joanna Regiec
+
+4.3 Software and IT
+- Only IT-approved software may be installed on ODA workstations
+- Personal devices may connect to guest Wi-Fi only (not the firm network)
+- All project files must be saved to the firm server, not local drives
+- Revit models must follow the ODA BIM Standards Manual (available from Priya Narayanan)
+
+4.4 Social Media
+- Personal social media posts should not reference active client projects without Marketing approval
+- Do not share project images, renderings, or drawings on personal accounts
+- LinkedIn posts about ODA work are encouraged but should be reviewed by Lily Golabchi before posting
+
+4.5 AI Usage Policy
+- Enterprise-licensed AI tools (Microsoft Copilot) are approved for work use
+- Personal AI tool subscriptions (ChatGPT, Claude) may be used for general research and email drafting
+- Do NOT upload client contracts, financial data, or proprietary design files to personal AI tools
+- For questions about appropriate AI usage, contact Diana Reyes (IT) or Megumi Takata (COO)
+
+===============================================================================
+SECTION 5: LEAVE OF ABSENCE
+===============================================================================
+
+5.1 Family and Medical Leave (FMLA)
+- Eligible after 12 months of employment and 1,250 hours worked
+- Up to 12 weeks of unpaid, job-protected leave per year
+- Reasons: Birth/adoption of child, serious health condition of employee or family member
+- Health insurance continues during FMLA leave
+
+5.2 Parental Leave
+- Birth parents: 8 weeks paid leave at 100% salary (in addition to any short-term disability)
+- Non-birth parents: 4 weeks paid leave at 100% salary
+- Additional unpaid leave available under FMLA
+
+5.3 Bereavement Leave
+- Immediate family: 5 paid days
+- Extended family: 3 paid days
+
+5.4 Jury Duty
+- Paid leave for the duration of jury service
+- Employee must provide documentation from the court
+
+===============================================================================
+END OF EXCERPT
+===============================================================================
+
+For complete policies, visa sponsorship information, or specific benefits
+questions, contact:
+
+Joanna Regiec, Senior HR Manager
+joanna.regiec@oda-architecture.com
+
+Robert Flanagan, HR Director
+robert.flanagan@oda-architecture.com

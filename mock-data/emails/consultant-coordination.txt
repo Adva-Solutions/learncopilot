@@ -1,0 +1,144 @@
+Subject: RE: Shore Club - Below-Grade Waterproofing Review & CD Coordination
+Thread participants: Akshay Mehra, James Hartwell (Hartwell Structural), Marco Vitale, Laura Chen (Meridian MEP), Yinxing Liu
+
+---
+
+From: Akshay Mehra <akshay.mehra@oda-architecture.com>
+To: James Hartwell <jhartwell@hartwellstructural.com>; Laura Chen <lchen@meridianmep.com>
+Cc: Marco Vitale <marco.vitale@oda-architecture.com>; Yinxing Liu <yinxing.liu@oda-architecture.com>
+Date: March 24, 2025, 9:14 AM
+Subject: Shore Club - Below-Grade Waterproofing Review & CD Coordination
+
+Hi James, Laura,
+
+As we approach our 50% CD issuance next week, I want to flag a few coordination items related to below-grade waterproofing at the Shore Club.
+
+Marco completed his initial review of the below-grade envelope and identified two areas that need your input before we can finalize:
+
+1. The elevator pit depth has increased from 5'-0" to 6'-6" per the elevator consultant's latest requirements. This pushes us deeper into the soft clay layer identified in the geotech borings at approximately 30 feet. James -- does this change your foundation recommendation? We need to understand if we're still looking at standard spread footings or if we need to go to deeper piles.
+
+2. The waterproofing membrane termination at the parking podium level needs coordination with the MEP penetrations. Laura -- can you confirm the locations of your below-grade conduit and pipe penetrations so Marco can detail the membrane boots? We're seeing about 14 penetrations on the north wall alone.
+
+We need responses by Friday March 28 to hold the CD schedule. Happy to jump on a call if easier.
+
+Thanks,
+Akshay Mehra
+Project Architect | ODA Architecture
+
+---
+
+From: James Hartwell <jhartwell@hartwellstructural.com>
+To: Akshay Mehra <akshay.mehra@oda-architecture.com>
+Cc: Marco Vitale <marco.vitale@oda-architecture.com>; Yinxing Liu <yinxing.liu@oda-architecture.com>; Laura Chen <lchen@meridianmep.com>
+Date: March 24, 2025, 2:47 PM
+Subject: RE: Shore Club - Below-Grade Waterproofing Review & CD Coordination
+
+Akshay,
+
+Thanks for flagging this. The deeper elevator pit is a concern given the geotech findings. I reviewed the boring logs again this morning and the soft clay layer runs from roughly 28 to 35 feet. The 6'-6" pit puts the bottom of excavation right at 31 feet, which is squarely in that zone.
+
+I see two options:
+
+Option A: Deep auger-cast piles extending to 45 feet to reach bearing on the limestone layer. This adds approximately 3 weeks to the foundation schedule and an estimated $280,000 to $340,000 in additional cost.
+
+Option B: Ground improvement using aggregate piers in the elevator pit area only. Faster by about 2 weeks compared to piles, estimated at $150,000 to $190,000, but requires a supplemental geotech investigation to confirm feasibility.
+
+I have a meeting with the geotech engineer on Thursday to discuss both options. I'll have a recommendation by Friday. Can you copy David Okonkwo on this? He'll need the cost and schedule impact for the construction budget.
+
+James Hartwell, PE
+Hartwell Structural Engineering
+
+---
+
+From: Laura Chen <lchen@meridianmep.com>
+To: Akshay Mehra <akshay.mehra@oda-architecture.com>; Marco Vitale <marco.vitale@oda-architecture.com>
+Cc: James Hartwell <jhartwell@hartwellstructural.com>; Yinxing Liu <yinxing.liu@oda-architecture.com>
+Date: March 25, 2025, 10:33 AM
+Subject: RE: Shore Club - Below-Grade Waterproofing Review & CD Coordination
+
+Akshay, Marco,
+
+I've reviewed our below-grade MEP routing and can confirm the following penetrations through the foundation walls:
+
+North Wall: 14 penetrations (8 electrical conduit, 4 plumbing, 2 fire protection)
+East Wall: 9 penetrations (5 electrical, 3 plumbing, 1 storm drain)
+South Wall: 6 penetrations (3 electrical, 2 plumbing, 1 gas service)
+West Wall: 4 penetrations (2 electrical, 1 plumbing, 1 telecom)
+
+Total: 33 below-grade penetrations requiring waterproof boots.
+
+I'll send updated MEP background drawings to Priya by end of day Wednesday so she can overlay them on the architectural set. Note that we may add 2-3 more conduit runs on the north wall depending on the electrical room layout finalization -- I'll confirm by Thursday.
+
+One concern: the storm drain on the east wall is a 12-inch pipe. The standard link seal boot may not work at that diameter with the bentonite membrane system. Marco -- have you detailed a large-diameter penetration with this membrane before?
+
+Laura Chen, PE
+Meridian MEP Consulting
+
+---
+
+From: Marco Vitale <marco.vitale@oda-architecture.com>
+To: Laura Chen <lchen@meridianmep.com>; Akshay Mehra <akshay.mehra@oda-architecture.com>
+Cc: James Hartwell <jhartwell@hartwellstructural.com>
+Date: March 25, 2025, 3:18 PM
+Subject: RE: Shore Club - Below-Grade Waterproofing Review & CD Coordination
+
+Laura,
+
+Good catch on the 12-inch storm drain. The bentonite sheet membrane (Cetco Voltex) has a maximum tested diameter of 8 inches for link seal boots. For the 12-inch pipe, we'll need to use a custom puddle flange with a secondary mechanical seal. I've detailed this successfully on two previous projects -- the Clinton Hill Tower and the Williamsburg Waterfront.
+
+I'll prepare the detail and include it in the CD set. Akshay -- this will be detail 8/A-501. Please make sure Priya adds it to the detail sheet index.
+
+One more item: I need the final foundation wall thickness from James before I can complete the membrane termination details at the podium level. James -- are we at 12" or 14" on the north and east walls?
+
+Marco Vitale
+Facade Consultant | ODA Architecture
+
+---
+
+From: James Hartwell <jhartwell@hartwellstructural.com>
+To: Marco Vitale <marco.vitale@oda-architecture.com>; Akshay Mehra <akshay.mehra@oda-architecture.com>
+Cc: Laura Chen <lchen@meridianmep.com>
+Date: March 26, 2025, 8:52 AM
+Subject: RE: Shore Club - Below-Grade Waterproofing Review & CD Coordination
+
+Marco,
+
+Foundation wall thickness:
+- North wall: 14" (due to lateral earth pressure from the adjacent property)
+- East wall: 12"
+- South and West walls: 12"
+
+This is confirmed and won't change. You can proceed with the membrane details.
+
+On the elevator pit question -- just got off the phone with the geotech. They're recommending Option B (aggregate piers) as feasible for the localized elevator pit area. They'll have a formal letter by Friday. Cost estimate is firming up at $165,000 with a 2-week installation window that can run concurrent with other foundation work.
+
+I consider this resolved pending the formal letter. Akshay -- I'll send you the letter as soon as I have it so you can forward to the client and GC.
+
+James
+
+---
+
+From: Akshay Mehra <akshay.mehra@oda-architecture.com>
+To: James Hartwell <jhartwell@hartwellstructural.com>; Laura Chen <lchen@meridianmep.com>; Marco Vitale <marco.vitale@oda-architecture.com>
+Cc: Yinxing Liu <yinxing.liu@oda-architecture.com>; David Okonkwo <david.okonkwo@oda-architecture.com>
+Date: March 26, 2025, 11:30 AM
+Subject: RE: Shore Club - Below-Grade Waterproofing Review & CD Coordination
+
+Great progress everyone. Let me summarize where we stand for the 50% CD issuance:
+
+RESOLVED:
+- Elevator pit: Aggregate piers at $165K, 2-week concurrent install. Awaiting formal geotech letter (Friday).
+- Foundation wall thicknesses: Confirmed (14" north, 12" east/south/west).
+- Large-diameter penetration: Marco detailing custom puddle flange (detail 8/A-501).
+
+PENDING:
+- Laura to send updated MEP backgrounds to Priya by EOD Wednesday.
+- Laura to confirm final 2-3 conduit locations on north wall by Thursday.
+- Marco to complete membrane termination details by Friday.
+- Priya to overlay MEP backgrounds and update detail index.
+
+David -- please note the $165K additional foundation cost for the project budget. This was not in the original GMP estimate.
+
+I'm setting up a coordination check-in for Monday March 31 at 10 AM to confirm everything is locked before we issue the 50% set. Calendar invite coming shortly.
+
+Akshay

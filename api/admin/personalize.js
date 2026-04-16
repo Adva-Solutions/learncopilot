@@ -3,17 +3,13 @@ import { verifyAdmin } from './auth.js';
 
 const LESSON_META = {
   chat: [
-    { id: 0, title: "How AI Actually Works" },
-    { id: 1, title: "The Art of Prompting" },
-    { id: 2, title: "Meet Microsoft Copilot" },
-    { id: 3, title: "Work vs Web Mode" },
-    { id: 4, title: "Copilot Pages" },
-    { id: 5, title: "NotebookLM & Copilot Notebooks" },
-    { id: 6, title: "Research Mode" },
-    { id: 7, title: "Voice & Dictation" },
-    { id: 8, title: "Copilot Create" },
-    { id: 9, title: "Putting It Together" },
-    { id: 10, title: "Your First AI Win" },
+    { id: 0, title: "Know Your Way Around" },
+    { id: 1, title: "Custom Instructions & Memory" },
+    { id: 2, title: "Build Your Knowledge Notebook" },
+    { id: 3, title: "Copilot Pages" },
+    { id: 4, title: "Copilot Search" },
+    { id: 5, title: "Copilot Create" },
+    { id: 6, title: "Bonus: Voice, Scheduling & Web Search" },
   ],
   apps: [
     { id: 0, title: "Outlook Copilot" },
@@ -21,9 +17,7 @@ const LESSON_META = {
     { id: 2, title: "Excel Copilot" },
     { id: 3, title: "PowerPoint Copilot" },
     { id: 4, title: "Teams Copilot" },
-    { id: 5, title: "Cross-App Workflows" },
-    { id: 6, title: "Copilot Search" },
-    { id: 7, title: "Pages & Shared Outputs" },
+    { id: 5, title: "App Champion Challenge" },
   ],
   agents: [
     { id: 0, title: "What's an Agent?" },
@@ -32,6 +26,8 @@ const LESSON_META = {
     { id: 3, title: "Write Like Me Agent" },
     { id: 4, title: "Report Writer Agent" },
     { id: 5, title: "Agent Best Practices" },
+    { id: 6, title: "Custom Agent Challenge" },
+    { id: 7, title: "Agent Ecosystem Design" },
   ],
 };
 
@@ -180,7 +176,7 @@ Generate a JSON object:
 }
 
 RULES:
-- Override "implement" tab for Chat lessons 2-8 and Apps lessons 0-5 and Agents lessons 1-4 (0-indexed).
+- Override "implement" tab for Chat lessons 1-5, Apps lessons 0-4, and Agents lessons 1-5 (0-indexed).
 - HTML format: <h3> headings, <p> paragraphs, <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>prompt here</div> for prompts.
 - Tips: <div class="tip-box"><div class="tip-title">Pro Tip</div><p>text</p></div>
 - Notes: <div class="note-box"><div class="note-title">Note</div><p>text</p></div>
@@ -195,7 +191,23 @@ CRITICAL CONSTRAINTS — what's actually possible in this workshop:
 - When participants use industry-specific tools, frame them as the SOURCE of data that gets exported and brought into Microsoft 365 apps — not as a live integration. Example: "Export your monthly report from [their tool], then open it in Excel and ask Copilot to..."
 - Exercises must be achievable using ONLY: Microsoft 365 Copilot features, Copilot chat (Work/Web mode), Copilot Pages, Copilot Studio, and standard M365 file operations.
 - DO NOT generate exercises that say "connect Copilot to [industry tool]" unless it's a confirmed M365 integration.
-- Sample data files are distributed separately by the facilitator — do not reference specific filenames like apex-financials.xlsx.
+- Workshop datasets are pre-loaded and available as download links. Reference them using their /mock-data/ paths as shown below.
+
+## Available Workshop Datasets
+When exercises reference sample data, use these specific files as download links (e.g., <a href="/mock-data/financials/oda-monthly-financials.csv" download>Monthly Financials</a>):
+- /mock-data/financials/oda-monthly-financials.csv — 15 months of revenue, expenses, active projects, utilization
+- /mock-data/financials/oda-project-tracking.csv — 10 active projects with phases, fees, hours, budget
+- /mock-data/financials/oda-construction-costs.csv — cost breakdowns by trade across completed buildings
+- /mock-data/staffing/oda-resource-allocation.csv — team assignments, utilization, skills
+- /mock-data/emails/ — 6 email threads (consultant-coordination, client-scheduling, contract-redlines, pr-award-submission, permit-timeline, executive-travel)
+- /mock-data/meeting-transcripts/ — 5 transcripts (Design-Review-March, Marketing-Strategy-Q2, Consultant-Coordination-CD, HR-Onboarding-Checkin, Client-Budget-Meeting)
+- /mock-data/building-codes/ — NYC residential code reference + NYC vs Florida comparison
+- /mock-data/proposals/ — RFP template, fee proposal template, case studies (Harbor View, Wynwood), AIA award narrative
+- /mock-data/marketing/ — awards tracker, social media metrics, newsletter sample
+- /mock-data/hr/ — employee handbook excerpt, onboarding checklist, recruiting pipeline
+- /mock-data/executive/ — Q1 QBR document, travel itinerary template + raw input, property summaries
+- /mock-data/contracts/ — sample contracts (residential, hospitality), ODA standard terms
+- /mock-data/specifications/ — project spec excerpt, submittal log
 
 TOOL REFERENCE RULES (STRICTLY ENFORCED):
 - For M365 tools (Outlook, Word, Excel, PowerPoint, Teams, SharePoint), you MAY reference them directly since Copilot is built into these apps.

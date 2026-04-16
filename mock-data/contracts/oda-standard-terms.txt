@@ -1,0 +1,192 @@
+===============================================================================
+ODA ARCHITECTURE - STANDARD ACCEPTABLE CONTRACT TERMS
+Internal Reference Document
+Last Updated: March 2025
+Approved by: Eran Chen, Jacob Hedaya, Megumi Takata
+===============================================================================
+
+This document outlines ODA's standard positions on key contract terms.
+Use this as a reference when reviewing owner-architect agreements and
+negotiating contract modifications.
+
+===============================================================================
+FEE & PAYMENT
+===============================================================================
+
+Fee Methods (acceptable):
+  [OK] Time & Resources with not-to-exceed cap
+  [OK] Percentage of Construction Cost
+  [OK] Fixed/Lump Sum
+  [NO] Contingency-based or success-based fees
+
+Fee Ranges by Typology:
+  Residential Condo:     5.0% - 7.0% of construction cost
+  Residential Rental:    4.5% - 6.5%
+  Hospitality:           5.5% - 8.0%
+  Mixed-Use:             5.0% - 7.5%
+  Cultural:              6.0% - 9.0%
+  International (add):   +1.0% - 2.0% premium
+
+Phase Distribution (standard):
+  SD: 15%  |  DD: 25%  |  CD: 30%  |  Bid/Neg: 10%  |  CA: 20%
+
+  Acceptable range:
+  SD: 12-20%  |  DD: 20-28%  |  CD: 25-35%  |  Bid: 5-12%  |  CA: 15-25%
+
+  RED FLAG: Any distribution that front-loads less than 35% in SD+DD phases
+
+Payment Terms:
+  Standard: Net 30 days
+  Acceptable: Net 45 days
+  RED FLAG: Net 60+ days
+  Late payment interest: 1.0% - 1.5% per month (insist on inclusion)
+
+===============================================================================
+REIMBURSABLE EXPENSES
+===============================================================================
+
+Standard Cap: 10-12% of total fee (domestic projects)
+International Projects: 13-15% of total fee
+  RED FLAG: Caps below 10% -- we consistently run 10-12% on reimbursables
+
+Items that MUST be reimbursable:
+  - Printing and reproduction
+  - Permit and filing fees
+  - Travel (if project >50 miles from office)
+  - Models and presentation materials
+  - Additional insurance premiums required by Owner/lender
+  - Shipping costs
+
+Markup on reimbursables: 10% administrative handling (standard)
+
+===============================================================================
+INSURANCE
+===============================================================================
+
+Professional Liability (E&O):
+  ODA Current Policy: $3,000,000 per occurrence / $5,000,000 aggregate
+  
+  Acceptable requests:
+  [OK] $3M / $5M (our standard)
+  [OK] $5M / $10M (if client pays additional premium as reimbursable)
+  [NO] $10M+ without discussion -- premium becomes significant
+
+  Tail coverage:
+  [OK] 3 years post-completion (standard in our policy)
+  [OK] 5 years (acceptable for large projects)
+  [NO] 10+ years without significant premium negotiation
+
+General Liability:
+  ODA Current Policy: $2,000,000 per occurrence / $4,000,000 aggregate
+  
+  [OK] Up to $5M aggregate if requested
+  [NO] Requests exceeding our policy limits without Owner funding
+
+KEY PRINCIPLE: If the Owner or lender requires insurance beyond our
+standard policy limits, the additional premium is a reimbursable expense.
+This is non-negotiable.
+
+===============================================================================
+LIMITATION OF LIABILITY
+===============================================================================
+
+Standard Position: Liability capped at 1x total fees paid
+  [OK] 1x total fees (our standard)
+  [OK] 1.5x total fees (acceptable for large/high-profile projects)
+  [NEGOTIATE] 2x total fees -- counter with tiered approach (see below)
+  [NO] Unlimited liability
+  [NO] Liability tied to construction cost or project value
+
+Tiered Approach (use when client pushes above 1.5x):
+  General professional liability claims: 1.5x total fees
+  Willful misconduct / gross negligence: 2x total fees
+  
+  This has been accepted on:
+  - Shore Club Residences (2024)
+  - Brickell Hospitality Tower (2022)
+
+Consequential Damages:
+  [ALWAYS] Mutual waiver of consequential damages
+  [NO] Accept liability for lost profits, lost revenue, or delay damages
+
+===============================================================================
+TERMINATION
+===============================================================================
+
+Cure Period:
+  Standard: 30 days
+  Acceptable: 20-30 days
+  RED FLAG: Less than 20 days -- insufficient to cure most breaches
+
+Termination Fee:
+  Standard: 5% of remaining unearned fee
+  International: 10% of remaining unearned fee (covers non-recoverable costs)
+  [NO] No termination fee -- we need protection for staff commitments
+
+Termination for Convenience:
+  Standard: 30 days' written notice (domestic)
+  International: 60 days' written notice (due to travel and coordination)
+
+Upon Termination, Owner must pay:
+  [ALWAYS] All services performed to date
+  [ALWAYS] All reimbursable expenses incurred
+  [ALWAYS] Termination fee
+  [INTERNATIONAL] Non-refundable travel expenses already booked
+
+===============================================================================
+INTELLECTUAL PROPERTY
+===============================================================================
+
+Standard: Instruments of Service remain ODA property
+License: Owner gets a license to use for THIS project only
+License Condition: Contingent on full payment of all fees
+
+  [NO] Transfer of ownership of design documents to Owner
+  [NO] License to use design on OTHER projects without separate agreement
+  [OK] License to use for facility management and renovation of completed project
+
+===============================================================================
+SCHEDULE & SCOPE CHANGES
+===============================================================================
+
+Owner Review Periods:
+  Standard: 14 calendar days at each milestone
+  Acceptable: 7-21 calendar days
+  RED FLAG: Less than 7 days or no defined review period
+
+Scope Changes:
+  [ALWAYS] Changes after DD require written authorization + fee adjustment
+  [ALWAYS] Code changes enacted after agreement date are Additional Services
+  [ALWAYS] Extended CA beyond agreed duration is Additional Services
+
+Schedule Extensions:
+  [ALWAYS] Schedule extensions due to Owner delays do not constitute breach
+  [ALWAYS] Extended duration entitles Architect to additional compensation
+
+===============================================================================
+RED FLAGS CHECKLIST (Reject or Escalate to Eran)
+===============================================================================
+
+[ ] Liability exceeds 2x total fees
+[ ] Reimbursable cap below 10%
+[ ] No consequential damages waiver
+[ ] Payment terms exceeding 60 days
+[ ] Cure period less than 15 days
+[ ] No termination fee upon Owner convenience termination
+[ ] Transfer of IP ownership (not just license)
+[ ] Indemnification clauses that exceed standard of care
+[ ] Requirement to guarantee construction cost or schedule
+[ ] No defined Owner review/decision period
+[ ] Arbitration outside of New York (for domestic projects)
+
+===============================================================================
+NOTES
+===============================================================================
+
+This document is for internal reference only and does not constitute legal
+advice. All contracts should be reviewed by ODA's legal counsel before
+execution. For contracts exceeding $2M in total fee, Eran Chen must
+personally review and approve all non-standard terms.
+
+Last review by legal counsel: Williams & Connolly LLP, January 2025
+===============================================================================

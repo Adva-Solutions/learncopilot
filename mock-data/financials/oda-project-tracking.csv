@@ -1,0 +1,11 @@
+Project_Name,Typology,Location,Phase,Contract_Fee,Fee_Method,Reimbursable_Pct,Square_Footage,Construction_Cost_Estimate,Hours_Planned,Hours_Actual,Staff_Assigned,Consultant_Costs,Change_Orders,Start_Date,Target_Completion
+Shore Club Residences,Residential Condo,Fort Lauderdale FL,CD,4200000,Percentage,12,385000,78000000,28000,31200,8,1450000,3,2024-02-15,2026-08-01
+Riverside Tower,Residential Rental,New York NY,DD,3100000,Time & Resources,10,265000,52000000,22000,18500,6,980000,1,2024-06-01,2026-11-15
+Harbor View Residences,Residential Condo,Jersey City NJ,CA,2800000,Percentage,15,210000,44000000,19000,20100,5,870000,4,2023-01-10,2025-12-30
+Wynwood Arts Mixed-Use,Mixed-Use,Miami FL,CA,3500000,Fixed Fee,10,295000,61000000,24000,23800,7,1120000,2,2023-03-20,2025-09-15
+Jersey City Waterfront Tower,Residential Condo,Jersey City NJ,SD,2400000,Percentage,12,225000,47000000,16000,4200,4,340000,0,2025-09-01,2028-03-01
+Hoboken Residential,Residential Rental,Hoboken NJ,DD,1800000,Time & Resources,10,142000,29500000,14000,9800,4,520000,1,2024-11-01,2027-01-15
+The Mira Hotel & Residences,Hospitality,Dubai UAE,SD,5600000,Percentage,15,410000,125000000,35000,8900,6,680000,0,2025-06-15,2029-01-01
+Upstate Condo,Residential Condo,Hudson Valley NY,DD,1950000,Fixed Fee,10,168000,34000000,15000,11200,5,610000,2,2024-08-01,2027-04-01
+Fort Lauderdale Cultural Center,Cultural,Fort Lauderdale FL,CA,2200000,Percentage,12,88000,22000000,17000,17600,4,540000,1,2022-09-01,2025-06-30
+Mayflower,Residential Condo,New York NY,CD,3800000,Time & Resources,12,310000,64000000,26000,24100,7,1280000,2,2023-11-15,2026-05-01

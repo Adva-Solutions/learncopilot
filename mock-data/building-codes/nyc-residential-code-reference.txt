@@ -1,0 +1,189 @@
+NEW YORK CITY RESIDENTIAL BUILDING CODE - QUICK REFERENCE GUIDE
+Prepared for ODA Architecture Internal Use
+Last Updated: January 2025
+
+=============================================================================
+SECTION 1: ZONING AND SETBACK REQUIREMENTS (NYC Zoning Resolution)
+=============================================================================
+
+1.1 Residential District Setbacks (R6 through R10 Districts)
+
+Front Yard:
+- R6/R7: Minimum 10 feet from street line (15 feet on wide streets >75 ft)
+- R8: Minimum 15 feet from street line
+- R9/R10: Per Large-Scale Residential Development rules or Special District
+
+Side Yards:
+- R6: 8 feet minimum each side (total 16 feet)
+- R7/R8: No minimum if building abuts adjacent structure; otherwise 8 feet
+- R9/R10: Varies by Special District regulations
+
+Rear Yard:
+- All R districts: Minimum 30 feet at every level
+- Exception: Rear yard may be reduced to 20 feet for community facility uses on lower floors
+
+1.2 Building Height and Setback (Sky Exposure Plane)
+- R7A: Maximum base height 65 feet, maximum building height 80 feet
+- R8: Maximum base height 85 feet, maximum building height 120 feet before setback
+- R9: Maximum base height 105 feet, setback of 15 feet required above base height
+- R10: Maximum base height 125 feet, per tower-on-base regulations
+
+Tower-on-Base (R9/R10):
+- Tower footprint: Maximum 40% of lot area (or 7,500 SF, whichever is less)
+- Tower setback from base: Minimum 10 feet on wide streets, 15 feet on narrow streets
+- No maximum height for qualifying towers in R10 districts (FAR limited)
+
+1.3 Floor Area Ratio (FAR)
+- R6: 2.43 (without bonus), up to 3.60 with Inclusionary Housing bonus
+- R7: 3.44, up to 4.60 with IH bonus
+- R8: 6.02, up to 7.20 with IH bonus
+- R9: 7.52, up to 9.00 with IH bonus
+- R10: 10.00, up to 12.00 with IH bonus
+
+Inclusionary Housing Bonus: Additional 1.25 FAR for every 1.0 FAR of affordable units provided (20% of total units at 80% AMI or below).
+
+=============================================================================
+SECTION 2: MEANS OF EGRESS (NYC Building Code Chapter 10)
+=============================================================================
+
+2.1 Required Number of Exits
+- Occupancy up to 500: Minimum 2 exits
+- Occupancy 501 to 1,000: Minimum 3 exits
+- Occupancy over 1,000: Minimum 4 exits
+- Residential floors above 75 feet: Minimum 2 stairways per floor, each in separate fire-rated enclosures
+
+2.2 Stair Dimensions
+- Minimum width: 44 inches (36 inches for occupancy ≤ 50)
+- Riser height: Maximum 7-3/4 inches (7 inches for NYC enhanced requirement)
+- Tread depth: Minimum 10 inches (11 inches for NYC enhanced requirement)
+- Headroom: Minimum 80 inches measured vertically from tread nosing
+- Handrails: Required on both sides; 34-38 inches above tread nosing
+- Extensions: Handrails must extend 12 inches beyond top riser and one tread depth beyond bottom riser
+
+NYC-Specific Stair Calculation:
+  Number of risers = Floor-to-floor height / riser height
+  Example: 10'-0" floor height = 120" / 7" per riser = 17.14 → 18 risers (17 treads)
+  Minimum stair run = 17 treads × 11" = 187" = 15'-7"
+  Plus landing at top and bottom (minimum 44" each) = total stair length ~24 feet
+
+2.3 Corridor Width
+- Residential: Minimum 44 inches (3'-8")
+- Residential with sprinklers: May be reduced to 36 inches serving ≤ 50 occupants
+- Retail/commercial corridors: Minimum 44 inches (no reduction with sprinklers)
+
+2.4 Exit Separation
+- Two exits from a floor: Must be separated by distance ≥ 1/3 of the maximum diagonal dimension of the floor (1/2 diagonal in non-sprinklered buildings)
+- Dead-end corridors: Maximum 20 feet (50 feet with sprinklers in residential)
+
+2.5 Travel Distance
+- Residential (sprinklered): Maximum 250 feet to nearest exit
+- Residential (non-sprinklered): Maximum 200 feet
+- Mixed-use buildings: Most restrictive occupancy controls
+
+=============================================================================
+SECTION 3: FIRE-RESISTANCE REQUIREMENTS (NYC Building Code Chapter 7)
+=============================================================================
+
+3.1 Construction Types for Residential High-Rise
+- Type I-A (most restrictive): Structural frame 3-hour, bearing walls 3-hour, floor/ceiling 2-hour, roof 1.5-hour
+- Type I-B (common for residential): Structural frame 2-hour, bearing walls 2-hour, floor/ceiling 2-hour, roof 1-hour
+
+3.2 Fire Separation Between Uses
+- Residential to parking: 2-hour fire-resistance rated assembly
+- Residential to retail: 2-hour fire-resistance rated assembly
+- Residential to mechanical rooms: 2-hour fire-resistance rated assembly
+- Corridor walls in residential: 1-hour fire-resistance rated
+- Unit demising walls: 1-hour fire-resistance rated (STC 50 minimum)
+
+3.3 Facade Fire-Rating Requirements
+- Buildings ≤ 40 feet to lot line: Exterior walls must be 1-hour fire-rated on the lot-line side
+- Buildings > 40 feet to lot line: No fire rating required on exterior walls
+- Vertical fire spread: Spandrel panel between floors must be minimum 3 feet solid construction or fire-rated glass
+- Flame spread: Exterior cladding materials must have Class A flame spread rating (index ≤ 25) for buildings over 40 feet in height
+
+Material-Specific Requirements:
+- Metal composite panels (ACM): Must have non-combustible core (mineral core, not PE core) for buildings over 40 feet
+- Terracotta rain screen: Non-combustible; cavity must include fire stops at every floor line and at maximum 20-foot intervals
+- Stone/precast: Non-combustible; no additional requirements
+- Wood cladding: Not permitted above 40 feet in NYC (limited to Type V construction)
+
+=============================================================================
+SECTION 4: ACCESSIBILITY (NYC Building Code Chapter 11 / ADA / Fair Housing)
+=============================================================================
+
+4.1 Accessible Route Requirements
+- Accessible route must connect: public right-of-way → building entrance → elevator lobby → every unit → all common amenity spaces
+- Minimum clear width: 36 inches (44 inches at corridors)
+- Changes in level: Maximum 1/4 inch without ramp; 1/4 to 1/2 inch with beveled edge; >1/2 inch requires ramp or elevator
+- Ramp slope: Maximum 1:12 (8.33%); maximum rise per run: 30 inches
+
+4.2 Accessible Units (Fair Housing Act for buildings with elevator, 4+ units)
+- ALL units must meet FHA "Covered Dwelling" requirements:
+  • Accessible entrance on accessible route
+  • Accessible public and common use areas
+  • Usable doors (32-inch minimum clear width)
+  • Accessible route into and through the unit
+  • Light switches, outlets, thermostats at accessible heights (15"-48")
+  • Reinforced bathroom walls for future grab bars
+  • Usable kitchens and bathrooms (clearances)
+
+4.3 Accessible Bathroom Layouts (per Fair Housing)
+Type A (full turning radius):
+  - 60-inch turning circle in bathroom
+  - 30×48-inch clear floor space at each fixture
+  - Toilet centerline: 18 inches from side wall
+  - Lavatory: Knee clearance underneath (29 inches minimum)
+
+Type B (parallel approach alternative):
+  - Parallel approach to bathtub: 60 inches clear alongside tub
+  - Forward approach to toilet: 48 inches clear in front of toilet
+  - Maneuvering clearance at door: 18 inches on pull side, 12 inches on push side
+
+=============================================================================
+SECTION 5: PARKING REQUIREMENTS (NYC Zoning Resolution)
+=============================================================================
+
+5.1 Residential Parking
+- Manhattan Core (below 96th Street): No minimum parking required (eliminated 2024)
+- Outer boroughs and upper Manhattan: Varies by district, typically 40-50% of units
+- Maximum parking caps in transit zones: 0.5 spaces per unit
+- Accessible parking: 2% of total spaces (minimum 1 space)
+- Electric vehicle ready: 20% of spaces (NYC Local Law 130, effective 2025)
+
+5.2 Bicycle Parking
+- Residential: 1 bicycle parking space per unit (minimum)
+- 50% of bicycle spaces must be covered/enclosed
+- Minimum dimensions: 2 feet × 6 feet per space; 5-foot aisle width
+
+=============================================================================
+SECTION 6: MECHANICAL AND PLUMBING HIGHLIGHTS
+=============================================================================
+
+6.1 Ventilation
+- All habitable rooms: Natural ventilation (operable windows = 5% of floor area) or mechanical ventilation
+- Bathrooms without windows: Exhaust fan minimum 50 CFM (intermittent) or 20 CFM (continuous)
+- Kitchens: Exhaust minimum 100 CFM (intermittent) or 25 CFM (continuous)
+- Parking garages: Mechanical ventilation maintaining CO below 35 PPM
+
+6.2 Plumbing Fixture Count (per NYC Plumbing Code)
+Residential units:
+- 1 water closet per unit (minimum)
+- 1 lavatory per unit (minimum)
+- 1 bathtub or shower per unit (minimum)
+- 1 kitchen sink per unit (minimum)
+
+Common areas (per 15 occupants):
+- 1 water closet per 15 persons
+- 1 lavatory per 15 persons
+- 1 drinking fountain per floor
+
+=============================================================================
+NOTES
+=============================================================================
+
+This reference guide is for internal preliminary design use only. Always verify specific requirements against the most current edition of the NYC Building Code, NYC Zoning Resolution, and applicable Local Laws. Code interpretations may vary by project and should be confirmed with the NYC Department of Buildings during pre-application consultation.
+
+Key Code Update - 2024:
+- Local Law 97 (carbon emissions): Buildings over 25,000 SF must meet emissions limits starting 2024. Penalties of $268 per metric ton of CO2 over the limit.
+- Local Law 130 (EV charging): 20% of parking spaces must be EV-ready in new construction.
+- Local Law 154 (gas ban): New buildings under 7 stories may not use fossil fuels for heating or hot water (effective 2024). Buildings over 7 stories effective 2027.

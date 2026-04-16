@@ -1,0 +1,172 @@
+===============================================================================
+ODA ARCHITECTURE - QUARTERLY BUSINESS REVIEW
+Q1 2025 (January - March)
+Prepared by: Megumi Takata, COO
+Date: April 4, 2025
+===============================================================================
+
+EXECUTIVE SUMMARY
+
+Q1 2025 was a strong quarter for ODA. Revenue increased 8% year-over-year, driven by active CD phases on Shore Club and Mayflower, a new international commission (The Mira Hotel in Dubai), and continued CA work on Harbor View and Wynwood. Utilization rates averaged 77% across the firm, slightly below our 80% target due to the ramp-up period on new commissions. Staffing remains tight, with two new hires scheduled for April and two active searches ongoing.
+
+Key highlights:
+- Revenue: $1,435,000 (vs. $1,330,000 Q1 2024, +8%)
+- New commissions: 2 (Jersey City Waterfront Tower, The Mira Hotel & Residences)
+- Active projects: 10
+- Staff: 26 full-time (28 budgeted)
+
+===============================================================================
+FINANCIAL SUMMARY
+===============================================================================
+
+                        Q1 2025         Q1 2024         Change
+Revenue                 $1,435,000      $1,330,000      +7.9%
+Expenses                $1,260,000      $1,190,000      +5.9%
+Net Income              $175,000        $140,000        +25.0%
+Net Margin              12.2%           10.5%           +1.7 pts
+
+Revenue by Project:
+  Shore Club Residences       $380,000   (26.5%)
+  Mayflower                   $310,000   (21.6%)
+  Harbor View Residences      $195,000   (13.6%)
+  Riverside Tower             $165,000   (11.5%)
+  Wynwood Arts Mixed-Use      $120,000   (8.4%)
+  Upstate Condo               $105,000   (7.3%)
+  The Mira Hotel              $80,000    (5.6%)
+  Other / Competitions        $80,000    (5.6%)
+
+Backlog (contracted, not yet billed):
+  Total backlog: $8,200,000
+  Expected to bill in Q2 2025: $1,550,000
+  Expected to bill in Q3-Q4 2025: $3,400,000
+  Expected to bill in 2026+: $3,250,000
+
+Accounts Receivable:
+  Current (0-30 days): $420,000
+  31-60 days: $85,000
+  61-90 days: $35,000 (Harbor View - following up with client)
+  90+ days: $0
+
+===============================================================================
+PROJECT STATUS
+===============================================================================
+
+Project                  Phase    Fee Budget   Billed to Date   % Complete   Health
+Shore Club Residences    CD       $4,200,000   $2,940,000       70%          YELLOW
+Riverside Tower          DD       $3,100,000   $930,000         30%          GREEN
+Harbor View Residences   CA       $2,800,000   $2,520,000       90%          GREEN
+Wynwood Arts Mixed-Use   CA       $3,500,000   $3,325,000       95%          GREEN
+Mayflower                CD       $3,800,000   $2,660,000       70%          GREEN
+Hoboken Residential      DD       $1,800,000   $720,000         40%          GREEN
+Upstate Condo            DD       $1,950,000   $780,000         40%          GREEN
+Mira Hotel & Residences  SD       $5,600,000   $280,000         5%           GREEN
+Jersey City Waterfront   SD       $2,400,000   $120,000         5%           GREEN
+Ft Laud Cultural Center  CA       $2,200,000   $2,090,000       95%          GREEN
+
+YELLOW FLAG: Shore Club Residences
+- Hours: 31,200 actual vs. 28,000 planned (11.4% over)
+- Root cause: Extended facade design exploration (3 options presented to client),
+  additional geotech investigation, and expanded consultant coordination
+- Impact: Risk of exceeding fee by ~$180,000 if trend continues through CD completion
+- Mitigation: Post-permit submission financial review scheduled for May. Will assess
+  whether to request a fee adjustment or absorb the overage.
+- Additional cost exposure: $165,000 aggregate pier change order (passed to owner)
+
+===============================================================================
+STAFFING & UTILIZATION
+===============================================================================
+
+Department          Headcount    Avg Utilization    Target    Status
+Architecture        18           82%                85%       Slightly under
+Interior            1            88%                80%       Above target
+Marketing           4            N/A                N/A       Non-billable
+HR                  3            N/A                N/A       Non-billable
+Operations          5            N/A                N/A       Non-billable
+Executive           3            35%                50%       Below target
+
+Key Staffing Items:
+- Priya Narayanan overallocated at 110% (Shore Club + Mayflower BIM coordination)
+- Akshay Mehra at 100% on Shore Club CD - no capacity for other projects
+- Two new hires starting April: Maya Torres (Jr Designer, NY), Alex Park (Project Architect, FL)
+- Two active searches: Junior Designer (NY) and Project Architect (NY)
+- Yinxing Liu spending ~20% of time on informal Revit training for team members -
+  need to formalize this or hire a training resource
+
+Utilization Trend:
+  Jan 2025: 76%
+  Feb 2025: 78%
+  Mar 2025: 81%
+  Trend: Improving as new projects ramp up
+
+===============================================================================
+KEY WINS
+===============================================================================
+
+1. New Commission: The Mira Hotel & Residences (Dubai, $5.6M fee)
+   - ODA's first international hotel project
+   - SD presentation to Al Habtoor Group design committee in April
+   - Significant growth opportunity in Middle East market
+
+2. LEED Platinum: Wynwood Arts Mixed-Use
+   - 42% energy reduction, 60%+ recycled concrete content
+   - Strong press coverage and award submissions underway
+
+3. Fort Lauderdale Cultural Center: Approaching completion
+   - Positive community reception
+   - Award submissions planned for Architizer and CTBUH
+
+4. Proposal Win Rate: 3 of 5 proposals submitted in Q1 resulted in commissions (60%)
+
+===============================================================================
+KEY RISKS
+===============================================================================
+
+1. Shore Club Fee Overrun (MEDIUM)
+   - 11.4% over budget on hours
+   - Need financial review post-permit submission
+
+2. Staff Capacity (HIGH)
+   - BIM Manager overallocated across two CD projects
+   - If new commissions accelerate, we lack senior capacity to staff them
+   - Two open positions partially address this but won't be filled until June+
+
+3. Server Infrastructure (MEDIUM)
+   - Physical servers reaching capacity; IT flagging storage concerns
+   - File organization remains a persistent issue (new employees cannot find files)
+   - Need to evaluate cloud migration or server expansion in Q2
+
+4. QuickBooks Migration (LOW)
+   - Desktop to Online migration underway; some reconciliation discrepancies
+   - Kevin tracking resolution; should be complete by end of April
+
+===============================================================================
+Q2 2025 PRIORITIES
+===============================================================================
+
+1. Shore Club: Hit May 1 permit submission deadline. Post-submission financial review.
+2. The Mira Hotel: Successful April client presentation. Lock SD decisions by April 17.
+3. Hiring: Onboard Maya (April 14) and Alex (April 28). Continue active searches.
+4. Awards: Submit AIA (April 15) and Architizer (April 30) entries.
+5. Infrastructure: Evaluate server capacity and file organization solutions.
+6. Handbook Update: HR to revise employee handbook (outdated since 2023).
+7. QuickBooks: Complete Desktop to Online migration.
+
+===============================================================================
+UPCOMING MILESTONES
+===============================================================================
+
+Date          Project                    Milestone
+Apr 3         Riverside Tower            Client DD Presentation
+Apr 14        Firm                       Maya Torres start date
+Apr 15        Marketing                  AIA NY Awards submission deadline
+Apr 16        The Mira Hotel             Design Committee Presentation (Dubai)
+Apr 28        Firm                       Alex Park start date (Fort Lauderdale)
+Apr 30        Marketing                  Architizer A+ Awards deadline
+May 1         Shore Club Residences      Building Department permit submission
+May 15        The Mira Hotel             SD completion target
+Jun 15        Shore Club Residences      Expected first-round permit comments
+Jun 30        Ft Lauderdale Cultural Ctr Project close-out
+
+===============================================================================
+END OF Q1 2025 QBR
+===============================================================================

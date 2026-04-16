@@ -1,0 +1,127 @@
+Subject: RE: Shore Club - Owner-Architect Agreement Red Lines (Round 2)
+Thread participants: Jacob Hedaya (ODA), Patricia Vega (Coral Ridge Legal - client's counsel), Eran Chen, Megumi Takata
+
+---
+
+From: Patricia Vega <pvega@coralridgelegal.com>
+To: Jacob Hedaya <jacob.hedaya@oda-architecture.com>
+Cc: Eran Chen <eran.chen@oda-architecture.com>; Thomas Blakely <tblakely@shoreclubjv.com>
+Date: March 17, 2025, 4:30 PM
+Subject: Shore Club - Owner-Architect Agreement Red Lines (Round 2)
+
+Jacob,
+
+Please find attached our client's second round of red lines to the Owner-Architect Agreement for the Shore Club Residences project (Shore_Club_OA_Agreement_Redlines_R2.pdf).
+
+Key changes from this round:
+
+1. Section 5.3 - Fee Schedule: Client requests restructuring the payment milestones to 15/20/30/25/10 (SD/DD/CD/Bidding/CA) instead of the proposed 15/25/30/20/10. This shifts $210,000 from DD to CD phase.
+
+2. Section 7.2 - Reimbursable Expenses: Client proposes capping reimbursables at 10% of the base fee rather than the 12% specified. This would reduce the reimbursable cap from $504,000 to $420,000.
+
+3. Section 9.1 - Professional Liability Insurance: Client requires $5M per occurrence / $10M aggregate, increased from your proposed $3M / $5M. This is consistent with the project's lender requirements.
+
+4. Section 11.4 - Limitation of Liability: Client rejects the proposed limitation of liability cap at total fees paid. Client's position is that liability should be limited to 2x the total fees paid, consistent with the insurance coverage.
+
+5. Section 14.2 - Termination for Convenience: Client requests adding a 15-day cure period before termination takes effect, reduced from the 30-day period in your draft.
+
+Please review and advise on your client's position on each item. We'd like to resolve all outstanding items by March 28 to allow contract execution before the April CD milestone.
+
+Patricia Vega, Esq.
+Coral Ridge Legal Group
+
+---
+
+From: Jacob Hedaya <jacob.hedaya@oda-architecture.com>
+To: Eran Chen <eran.chen@oda-architecture.com>; Megumi Takata <megumi.takata@oda-architecture.com>
+Date: March 18, 2025, 9:15 AM
+Subject: FW: Shore Club - Owner-Architect Agreement Red Lines (Round 2)
+
+Eran, Megumi,
+
+See below from the client's counsel. Five items to resolve. Here's my take:
+
+1. Fee milestone restructuring (15/20/30/25/10): I don't love this. Moving $210K from DD to CD means we're carrying more risk in the early phases with less cash flow. Our DD phase is where most of the design decisions happen and we have the highest staffing costs. I'd push back and propose a compromise: 15/22/30/23/10.
+
+2. Reimbursable cap at 10% vs 12%: This is a real problem. We're already tracking at about 11.5% on reimbursables for this project because of the facade consultant costs and the additional geotech work. If we agree to 10%, we eat the overage. I'd hold firm at 12% or propose 11% as a compromise.
+
+3. Insurance increase to $5M/$10M: Our current policy is $3M/$5M. Increasing to $5M/$10M will cost us approximately $18,000-$22,000 in additional annual premium. If the lender requires it, we should agree but request that the additional premium be treated as a reimbursable expense.
+
+4. Liability cap at 2x fees: This is a significant exposure increase. Our standard is 1x fees paid. I've accepted 1.5x on a few past projects (the Clinton Hill Tower and the Williamsburg Waterfront), but 2x is above our comfort level. I'd counter at 1.5x.
+
+5. Cure period reduced to 15 days: 15 days is too short to cure most defaults in a project of this scale. Our standard is 30. I'd accept 20 days as a compromise.
+
+Eran -- do you want to discuss before I respond, or should I go ahead with these positions?
+
+Jacob
+
+---
+
+From: Eran Chen <eran.chen@oda-architecture.com>
+To: Jacob Hedaya <jacob.hedaya@oda-architecture.com>
+Cc: Megumi Takata <megumi.takata@oda-architecture.com>
+Date: March 18, 2025, 11:42 AM
+Subject: RE: Shore Club - Owner-Architect Agreement Red Lines (Round 2)
+
+Jacob,
+
+Good analysis. I agree with your positions on all five points. A few additional thoughts:
+
+On #2 (reimbursables): Hold at 12%. The facade consultant work alone is running $85K over what we originally estimated because of the terracotta rain screen evaluation. If we cap at 10%, we lose money. This is non-negotiable for me.
+
+On #3 (insurance): Agree to the higher limits but absolutely pass the additional premium through as reimbursable. Frame it as: "ODA is happy to accommodate the lender's insurance requirements. The incremental premium of approximately $20K will be included as a reimbursable expense per Section 7.2."
+
+On #4 (liability): I'm okay with 1.5x but not 2x. If they push hard, we can agree to 2x only for claims arising from willful misconduct or gross negligence, with 1x for all other claims. That's a structure we used on the Brickell Hospitality Tower and it worked well.
+
+Go ahead and draft our response. Copy Megumi so she can track the financial implications.
+
+Eran
+
+---
+
+From: Jacob Hedaya <jacob.hedaya@oda-architecture.com>
+To: Patricia Vega <pvega@coralridgelegal.com>
+Cc: Eran Chen <eran.chen@oda-architecture.com>; Megumi Takata <megumi.takata@oda-architecture.com>; Thomas Blakely <tblakely@shoreclubjv.com>
+Date: March 19, 2025, 2:05 PM
+Subject: RE: Shore Club - Owner-Architect Agreement Red Lines (Round 2)
+
+Patricia,
+
+Thank you for the detailed summary. We've reviewed each item and provide the following responses:
+
+1. Fee Milestones: We propose a compromise at 15/22/30/23/10. The DD phase represents our highest staffing and coordination costs, and the original 25% allocation reflects the actual effort distribution based on our experience with comparable residential projects.
+
+2. Reimbursable Cap: We must hold at 12%. The project's complexity -- including the hybrid facade system, additional geotechnical investigation, and expanded consultant coordination -- has already pushed reimbursable costs to approximately 11.5% of base fee. A 10% cap would require ODA to absorb legitimate project costs that benefit the Owner.
+
+3. Professional Liability Insurance: ODA will increase coverage to $5M per occurrence / $10M aggregate to meet the lender's requirements. The incremental annual premium (estimated at $18,000-$22,000) will be treated as a reimbursable expense under Section 7.2, as this coverage increase is specifically required by the Owner's lender.
+
+4. Limitation of Liability: We propose a tiered structure: 1.5x total fees paid for general professional liability claims, and 2x total fees paid for claims arising from willful misconduct or gross negligence. This structure has been successfully used on comparable projects and provides the Owner with enhanced protection while maintaining appropriate risk allocation.
+
+5. Termination Cure Period: We propose 20 days as a compromise. This provides sufficient time to identify, assess, and cure most defaults while respecting the Owner's need for timely resolution.
+
+We believe these positions are fair and consistent with industry standards for projects of this scale and complexity. Happy to discuss any item further by phone if helpful.
+
+Jacob Hedaya
+Director of Operations | ODA Architecture
+
+---
+
+From: Patricia Vega <pvega@coralridgelegal.com>
+To: Jacob Hedaya <jacob.hedaya@oda-architecture.com>
+Cc: Eran Chen <eran.chen@oda-architecture.com>; Thomas Blakely <tblakely@shoreclubjv.com>
+Date: March 21, 2025, 10:18 AM
+Subject: RE: Shore Club - Owner-Architect Agreement Red Lines (Round 2)
+
+Jacob,
+
+We've reviewed your counterproposals with our client. Responses as follows:
+
+1. Fee Milestones: Accepted at 15/22/30/23/10.
+2. Reimbursable Cap: Client will agree to 12% provided ODA submits monthly reimbursable expense reports with supporting documentation for any single expense exceeding $5,000.
+3. Insurance: Accepted with the incremental premium as reimbursable. Please provide a certificate of insurance reflecting the increased limits within 30 days of contract execution.
+4. Liability: Client accepts the tiered structure (1.5x general / 2x willful misconduct).
+5. Cure Period: Accepted at 20 days.
+
+I'll prepare the final clean agreement reflecting all agreed changes and circulate for signature by March 26. Please confirm this timeline works for your team.
+
+Patricia

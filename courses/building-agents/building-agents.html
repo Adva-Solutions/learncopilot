@@ -811,7 +811,7 @@ const LESSONS = [
 <p><strong>Step 2:</strong> Paste this prompt:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Researcher</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Research the latest building code changes for [your jurisdiction] related to accessibility requirements. Compare new standards vs. previous requirements, include implementation timelines, and cite relevant code sections.</pre>
+  <pre>Research the latest NYC and Florida building code changes related to accessibility requirements for residential buildings above 75 feet. Compare new standards vs. previous requirements, include implementation timelines, cite relevant code sections, and note any differences between the two jurisdictions.</pre>
 </div>
 <p><strong>Step 3:</strong> Watch the research plan unfold. The Researcher will show you its plan before executing &mdash; note how it breaks your question into sub-topics.</p>
 <p><strong>Step 4:</strong> Review the results. Check the citations &mdash; click through to at least 2 sources to verify accuracy.</p>
@@ -994,7 +994,7 @@ const LESSONS = [
 <h4>HR: Team Composition Analysis</h4>
 <div class="note-box">
   <div class="note-title">Sample Data</div>
-  <p>Download the <a href="/mock-data/staffing/oda-resource-allocation.csv" download>Resource Allocation Data</a> to use for this exercise. Or use your own team directory if you have one.</p>
+  <p>Download the <a href="/mock-data/staffing/oda-resource-allocation.csv" download>Resource Allocation Data</a> or the <a href="/mock-data/oda-team-directory.csv" download>Team Directory</a> to use for this exercise. Or use your own team data if you have it.</p>
 </div>
 <p><strong>Step 1:</strong> Open the <strong>Analyst</strong> agent from your sidebar.</p>
 <p><strong>Step 2:</strong> Upload the resource allocation file.</p>
@@ -1054,23 +1054,23 @@ const LESSONS = [
 </div>
 
 <div class="option-content" id="analyst-option-4">
-<h4>Operations: Vendor Spending Analysis</h4>
+<h4>Operations: Construction Cost Benchmarking</h4>
 <div class="note-box">
   <div class="note-title">Sample Data</div>
-  <p>Download the <a href="/mock-data/financials/oda-project-tracking.csv" download>Project Tracking Data</a> to use for this exercise. Or use your own vendor or inventory data if you have it.</p>
+  <p>Download the <a href="/mock-data/financials/oda-construction-costs.csv" download>Construction Cost Breakdown Data</a> to use for this exercise. Or use your own cost data if you have it.</p>
 </div>
 <p><strong>Step 1:</strong> Open the <strong>Analyst</strong> agent from your sidebar.</p>
-<p><strong>Step 2:</strong> Upload the vendor or project data file.</p>
+<p><strong>Step 2:</strong> Upload the construction cost data file.</p>
 <p><strong>Step 3:</strong> Send this prompt:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Analyst</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze spending patterns across vendors. Identify the top vendors by total cost. Show month-over-month spending trends and flag any unusual spikes.</pre>
+  <pre>Analyze construction cost breakdowns across all projects. For each trade (Structural, MEP, Facade, Interior Finishes, Site Work, General Conditions), calculate the average percentage of total construction cost. Compare costs across project typologies (Residential vs. Hospitality vs. Mixed-Use). Flag any projects where a trade's percentage deviates significantly from the average.</pre>
 </div>
-<p><strong>Step 4:</strong> Review the spending breakdown and flagged anomalies.</p>
+<p><strong>Step 4:</strong> Review the cost benchmarks. Do the trade percentages match your expectations for each typology?</p>
 <p><strong>Step 5 &mdash; Iterate:</strong> Drill into the details:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Analyst</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Create 2 additional visualizations: (1) a Pareto chart showing which vendors account for 80% of total spending, and (2) a comparison of spending per project to identify which projects have the highest vendor costs.</pre>
+  <pre>Create 2 additional visualizations: (1) a stacked bar chart showing trade cost breakdowns by project, and (2) a scatter plot of total construction cost vs. square footage with trend lines by typology. Which typology has the highest cost per square foot?</pre>
 </div>
 </div>
 
@@ -1268,6 +1268,10 @@ const LESSONS = [
 
 <div class="option-content active" id="reportGroup-option-0">
 <h4>Architecture: Project Status Report</h4>
+<div class="note-box">
+  <div class="note-title">Need a sample report?</div>
+  <p>If you don't have an existing report to extract from, download the <a href="/mock-data/proposals/oda-rfp-template.txt" download>RFP Response Template</a> or the <a href="/mock-data/executive/oda-qbr-q1-2025.txt" download>Quarterly Business Review</a> as a starting point.</p>
+</div>
 
 <p><strong>Step 1: Benchmark.</strong> Upload an existing Project Status Report to plain Copilot Chat. Ask it to write a new version for a different project. Screenshot the result. This is your "before."</p>
 
@@ -1300,6 +1304,10 @@ const LESSONS = [
 
 <div class="option-content" id="reportGroup-option-1">
 <h4>HR: Monthly People Report</h4>
+<div class="note-box">
+  <div class="note-title">Need a sample report?</div>
+  <p>If you don't have an existing report, download the <a href="/mock-data/hr/employee-handbook-excerpt.txt" download>Employee Handbook Excerpt</a> and the <a href="/mock-data/hr/recruiting-pipeline.csv" download>Recruiting Pipeline</a> as reference materials.</p>
+</div>
 
 <p><strong>Step 1: Benchmark.</strong> Upload an existing Monthly People Report to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>
 
@@ -1332,6 +1340,10 @@ const LESSONS = [
 
 <div class="option-content" id="reportGroup-option-2">
 <h4>Marketing: Campaign Performance Report</h4>
+<div class="note-box">
+  <div class="note-title">Need a sample report?</div>
+  <p>If you don't have an existing report, download the <a href="/mock-data/marketing/oda-awards-tracker.csv" download>Awards Tracker</a> and the <a href="/mock-data/marketing/oda-newsletter-sample.txt" download>Newsletter Sample</a> as reference materials.</p>
+</div>
 
 <p><strong>Step 1: Benchmark.</strong> Upload an existing Campaign Performance Report to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>
 
@@ -1364,6 +1376,10 @@ const LESSONS = [
 
 <div class="option-content" id="reportGroup-option-3">
 <h4>Executive: Board Briefing Memo</h4>
+<div class="note-box">
+  <div class="note-title">Need a sample report?</div>
+  <p>Download the <a href="/mock-data/executive/oda-qbr-q1-2025.txt" download>Quarterly Business Review</a> to use as the report template for extraction. You can also reference the <a href="/mock-data/executive/property-summary-1.txt" download>Property Summary</a> for supplementary context.</p>
+</div>
 
 <p><strong>Step 1: Benchmark.</strong> Upload an existing Board Briefing Memo to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>
 
@@ -1396,6 +1412,10 @@ const LESSONS = [
 
 <div class="option-content" id="reportGroup-option-4">
 <h4>Operations: Operations Dashboard</h4>
+<div class="note-box">
+  <div class="note-title">Need a sample report?</div>
+  <p>Download the <a href="/mock-data/financials/oda-project-tracking.csv" download>Project Tracking Data</a> and the <a href="/mock-data/staffing/oda-resource-allocation.csv" download>Resource Allocation Data</a> to generate an operations dashboard report.</p>
+</div>
 
 <p><strong>Step 1: Benchmark.</strong> Upload an existing Operations Dashboard report to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>
 
@@ -1723,15 +1743,15 @@ const LESSONS = [
   <li><strong>5. Who will use it?</strong> Just you, your team, your department, or your entire organization? This shapes how detailed the Instructions need to be.</li>
 </ul>
 
-<h3>Six Agent Ideas</h3>
-<p>If you do not have a task in mind, pick one of these and adapt it to your context:</p>
+<h3>Agent Ideas &mdash; With Sample Data</h3>
+<p>Each idea below comes with downloadable data files so you can start building immediately. Pick one that matches your role, or adapt it to your own needs:</p>
 <ul>
-  <li><strong>Contract Review Agent</strong> &mdash; scans incoming contracts for standard clauses and flags missing items, non-standard language, or terms that conflict with your organization's policies.</li>
-  <li><strong>Newsletter Generator</strong> &mdash; takes weekly highlights, project updates, or team accomplishments and produces a formatted newsletter draft ready for review and distribution.</li>
-  <li><strong>Meeting Prep Agent</strong> &mdash; pulls attendee info, recent email threads, and the agenda to produce a pre-meeting briefing so you walk in prepared.</li>
-  <li><strong>FAQ Agent</strong> &mdash; answers common questions about your program, department, or product using uploaded documentation as its knowledge base.</li>
-  <li><strong>Onboarding Agent</strong> &mdash; guides new hires through department-specific setup steps, answers their questions about tools and processes, and tracks what they have completed.</li>
-  <li><strong>Event Planning Agent</strong> &mdash; coordinates logistics, generates timelines, drafts communications to attendees, and produces day-of checklists for meetings, offsites, or conferences.</li>
+  <li><strong>Contract Review Agent</strong> &mdash; compares incoming contracts against your standard terms. Flags missing clauses, conflicting insurance limits, and non-standard reimbursable rates. <em>Download:</em> <a href="/mock-data/contracts/oda-standard-terms.txt" download>Standard Terms</a>, <a href="/mock-data/contracts/sample-contract-residential.txt" download>Sample Contract (Residential)</a>, <a href="/mock-data/contracts/sample-contract-hospitality.txt" download>Sample Contract (Hospitality)</a></li>
+  <li><strong>Submittal QA Agent</strong> &mdash; reviews submittals against project specifications, flags items that don't match spec requirements or are from unapproved manufacturers. <em>Download:</em> <a href="/mock-data/specifications/submittal-log.csv" download>Submittal Log</a>, <a href="/mock-data/specifications/project-spec-excerpt.txt" download>Project Specifications</a></li>
+  <li><strong>Fee Proposal Generator</strong> &mdash; drafts fee proposals using your standard template and historical project data. Supports three pricing methods (time &amp; resources, percentage, fixed fee). <em>Download:</em> <a href="/mock-data/proposals/oda-fee-proposal-template.txt" download>Fee Proposal Template</a>, <a href="/mock-data/financials/oda-project-tracking.csv" download>Project Tracking Data</a></li>
+  <li><strong>Newsletter Generator</strong> &mdash; takes raw project facts and images folder references, then produces a formatted newsletter in your organization's established voice and format. <em>Download:</em> <a href="/mock-data/marketing/oda-newsletter-sample.txt" download>Newsletter Sample</a>, <a href="/mock-data/marketing/oda-awards-tracker.csv" download>Awards Tracker</a></li>
+  <li><strong>Travel Itinerary Agent</strong> &mdash; converts raw booking references, dates, and attendee names into a formatted 10-20 page itinerary with flight details, hotel info, meeting schedules, LinkedIn profiles, and Google Maps links. <em>Download:</em> <a href="/mock-data/executive/travel-itinerary-raw-input.txt" download>Raw Trip Input</a>, <a href="/mock-data/executive/travel-itinerary-template.txt" download>Itinerary Template</a></li>
+  <li><strong>Building Code Q&amp;A Agent</strong> &mdash; answers code compliance questions using uploaded reference documents. Compares requirements across jurisdictions. <em>Download:</em> <a href="/mock-data/building-codes/nyc-residential-code-reference.txt" download>NYC Code Reference</a>, <a href="/mock-data/building-codes/nyc-vs-florida-comparison.txt" download>NYC vs Florida Comparison</a></li>
 </ul>
 
 <div class="tip-box">

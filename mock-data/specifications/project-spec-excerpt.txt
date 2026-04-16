@@ -1,0 +1,264 @@
+===============================================================================
+PROJECT SPECIFICATIONS (EXCERPT)
+Shore Club Residences
+Fort Lauderdale, FL
+ODA Architecture
+Date: March 2025 (50% CD Issue)
+===============================================================================
+
+SECTION 07 42 13 - TERRACOTTA RAINSCREEN PANELS
+
+PART 1 - GENERAL
+
+1.01 SUMMARY
+A. Section includes exterior terracotta rainscreen cladding system for
+   residential tower floors 8 through 22.
+B. Related sections:
+   - Section 07 21 00: Thermal Insulation
+   - Section 07 62 00: Sheet Metal Flashing
+   - Section 07 92 00: Joint Sealants
+   - Section 05 40 00: Cold-Formed Metal Framing (substructure)
+
+1.02 QUALITY ASSURANCE
+A. Manufacturer: Minimum 20 years experience producing terracotta
+   rainscreen systems for exterior building applications.
+B. Installer: Minimum 5 completed projects of similar scope and
+   complexity within the last 7 years. HVHZ experience required.
+C. Design wind load: 185 mph ultimate wind speed per ASCE 7-16
+   (High-Velocity Hurricane Zone).
+D. Impact resistance: Large missile impact per TAS 201-94.
+E. Florida Product Approval or Miami-Dade County NOA required.
+
+1.03 ACCEPTABLE MANUFACTURERS
+A. Moeding Alphaton (basis of design)
+B. NBK Architectural Terracotta
+C. Boston Valley Terra Cotta
+D. Substitution requests must be submitted in writing with full
+   technical data, color samples, and HVHZ compliance documentation
+   at least 30 days prior to submittal deadline.
+
+1.04 SUBMITTALS
+A. Product data: Complete catalog cuts, technical specifications,
+   and installation instructions.
+B. Shop drawings: Panel layout, dimensions, joint widths, corner
+   conditions, and interface details with adjacent materials.
+C. Samples: 12"x12" panel samples in each specified color (minimum
+   3 samples per color for color range approval).
+D. Test reports: Wind load testing, impact testing, water penetration
+   testing per ASTM E331, fire testing per ASTM E84.
+E. Florida Product Approval or Miami-Dade County NOA.
+F. Warranty documentation.
+
+PART 2 - PRODUCTS
+
+2.01 TERRACOTTA PANELS
+A. Material: Extruded natural clay terracotta, kiln-fired.
+B. Finish: Natural matte, unglazed.
+C. Color: Warm Sienna (Moeding color ref: S-482) for primary field.
+   Sand Beige (Moeding color ref: S-310) for accent bands at every
+   third floor.
+D. Panel dimensions: 300mm x 1200mm nominal (11.8" x 47.2").
+E. Panel thickness: 30mm (1.18").
+F. Weight: Maximum 45 kg/m2 (9.2 psf) installed.
+G. Water absorption: Maximum 6% per ASTM C373.
+H. Freeze-thaw resistance: Minimum 50 cycles per ASTM C1026 (N/A
+   for Florida but required for product qualification).
+I. Flame spread index: 0 (non-combustible per ASTM E84).
+J. Smoke developed index: 0.
+
+2.02 SUBSTRUCTURE
+A. Vertical rails: Aluminum T-6 alloy, 6063-T6, minimum 3mm thickness.
+B. Horizontal rails: Aluminum, 6063-T6, minimum 2.5mm thickness.
+C. Brackets: Stainless steel 316, thermally broken.
+D. Fasteners: Stainless steel 304, torque-controlled.
+E. All aluminum components: Anodized or powder-coated to match panel color.
+
+2.03 CAVITY
+A. Minimum cavity depth: 6 inches (150mm) from face of insulation
+   to back of terracotta panel.
+B. Ventilation: Open joints at top and bottom of each floor for
+   continuous airflow. Minimum 3/8" open joint between panels.
+C. Fire stops: Non-combustible mineral wool cavity barriers at every
+   floor line and at maximum 20-foot intervals horizontally.
+D. Drainage: Cavity must drain to weep holes at each floor line.
+
+PART 3 - EXECUTION
+
+3.01 INSTALLATION
+A. Install in accordance with manufacturer's written instructions.
+B. Verify substrate alignment before beginning installation.
+   Maximum substrate deviation: 1/4" in 10 feet.
+C. Install thermal insulation and air/vapor barrier before substructure.
+D. Install cavity fire stops at each floor line before panels.
+E. Panel joint width: 3/8" nominal (8mm). Open joint, no sealant.
+F. Corner panels: Pre-fabricated mitered corners by manufacturer.
+   Field-cut corners not permitted.
+G. Protect installed panels from construction damage with removable
+   coverings during adjacent work.
+
+===============================================================================
+
+SECTION 08 71 00 - DOOR HARDWARE
+
+PART 1 - GENERAL
+
+1.01 SUMMARY
+A. Section includes all door hardware for the project including:
+   - Residential unit entry doors
+   - Common area doors
+   - Stairwell doors
+   - Mechanical room doors
+   - Parking garage doors
+
+1.02 QUALITY ASSURANCE
+A. All hardware shall be from a single manufacturer or coordinated
+   group to ensure keying system compatibility.
+B. Hardware shall comply with BHMA/ANSI standards.
+C. Fire-rated hardware shall be UL listed for the required rating.
+D. ADA-compliant hardware on all doors on accessible routes.
+
+1.03 ACCEPTABLE MANUFACTURERS
+A. Schlage (basis of design for locksets)
+B. LCN (basis of design for closers)
+C. Hager (basis of design for hinges)
+D. Substitutions: Equal products by ASSA ABLOY, Allegion, or
+   dormakaba are acceptable with prior approval.
+
+1.04 SUBMITTALS
+A. Complete hardware schedule with specification for each hardware set.
+B. Product data for each hardware item.
+C. Keying schedule and master key system diagram.
+D. Electrified hardware wiring diagrams.
+E. Fire-rated assembly documentation (UL listing).
+F. Warranty documentation.
+
+PART 2 - PRODUCTS
+
+2.01 HARDWARE SETS
+
+HARDWARE SET 1 - Residential Unit Entry Doors
+A. Lockset: Schlage L-Series L9453, mortise lock, classroom function
+   with deadbolt. Satin chrome finish (626).
+B. Hinges: Hager BB1279, 4-1/2" x 4-1/2", ball bearing, 3 per door.
+   Satin chrome (US26D).
+C. Closer: LCN 4040XP, surface-mounted, hold-open arm.
+   Aluminum finish.
+D. Threshold: Zero International #75, 1/2" height, aluminum.
+E. Peephole: 180-degree wide-angle viewer, satin chrome.
+F. Door stop: Floor-mounted, satin chrome.
+G. Signage: Unit number plaque, 4" ADA-compliant raised characters
+   with Grade 2 Braille, satin chrome.
+
+HARDWARE SET 2 - Stairwell Doors (Fire-Rated)
+A. Lockset: Schlage L-Series L9080, mortise lock, storeroom function.
+   Satin chrome finish (626).
+B. Hinges: Hager BB1279, 4-1/2" x 4-1/2", ball bearing, UL listed,
+   steel, 3 per door. Primed for paint.
+C. Closer: LCN 4040XP, surface-mounted, regular arm with parallel
+   arm shoe. Aluminum finish.
+D. Coordinator: LCN 7700 series (for pairs of doors).
+E. Smoke seal: Pemko S88D, intumescent seal, all four edges.
+F. Signage: "STAIRWAY" identification sign with floor number,
+   ADA-compliant, photoluminescent.
+
+HARDWARE SET 3 - Common Area Interior Doors
+A. Lockset: Schlage L-Series L9456, mortise lock, entrance function.
+   Satin chrome finish (626).
+B. Hinges: Hager BB1279, 4-1/2" x 4-1/2", ball bearing, 3 per door.
+   Satin chrome (US26D).
+C. Closer: LCN 4040XP, surface-mounted.
+D. Kick plate: 10" height, satin stainless steel.
+E. Door stop: Wall-mounted, satin chrome.
+
+HARDWARE SET 4 - Mechanical/Electrical Room Doors
+A. Lockset: Schlage L-Series L9080, mortise lock, storeroom function.
+   Satin chrome finish (626).
+B. Hinges: Hager BB1279, steel, 3 per door. Primed for paint.
+C. Closer: LCN 4040XP, surface-mounted. Aluminum finish.
+D. Signage: Room identification per MEP schedule.
+E. Louver: 24" x 12" fixed louver in bottom rail (where required by
+   mechanical ventilation design).
+
+===============================================================================
+
+SECTION 22 40 00 - PLUMBING FIXTURES
+
+PART 1 - GENERAL
+
+1.01 SUMMARY
+A. Section includes all plumbing fixtures for residential units,
+   common areas, and amenity spaces.
+
+1.02 ACCEPTABLE MANUFACTURERS
+A. Water closets: Toto (basis of design)
+B. Lavatories: Kohler (basis of design)
+C. Bathtubs: Kohler (basis of design)
+D. Kitchen sinks: Blanco (basis of design)
+E. Faucets: Grohe (basis of design)
+F. Substitutions by Duravit, American Standard, or Hansgrohe
+   acceptable with prior approval and matching finish.
+
+1.03 SUBMITTALS
+A. Product data for each fixture type.
+B. Shop drawings showing rough-in dimensions.
+C. Color/finish samples for Owner review.
+D. Water efficiency data (WaterSense certification required).
+E. Warranty documentation.
+
+PART 2 - PRODUCTS
+
+2.01 RESIDENTIAL UNIT FIXTURES
+
+Water Closets:
+A. Model: Toto Aquia IV, dual flush (0.9/1.28 GPF).
+B. Type: Elongated, skirted design, universal height.
+C. Color: Cotton White (#01).
+D. Seat: Toto SS234, SoftClose, elongated.
+E. WaterSense certified: Yes.
+
+Lavatories:
+A. Model: Kohler Vox Rectangle, vessel-style.
+B. Material: Vitreous china.
+C. Color: White.
+D. Size: 22" x 16.25".
+E. Faucet holes: Single-hole (faucet-compatible).
+
+Bathtubs (Primary Bathroom):
+A. Model: Kohler Underscore Rectangle, 60" x 30".
+B. Material: Acrylic with reinforced fiberglass.
+C. Color: White.
+D. Type: Drop-in or undermount (per unit type).
+E. Drain: Left-hand (verify per unit layout).
+
+Bathtubs (Three-Bedroom Units - Freestanding):
+A. Model: Kohler Ceric, 65" freestanding.
+B. Material: Lithocast (solid surface).
+C. Color: White.
+D. Note: Per client request for premium three-bedroom units.
+
+Kitchen Sinks:
+A. Model: Blanco Precis, 30" single bowl undermount.
+B. Material: SILGRANIT (granite composite).
+C. Color: Metallic Gray.
+D. Accessories: Included cutting board and colander.
+
+Faucets (Bathroom):
+A. Model: Grohe Essence, single-handle, 8" widespread.
+B. Finish: Brushed Nickel (SuperSteel).
+C. Flow rate: 1.2 GPM (WaterSense certified).
+
+Faucets (Kitchen):
+A. Model: Grohe Ladylux, single-handle pull-down spray.
+B. Finish: Brushed Nickel (SuperSteel).
+C. Flow rate: 1.75 GPM.
+
+Shower Fixtures:
+A. Showerhead: Grohe Rainshower Cosmopolitan 310, 12" ceiling-mounted.
+B. Finish: Brushed Nickel (SuperSteel).
+C. Flow rate: 2.0 GPM.
+D. Valve: Grohe Grohtherm SmartControl, thermostatic, dual function.
+E. Hand shower: Grohe Euphoria, on 24" slide bar.
+
+===============================================================================
+END OF SPECIFICATION EXCERPT
+===============================================================================

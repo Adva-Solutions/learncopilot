@@ -1,0 +1,163 @@
+===============================================================================
+ODA ARCHITECTURE - NEW HIRE ONBOARDING CHECKLIST
+===============================================================================
+
+EMPLOYEE NAME: ___________________________
+START DATE: ___________________________
+DEPARTMENT: ___________________________
+ROLE: ___________________________
+SUPERVISOR: ___________________________
+OFFICE: [ ] New York   [ ] Fort Lauderdale
+
+===============================================================================
+PRE-START (1-2 Weeks Before Start Date)
+===============================================================================
+
+HR Tasks:
+[ ] Offer letter signed and filed
+[ ] Background check completed
+[ ] I-9 documentation received (passport or DL + SSN card)
+[ ] Emergency contact form completed
+[ ] Direct deposit form completed
+[ ] Benefits enrollment packet sent (enroll within 30 days of start)
+[ ] Employee handbook acknowledgment sent
+[ ] Visa/work authorization verified (if applicable)
+[ ] Parking pass or transit card arranged
+[ ] Welcome email sent with first-day logistics
+
+IT Tasks:
+[ ] Workstation assigned and configured
+[ ] Dual monitors installed
+[ ] Software installed:
+    [ ] Revit 2025
+    [ ] Rhino 8
+    [ ] AutoCAD 2025
+    [ ] SketchUp Pro
+    [ ] Bluebeam Revu
+    [ ] Adobe Creative Suite (InDesign, Photoshop, Illustrator)
+    [ ] Microsoft 365 (Outlook, Word, Excel, PowerPoint, Teams, OneNote)
+    [ ] Zoom
+[ ] Microsoft 365 account created (email: firstname.lastname@oda-architecture.com)
+[ ] BIM 360 account created (project access per supervisor)
+[ ] Server access configured (read access to all projects; write access per assignment)
+[ ] VPN setup for remote work (after 90-day probation)
+[ ] Printer/plotter access configured
+[ ] Phone extension assigned
+
+Office Manager Tasks:
+[ ] Desk assignment confirmed (desk #: _______)
+[ ] Seating chart updated
+[ ] Name plate ordered
+[ ] Building access card/key issued
+[ ] Office tour scheduled
+[ ] Kitchen/break room orientation
+[ ] Supply cabinet and printing instructions provided
+
+===============================================================================
+FIRST DAY
+===============================================================================
+
+9:00 AM - Welcome & HR Orientation (with Joanna Regiec or Robert Flanagan)
+[ ] Welcome tour of office
+[ ] Introduction to reception and office manager
+[ ] HR paperwork completion (any remaining forms)
+[ ] Review employee handbook highlights
+[ ] Benefits enrollment walkthrough
+[ ] AI Usage Policy review and acknowledgment
+[ ] Emergency procedures and exits
+[ ] Building access and security protocols
+
+10:00 AM - IT Setup (with Diana Reyes)
+[ ] Workstation login and password setup
+[ ] Email configuration and signature setup
+[ ] Teams setup and channel enrollment
+[ ] Verify all software installations working
+[ ] Server access verification
+[ ] Printing test
+[ ] Overview of IT support process (how to submit tickets)
+
+11:00 AM - Team Introduction
+[ ] Introduction to supervisor and immediate team
+[ ] Introduction to other department leads
+[ ] Team lunch (scheduled by office manager)
+
+1:00 PM - Project Orientation (with Supervisor)
+[ ] Overview of current project assignment
+[ ] Introduction to project team members
+[ ] Access to project files on server
+[ ] BIM 360 project access verified
+[ ] Review of project status and immediate tasks
+
+3:00 PM - Standards & Tools Orientation
+[ ] ODA Revit Standards Manual review (from Priya Narayanan, BIM Manager)
+[ ] Revit template and family library locations
+[ ] Drawing naming conventions
+[ ] File organization and folder structure
+[ ] Sheet numbering system
+[ ] Plotting/printing standards
+
+===============================================================================
+FIRST WEEK
+===============================================================================
+
+[ ] Complete benefits enrollment (must be done within 30 days)
+[ ] Set up 1:1 meeting cadence with supervisor (weekly recommended)
+[ ] Obtain copies of all project documents for assigned project
+[ ] Review completed project examples similar to assigned work
+[ ] Shadow a design review or pin-up session
+[ ] Meet with each team member for 15-minute introductions
+[ ] Review office kitchen/lunch protocols and nearby options
+[ ] Set up personal workspace (ergonomic assessment available from Sam Petrov)
+
+For Designers (additional):
+[ ] Revit model orientation for assigned project (with BIM Manager)
+[ ] Review current drawing set and markup conventions
+[ ] Understand Bluebeam Studio session protocols
+[ ] Review model element naming standards
+[ ] Practice standard detail extraction from library
+
+For Project Architects (additional):
+[ ] Consultant contact list for assigned project
+[ ] Review consultant contracts and scope
+[ ] Understand permitting status and timeline
+[ ] Review project budget and fee tracking spreadsheet
+[ ] Introduction to key consultants via email
+
+===============================================================================
+FIRST MONTH (30-DAY CHECK-IN)
+===============================================================================
+
+[ ] 30-day check-in meeting with supervisor and HR
+[ ] Review of initial performance and adjustment
+[ ] Benefits enrollment confirmed and active
+[ ] Feedback on onboarding experience
+[ ] Identify any additional training needs
+[ ] Set 90-day goals with supervisor
+
+Topics to discuss:
+- Comfort with tools and standards?
+- Understanding of project team structure?
+- Any questions about policies or procedures?
+- Social integration with team?
+- Any equipment or software needs?
+
+===============================================================================
+90-DAY REVIEW
+===============================================================================
+
+[ ] Formal 90-day performance review with supervisor
+[ ] HR check-in on benefits and policy questions
+[ ] Probationary period assessment
+[ ] Remote work eligibility confirmed (if satisfactory performance)
+[ ] VPN access activated for remote work
+[ ] Goals set for remainder of first year
+
+===============================================================================
+COMPLETED BY
+
+HR Representative: _______________ Date: ___________
+IT Representative: _______________ Date: ___________
+Office Manager:    _______________ Date: ___________
+Supervisor:        _______________ Date: ___________
+Employee:          _______________ Date: ___________
+===============================================================================

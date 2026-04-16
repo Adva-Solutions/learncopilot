@@ -1,0 +1,48 @@
+RAW TRIP DETAILS FOR ITINERARY CREATION
+(Use this as input for building a travel itinerary agent/skill)
+
+TRAVELER: Eran Chen, Managing Principal, ODA Architecture
+ASSISTANT: Thalia Scagliola
+
+TRIP PURPOSE: Client meetings for The Mira Hotel & Residences project in Dubai
+
+DATES: May 19-23, 2025 (Monday departure, Friday return)
+
+FLIGHTS:
+- Prefers Emirates direct from JFK, Business class
+- Likes night flights outbound (sleep on plane)
+- Prefers afternoon return flights (arrive same evening)
+
+HOTEL:
+- Stayed at Address Dubai Marina last time and liked it
+- Marina View Suite if available
+- Needs to be close to Dubai Marina project site
+
+MEETINGS CONFIRMED:
+1. Tuesday May 20 at 10 AM: Follow-up meeting with Khalid Al Mansoori at Al Habtoor Tower, Business Bay. Need to present revised SD package with value engineering items approved. Nadia Kassem and Ahmad Faris will also attend.
+
+2. Wednesday May 21 at 2 PM: Meeting with potential landscape architect firm, Desert Ink. Contact: Sara Al-Rashid, Principal. Office in D3 Design District. Need to discuss terraced garden design for hotel floors 5-8.
+
+3. Thursday May 22 at 10 AM: Meeting with local MEP consultant candidates. Two firms presenting: Buro Happold Dubai office and Aurecon. Location TBD (suggest hotel meeting room).
+
+CULTURAL/SITE VISITS:
+- Revisit project site (walking distance from hotel)
+- Eran wants to visit the new Aman hotel in Dubai (recently opened) to study their residential amenity design
+- If time allows, visit Expo City Dubai (former Expo 2020 site)
+
+TRAVEL COMPANIONS: None on this trip (Thanhthao not joining)
+
+CAR SERVICE: Use Careem for all ground transportation except client meetings (book Blacklane for those)
+
+DINNER PREFERENCES:
+- Tuesday: Somewhere near Business Bay after meeting
+- Wednesday: Something casual after Desert Ink meeting
+- Thursday: Nice dinner to celebrate if SD is approved. Maybe somewhere with a view.
+
+BUDGET: Charge to project MIR-2025 as reimbursable travel
+
+SPECIAL NOTES:
+- Eran's dietary preference: No shellfish
+- He likes window seats on the right side of the plane (better views of Dubai on approach)
+- Make sure hotel has a good gym
+- He'll need the hotel business center to print revised presentation boards (color, A1 size) -- confirm hotel has large-format printing or find a nearby print shop

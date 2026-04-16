@@ -1,0 +1,167 @@
+===============================================================================
+ODA ARCHITECTURE - FEE PROPOSAL WORKSHEET
+Internal Tool for Developing Project Fees
+===============================================================================
+
+PROJECT INFORMATION
+-------------------
+Project Name: _______________
+Client: _______________
+Location: _______________
+Typology: [ ] Residential Condo  [ ] Residential Rental  [ ] Hospitality
+          [ ] Mixed-Use          [ ] Cultural             [ ] Other: ________
+Gross Square Footage: _______________
+Number of Units/Keys: _______________
+Estimated Construction Cost: $_______________
+Project Duration (months): _______________
+
+===============================================================================
+PRICING METHOD SELECTION
+===============================================================================
+
+ODA uses three methods for calculating architectural fees. Select the most
+appropriate method based on project characteristics:
+
+METHOD 1: TIME & RESOURCES
+Best for: Complex or unusual projects, renovations, projects with undefined
+scope, projects where the client wants transparency on hours.
+
+METHOD 2: PERCENTAGE OF CONSTRUCTION COST
+Best for: New construction with a clear program, projects where construction
+cost is well established, competitive situations where percentage comparison
+is expected.
+
+METHOD 3: FIXED FEE
+Best for: Repeat project types where ODA has strong cost history, projects
+with clearly defined scope, clients who prefer budget certainty.
+
+===============================================================================
+METHOD 1: TIME & RESOURCES - CALCULATION WORKSHEET
+===============================================================================
+
+Staffing Plan by Phase:
+
+SCHEMATIC DESIGN (typically 8-12 weeks)
+Role                 Hours/Week    Weeks    Total Hours    Rate        Subtotal
+Principal            6             ___      ___            $285/hr     $___
+Project Architect    30            ___      ___            $195/hr     $___
+Senior Designer      35            ___      ___            $165/hr     $___
+Designer             40            ___      ___            $135/hr     $___
+BIM Technician       20            ___      ___            $115/hr     $___
+SD Subtotal:                                ___                        $___
+
+DESIGN DEVELOPMENT (typically 10-14 weeks)
+Principal            4             ___      ___            $285/hr     $___
+Project Architect    35            ___      ___            $195/hr     $___
+Senior Designer      40            ___      ___            $165/hr     $___
+Designer (x2)        35 each       ___      ___            $135/hr     $___
+BIM Technician       30            ___      ___            $115/hr     $___
+DD Subtotal:                                ___                        $___
+
+CONSTRUCTION DOCUMENTS (typically 16-24 weeks)
+Principal            3             ___      ___            $285/hr     $___
+Project Architect    40            ___      ___            $195/hr     $___
+Senior Designer      40            ___      ___            $165/hr     $___
+Designer (x2)        40 each       ___      ___            $135/hr     $___
+BIM Technician       40            ___      ___            $115/hr     $___
+CD Subtotal:                                ___                        $___
+
+BIDDING & NEGOTIATION (typically 4-6 weeks)
+Principal            4             ___      ___            $285/hr     $___
+Project Architect    20            ___      ___            $195/hr     $___
+Bidding Subtotal:                           ___                        $___
+
+CONSTRUCTION ADMINISTRATION (duration of construction)
+Principal            2             ___      ___            $285/hr     $___
+Project Architect    10            ___      ___            $195/hr     $___
+CA Subtotal:                                ___                        $___
+
+TOTAL FEE (TIME & RESOURCES):                                          $___
+
+===============================================================================
+METHOD 2: PERCENTAGE OF CONSTRUCTION COST
+===============================================================================
+
+Historical Fee Percentages by Typology (ODA averages):
+
+Typology                     Fee Range       Typical
+Residential Condo            5.0% - 7.0%     5.5%
+Residential Rental           4.5% - 6.5%     5.0%
+Hospitality                  5.5% - 8.0%     6.5%
+Mixed-Use                    5.0% - 7.5%     6.0%
+Cultural                     6.0% - 9.0%     7.5%
+International (add premium)  +1.0% - 2.0%    +1.5%
+
+Calculation:
+Estimated Construction Cost:    $_______________
+Fee Percentage:                 ___%
+Base Fee:                       $_______________
+
+Phase Distribution:
+  Schematic Design (15%):       $_______________
+  Design Development (25%):     $_______________
+  Construction Documents (30%): $_______________
+  Bidding & Negotiation (10%):  $_______________
+  Construction Admin (20%):     $_______________
+
+===============================================================================
+METHOD 3: FIXED FEE
+===============================================================================
+
+Historical Fee per Square Foot by Typology (ODA averages):
+
+Typology                     $/SF Range      Typical
+Residential Condo            $10 - $18       $14
+Residential Rental           $8 - $15        $11
+Hospitality                  $12 - $22       $16
+Mixed-Use                    $10 - $18       $13
+Cultural                     $15 - $25       $20
+
+Calculation:
+Gross Square Footage:           _______________
+Fee per SF:                     $___/SF
+Base Fee:                       $_______________
+
+===============================================================================
+REIMBURSABLE EXPENSES ESTIMATE
+===============================================================================
+
+Category                    Percentage of Fee    Estimated Amount
+Printing & Reproduction     1.5%                 $___
+Travel                      2.0%                 $___
+Permit/Filing Fees          1.0%                 $___
+Models & Presentations      2.5%                 $___
+Consultant Coordination     3.0%                 $___
+Contingency                 2.0%                 $___
+TOTAL REIMBURSABLES         12.0%                $___
+
+Note: Actual reimbursable percentage varies by project. Range is typically
+10% to 15%. International projects trend higher (13%-15%) due to travel.
+
+===============================================================================
+FEE COMPARISON CHECK
+===============================================================================
+
+Compare your proposed fee across all three methods:
+
+Method 1 (T&R):        $_______________
+Method 2 (% of CC):    $_______________
+Method 3 (Fixed):      $_______________
+
+If the three methods produce significantly different results (>15% variance),
+investigate why. Common reasons:
+- Unusually high or low construction cost estimate affects Method 2
+- Staffing plan in Method 1 is too lean or too generous
+- Historical $/SF in Method 3 doesn't match project complexity
+
+RECOMMENDED FEE: $_______________
+RECOMMENDED METHOD: _______________
+RATIONALE: _______________
+
+===============================================================================
+APPROVAL
+
+Prepared by: _______________ Date: ___
+Reviewed by: _______________ Date: ___
+Approved by: _______________ Date: ___
+===============================================================================

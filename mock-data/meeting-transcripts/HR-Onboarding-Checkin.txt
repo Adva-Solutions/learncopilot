@@ -1,0 +1,47 @@
+ODA Architecture - New Hire Onboarding Planning
+Date: March 28, 2025
+Attendees: Joanna Regiec (HR), Robert Flanagan (HR Director), Yinxing Liu (Architecture), Diana Reyes (IT), Sam Petrov (Office Manager)
+
+[Joanna]: Good afternoon everyone. Thanks for making time. We have two new hires starting in April and I want to make sure we have everything coordinated. Let me give you the overview.
+[Joanna]: First, we have Maya Torres starting April 14 as a Junior Designer on the Riverside Tower project. She's coming from SHoP Architects and has three years of experience. Second, we have Alex Park starting April 28 as a Project Architect based in Fort Lauderdale. He's relocating from Chicago, previously with Perkins&Will, eight years of experience.
+[Robert]: Have both offers been fully executed? Any outstanding items?
+[Joanna]: Maya's offer is signed, background check is clear, and I9 documentation is complete. Alex's offer is signed but we're still processing his visa transfer. He's on an H-1B and we need to file an amendment for the new work location. I've started the process with our immigration attorney. It should be resolved before his start date but I'm tracking it closely.
+[Robert]: Good. Flag me immediately if there's any delay on the visa. We had that situation with Marco Vitale two years ago and it pushed his start date by three weeks.
+[Joanna]: Noted. Let me walk through the onboarding checklist. Diana, let's start with IT setup.
+[Diana]: Sure. For Maya on April 14, I need to set up: a workstation with dual monitors, standard software stack which is Revit 2025, Rhino 8, AutoCAD 2025, SketchUp Pro, Bluebeam Revu, Adobe Creative Suite, and Microsoft 365. Plus BIM 360 access for the Riverside Tower project.
+[Diana]: Current license situation: We have two available Revit licenses and one available Rhino license. AutoCAD and SketchUp are on enterprise agreements so no issue there. Bluebeam, I need to purchase one additional license. That's about $300 per year.
+[Yinxing]: Maya will be working primarily in Revit on Riverside Tower. She listed Revit as her primary tool but I want to make sure she has access to Rhino as well. We use Rhino for the massing studies and she may need to reference those.
+[Diana]: Both will be on her machine. For Alex in Fort Lauderdale, it's a similar setup but I need to coordinate with our Fort Lauderdale office. We have three workstations there and all are currently in use. I may need to order new hardware. Lead time on a Dell Precision workstation is about two weeks.
+[Sam]: I can help with the Fort Lauderdale logistics. I'll check with Fatima on desk availability. We had one person leave last month so there might be an open spot.
+[Joanna]: Thanks Sam. Can you confirm by Monday?
+[Sam]: Will do.
+[Joanna]: Next is physical setup. Sam, seating for Maya in New York?
+[Sam]: I have two open desks on the third floor near the Riverside Tower team. Desk 3-14 is right next to Hannah Bergstrom, who's also on Riverside Tower. That would be ideal for team proximity. I'll update the seating chart in Illustrator and circulate it.
+[Joanna]: Perfect. Now, training plan. Yinxing, you mentioned wanting to set up Revit training for new hires. Can you walk us through what that looks like?
+[Yinxing]: This is something I've been thinking about a lot because right now the training process is very ad hoc. When someone new starts, they come to me with questions constantly and it eats into my project time significantly.
+[Yinxing]: What I'd like to do for Maya is create a structured two-week ramp-up. Week one: office standards orientation. We have Revit families, naming conventions, sheet setup templates, and a detail library. She needs to understand how we organize our models before she starts contributing. Week two: project-specific orientation on Riverside Tower. She should review the DD set, understand the design intent, and start with smaller tasks like unit layout updates under my supervision.
+[Yinxing]: The problem is I don't have time to sit with her for two weeks. Is there any way we can document our Revit standards in a more accessible format? Right now it's scattered across emails, a half-finished standards manual from 2022, and tribal knowledge in people's heads.
+[Robert]: That's a recurring issue we should address. Every time we hire a designer, Yinxing or one of the other team leads spends 20 to 30 hours on informal training. That's a real cost.
+[Joanna]: Could we create a self-guided training document? Like a new designer handbook with links to our templates and standards?
+[Yinxing]: That would be ideal but it's a project in itself. For now, I'll put together a one-page Revit setup checklist for Maya and designate Hannah as her day-to-day buddy for questions. Hannah knows the Riverside Tower model well and she's been wanting more mentorship responsibility.
+[Diana]: I can also set up her BIM 360 access to the Riverside Tower project before her first day so she can start reviewing the model remotely if she wants to get a head start.
+[Yinxing]: Good idea. Send her the view-only link. I don't want her editing the model until after the standards orientation.
+[Joanna]: Okay. For Alex in Fort Lauderdale, what's the training plan?
+[Robert]: Alex has eight years of experience so he won't need Revit training. But he will need to learn our office standards and project protocols. David Okonkwo should orient him since they'll be working together on Shore Club and any new Fort Lauderdale projects.
+[Joanna]: I'll coordinate with David. Next item: benefits enrollment. Both new hires need to complete benefits enrollment within 30 days of their start date. I'll send them the enrollment packet one week before their start date. Our health insurance through Oxford has a 14-day processing window, so the sooner they submit, the sooner coverage begins.
+[Robert]: Make sure to include the PTO policy overview and the remote work guidelines in the welcome packet. We updated the remote work policy last quarter and not everyone is aware of the changes.
+[Joanna]: Yes, the updated policy is in the handbook. Speaking of which, I want to flag that our employee handbook hasn't been fully updated since 2023. There are sections that reference outdated insurance plans and old PTO accrual rates. I've been meaning to do a full revision but haven't had the time.
+[Robert]: Let's prioritize that for Q2. Even a partial update covering the most critical sections, benefits, PTO, remote work, and code of conduct would be better than what we have now.
+[Joanna]: Agreed. I'll put together a revision plan.
+[Joanna]: Last item: first day logistics. Maya's first day is Monday April 14. I'll meet her at reception at 9 AM for the welcome tour, HR paperwork, and IT setup. We should plan a team lunch. Sam, can you reserve the large conference room for a welcome lunch?
+[Sam]: Done. I'll order from the usual place. How many people?
+[Joanna]: Let's say 8 to 10 from the Riverside Tower team plus the design leads. Yinxing, can you send me the list of who should be there?
+[Yinxing]: I'll send it by end of day.
+[Joanna]: Great. For Alex on April 28 in Fort Lauderdale, I'll fly down for his first day to handle the HR onboarding in person. Robert, can you approve the travel?
+[Robert]: Approved. Book it.
+[Joanna]: Alright, let me recap. Diana orders the additional Bluebeam license and checks Fort Lauderdale hardware availability. Sam confirms Fort Lauderdale desk availability by Monday and reserves the conference room for Maya's welcome lunch April 14. Yinxing puts together the Revit setup checklist and designates Hannah as Maya's buddy. Yinxing sends the welcome lunch attendee list by end of day. Diana sets up Maya's BIM 360 view-only access before April 14. Joanna sends benefits enrollment packets one week before each start date. Joanna coordinates with David Okonkwo for Alex's orientation plan. Joanna puts together the handbook revision plan for Q2. Robert tracks visa transfer status for Alex.
+[Robert]: Clear and thorough. Thanks everyone.
+[Yinxing]: Quick question before we go. Any update on the open Project Architect position here in New York? I'm getting stretched thin and could really use another experienced person.
+[Joanna]: Jessica has three candidates in the pipeline. We're scheduling second-round interviews for next week. I'll keep you posted.
+[Yinxing]: Thank you. That would be a huge help.
+[Joanna]: Thanks everyone. See you at the next check-in.

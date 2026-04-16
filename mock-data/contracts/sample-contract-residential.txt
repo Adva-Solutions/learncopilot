@@ -1,0 +1,283 @@
+===============================================================================
+OWNER-ARCHITECT AGREEMENT
+FOR ARCHITECTURAL SERVICES
+===============================================================================
+
+PROJECT: Riverside Tower
+         265,000 SF Residential Rental Building
+         New York, NY
+
+OWNER:   Meridian Development Group LLC
+         450 Park Avenue, Suite 2200
+         New York, NY 10022
+
+ARCHITECT: ODA Architecture PLLC
+           1 Hudson Yards, Suite 2501
+           New York, NY 10001
+
+DATE OF AGREEMENT: June 1, 2024
+
+===============================================================================
+ARTICLE 1: SCOPE OF SERVICES
+===============================================================================
+
+1.1 The Architect shall provide the following Basic Services for the Project:
+    a) Schematic Design (SD)
+    b) Design Development (DD)
+    c) Construction Documents (CD)
+    d) Bidding and Negotiation
+    e) Construction Administration (CA)
+
+1.2 Schematic Design Phase
+    The Architect shall prepare schematic design documents based on the
+    Owner's program requirements, including:
+    - Site analysis and zoning analysis
+    - Preliminary floor plans, sections, and elevations
+    - Building massing studies
+    - Preliminary unit layouts for all unit types
+    - Schematic sustainability strategy
+    - Preliminary code analysis
+    - Estimated construction cost
+
+1.3 Design Development Phase
+    The Architect shall prepare design development documents, including:
+    - Refined floor plans with dimensions
+    - Exterior facade design and material selections
+    - Interior design concepts for common areas
+    - Coordination with engineering consultants
+    - Updated code analysis
+    - Updated cost estimate
+
+1.4 Construction Documents Phase
+    The Architect shall prepare construction documents, including:
+    - Complete architectural drawing set for permit submission
+    - Specifications (Division 1 and architectural divisions)
+    - Coordination with all consultants
+    - Building Department submission and coordination
+    - Responses to plan examiner comments
+
+1.5 Bidding and Negotiation Phase
+    The Architect shall assist the Owner in:
+    - Preparing bidding documents
+    - Conducting pre-bid conferences
+    - Responding to bidder questions (addenda)
+    - Evaluating bids and providing recommendations
+
+1.6 Construction Administration Phase
+    The Architect shall provide:
+    - Review of shop drawings and submittals
+    - Responses to RFIs (Requests for Information)
+    - Periodic site visits (minimum 2 per month)
+    - Review of contractor payment applications
+    - Punch list preparation and final inspection
+
+===============================================================================
+ARTICLE 2: OWNER'S RESPONSIBILITIES
+===============================================================================
+
+2.1 The Owner shall provide the Architect with:
+    - Program requirements and project budget
+    - Geotechnical report and survey
+    - Environmental assessments
+    - Access to the site for investigation
+    - Timely review and approval of design documents
+    - Payment in accordance with Article 5
+
+2.2 The Owner shall engage and pay for the following consultants directly:
+    - Structural Engineer
+    - MEP Engineer
+    - Civil Engineer
+    - Landscape Architect
+    - Geotechnical Engineer
+
+2.3 The Owner shall designate a representative authorized to make decisions
+    on behalf of the Owner. Decisions shall be made within 14 calendar days
+    of submission unless otherwise agreed.
+
+===============================================================================
+ARTICLE 3: SCHEDULE
+===============================================================================
+
+3.1 The Architect shall perform services in accordance with the following
+    schedule from Notice to Proceed:
+
+    Phase                    Duration
+    Schematic Design         10 weeks
+    Design Development       14 weeks
+    Construction Documents   20 weeks
+    Permitting               8 weeks (concurrent with CD completion)
+    Bidding & Negotiation    6 weeks
+    Construction Admin       24 months (estimated construction duration)
+
+3.2 The schedule assumes:
+    - Owner review periods of 2 weeks at each phase completion
+    - No significant scope changes after DD completion
+    - Timely consultant deliverables
+    - Standard Building Department review timeline
+
+===============================================================================
+ARTICLE 4: ADDITIONAL SERVICES
+===============================================================================
+
+4.1 The following services are not included in Basic Services and shall be
+    provided as Additional Services upon written authorization:
+
+    a) Interior design services beyond common areas
+    b) Furniture, fixtures, and equipment (FF&E) procurement
+    c) LEED or sustainability certification documentation
+    d) Renderings and marketing materials beyond 3 views
+    e) Model making
+    f) Expert witness services
+    g) Services necessitated by Owner-directed changes after DD approval
+    h) Services resulting from code changes enacted after the Agreement date
+    i) Extended Construction Administration beyond 24 months
+
+4.2 Additional Services shall be compensated at the following hourly rates:
+    - Principal: $285/hour
+    - Project Architect: $195/hour
+    - Senior Designer: $165/hour
+    - Designer: $135/hour
+    - BIM Technician: $115/hour
+
+===============================================================================
+ARTICLE 5: COMPENSATION
+===============================================================================
+
+5.1 Total Fee
+    The Owner shall pay the Architect a total fee of Three Million One
+    Hundred Thousand Dollars ($3,100,000) for Basic Services.
+
+5.2 Fee Method
+    The fee is based on Time and Resources, with the total fee amount
+    serving as a not-to-exceed cap. The Architect shall notify the Owner
+    if projected costs are likely to exceed 90% of the fee cap.
+
+5.3 Phase Distribution
+    The fee shall be distributed among phases as follows:
+
+    Phase                    Percentage    Amount
+    Schematic Design         15%           $465,000
+    Design Development       25%           $775,000
+    Construction Documents   30%           $930,000
+    Bidding & Negotiation    10%           $310,000
+    Construction Admin       20%           $620,000
+    TOTAL                    100%          $3,100,000
+
+5.4 Payment Terms
+    Invoices shall be submitted monthly based on percentage of phase
+    completion. Payment is due within 30 days of invoice receipt.
+    Interest on overdue payments: 1.5% per month.
+
+===============================================================================
+ARTICLE 6: INSTRUMENTS OF SERVICE
+===============================================================================
+
+6.1 All drawings, specifications, and other documents prepared by the
+    Architect are Instruments of Service and remain the property of the
+    Architect. The Owner is granted a license to use the Instruments of
+    Service for the construction and operation of this Project only.
+
+6.2 The license to use Instruments of Service is contingent upon full
+    payment of all fees due to the Architect.
+
+===============================================================================
+ARTICLE 7: REIMBURSABLE EXPENSES
+===============================================================================
+
+7.1 Reimbursable expenses are in addition to the Basic Services fee and
+    include:
+    - Printing and reproduction of documents
+    - Postage and delivery
+    - Permit and filing fees paid by the Architect on behalf of the Owner
+    - Travel expenses outside the New York metropolitan area
+    - Renderings and physical models requested by the Owner
+    - Consultant coordination expenses
+
+7.2 Reimbursable expenses shall not exceed 10% of the total fee
+    ($310,000) without prior written approval from the Owner.
+
+7.3 Reimbursable expenses shall be billed at cost plus a 10% markup
+    for administrative handling.
+
+===============================================================================
+ARTICLE 8: ARCHITECT'S INSURANCE
+===============================================================================
+
+8.1 The Architect shall maintain the following insurance coverage:
+
+    a) Professional Liability (Errors & Omissions):
+       $3,000,000 per occurrence / $5,000,000 aggregate
+
+    b) General Liability:
+       $2,000,000 per occurrence / $4,000,000 aggregate
+
+    c) Workers' Compensation:
+       As required by New York State law
+
+    d) Automobile Liability:
+       $1,000,000 combined single limit
+
+8.2 The Architect shall provide certificates of insurance to the Owner
+    within 10 days of Agreement execution and upon each renewal.
+
+===============================================================================
+ARTICLE 9: LIMITATION OF LIABILITY
+===============================================================================
+
+9.1 The Architect's total liability to the Owner for all claims arising
+    from this Agreement shall not exceed the total fees paid to the
+    Architect under this Agreement.
+
+9.2 The Architect shall not be liable for consequential, special, or
+    punitive damages.
+
+9.3 The Owner's exclusive remedy for any claim shall be the correction
+    of deficient services by the Architect at no additional cost.
+
+===============================================================================
+ARTICLE 10: DISPUTE RESOLUTION
+===============================================================================
+
+10.1 Disputes shall first be addressed through direct negotiation between
+     the parties' principals for a period of 30 days.
+
+10.2 If negotiation is unsuccessful, disputes shall be submitted to
+     mediation in New York City.
+
+10.3 If mediation is unsuccessful, disputes shall be resolved by binding
+     arbitration under the rules of the American Arbitration Association.
+
+===============================================================================
+ARTICLE 11: TERMINATION
+===============================================================================
+
+11.1 Either party may terminate this Agreement upon 30 days' written
+     notice to the other party.
+
+11.2 Upon termination, the Owner shall pay the Architect for:
+     a) All services performed to the date of termination
+     b) All reimbursable expenses incurred to the date of termination
+     c) A termination fee equal to 5% of the remaining unearned fee
+
+11.3 Termination for Cause: If either party materially breaches this
+     Agreement, the non-breaching party may terminate upon 30 days'
+     written notice, provided the breaching party fails to cure the
+     breach within the 30-day notice period.
+
+===============================================================================
+SIGNATURES
+===============================================================================
+
+OWNER: Meridian Development Group LLC
+
+By: _________________________________
+Name: Richard Townsend
+Title: VP Development
+Date: _________________________________
+
+ARCHITECT: ODA Architecture PLLC
+
+By: _________________________________
+Name: Eran Chen, AIA
+Title: Managing Principal
+Date: _________________________________

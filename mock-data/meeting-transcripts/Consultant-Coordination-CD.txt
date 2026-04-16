@@ -1,0 +1,55 @@
+ODA Architecture - CD Coordination Meeting
+Project: Shore Club Residences
+Date: March 31, 2025
+Attendees: Akshay Mehra, Marco Vitale, Priya Narayanan, David Okonkwo, Laura Chen (Meridian MEP - remote), James Hartwell (Hartwell Structural - remote)
+
+[Akshay]: Thanks everyone for joining. This is our final coordination check before we issue the 50% CD set. I want to go around the table and confirm status on every outstanding item. Let's start with structural. James, where do we stand?
+[James]: Good news. The formal geotech letter came in Friday confirming the aggregate pier recommendation for the elevator pits. I forwarded it to Akshay and David. Cost is $165,000, two-week installation window, concurrent with other foundation work. I've updated the structural drawings to reflect the deeper pit and the aggregate pier detail. My set is ready for issuance.
+[Akshay]: Perfect. David, have you logged the $165K in the budget tracker?
+[David]: Yes, it's in as a pending change order. I sent it to the GC on Friday. They're reviewing it now. Should have their sign-off by midweek. One concern though. The GC is pushing back on the schedule impact. They're saying two weeks for aggregate piers plus two weeks for the revised foundation pour sequence puts them four weeks behind on the foundation milestone. That affects everything downstream.
+[Akshay]: Four weeks is more than what James estimated. James, is two weeks concurrent realistic?
+[James]: It is if the pier contractor mobilizes on time. The two-week estimate is for installation only. There's a one-week lead time for the aggregate pier contractor to mobilize. So realistically it's three weeks from the go-ahead. But the regular foundation work can proceed on the south and west sides while the piers are being installed on the north side where the elevator pits are. So the net impact should be about two weeks, not four.
+[David]: I'll push back on the GC with that sequencing logic. Can you send me a brief paragraph explaining the concurrent work approach? I need something in writing for the construction meeting on Wednesday.
+[James]: Will do, I'll send it today.
+[Akshay]: Good. Priya, BIM coordination status?
+[Priya]: The architectural model is updated through last Friday. I received Laura's MEP backgrounds on Wednesday and overlaid them. We have 23 clash detections remaining, down from 47 last week. Seventeen of those are MEP to structure clashes that James and Laura need to resolve. The other six are architectural to MEP, mostly duct routing conflicts in the parking level ceiling.
+[Laura]: I can address the MEP to structure clashes this week. Most of them are pipe routing through beam flanges, which we can fix by dropping the pipes below the beams. It adds about 3 inches to the ceiling depth in those areas. Priya, can you send me the clash report with coordinates so my team can work through them systematically?
+[Priya]: Already sent it Saturday morning. Check your inbox for the Navisworks export file.
+[Laura]: Oh, I missed it. I'll pull it up after this call.
+[Akshay]: The six architectural to MEP clashes. Priya, can you walk us through those quickly?
+[Priya]: Sure. Clashes 18 through 21 are in the parking level P1. The main supply duct running east-west conflicts with the architectural soffit that drops down at grid lines C and D. The duct needs 18 inches of clearance but the soffit leaves only 14.
+[Laura]: Can we route the duct around the soffit? What's to the north of grid C?
+[Priya]: Open ceiling area. You have about 24 inches there. It would add a 90-degree turn and about 15 feet of additional duct run.
+[Laura]: That works. I'll update the routing.
+[Priya]: Clash 22 is the exhaust fan unit on the roof conflicting with the parapet wall height. The fan is 48 inches tall but the parapet is only 42 inches per the architectural drawings. We either raise the parapet or recess the fan.
+[Akshay]: Let's raise the parapet to 54 inches at that location. It's on the north side so it won't affect the facade design. I'll update the drawings.
+[Priya]: And clash 23 is the fire protection riser in the stairwell. It's shown on the east wall in the MEP drawings but our stairwell handrail detail has a grab bar bracket at the same location.
+[Laura]: We can shift the riser 8 inches to the south. No impact on our system.
+[Priya]: Good. If all these are resolved by Friday, I can run a final clash detection over the weekend and we should be clean for issuance.
+[Akshay]: Excellent. Laura, any other MEP items for the 50% set?
+[Laura]: Two things. First, the electrical room on the ground floor. The utility company confirmed the transformer size last week and it's larger than what we showed in DD. We need an additional 40 square feet for the electrical room. Akshay, this means the retail corridor gets narrower at that section. Can you accommodate?
+[Akshay]: How narrow are we talking?
+[Laura]: The corridor is currently 6 feet wide at that point. We'd need to take it down to about 5 feet 2 inches.
+[Akshay]: That's below code minimum for an egress corridor serving retail. We need 5 feet 6 inches minimum per the Florida Building Code. Can we push the electrical room wall in the other direction?
+[Laura]: That puts us into the parking structure. Let me look at an alternative layout. Maybe we can rotate the transformer 90 degrees and use a deeper room instead of a wider one.
+[Akshay]: Let's explore that. I need a resolution by Wednesday so I can update the ground floor plan.
+[Laura]: I'll have options to you by tomorrow end of day.
+[David]: While we're on the ground floor, Eran made a decision last week to proceed with a generic retail shell rather than waiting for the retail tenant to confirm their requirements. Akshay, have you updated the ground floor to reflect that?
+[Akshay]: Yes, the ground floor is now a vanilla shell with stub-outs for utilities. The tenant will do their own fit-out. That actually simplified things quite a bit.
+[David]: Good. That eliminates about 15 open RFIs related to the retail layout. I'll close those out in the tracker.
+[Akshay]: Marco, facade status for the 50% set?
+[Marco]: The hybrid facade option is fully documented. Precast concrete on the base and parking podium, terracotta rain screen on floors 8 through 22. All connection details are complete. The waterproofing membrane termination at the podium level is detailed, including the large-diameter penetration detail that Laura and I coordinated last week.
+[Marco]: One remaining item is the HVHZ documentation. Keith flagged that Fort Lauderdale requires NOAs for every exterior product. I've been reaching out to manufacturers. Status is: terracotta panels from Moeding, NOA received. Aluminum curtain wall from Kawneer, NOA received. Impact windows from PGT, NOA requested, expected April 7. Roofing membrane from Sika, NOA requested, expected April 10. Glass canopy, this one's tricky. Our canopy supplier doesn't have a Florida NOA. We may need to switch to a different laminated glass product.
+[Akshay]: How much risk does the glass canopy NOA create for the permit submission?
+[Marco]: If we can't get an NOA by April 25, we should submit the permit package with a placeholder note and supplement it later. The building department usually allows that for minor elements as long as the structural system is documented.
+[David]: I've seen that work on the Cultural Center. They accepted two supplemental submissions for specialty products. Just make sure we note it in the transmittal letter.
+[Akshay]: Agreed. Marco, pursue the NOA and if it doesn't come through in time, we'll supplement. Now, overall drawing count for the 50% set. Priya, what are we looking at?
+[Priya]: Based on the current drawing list: 42 architectural sheets, 28 structural sheets, 36 MEP sheets, 8 civil sheets, and 12 landscape sheets. Total of 126 sheets for the 50% set.
+[Akshay]: And our internal QA/QC window is April 18 through May 1. That's two weeks. Who's leading QA?
+[David]: I'll coordinate QA. I'm going to assign reviewers by discipline. Keith, can you review the code compliance items? You have the most recent Fort Lauderdale experience.
+[Keith]: I can do the code review April 21 through 25. I'll focus on egress, accessibility, fire separation, and the HVHZ items. I'll need the latest floor plans and the building code analysis by April 18.
+[Akshay]: I'll have the code analysis updated by April 16. Anything else before we wrap?
+[James]: One last thing. The step-back at floor 12 that we discussed for the north setback. I need the final massing confirmed so I can calculate the transfer structure at that level. If the step-back changes, the transfer beams change, and that ripples through the structural set.
+[Akshay]: The step-back is locked. Six-foot setback on the north face starting at floor 12. I confirmed with Eran last week and the client is excited about the terrace units on that level.
+[James]: Perfect. I'll finalize the transfer beam design this week.
+[Akshay]: Great. Let me summarize action items. James sends concurrent foundation work paragraph to David today. Laura resolves 17 MEP-structural clashes by Friday using the Navisworks export. Laura explores alternative electrical room layout by tomorrow EOD. Priya runs final clash detection over the weekend. Marco pursues glass canopy NOA with April 25 deadline. Akshay updates code analysis by April 16. David assigns QA reviewers and distributes review schedule. Keith reserves April 21 through 25 for code compliance review. Next coordination meeting is April 7, same time. Thanks everyone.

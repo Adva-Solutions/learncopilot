@@ -1,0 +1,109 @@
+Subject: RE: Shore Club - Permit Submission Timeline & City Review Coordination
+Thread participants: Akshay Mehra, David Okonkwo, Keith Sagliocca, Yinxing Liu, Megumi Takata
+
+---
+
+From: Akshay Mehra <akshay.mehra@oda-architecture.com>
+To: David Okonkwo <david.okonkwo@oda-architecture.com>; Keith Sagliocca <keith.sagliocca@oda-architecture.com>
+Cc: Yinxing Liu <yinxing.liu@oda-architecture.com>; Megumi Takata <megumi.takata@oda-architecture.com>
+Date: March 20, 2025, 8:30 AM
+Subject: Shore Club - Permit Submission Timeline & City Review Coordination
+
+Team,
+
+I want to align everyone on the permit submission timeline for Shore Club. Our target is May 1 for the Building Department submission in Fort Lauderdale. Here's the critical path as I see it:
+
+MARCH:
+- Finalize floor plans: This week (March 21)
+- Facade design locked: March 28
+- Structural backgrounds to Hartwell: April 4
+
+APRIL:
+- Full architectural drawing set assembled: April 18
+- Internal QA/QC review: April 18 - May 1
+- Consultant drawing sets due: April 22
+
+MAY:
+- Building Department submission: May 1
+- Estimated review period: 6-8 weeks
+- First round comments expected: Mid-June
+
+Keith -- I know you've been through the Fort Lauderdale permitting process recently on the Cultural Center. Any advice on common review comments or pitfalls I should be aware of? The pre-application meeting went well but they flagged the north setback as a potential issue.
+
+David -- can you put together a tracking spreadsheet for all consultant deliverables leading up to April 22? I want to make sure nothing slips.
+
+Akshay
+
+---
+
+From: Keith Sagliocca <keith.sagliocca@oda-architecture.com>
+To: Akshay Mehra <akshay.mehra@oda-architecture.com>
+Cc: David Okonkwo <david.okonkwo@oda-architecture.com>; Yinxing Liu <yinxing.liu@oda-architecture.com>; Megumi Takata <megumi.takata@oda-architecture.com>
+Date: March 20, 2025, 10:45 AM
+Subject: RE: Shore Club - Permit Submission Timeline & City Review Coordination
+
+Akshay,
+
+Good timeline. A few things from my experience with Fort Lauderdale Building Department:
+
+1. The north setback issue is real. On the Cultural Center, they were very strict about the ULDR (Unified Land Development Regulations) requirements. If you're proposing a step-back at floor 12, make sure you have a clear zoning analysis showing compliance. They'll want to see shadow studies too -- that caught us off guard on the Cultural Center.
+
+2. They're currently requiring HVHZ (High-Velocity Hurricane Zone) compliance documentation as a separate submission package. This includes the NOA (Notice of Acceptance) for every exterior product -- windows, doors, facade panels, roofing. Start collecting these from manufacturers NOW. On the Cultural Center it took us 3 weeks just to get the NOA for the curtain wall system.
+
+3. Fire separation between the parking podium and residential tower: they've been flagging this more aggressively lately. Make sure your rated assemblies are clearly documented, especially at the transition between the parking structure (Type I-A) and the residential floors (Type I-B, I assume?).
+
+4. Accessibility review has been more detailed recently. They want to see the full accessible route from the public right-of-way through to every unit type, including all dimensions. It's not enough to just show the accessible unit layouts.
+
+5. One more thing -- they now require a separate "Sustainability Compliance" form with the submission. It's a relatively new requirement (2024 code update). I can send you the blank form and our completed version from the Cultural Center as a reference.
+
+Let me know if you want to sit down and go through the checklist together. I have about 45 minutes on Tuesday afternoon.
+
+Keith
+
+---
+
+From: David Okonkwo <david.okonkwo@oda-architecture.com>
+To: Akshay Mehra <akshay.mehra@oda-architecture.com>; Keith Sagliocca <keith.sagliocca@oda-architecture.com>
+Cc: Yinxing Liu <yinxing.liu@oda-architecture.com>; Megumi Takata <megumi.takata@oda-architecture.com>
+Date: March 20, 2025, 2:15 PM
+Subject: RE: Shore Club - Permit Submission Timeline & City Review Coordination
+
+Akshay, Keith,
+
+Great info. I'll build out the consultant deliverable tracker today. Here's a quick risk assessment from the construction scheduling side:
+
+TIMELINE RISKS:
+- The geotech issue (elevator pits / soft clay) could delay the foundation package if the formal recommendation letter is late. Currently expected Friday March 28 -- no buffer.
+- The facade consultant (Marco) is at 110% allocation between Shore Club and Mayflower. If he gets pulled to Mayflower for an urgent issue, our facade drawings could slip.
+- The HVHZ documentation Keith mentioned is a real concern. We need NOAs for: terracotta rain screen panels, aluminum curtain wall, impact-rated windows, roofing membrane, and the glass canopy at the entrance. I count at least 7 separate NOA requests.
+
+BUDGET IMPACT:
+- Additional geotech work (aggregate piers): $165,000 -- not in GMP
+- Additional insurance premium (per contract negotiations): ~$20,000 -- reimbursable
+- Potential expedited permitting fee if we miss May 1 and need to catch up: $8,500
+
+Megumi -- should I flag the $165K geotech overage in the April project financial report, or is that being handled through the change order process with the GC?
+
+I'll have the consultant tracker circulated by end of day tomorrow.
+
+David
+
+---
+
+From: Megumi Takata <megumi.takata@oda-architecture.com>
+To: David Okonkwo <david.okonkwo@oda-architecture.com>; Akshay Mehra <akshay.mehra@oda-architecture.com>
+Cc: Keith Sagliocca <keith.sagliocca@oda-architecture.com>; Yinxing Liu <yinxing.liu@oda-architecture.com>
+Date: March 21, 2025, 9:00 AM
+Subject: RE: Shore Club - Permit Submission Timeline & City Review Coordination
+
+David,
+
+Flag the $165K in the April report as a pending change order. The GC is aware but hasn't formally processed it yet. I'll follow up with their contracts team this week.
+
+Everyone -- I want to add one more item to this thread. We're at 31,200 actual hours against 28,000 planned hours on Shore Club. That's 11.4% over budget on time. With the CD push and permit submission, I expect this to get worse before it gets better.
+
+Akshay -- after the May 1 submission, I want to do a full project financial review. We need to assess whether we're going to exceed the fee on this project and if so, what our options are (change order request, scope reduction, or absorbing the cost).
+
+For now, let's focus on hitting May 1. Good work coordinating, everyone.
+
+Megumi

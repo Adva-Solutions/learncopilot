@@ -1,0 +1,280 @@
+===============================================================================
+ODA ARCHITECTURE - RFP RESPONSE TEMPLATE
+Standard Proposal Format v2.0
+===============================================================================
+
+[COVER PAGE]
+
+[PROJECT NAME]
+Proposal for Architectural Services
+
+Submitted to: [Client Name]
+Submitted by: ODA Architecture
+Date: [Date]
+
+ODA Architecture
+1 Hudson Yards, Suite 2501
+New York, NY 10001
+www.oda-architecture.com
+
+Contact: [Principal Name]
+Email: [email]
+Phone: (212) 555-0100
+
+===============================================================================
+
+TABLE OF CONTENTS
+
+1. Cover Letter
+2. Firm Overview
+3. Project Understanding
+4. Design Approach
+5. Relevant Experience
+6. Project Team
+7. Fee Proposal
+8. Schedule
+9. References
+
+===============================================================================
+SECTION 1: COVER LETTER
+===============================================================================
+
+[Date]
+
+[Client Name]
+[Client Title]
+[Client Company]
+[Client Address]
+
+RE: Proposal for Architectural Services - [Project Name]
+
+Dear [Client Name],
+
+ODA Architecture is pleased to submit this proposal for architectural services for [Project Name]. With over [X] years of experience designing [project typology] projects, we bring a unique combination of design excellence, technical rigor, and collaborative partnership to every engagement.
+
+[2-3 sentences on why ODA is uniquely suited for this project. Reference specific relevant experience, design philosophy connection, or local knowledge.]
+
+[1-2 sentences on team and commitment. Reference the Principal who will lead the project.]
+
+We welcome the opportunity to discuss our approach in greater detail. Please do not hesitate to contact [Principal Name] at [email/phone] with any questions.
+
+Sincerely,
+
+Eran Chen, AIA
+Managing Principal
+ODA Architecture
+
+===============================================================================
+SECTION 2: FIRM OVERVIEW
+===============================================================================
+
+ODA Architecture is a globally recognized design firm founded in 2007 with offices in New York City and Fort Lauderdale. Our portfolio spans residential, hospitality, cultural, and mixed-use projects across the United States and internationally.
+
+KEY FACTS:
+- Founded: 2007
+- Principals: Eran Chen (Managing Principal), Nile Lichtenstein (Principal)
+- Staff: [Current staff count] professionals
+- Offices: New York City, Fort Lauderdale
+- Projects Completed: 80+ buildings
+- Awards: [Number] design awards including AIA, Architizer A+, SARA NY
+
+DESIGN PHILOSOPHY:
+ODA's design philosophy centers on porosity -- creating buildings that blur the boundary between public and private space. We believe that great architecture serves both the individual and the community, and our designs consistently deliver innovative solutions that enhance urban life while exceeding market expectations.
+
+AREAS OF EXPERTISE:
+- Multi-family residential (condominiums and rental)
+- Hospitality (hotels and resort residences)
+- Mixed-use developments
+- Cultural and community facilities
+- Urban planning and master planning
+
+===============================================================================
+SECTION 3: PROJECT UNDERSTANDING
+===============================================================================
+
+[Customize for each RFP. Include:]
+
+[Paragraph 1: Restate the project scope, program, and key objectives from the RFP.]
+
+[Paragraph 2: Demonstrate understanding of the site, its context, and any unique challenges or opportunities.]
+
+[Paragraph 3: Identify key design drivers -- market positioning, sustainability goals, community impact, regulatory framework.]
+
+[Paragraph 4: Note any constraints or risks identified from the RFP materials and how ODA would address them.]
+
+===============================================================================
+SECTION 4: DESIGN APPROACH
+===============================================================================
+
+[Customize for each RFP. Typical structure:]
+
+4.1 Design Vision
+[2-3 paragraphs on the conceptual direction for this specific project.]
+
+4.2 Sustainability Strategy
+[1-2 paragraphs on environmental approach -- LEED target, energy strategy, materials.]
+
+4.3 Community Integration
+[1-2 paragraphs on how the project serves the broader neighborhood.]
+
+4.4 Technology and Innovation
+[1 paragraph on BIM workflow, visualization tools, and design technology.]
+
+===============================================================================
+SECTION 5: RELEVANT EXPERIENCE
+===============================================================================
+
+[Include 3-5 project sheets. Format per project:]
+
+PROJECT: [Name]
+Location: [City, State]
+Typology: [Residential / Hospitality / Mixed-Use / Cultural]
+Size: [SF] | [Units/Keys]
+Status: [Completed YYYY / Under Construction / In Design]
+Client: [Name]
+Construction Cost: $[Amount]
+
+[2-3 sentence project description emphasizing relevance to the RFP project.]
+
+Key Design Features:
+- [Feature 1]
+- [Feature 2]
+- [Feature 3]
+
+Awards: [List any awards received]
+
+[Repeat for each project]
+
+===============================================================================
+SECTION 6: PROJECT TEAM
+===============================================================================
+
+[Include bios for key team members. Format:]
+
+[NAME], [TITLE]
+Role on this project: [Role]
+Years of experience: [X]
+Education: [Degree, Institution]
+Registrations: [Licenses]
+
+[2-3 sentence bio emphasizing relevant project experience.]
+
+Selected Projects:
+- [Project 1]
+- [Project 2]
+- [Project 3]
+
+[Repeat for: Principal-in-Charge, Project Architect, Design Lead, Project Manager]
+
+===============================================================================
+SECTION 7: FEE PROPOSAL
+===============================================================================
+
+ODA proposes the following fee for complete architectural services for [Project Name]:
+
+[SELECT APPROPRIATE FEE METHOD:]
+
+--- OPTION A: TIME & RESOURCES ---
+
+Phase                    Estimated Hours    Hourly Rate    Subtotal
+Schematic Design         [hours]            [rate]         $[amount]
+Design Development       [hours]            [rate]         $[amount]
+Construction Documents   [hours]            [rate]         $[amount]
+Bidding & Negotiation    [hours]            [rate]         $[amount]
+Construction Admin       [hours]            [rate]         $[amount]
+TOTAL                                                      $[amount]
+
+Hourly rates:
+- Principal: $[rate]/hour
+- Project Architect: $[rate]/hour
+- Senior Designer: $[rate]/hour
+- Designer: $[rate]/hour
+- BIM/CAD Technician: $[rate]/hour
+
+--- OPTION B: PERCENTAGE OF CONSTRUCTION COST ---
+
+Estimated Construction Cost: $[amount]
+Fee Percentage: [X]%
+Total Fee: $[amount]
+
+Phase Distribution:
+- Schematic Design:         15% of total fee = $[amount]
+- Design Development:       25% of total fee = $[amount]
+- Construction Documents:   30% of total fee = $[amount]
+- Bidding & Negotiation:    10% of total fee = $[amount]
+- Construction Admin:       20% of total fee = $[amount]
+
+--- OPTION C: FIXED FEE ---
+
+Total Fixed Fee: $[amount]
+
+Phase Distribution:
+- Schematic Design:         $[amount]
+- Design Development:       $[amount]
+- Construction Documents:   $[amount]
+- Bidding & Negotiation:    $[amount]
+- Construction Admin:       $[amount]
+
+--- COMMON TO ALL OPTIONS ---
+
+Reimbursable Expenses:
+Reimbursable expenses are estimated at [10-15]% of the base fee and include:
+- Printing and reproduction
+- Travel expenses (if project is outside NYC metro area)
+- Permit and filing fees
+- Consultant coordination expenses
+- Model making and presentation materials
+
+Not Included (to be contracted separately by Owner):
+- Structural engineering
+- MEP engineering
+- Civil engineering
+- Landscape architecture
+- Geotechnical investigation
+- Environmental assessments
+- Specialty consultants (facade, lighting, acoustics, etc.)
+
+===============================================================================
+SECTION 8: SCHEDULE
+===============================================================================
+
+Proposed project schedule from Notice to Proceed:
+
+Phase                    Duration        Milestone
+Schematic Design         [X] weeks       SD Presentation
+Design Development       [X] weeks       DD Completion
+Construction Documents   [X] weeks       50% CD Review
+                                         100% CD Issuance
+Permitting               [X] weeks       Permit Approval
+Bidding & Negotiation    [X] weeks       GC Selection
+Construction Admin       [X] months      Substantial Completion
+
+Total Duration: [X] months from NTP to Substantial Completion
+
+Key Assumptions:
+- Client review periods of [X] weeks at each milestone
+- Permit review based on standard municipal timelines
+- No significant scope changes after DD completion
+- Consultants contracted and mobilized within 4 weeks of NTP
+
+===============================================================================
+SECTION 9: REFERENCES
+===============================================================================
+
+[Reference 1]
+Name: [Name]
+Title: [Title]
+Organization: [Company]
+Project: [Project worked on together]
+Phone: [Number]
+Email: [Email]
+
+[Reference 2]
+[Same format]
+
+[Reference 3]
+[Same format]
+
+===============================================================================
+END OF TEMPLATE
+===============================================================================

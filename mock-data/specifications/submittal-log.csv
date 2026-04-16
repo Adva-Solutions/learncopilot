@@ -1,0 +1,21 @@
+Submittal_Number,Spec_Section,Description,Submitted_Product,Manufacturer,Status,Reviewer,Date_Submitted,Date_Reviewed,Notes
+SC-001,07 42 13,Terracotta Rainscreen Panels - Primary Field,Alphaton Series 400 Warm Sienna S-482,Moeding,Approved,Marco Vitale,2025-03-01,2025-03-08,Basis of design product. Color approved.
+SC-002,07 42 13,Terracotta Rainscreen Panels - Accent Band,Alphaton Series 400 Sand Beige S-310,Moeding,Approved,Marco Vitale,2025-03-01,2025-03-08,Basis of design product. Color approved.
+SC-003,07 42 13,Rainscreen Substructure System,Alphaton AG-500 Aluminum Rail System,Moeding,Approved,Marco Vitale,2025-03-05,2025-03-14,Wind load calculations verified for HVHZ.
+SC-004,07 42 13,Terracotta Corner Panels,Custom mitered corners - Alphaton,Moeding,Pending,Marco Vitale,2025-03-20,,Awaiting shop drawing with corner detail dimensions.
+SC-005,07 42 13,Cavity Fire Stops,Thermafiber Mineral Wool Curtain Wall Insulation,Owens Corning,Approved,Marco Vitale,2025-03-10,2025-03-17,Complies with NFPA 285 and cavity fire stop requirements.
+SC-006,08 71 00,Residential Unit Entry Locksets,L-Series L9453 Mortise Lock - 626 finish,Schlage,Approved,Akshay Mehra,2025-03-03,2025-03-10,Basis of design. Keying schedule pending.
+SC-007,08 71 00,Stairwell Door Hardware Set,L-Series L9080 + BB1279 hinges + 4040XP closer,Schlage/Hager/LCN,Approved,Akshay Mehra,2025-03-03,2025-03-10,UL listing confirmed for 90-min fire rating.
+SC-008,08 71 00,Common Area Locksets,L-Series L9456 Entrance Function - 626 finish,Schlage,Revise & Resubmit,Akshay Mehra,2025-03-03,2025-03-12,Finish does not match spec. Submitted 625 (bright chrome) instead of 626 (satin chrome). Resubmit with correct finish.
+SC-009,08 71 00,Door Closers - Mechanical Rooms,4041 Series surface closer,LCN,Revise & Resubmit,Akshay Mehra,2025-03-05,2025-03-14,Spec requires 4040XP series. 4041 does not have parallel arm option required for narrow frame condition. Resubmit.
+SC-010,22 40 00,Water Closets - Residential Units,Aquia IV Dual Flush - Cotton White,Toto,Approved,Sarah Kim,2025-03-08,2025-03-15,Basis of design. WaterSense certified confirmed.
+SC-011,22 40 00,Lavatories - Residential Units,Vox Rectangle Vessel - White,Kohler,Approved,Sarah Kim,2025-03-08,2025-03-15,Basis of design product.
+SC-012,22 40 00,Bathtubs - Standard Units,Underscore Rectangle 60x30 - White,Kohler,Approved,Sarah Kim,2025-03-08,2025-03-15,Left-hand drain confirmed per unit layouts.
+SC-013,22 40 00,Bathtubs - Three-Bedroom Premium Units,BetteLux Oval Silhouette freestanding,Bette,Revise & Resubmit,Sarah Kim,2025-03-10,2025-03-18,"Spec requires Kohler Ceric in Lithocast material. Submitted Bette product is steel/enamel, different material and smaller dimensions (63"" vs spec 65""). Resubmit with specified product or equal in Lithocast/solid surface."
+SC-014,22 40 00,Kitchen Sinks - Residential Units,Precis 30" Single Bowl - Metallic Gray,Blanco,Approved,Sarah Kim,2025-03-08,2025-03-15,Basis of design. Accessories included.
+SC-015,22 40 00,Bathroom Faucets,Essence Widespread - SuperSteel finish,Grohe,Approved,Sarah Kim,2025-03-12,2025-03-19,WaterSense certified. 1.2 GPM confirmed.
+SC-016,22 40 00,Kitchen Faucets,Minta Pull-Down Spray - Chrome finish,Grohe,Revise & Resubmit,Sarah Kim,2025-03-12,2025-03-19,"Spec requires Ladylux model in Brushed Nickel (SuperSteel). Submitted Minta in Chrome. Wrong model and wrong finish. Resubmit."
+SC-017,22 40 00,Showerheads - Rainshower,Rainshower Cosmopolitan 310 - SuperSteel,Grohe,Approved,Sarah Kim,2025-03-12,2025-03-19,12" ceiling mount confirmed. 2.0 GPM.
+SC-018,22 40 00,Shower Valves,GrohFlex Universal Rough-In Valve,Grohe,Rejected,Sarah Kim,2025-03-14,2025-03-21,"Spec requires Grohtherm SmartControl thermostatic valve. GrohFlex is a pressure-balance valve, not thermostatic. Does not meet specification. Resubmit with correct product."
+SC-019,07 42 13,Terracotta Panel - NOA Documentation,Florida Product Approval #FL-38291,Moeding,Approved,Keith Sagliocca,2025-03-18,2025-03-25,HVHZ compliant. Valid through 2027.
+SC-020,08 44 00,Curtain Wall System - Impact Windows,Kawneer 1600UT System 2,Kawneer,Pending,Marco Vitale,2025-03-22,,NOA documentation under review. Impact testing report received. Wind load calc pending.

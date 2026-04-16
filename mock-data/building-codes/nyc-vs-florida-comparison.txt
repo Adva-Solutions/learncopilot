@@ -1,0 +1,145 @@
+BUILDING CODE COMPARISON: NEW YORK CITY vs FLORIDA
+Prepared for ODA Architecture - Multi-Jurisdiction Reference
+Last Updated: January 2025
+
+=============================================================================
+                    NYC Building Code          Florida Building Code (7th Ed.)
+=============================================================================
+
+GOVERNING AUTHORITY
+- NYC:              NYC Dept. of Buildings     FL: Local Building Departments
+                    (unique code based on      (based on International Building
+                    International Building     Code with FL amendments)
+                    Code with NYC amendments)
+
+WIND LOAD
+- NYC:              ASCE 7-16, Exposure B/C    ASCE 7-16, Exposure C/D
+                    Basic wind speed: 115 mph   HVHZ (Miami-Dade, Broward):
+                    (most of Manhattan)         Ultimate wind speed: 170-185 mph
+                                                Non-HVHZ: 140-160 mph
+
+HURRICANE REQUIREMENTS
+- NYC:              Not in hurricane zone;      HVHZ requires:
+                    no hurricane-specific       - NOA (Notice of Acceptance)
+                    requirements                  for ALL exterior products
+                                                - Large missile impact testing
+                                                  (9-lb 2x4 at 50 fps)
+                                                - Small missile impact testing
+                                                  (2g steel balls at 130 fps)
+                                                - Cyclic pressure testing
+                                                  per TAS 201, 202, 203
+
+FLOOD ZONE
+- NYC:              FEMA flood maps;            FEMA flood maps;
+                    Appendix G Flood-           Florida-specific freeboard:
+                    Resistant Construction;     1 foot above BFE (residential)
+                    No state freeboard          2 feet above BFE (coastal A/V
+                    beyond FEMA                 zones in some jurisdictions)
+
+FIRE SEPARATION - PARKING TO RESIDENTIAL
+- NYC:              2-hour fire barrier         2-hour fire barrier
+                                                (same requirement)
+
+STAIR DIMENSIONS
+- NYC:              Riser: 7" max               Riser: 7-3/4" max
+                    Tread: 11" min              Tread: 10" min
+                    Width: 44" min              Width: 44" min
+                    Headroom: 80" min           Headroom: 80" min
+
+                    Note: NYC is MORE           Note: FL follows IBC
+                    restrictive on risers       standard dimensions
+                    and treads than IBC
+
+CORRIDOR WIDTH (RESIDENTIAL)
+- NYC:              44" minimum                 44" minimum
+                    36" with sprinklers         36" with sprinklers
+                    (≤50 occupants)             (≤50 occupants)
+
+ACCESSIBILITY
+- NYC:              NYC Building Code Ch. 11    FL Building Code Ch. 11
+                    + Fair Housing Act          + Fair Housing Act
+                    + NYC Human Rights Law      + FL Fair Housing Act
+                    (additional protections)    
+                    
+                    All units in elevator       All units in elevator
+                    buildings: FHA compliant    buildings: FHA compliant
+
+ENERGY CODE
+- NYC:              NYC Energy Conservation     FL Energy Conservation Code
+                    Code (NYCECC)               (based on IECC with FL
+                    Based on IECC 2021          amendments)
+                    + Local Law 97 carbon       No carbon emissions cap
+                    emissions limits            equivalent to LL97
+                    + Local Law 154 gas ban
+
+SUSTAINABILITY
+- NYC:              LL97: Emissions limits      FL: No equivalent emissions
+                    ($268/ton penalty)          mandate
+                    LL92/94: Green roof or      No statewide green roof
+                    solar on new buildings      requirement
+                    LL95: Bird-friendly glass   No bird-friendly glass
+                    on new buildings            requirement
+
+ELEVATOR REQUIREMENTS (HIGH-RISE RESIDENTIAL)
+- NYC:              Min. 2 elevators for        Min. 2 elevators for
+                    buildings >6 stories        buildings >4 stories
+                    One stretcher-sized         One stretcher-sized
+                    elevator required           elevator required
+                    Pit depth: per elevator     Pit depth: per elevator
+                    manufacturer (typically     manufacturer (typically
+                    5'-0" to 6'-6")             5'-0" to 6'-6")
+
+FACADE INSPECTION
+- NYC:              FISP (Facade Inspection     No statewide equivalent
+                    & Safety Program)           (some municipalities have
+                    Every 5 years for           building recertification
+                    buildings > 6 stories       at 40 years, then every
+                                                10 years -- Miami-Dade
+                                                and Broward after Surfside)
+
+PARKING
+- NYC:              No minimum in Manhattan     Varies by municipality
+                    Core (2024 change);         Fort Lauderdale: typically
+                    0.5 max in transit zones    1.0-1.5 spaces per unit
+                    EV-ready: 20%               EV-ready: varies by city
+                    Bike parking: 1 per unit    Bike parking: varies
+
+PERMIT TIMELINE (TYPICAL)
+- NYC:              DOB plan review:            Building Dept review:
+                    8-16 weeks (full review)    4-8 weeks (varies by city)
+                    Professional certification  No professional certification
+                    option: 2-4 weeks           option
+                    TCO process: 4-8 weeks      CO process: 2-4 weeks
+
+SPECIAL INSPECTIONS
+- NYC:              Extensive list per          Per FL Building Code Ch. 17
+                    1 RCNY 101-06               Generally follows IBC with
+                    Progress inspections        FL-specific additions for
+                    required at multiple        threshold buildings
+                    stages                      (>3 stories or >5,000 SF
+                    Controlled inspections      per floor)
+                    for critical work
+
+=============================================================================
+KEY TAKEAWAY FOR ODA PROJECTS
+=============================================================================
+
+When working on projects in both NYC and Florida:
+
+1. WIND: Florida projects (especially HVHZ) require significantly more facade 
+   documentation. Start collecting NOAs early -- they can take 3-6 weeks to obtain.
+
+2. STAIRS: NYC stairs are more restrictive (7" risers vs 7-3/4"). Always design to 
+   NYC standards if the project may be replicated or compared across offices.
+
+3. ENERGY: NYC has carbon emissions penalties (LL97) that don't exist in Florida. 
+   NYC projects need energy modeling early in SD to verify compliance.
+
+4. FACADE: NYC requires FISP-compliant facade design. Florida requires hurricane 
+   impact testing. Both add cost and documentation but for different reasons.
+
+5. PERMITS: NYC allows professional certification (faster) but FL process is 
+   generally shorter overall. Factor HVHZ documentation into FL permit timelines.
+
+6. PARKING: NYC has eliminated parking minimums in Manhattan. Florida jurisdictions 
+   still require significant parking, affecting podium design and project cost.

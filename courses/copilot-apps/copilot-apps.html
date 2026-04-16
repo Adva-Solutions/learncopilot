@@ -160,12 +160,25 @@ const LESSONS = [
   implement: `
 <h3>Exercise: Summarize and Draft in Outlook</h3>
 
+<div class="note-box">
+  <div class="note-title">Practice Email Threads</div>
+  <p>If you do not have a real email thread with 3+ replies handy, open one of these ODA sample threads and paste it into a new email to yourself, then use Copilot on that thread:</p>
+  <ul>
+    <li><a href="/mock-data/emails/consultant-coordination.txt" download>Consultant Coordination</a> — facade waterproofing review with structural engineer</li>
+    <li><a href="/mock-data/emails/contract-redlines.txt" download>Contract Red-Lines</a> — legal counsel contract negotiation with fee and insurance terms</li>
+    <li><a href="/mock-data/emails/client-scheduling.txt" download>Client Scheduling</a> — design presentation reschedule with stakeholder back-and-forth</li>
+    <li><a href="/mock-data/emails/permit-timeline.txt" download>Permit Timeline</a> — Shore Club permit submission coordination across departments</li>
+    <li><a href="/mock-data/emails/pr-award-submission.txt" download>PR &amp; Awards</a> — award submission deadlines and photography coordination</li>
+    <li><a href="/mock-data/emails/executive-travel.txt" download>Executive Travel</a> — Dubai trip planning with flights, meetings, and itinerary</li>
+  </ul>
+</div>
+
 <ol>
-<li>Open <strong>Outlook</strong>. Find an email thread with at least 3 replies.</li>
+<li>Open <strong>Outlook</strong>. Find an email thread with at least 3 replies (or use one of the sample threads above).</li>
 <li>Click the <strong>Copilot icon</strong> at the top of the reading pane.</li>
 <li>Click "Summarize" (or type the prompt below):
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize this email thread. List the key decisions and any action items assigned to me.</code></div></li>
-<li>Check the summary. Does it mention specific people and decisions? If yes, it is working correctly.</li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize this email thread. List the key decisions, any action items assigned to me, and any deadlines or deliverables mentioned.</code></div></li>
+<li>Check the summary. Does it mention specific people, decisions, and deadlines? If yes, it is working correctly.</li>
 <li>Now click <strong>Reply</strong> on that same thread. In the compose window, click the <strong>Copilot icon</strong>.</li>
 <li>Type this prompt:
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a reply confirming I'll handle the action items mentioned above. Keep it brief and professional.</code></div></li>
@@ -263,11 +276,15 @@ const LESSONS = [
 
 <div class="option-content active" data-lesson="1" data-key="a">
 <h4>Architecture: Consultant Coordination Memo</h4>
+<div class="note-box">
+  <div class="note-title">Reference Material</div>
+  <p>For richer results, open the <a href="/mock-data/emails/consultant-coordination.txt" download>consultant coordination email thread</a> alongside this exercise. You can paste it into the Word doc and ask Copilot to turn it into a formal memo.</p>
+</div>
 <ol>
 <li>Open <strong>Word</strong>. Create a new blank document.</li>
 <li>Click the <strong>Copilot icon</strong> in the Home ribbon tab.</li>
 <li>Type this prompt:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a consultant coordination memo regarding facade waterproofing issues on the Riverside Tower project. Include these sections: Project Name and Number, Issue Description (water infiltration detected at curtain wall transitions during envelope testing), Consultant Actions Needed (envelope consultant to review detail revisions, structural engineer to confirm backup wall capacity, waterproofing sub to propose remediation), Deadline (responses needed within 10 business days), and Next Steps. Use a professional but direct tone.</code></div></li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a consultant coordination memo regarding facade waterproofing issues on the Shore Club Fort Lauderdale project. Include these sections: Project Name and Number, Issue Description (water infiltration detected at curtain wall transitions during envelope testing), Consultant Actions Needed (envelope consultant to review detail revisions, structural engineer to confirm backup wall capacity, waterproofing sub to propose remediation), Deadline (responses needed within 10 business days), and Next Steps. Reference NYC and Florida building code differences where applicable. Use a professional but direct tone.</code></div></li>
 <li>Read what Copilot generates. Confirm it created real structure with headers and specific consultant responsibilities.</li>
 <li>Select the <strong>Issue Description</strong> section. Right-click and choose <strong>Rewrite with Copilot</strong>. Choose <strong>"Make it more formal"</strong>.</li>
 <li>Compare the original with the rewritten version. The vocabulary should be more technical and precise.</li>
@@ -297,6 +314,10 @@ const LESSONS = [
 
 <div class="option-content" data-lesson="1" data-key="c">
 <h4>Marketing: Project Case Study Narrative</h4>
+<div class="note-box">
+  <div class="note-title">Reference Material</div>
+  <p>Download a completed case study for reference: <a href="/mock-data/proposals/case-study-harbor-view.txt" download>Harbor View case study</a> or <a href="/mock-data/proposals/case-study-wynwood.txt" download>Wynwood Arts case study</a>. You can upload one to Word and ask Copilot to draft a new case study in the same style.</p>
+</div>
 <ol>
 <li>Open <strong>Word</strong>. Create a new blank document.</li>
 <li>Click the <strong>Copilot icon</strong> in the Home ribbon tab.</li>
@@ -314,11 +335,15 @@ const LESSONS = [
 
 <div class="option-content" data-lesson="1" data-key="d">
 <h4>Executive: Board Briefing Memo</h4>
+<div class="note-box">
+  <div class="note-title">Reference Material</div>
+  <p>Download the <a href="/mock-data/executive/oda-qbr-q1-2025.txt" download>ODA Q1 2025 QBR</a> for real project and financial data to feed into this exercise.</p>
+</div>
 <ol>
 <li>Open <strong>Word</strong>. Create a new blank document.</li>
 <li>Click the <strong>Copilot icon</strong> in the Home ribbon tab.</li>
 <li>Type this prompt:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a board briefing memo for an architecture firm's quarterly meeting. Include these sections: Executive Summary (2-3 sentences on overall firm health), Project Pipeline Status (8 active projects, 3 in proposals, 2 recently completed — summarize in a table), Revenue Update (Q1 revenue at $4.2M vs. $3.8M target, backlog at $12M), Strategic Decision Needed (whether to open a second office — present pros, cons, estimated cost, and a recommendation), and Next Quarter Priorities (3 items). Use a concise executive tone — no fluff.</code></div></li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a board briefing memo for ODA's quarterly meeting. Include these sections: Executive Summary (2-3 sentences on overall firm health), Project Pipeline Status (10 active projects including Shore Club, Mayflower, and Jersey City Waterfront — summarize in a table), Revenue Update (Q1 revenue at $1.435M vs. $1.33M prior year, net margin 12.2%), Strategic Decision Needed (whether to expand the Fort Lauderdale office — present pros, cons, estimated cost, and a recommendation), and Next Quarter Priorities (3 items). Use a concise executive tone — no fluff.</code></div></li>
 <li>Read what Copilot generates. Confirm it created a decision-ready memo with clear structure.</li>
 <li>Select the <strong>Strategic Decision</strong> section. Right-click and choose <strong>Rewrite with Copilot</strong>. Choose <strong>"Make it more formal"</strong>.</li>
 <li>Compare the versions. The rewrite should sound boardroom-ready.</li>
@@ -331,11 +356,15 @@ const LESSONS = [
 
 <div class="option-content" data-lesson="1" data-key="e">
 <h4>Operations: Project Handoff Document</h4>
+<div class="note-box">
+  <div class="note-title">Reference Material</div>
+  <p>Download the <a href="/mock-data/staffing/oda-resource-allocation.csv" download>ODA resource allocation spreadsheet</a> for team assignments and utilization data to make this handoff more realistic.</p>
+</div>
 <ol>
 <li>Open <strong>Word</strong>. Create a new blank document.</li>
 <li>Click the <strong>Copilot icon</strong> in the Home ribbon tab.</li>
 <li>Type this prompt:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a project handoff document for transferring project lead responsibilities on "Central Park Mixed-Use Tower" from the current PM to a new PM. Include these sections: Project Summary (project name, client, phase, key dates), Open Items (list 6 pending tasks — permit resubmission, consultant invoice review, client presentation prep, spec section updates, RFI responses, site visit scheduling), Key Contacts (table with client, structural engineer, MEP consultant, contractor, and their contact info placeholders), Pending Deliverables (table with deliverable name, due date, status, notes), and Transition Timeline (2-week overlap plan). Use a clear, operational tone.</code></div></li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a project handoff document for transferring project lead responsibilities on "Jersey City Waterfront Tower" from the current PM to a new PM at ODA. Include these sections: Project Summary (project name, client, phase, key dates), Open Items (list 6 pending tasks — permit resubmission, consultant invoice review, client presentation prep, spec section updates, RFI responses, site visit scheduling), Key Contacts (table with client, structural engineer, MEP consultant, contractor, and their contact info placeholders), Pending Deliverables (table with deliverable name, due date, status, notes), and Transition Timeline (2-week overlap plan). Use a clear, operational tone.</code></div></li>
 <li>Read what Copilot generates. Confirm it created a comprehensive handoff with tables and specific action items.</li>
 <li>Select the <strong>Open Items</strong> section. Right-click and choose <strong>Rewrite with Copilot</strong>. Choose <strong>"Make it more concise"</strong>.</li>
 <li>Compare the versions. Each open item should be a clear one-liner, not a paragraph.</li>
@@ -396,46 +425,49 @@ const LESSONS = [
 <h3>Exercise: Analyze, Formula, and Chart in Excel</h3>
 
 <div class="note-box">
-  <div class="note-title">Sample Data</div>
-  <p>Download the workshop sample data: <a href="/sample-data.csv" download>sample-data.csv</a> — 12 months of revenue, expenses, projects, and utilization metrics. Or use your own spreadsheet.</p>
+  <div class="note-title">ODA Sample Data</div>
+  <p>Download one of the ODA financial datasets, or use your own spreadsheet:</p>
+  <ul>
+    <li><a href="/mock-data/financials/oda-monthly-financials.csv" download>Monthly Financials</a> — 15 months of revenue, expenses, active projects, new commissions, staffing, and utilization</li>
+    <li><a href="/mock-data/financials/oda-project-tracking.csv" download>Project Tracking</a> — 10 active projects with phases, fees, hours, and budget status</li>
+    <li><a href="/mock-data/financials/oda-construction-costs.csv" download>Construction Costs</a> — cost breakdowns by trade across completed buildings</li>
+  </ul>
 </div>
 
 <h4>Set Up Sample Data</h4>
 <ol>
 <li>Open <strong>Excel</strong>. Create a new workbook.</li>
-<li>In row 1, type these headers: <strong>A1:</strong> Month &nbsp; <strong>B1:</strong> Revenue &nbsp; <strong>C1:</strong> Expenses</li>
-<li>Fill rows 2-13 with this data (or paste it):
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Jan	10200	8100
-Feb	11500	8400
-Mar	10800	9200
-Apr	12300	8800
-May	13100	9500
-Jun	11900	10200
-Jul	14200	9800
-Aug	13800	10100
-Sep	12600	9900
-Oct	15000	11200
-Nov	14500	10800
-Dec	13200	10500</code></div></li>
-<li>Select all the data (A1:C13). Press <strong>Ctrl+T</strong> to format it as a Table. Click OK.</li>
+<li>In row 1, type these headers: <strong>A1:</strong> Month &nbsp; <strong>B1:</strong> Revenue &nbsp; <strong>C1:</strong> Expenses &nbsp; <strong>D1:</strong> Projects_Active &nbsp; <strong>E1:</strong> Utilization_Rate</li>
+<li>Fill rows 2-13 with this data (or paste it, or import the Monthly Financials CSV above):
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Jan 2025	425000	375000	9	72
+Feb 2025	440000	380000	10	74
+Mar 2025	485000	395000	11	78
+Apr 2025	520000	410000	12	80
+May 2025	545000	425000	13	82
+Jun 2025	490000	415000	12	75
+Jul 2025	430000	390000	10	68
+Aug 2025	415000	385000	9	65
+Sep 2025	505000	405000	11	79
+Oct 2025	570000	440000	14	84
+Nov 2025	595000	465000	15	85
+Dec 2025	480000	420000	12	70</code></div></li>
+<li>Select all the data (A1:E13). Press <strong>Ctrl+T</strong> to format it as a Table. Click OK.</li>
 </ol>
-
-<p class="personalization-note">[PERSONALIZED: swap sample data above with client-specific financial or project data from Listen Labs interviews]</p>
 
 <h4>Ask Copilot Questions</h4>
 <ol start="5">
 <li>Click the <strong>Copilot icon</strong> in the ribbon.</li>
 <li>Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What trends do you see in this data? Which months had the highest profit margin?</code></div></li>
-<li>Read the analysis. Copilot should identify Oct as the highest revenue month and flag Jun's high expenses.</li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What trends do you see in this data? Which months show utilization below 70%? Is there a seasonal pattern in revenue and staffing?</code></div></li>
+<li>Read the analysis. Copilot should identify Nov as the peak revenue month, flag the Jul-Aug summer dip in utilization, and note the correlation between active projects and revenue.</li>
 </ol>
 
-<h4>Add a Calculated Column</h4>
+<h4>Add Calculated Columns</h4>
 <ol start="8">
 <li>Type:
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a column called 'Profit' that calculates Revenue minus Expenses for each month.</code></div></li>
-<li>Check: Did Copilot add column D with a formula? Click on cell D2 and verify the formula bar shows something like <span class="inline-code">=[@Revenue]-[@Expenses]</span>.</li>
-<li>Verify one cell manually: Jan Revenue (10200) minus Jan Expenses (8100) should equal 2100.</li>
+<li>Check: Did Copilot add a new column with a formula? Click on the first data cell and verify the formula bar shows something like <span class="inline-code">=[@Revenue]-[@Expenses]</span>.</li>
+<li>Verify one cell manually: Jan Revenue (425000) minus Jan Expenses (375000) should equal 50000.</li>
 </ol>
 
 <h4>Create a Chart</h4>
@@ -444,16 +476,16 @@ Dec	13200	10500</code></div></li>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a line chart showing Revenue, Expenses, and Profit over time.</code></div></li>
 <li>A chart should appear. Check that it has 3 lines with a legend. Resize it if needed by dragging the corners.</li>
 <li>Refine the chart:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a title "Monthly Financial Overview" to the chart and add data labels to the Profit line only.</code></div></li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a title "ODA Monthly Financial Overview" to the chart and add data labels to the Profit line only.</code></div></li>
 </ol>
 
 <p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a column that calculates month-over-month revenue growth as a percentage.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Highlight any months where expenses exceeded 80% of revenue.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a column that calculates month-over-month revenue growth as a percentage. Flag any negative growth months.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a second chart showing Utilization_Rate as a bar chart with a horizontal target line at 75%.</code></div>
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  Do the formulas produce the correct numbers — spot-check at least two cells manually. Does the chart tell a clear story at a glance, or is it cluttered? If you handed this spreadsheet to your manager right now, what question would they ask that the data doesn't answer yet?
+  Do the formulas produce the correct numbers — spot-check at least two cells manually. Does the chart tell a clear story about ODA's financial trends at a glance? If you handed this spreadsheet to a principal right now, what question would they ask that the data doesn't answer yet?
 </div>
 `,
   advanced: `
@@ -497,44 +529,42 @@ Dec	13200	10500</code></div></li>
 `,
   implement: `
 <h3>Exercise: Build and Refine a Presentation</h3>
-<p>Take the document you drafted in the Word exercise — or use any Word doc — and let Copilot turn it into slides.</p>
+<p>Take the document you drafted in the Word exercise — or use any Word doc — and let Copilot turn it into slides. Below is an ODA-specific prompt to get started.</p>
 
 <ol>
 <li>Open <strong>PowerPoint</strong>. Create a new blank presentation.</li>
 <li>Click the <strong>Copilot icon</strong> in the Home ribbon.</li>
 <li>Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a 5-slide presentation about the benefits of AI in the workplace. Include: Title slide, 3 content slides with key benefits, and a closing slide with next steps.</code></div></li>
-<li>Wait 15-30 seconds. Review what Copilot created. Count the slides in the left panel -- you should see 5.</li>
-<li>Click on <strong>Slide 2</strong>. Click the Copilot icon again.</li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a 6-slide client design presentation for the Shore Club Fort Lauderdale project. Include: Title slide with project name and ODA logo placeholder, Project Overview (location, program, 45-story mixed-use tower), Design Concept (stepped massing, ocean-facing terraces, biophilic elements), Facade System Comparison (terracotta rainscreen vs aluminum panel — pros, cons, cost), Project Timeline (SD through CA with key milestones), and Team slide with key consultants.</code></div></li>
+<li>Wait 15-30 seconds. Review what Copilot created. Count the slides in the left panel — you should see 6.</li>
+<li>Click on the <strong>Facade System Comparison</strong> slide. Click the Copilot icon again.</li>
 <li>Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Redesign this slide to use a two-column layout with icons on the left and text on the right.</code></div></li>
-<li>Check: Did the layout change from a single-column bullet list to a two-column format? If yes, the per-slide editing is working.</li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Redesign this slide to use a two-column layout comparing terracotta and aluminum side by side, with cost, durability, and aesthetic rows.</code></div></li>
+<li>Check: Did the layout change to a clear comparison format? If yes, the per-slide editing is working.</li>
 </ol>
 
 <h4>Add Speaker Notes</h4>
 <ol start="8">
 <li>Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add speaker notes to all slides with talking points I can use during the presentation.</code></div></li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add speaker notes to all slides with talking points for a client presentation, including budget context and design rationale.</code></div></li>
 <li>Click on any slide, then click <strong>View > Notes</strong> at the bottom. Confirm that speaker notes text appeared below the slide.</li>
 </ol>
 
 <p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Simplify each slide to a maximum of 3 bullet points. Move extra detail into speaker notes.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make the closing slide more actionable — add specific next steps with owners and deadlines.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a slide before the closing that shows 3 precedent projects by ODA (Harbor View Residences, Wynwood Arts Mixed-Use, Riverside Tower) with key stats.</code></div>
 
 <h4>Standardize Formatting</h4>
 <ol start="10">
 <li>Type:
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Standardize all slides to use the same font (Segoe UI), consistent heading sizes, and matching bullet styles.</code></div></li>
-<li>Flip through all 5 slides. All headings should now use the same font and size. All bullets should match in style.</li>
+<li>Flip through all slides. All headings should now use the same font and size. All bullets should match in style.</li>
 </ol>
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  Could you present this deck right now without embarrassment? Do the speaker notes give you enough to talk through each slide confidently? Is there a slide that feels redundant or unclear — what would you cut or combine? Would your audience walk away knowing the one thing you want them to remember?
+  Could you present this deck to a client right now without embarrassment? Do the speaker notes give you enough to walk through each slide confidently? Is the facade comparison slide clear enough for the client to make a decision? Would the client walk away understanding ODA's design vision?
 </div>
-
-<p class="personalization-note">[PERSONALIZED: swap the presentation topic with organization-specific deck types from Listen Labs interviews — e.g., client pitches, design review presentations, board updates]</p>
 `,
   advanced: `
 <h3>Going Deeper</h3>
@@ -581,8 +611,14 @@ Dec	13200	10500</code></div></li>
 <h3>Exercise: Meeting Recap and Channel Summary</h3>
 
 <div class="note-box">
-  <div class="note-title">Sample Transcripts</div>
-  <p>If you don't have a recent meeting with a transcript, download these samples: <a href="/mock-data/meeting-transcripts/Design-Review-March.txt" download>Design Review</a> | <a href="/mock-data/meeting-transcripts/Marketing-Strategy-Q2.txt" download>Marketing Strategy</a>. Paste the text into Copilot Chat and ask it to summarize.</p>
+  <div class="note-title">ODA Meeting Transcripts</div>
+  <p>If you don't have a recent meeting with a transcript, download one of these ODA samples. Paste the text into Copilot Chat and ask it to summarize.</p>
+  <ul>
+    <li><a href="/mock-data/meeting-transcripts/Consultant-Coordination-CD.txt" download>Consultant Coordination (CD Phase)</a> — structural, MEP, and architecture team discussing Shore Club deadlines and RFIs</li>
+    <li><a href="/mock-data/meeting-transcripts/Client-Budget-Meeting.txt" download>Client Budget Meeting</a> — principal meeting with The Mira Hotel client on design and budget</li>
+    <li><a href="/mock-data/meeting-transcripts/HR-Onboarding-Checkin.txt" download>HR Onboarding Check-in</a> — new designer onboarding with software access and Revit training</li>
+    <li><a href="/mock-data/meeting-transcripts/Design-Review-March.txt" download>Design Review</a> | <a href="/mock-data/meeting-transcripts/Marketing-Strategy-Q2.txt" download>Marketing Strategy</a></li>
+  </ul>
 </div>
 
 <h4>Path A: You Have a Recorded Meeting</h4>
@@ -663,8 +699,8 @@ Dec	13200	10500</code></div></li>
 
 <h4>Step 2: Analyze in Excel</h4>
 <ol start="3">
-<li>Open <strong>Excel</strong> with any data file related to your work (sales, project tracking, budget). Open Copilot and type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize this data. What are the top 3 trends and any areas of concern?</code></div></li>
+<li>Open <strong>Excel</strong> with the <a href="/mock-data/financials/oda-project-tracking.csv" download>ODA project tracking data</a> or the <a href="/mock-data/financials/oda-monthly-financials.csv" download>monthly financials</a>. Open Copilot and type:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize this data. Which projects are over budget? What is the firm-wide utilization trend? Flag any areas of concern.</code></div></li>
 <li>Note the key numbers Copilot identifies.</li>
 </ol>
 
@@ -678,7 +714,7 @@ Dec	13200	10500</code></div></li>
 <h4>Step 4: Present in PowerPoint</h4>
 <ol start="7">
 <li>Open <strong>PowerPoint</strong>. Click Copilot and type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a leadership-ready presentation from /ODA QBR Document.docx. Focus on metrics, risks, and priorities. Keep it to 6 slides.</code></div></li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a leadership-ready presentation from /mock-data/executive/oda-qbr-q1-2025.txt. Focus on metrics, risks, and priorities. Keep it to 6 slides.</code></div></li>
 <li>Review the deck. You have now used 4 apps in one workflow.</li>
 </ol>
 

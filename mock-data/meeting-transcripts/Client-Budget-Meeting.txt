@@ -1,0 +1,43 @@
+ODA Architecture - Client Project Status & Budget Review
+Project: The Mira Hotel & Residences
+Date: April 2, 2025
+Attendees: Eran Chen (ODA), Thanhthao Le (ODA), Khalid Al Mansoori (Al Habtoor Group, VP Development - remote), Nadia Kassem (Al Habtoor Group, Design Director - remote)
+
+[Khalid]: Good morning from Dubai. Thank you for scheduling this, Eran. We wanted to review the project status before your visit later this month.
+[Eran]: Of course, Khalid. We're looking forward to the trip. Before we dive in, I want to introduce Thanhthao Le who will be joining me in Dubai. She's leading the concept visualization for the Mira Hotel project and has been doing exceptional work on the design development.
+[Thanhthao]: Thank you, Eran. Nice to meet you, Khalid and Nadia, at least virtually. I'm excited to see the site in person.
+[Khalid]: Welcome, Thanhthao. Nadia, do you want to start with the design status?
+[Nadia]: Yes. We reviewed the latest concept package that ODA sent last week. Overall we're very pleased with the direction. The tower massing with the terraced gardens on the hotel floors is beautiful and unique. We have a few specific items to discuss.
+[Nadia]: First, the ground floor arrival sequence. We feel the hotel entry and the residential entry need to be more distinct. Right now they share a forecourt and it feels like the residential tenants are walking through the hotel to get to their elevator lobby. For the price point we're targeting, the residential buyers expect a completely separate, premium arrival experience.
+[Eran]: That's a valid concern and something we've been thinking about as well. We have two approaches we'd like to present in Dubai. One is to create a separate residential motor court on the east side of the building with its own canopy and dedicated elevator lobby. The other is to maintain the shared forecourt but create a clear visual and spatial separation with landscaping, level changes, and distinct material palettes for each entry.
+[Nadia]: I'd like to see both options. The separate motor court sounds promising but I'm concerned about the site constraints on the east side. Is there enough room?
+[Thanhthao]: We've done preliminary studies and it's tight but feasible. We'd need to reduce the east landscape buffer by about 3 meters. The trade-off is between the landscape setback and the quality of the residential arrival. We'll have both options fully visualized for the April 16 presentation.
+[Khalid]: Good. The second item is the hotel restaurant on the top floor. Our food and beverage consultants are pushing for a larger kitchen, about 20 percent larger than what's currently shown. They say the current kitchen can support a 120-seat restaurant but they want capacity for 180 seats to make the venue commercially viable.
+[Eran]: A 20 percent larger kitchen means we're looking at roughly 40 additional square meters. That space has to come from somewhere on the top floor. The options are: reduce the restaurant seating area itself, which defeats the purpose. Reduce the outdoor terrace, which is one of the project's signature features. Or reduce the adjacent event space.
+[Khalid]: Don't touch the terrace. That view is our biggest selling point. What about the event space?
+[Eran]: The event space is currently 150 square meters. We could take 40 square meters from it, bringing it down to 110. That's still a functional event space for up to 80 people standing or 50 seated. But it limits the size of private events you can host.
+[Nadia]: I think that's acceptable. Private events are secondary to the restaurant for this property. Khalid, do you agree?
+[Khalid]: Yes, let's proceed with reducing the event space. Please update the floor plan for the April 16 presentation.
+[Eran]: Will do. Now I'd like to discuss the project budget. Khalid, you shared the target construction budget of $125 million at our last meeting. Based on our current design, our preliminary cost estimate is running at approximately $132 million. That's about 5.6 percent over the target.
+[Khalid]: Where is the overage concentrated?
+[Eran]: Three main areas. First, the facade system. The combination of the curtain wall, the terracotta screen on the hotel floors, and the stone cladding on the residential base is about $8 million more than a standard glass and aluminum facade. Second, the MEP systems for the hotel floors are more complex than a typical residential tower because of the commercial kitchen exhaust, the spa mechanical systems, and the centralized hot water plant. That adds about $4 million. Third, the site work and landscaping, including the terraced garden structures, is approximately $3 million over a typical podium landscape budget.
+[Khalid]: So we're looking at about $15 million in premium above a standard residential tower. And $7 million of that overage is beyond our target.
+[Eran]: Correct. We see a few paths to close the gap. One is to value-engineer the facade. We could use a high-quality aluminum composite panel on the back of the hotel tower instead of terracotta. That saves approximately $3 million with minimal visual impact since those elevations face a neighboring building.
+[Thanhthao]: We've done visualization studies showing this approach and honestly, from the key view corridors, you can't tell the difference. The terracotta is only visible from the marina approach and the main boulevard.
+[Khalid]: Interesting. What else?
+[Eran]: Second, we can simplify the terraced garden structures on floors 5 through 8. Instead of full structural planters with irrigation, we can use a lighter-weight planter system with drought-tolerant species. That saves about $1.5 million.
+[Eran]: Third, we can optimize the MEP systems. Laura Chen at Meridian has identified potential savings of $1 to $2 million through heat recovery systems and a more efficient kitchen exhaust design. She needs another two weeks to confirm the numbers.
+[Khalid]: So potentially $5.5 to $6.5 million in savings, which brings us close to the $125 million target. That's encouraging.
+[Nadia]: The aluminum panel substitution on the back elevations makes sense to me. But I want to make sure we're not compromising on the marina-facing facades. That's where the identity of the building lives.
+[Eran]: Absolutely. The marina-facing and boulevard-facing elevations would remain full terracotta. No compromise on those.
+[Khalid]: Let's proceed with these value engineering items. Please present the revised cost estimate in Dubai with the savings broken down by item. I'd also like to see a comparison table showing the original design, the value-engineered option, and any visual impact for each change.
+[Eran]: We'll have that ready for April 16. One more item. The project schedule. We're currently planning to complete Schematic Design by the end of May, which would put DD starting in June. Is that aligned with your expectations?
+[Khalid]: We'd like to see SD complete by mid-May if possible. Our board meets in June and I want to present a fully costed SD package for their approval. Without board approval, we can't proceed to DD.
+[Eran]: Mid-May is aggressive given the design changes we just discussed, but I think we can do it if we lock down the key decisions during the April trip. The ground floor arrival, the kitchen expansion, the value engineering items, all of that needs to be decided by April 17 so we can finalize the SD package in the four weeks that follow.
+[Khalid]: Understood. Let's use the April trip to make final decisions on all open items. Nadia, can you prepare a decision matrix with all the outstanding items?
+[Nadia]: I'll have it ready by April 10 and share it with ODA so they can prepare responses in advance.
+[Eran]: That would be very helpful. We'll prepare visual comparisons for every decision item so we can discuss with full information.
+[Khalid]: Excellent. Looking forward to seeing you both in Dubai. Thanhthao, please bring the physical presentation boards. We find those much more effective than screen presentations for our internal stakeholders.
+[Thanhthao]: Already in production. We'll ship them via FedEx with enough lead time for customs clearance.
+[Khalid]: Perfect. Thank you both. See you on the 15th.
+[Eran]: Thank you, Khalid, Nadia. Safe travels.
