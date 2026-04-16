@@ -154,7 +154,8 @@ const LESSONS = [
 <li>Type this prompt:
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a reply confirming I'll handle the action items mentioned above. Keep it brief and professional.</code></div></li>
 <li>Review the draft. Click <strong>Regenerate</strong> to see an alternative version. Compare the two and pick the better one.</li>
-<li>Do not send yet. Confirm that Copilot generated a usable draft with the correct tone and content.</li>
+<li>When you are happy with the draft, click <strong>Edit</strong> to place it into the email body. You can now make final tweaks manually.</li>
+<li>Click <strong>Send</strong> when ready — or close without sending if this was just practice.</li>
 </ol>
 
 <p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
@@ -163,30 +164,29 @@ const LESSONS = [
 
 <p class="personalization-note">[PERSONALIZED: swap with organization-specific email threads and stakeholder names from Listen Labs interviews]</p>
 
-<h4>Bonus: Inbox Triage</h4>
-<ol start="9">
-<li>Open Copilot Chat in the Outlook sidebar and type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What emails need my attention today? Prioritize by urgency.</code></div></li>
-<li>Review the prioritized list. Now send a follow-up:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Flag the two most urgent emails and archive anything older than a week that I haven't replied to.</code></div></li>
-<li>If Copilot flagged and archived correctly, triage is working. If not, try broader terms like "unread emails from my manager."</li>
-</ol>
-
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  Does the summary capture the key decisions — or did it miss something important? Is the draft reply ready to send, or does it need another pass? Look at your triaged inbox: would you trust this prioritization tomorrow morning? What would you change?
+  Does the summary capture the key decisions — or did it miss something important? Did you use Edit to place the draft into the email body? Is it ready to send, or does it need another pass?
 </div>
 `,
   advanced: `
-<h3>Going Deeper</h3>
-<h4>Auto-Reply Patterns</h4>
-<p>Set up Copilot-assisted auto-replies for recurring email types. For instance, when you receive meeting invitations for times you're busy, Copilot can suggest a polite decline with alternative times drawn from your calendar.</p>
+<h3>Inbox Triage with Copilot</h3>
+<p>Open Copilot Chat in the Outlook sidebar (or the Copilot app in Work mode) and try these triage commands:</p>
 
-<h4>Scheduled Send with AI Timing</h4>
-<p>Copilot can recommend optimal send times based on when recipients typically engage with email. Use <strong>Schedule Send</strong> and let Copilot suggest the best delivery window.</p>
+<h4>Prioritize Your Inbox</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What emails need my attention today? Prioritize by urgency.</code></div>
 
-<h4>Email Overload Management</h4>
-<p>Create a weekly ritual: every Friday, ask Copilot Chat <span class="inline-code">Show me threads I started this week that still have no response</span> to identify follow-ups you need to send. Pair this with <span class="inline-code">Summarize all action items assigned to me from this week's emails</span> to keep your commitments visible.</p>
+<h4>Bulk Actions</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Flag the two most urgent emails and archive anything older than a week that I haven't replied to.</code></div>
+
+<h4>Follow-Up Tracking</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Show me threads I started this week that still have no response. I need to follow up.</code></div>
+
+<h4>Weekly Email Audit</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize all action items assigned to me from this week's emails. Group them by project.</code></div>
+
+<h4>Voice Triage (Mobile)</h4>
+<p>On Outlook mobile, Copilot can read your unread emails aloud and let you reply, archive, or flag by voice — hands-free inbox management on your commute.</p>
 `
 },
 
