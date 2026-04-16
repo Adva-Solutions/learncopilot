@@ -96,7 +96,7 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
   </div>
   <div class="progress-bar-container">
     <div class="progress-info">
-      <span id="progressLabel">0 / 6 core steps</span>
+      <span id="progressLabel">0 / 5 core steps</span>
       <span id="progressPts">0 pts</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
@@ -108,8 +108,8 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
 </div>
 
 <script>
-const CORE_COUNT = 6;
-const CORE_POINTS = 125;
+const CORE_COUNT = 5;
+const CORE_POINTS = 105;
 let completed = JSON.parse(localStorage.getItem('apps-completed') || '[]');
 let currentLesson = 0;
 let currentTab = 'learn';
@@ -119,8 +119,24 @@ const LESSONS = [
 {
   id: 1, title: "Outlook Copilot", points: 20, bonus: false,
   learn: `
+<h3>Two Ways AI Works with Your Files</h3>
+<p>Before we dive into the apps, understand this key distinction — it changes how you approach every exercise in this module:</p>
+<table style="width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;">
+  <thead><tr style="border-bottom:2px solid var(--border);">
+    <th style="text-align:left;padding:8px 12px;"></th>
+    <th style="text-align:left;padding:8px 12px;">Upload to Copilot Chat</th>
+    <th style="text-align:left;padding:8px 12px;">Copilot Inside the App</th>
+  </tr></thead>
+  <tbody>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">How it works</td><td style="padding:8px 12px;">Attach a file to Chat. It reads a snapshot, answers questions, generates summaries.</td><td style="padding:8px 12px;">Copilot runs inside Excel, Word, or PowerPoint. It sees every cell, paragraph, and slide in real time.</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">What changes</td><td style="padding:8px 12px;">Nothing — the original file stays untouched.</td><td style="padding:8px 12px;">The file itself — formulas go into cells, text into paragraphs, slides get created.</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Best for</td><td style="padding:8px 12px;">Quick answers, one-off analysis, summaries</td><td style="padding:8px 12px;">Building, editing, iterating on a live document</td></tr>
+  </tbody>
+</table>
+<p><strong>Rule of thumb:</strong> Want an answer <em>about</em> a file? Upload to Chat. Want to change <em>inside</em> a file? Use the in-app Copilot. This module teaches the second approach — Copilot working directly inside your apps.</p>
+
 <h3>Copilot in Outlook</h3>
-<p>You've mastered Copilot Chat. Now let's put it to work inside the apps you use every day — starting with Outlook, where most of your day begins.</p>
+<p>Let's start with Outlook, where most of your day begins.</p>
 <p>Think of Copilot in Outlook as having a smart assistant who reads your email before you do and hands you a summary. You walk in, and your briefing is ready.</p>
 <p>Here are the three features you will use most:</p>
 
@@ -625,78 +641,7 @@ Dec	13200	10500</code></div></li>
 `
 },
 
-/* ===== LESSON 5: SharePoint ===== */
-{
-  id: 6, title: "SharePoint & Copilot", points: 20, bonus: false,
-  learn: `
-<h3>Your Organization's Knowledge Hub</h3>
-<p><em>You've used Copilot in five core apps. Now meet the platform behind them all — SharePoint is where your organization's files, sites, and knowledge live, and Copilot can work directly inside it.</em></p>
-
-<h4>What Copilot Does in SharePoint</h4>
-<ul>
-  <li><strong>AI-powered search:</strong> Ask questions about your SharePoint content in natural language — "Find the latest permit documents for the Fort Lauderdale project"</li>
-  <li><strong>Page creation:</strong> Describe what you want and Copilot generates a SharePoint page — layouts, content, and structure from a prompt</li>
-  <li><strong>Document summaries:</strong> Click on any document in a library and ask Copilot to summarize it without opening the file</li>
-  <li><strong>Create an agent:</strong> Build an AI assistant grounded on your SharePoint library's documents (see the screenshot — the "Create an agent" button appears right in your document library toolbar)</li>
-</ul>
-
-<h4>SharePoint + Agents</h4>
-<p>This is where SharePoint connects to the Agents module: you can create a Copilot agent directly from a SharePoint document library. The agent uses those documents as its knowledge base. Team members can then ask the agent questions and get answers grounded in your actual files — not generic AI responses.</p>
-
-<div class="tip-box">
-  <div class="tip-title">Key Insight</div>
-  <p>SharePoint is the foundation of Work mode in Copilot Chat. When you search in Work mode, Copilot is searching SharePoint (and OneDrive, Outlook, Teams) behind the scenes. The better organized your SharePoint sites are, the better ALL of Copilot works.</p>
-</div>
-`,
-  implement: `
-<h3>Explore Copilot in SharePoint</h3>
-
-<p><strong>1.</strong> Open <strong>SharePoint</strong> in your browser. Navigate to a site your team uses (or your organization's main portal).</p>
-
-<p><strong>2.</strong> Find a document library with files in it. Look for the <strong>AI actions</strong> or <strong>Copilot</strong> button in the toolbar above the file list.</p>
-
-<p><strong>3.</strong> Click on any document in the library (do not open it — just select it). Ask Copilot to summarize it:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize this document in 3 bullet points. What is the main topic, who is it for, and what action does it require?</code></div>
-
-<p><strong>4.</strong> Now try creating a SharePoint page. Click <strong>New &rarr; Page</strong> (or look for the AI-assisted page creation option). Describe what you want:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a project status page for the Riverside Tower project. Include sections for: Project Overview, Current Phase (Design Development), Key Milestones with dates, Team Contacts, and Open Issues. Use a clean layout with headers and a table for milestones.</code></div>
-
-<p><strong>5.</strong> Look for the <strong>"Create an agent"</strong> button in your document library toolbar. Click it and read the description — this creates an AI agent grounded on the documents in that library. (You do not need to create the agent now — just confirm you can see the option.)</p>
-
-<p><strong>6.</strong> Test the AI search. If your SharePoint site has a search bar, try a natural language query:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find all documents related to facade specifications or building envelope details uploaded in the last 3 months.</code></div>
-
-<p><strong>Iterate:</strong> Try searching for a document you know exists but can never find. Describe it by content, not filename:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find the spreadsheet that has our project budget breakdown by phase. I think it was shared by the operations team sometime this quarter.</code></div>
-
-<p class="personalization-note">[PERSONALIZED: swap SharePoint search prompts with organization-specific document libraries and project names from Listen Labs interviews]</p>
-
-<div class="note-box">
-  <strong>Success check:</strong> You should have: (1) summarized a document without opening it, (2) created or started creating a SharePoint page from a prompt, (3) confirmed the "Create an agent" option exists in your library, and (4) found a document using natural language search.
-</div>
-`,
-  advanced: `
-<h3>SharePoint Organization Tips for Better AI</h3>
-<p>Copilot's quality depends directly on how well your SharePoint is organized:</p>
-<ul>
-  <li><strong>Descriptive filenames:</strong> "2026-Q1-Facade-Specs-Riverside.pdf" beats "Document1-final-v3.pdf"</li>
-  <li><strong>Metadata columns:</strong> Add columns like Project, Phase, Document Type to your libraries. Copilot uses metadata for more precise search.</li>
-  <li><strong>Consistent folder structure:</strong> Organize by project &rarr; phase &rarr; document type. Everyone finds files faster.</li>
-  <li><strong>Store in SharePoint, not local drives:</strong> Files on your desktop are invisible to Copilot. Move shared files to SharePoint so the whole team benefits.</li>
-</ul>
-
-<h3>Creating Agents from Document Libraries</h3>
-<p>When you click "Create an agent" in a SharePoint library, Copilot Studio opens with that library pre-loaded as the agent's knowledge source. You can then:</p>
-<ul>
-  <li>Add custom instructions (e.g., "always cite the document name and page number")</li>
-  <li>Define conversation starters ("What are our project standards for exterior cladding?")</li>
-  <li>Share the agent with your team via a link or embed it in a Teams channel</li>
-</ul>
-<p>This bridges the Apps module and the Agents module — SharePoint provides the knowledge, Copilot Studio provides the agent interface.</p>
-`
-},
-
-/* ===== LESSON 6 ===== */
+/* ===== LESSON 5 (BONUS) ===== */
 {
   id: 9, title: "App Champion Challenge", points: 25, bonus: true,
   learn: `
@@ -764,22 +709,14 @@ Dec	13200	10500</code></div></li>
 <h4>Measuring Impact</h4>
 <p>Track the time savings and quality improvements from your Copilot workflows. Concrete metrics (e.g., "reduced report creation from 4 hours to 45 minutes") make a compelling case for broader adoption.</p>
 
-<h3>Two Ways to Use AI with Your Data</h3>
-<p>Throughout this module, you have been using Copilot in two fundamentally different ways. Understanding the distinction helps you pick the right approach for every task:</p>
-<table style="width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;">
-  <thead><tr style="border-bottom:2px solid var(--border);">
-    <th style="text-align:left;padding:8px 12px;"></th>
-    <th style="text-align:left;padding:8px 12px;">Upload to Copilot Chat</th>
-    <th style="text-align:left;padding:8px 12px;">Copilot Inside the App</th>
-  </tr></thead>
-  <tbody>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">How it works</td><td style="padding:8px 12px;">You attach a file to Copilot Chat. It reads a snapshot, answers questions, generates charts or summaries.</td><td style="padding:8px 12px;">Copilot runs as a sidebar inside Excel, Word, or PowerPoint. It sees every cell, every paragraph, every slide in real time.</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">What changes</td><td style="padding:8px 12px;">Nothing. The original file stays untouched. You get a response in chat.</td><td style="padding:8px 12px;">The file itself. Formulas go into cells, text goes into paragraphs, slides get created. Changes happen in the live document.</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Best for</td><td style="padding:8px 12px;">Quick answers, one-off analysis, visualizations, summaries you will not repeat</td><td style="padding:8px 12px;">Building, editing, iterating on a workbook or document you are actively working in</td></tr>
-    <tr><td style="padding:8px 12px;font-weight:600;">Context</td><td style="padding:8px 12px;">Works with a copy of the data at the moment you upload</td><td style="padding:8px 12px;">Sees the live file — every sheet, every formula, every change you make</td></tr>
-  </tbody>
-</table>
-<p><strong>Rule of thumb:</strong> If you want an answer <em>about</em> a file, upload to Chat. If you want to change <em>inside</em> a file, use the in-app Copilot. Other AI tools (like Claude) offer similar dual modes via add-ins — but Copilot's in-app experience is native and built into your Microsoft 365 license, with no extra installation needed.</p>
+<h3>Beyond Copilot: Other AI Tools in Your Office Apps</h3>
+<p>Copilot is not the only AI that works inside Microsoft Office. Other AI providers have built dedicated <strong>add-ins</strong> (plugins) that embed directly into Excel, Word, and PowerPoint:</p>
+<ul>
+  <li><strong>Claude (Anthropic)</strong> — Has native add-ins for Excel, PowerPoint, and Word. Each runs as a sidebar inside the app, reads the live file, and writes changes back. Claude's add-ins share context across apps — an analysis in Excel can inform a memo it drafts in Word. Particularly strong for nuanced writing and editing.</li>
+  <li><strong>ChatGPT (OpenAI)</strong> — Also available as an Office add-in for similar in-app AI assistance.</li>
+</ul>
+<p>These add-ins coexist with Copilot — you can have both installed. Use Copilot for deep Microsoft Graph integration (email, calendar, Teams, SharePoint) and try Claude or ChatGPT add-ins when you want a second opinion, a different writing style, or a specific model's strengths.</p>
+<p>To install: go to <strong>Home &rarr; Add-ins</strong> in any Office app and search for "Claude" or "ChatGPT."</p>
 `
 }
 ];
