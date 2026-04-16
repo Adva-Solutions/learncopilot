@@ -446,7 +446,15 @@ const LESSONS = [
 <h4>Top Bar</h4>
 <ul>
   <li><strong>Work / Web toggle (top center):</strong> The most important control. <strong>Work</strong> searches your organization's data — emails, files, Teams chats, SharePoint. <strong>Web</strong> searches the public internet. You will master this in Lesson 2.</li>
-  <li><strong>Auto (model selector, top right):</strong> Shows which AI model Copilot is using. Usually set to "Auto" which picks the best model per task. You do not need to change this.</li>
+  <li><strong>Auto (model selector, top right):</strong> Click this dropdown to choose how Copilot thinks:
+    <ul>
+      <li><strong>Auto</strong> — Copilot decides how long to think. Best default for most tasks.</li>
+      <li><strong>Quick Response</strong> — Answers right away. Use for simple questions, lookups, and reformatting.</li>
+      <li><strong>Think Deeper</strong> — Takes more time for better answers. Use for complex analysis, strategy, multi-step reasoning, or when you need Copilot to really think through a problem.</li>
+      <li><strong>Sonnet (Claude)</strong> — Anthropic's Claude model. Try it for writing, editing, and nuanced communication.</li>
+      <li><strong>GPT (OpenAI)</strong> — OpenAI's GPT model. The default behind Auto for most tasks.</li>
+    </ul>
+  </li>
   <li><strong>Edit / Compose icons (top right):</strong> Start a new composition or edit mode. The pencil icon opens a fresh editing canvas.</li>
   <li><strong>Three-dot menu (far right):</strong> Opens a dropdown with: <strong>Recent pages</strong>, <strong>Scheduled prompts</strong> (set up recurring AI tasks), <strong>Send feedback</strong>, <strong>Settings</strong> (Custom Instructions, Memory, preferences), <strong>Quick Help</strong>, and a <strong>Web search</strong> toggle that controls whether Copilot includes web results in its responses.</li>
 </ul>
@@ -534,15 +542,28 @@ const LESSONS = [
 
 <p><strong>15.</strong> Now click one of the <strong>quick action pills</strong> — try <strong>Summarize</strong>. When prompted, paste any block of text (an email, a paragraph from a document, or even the response Copilot just gave you). See how the pill shortcut works differently from typing a prompt.</p>
 
+<h4>Try the Model Selector</h4>
+<p><strong>16.</strong> Click <strong>Auto</strong> in the top right to open the model dropdown. Switch to <strong>Think Deeper</strong>. Send this prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the pros and cons of using precast concrete vs. terracotta rainscreen panels for a residential tower facade? Consider cost, durability, aesthetics, maintenance, and sustainability. Think through each factor carefully.</code></div>
+<p><strong>17.</strong> Read the response — it should be more thorough and structured than a Quick Response would be.</p>
+<p><strong>18.</strong> Switch back to <strong>Auto</strong> when you are done. Auto is the best default for everyday use — save Think Deeper for complex questions that need real analysis.</p>
+
 <div class="note-box">
-  <strong>Success check:</strong> You have now touched every part of the interface: top bar (Work/Web toggle, model selector, settings), left sidebar (Search, Create, Agents, Notebooks, chat history), chat area (message box, attachments, microphone, voice mode, quick action pills), and Settings (Custom Instructions, Memory). You have a complete map. Everything from here builds on what you just explored.
+  <strong>Success check:</strong> You have now touched every part of the interface: top bar (Work/Web toggle, model selector with Think Deeper, settings), left sidebar (Search, Create, Agents, Notebooks, chat history), chat area (message box, attachments, microphone, voice mode, quick action pills), and Settings (Custom Instructions, Memory). You have a complete map.
 </div>
 
 <button class="mark-complete-btn" id="complete-btn-0" onclick="markComplete(0)">Mark Complete</button>
 `,
   advanced: `
-<h3>Model Selection</h3>
-<p>Microsoft Copilot uses different models depending on the task. The primary model is GPT-4o, but Research mode and other features may use different underlying models. You cannot directly choose which model runs, but knowing this helps you understand why different features produce different quality outputs.</p>
+<h3>Model Selection Deep Dive</h3>
+<p>Copilot now gives you direct control over which model runs. <strong>Auto</strong> is the smart default — it picks the right model and thinking time per task. But when you need specific behavior:</p>
+<ul>
+  <li><strong>Quick Response:</strong> Fastest. Use for simple rewrites, lookups, and formatting. Does not think deeply.</li>
+  <li><strong>Think Deeper:</strong> Slower but significantly better for complex reasoning, analysis, strategy, and multi-step problems. Use when the answer matters and you have 30 seconds to wait.</li>
+  <li><strong>Sonnet (Claude):</strong> Anthropic's model. Often produces more natural, nuanced writing. Try it for emails, memos, and communications where tone matters.</li>
+  <li><strong>GPT (OpenAI):</strong> The default behind Auto. Strong all-rounder. Expandable — click the arrow to see specific GPT versions.</li>
+</ul>
+<p>Experiment: ask the same complex question with Quick Response, then Think Deeper. Compare the depth and quality. The difference is dramatic for anything beyond simple lookups.</p>
 
 <h3>Privacy Controls</h3>
 <p>In Settings, review the privacy and data controls. Your organization's admin sets the baseline, but you can often control things like whether Copilot stores conversation history and how Memory data is managed. Enterprise Copilot does not train on your data — your prompts and files stay within your tenant.</p>
@@ -979,9 +1000,16 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <p>Forget digging through folders. Copilot Search understands what you <strong>mean</strong>, not just what you type. Instead of searching "Q4 budget spreadsheet marketing," you ask: "Find the budget spreadsheet the marketing team shared last quarter."</p>
 
+<h4>The / (Slash) Commands</h4>
+<p>Type <strong>/</strong> (forward slash) in the message box to access powerful shortcuts:</p>
+<ul>
+  <li><strong>/</strong> — Opens a menu of quick actions: search files, reference documents, and more</li>
+  <li><strong>Schedule a meeting:</strong> Type something like "Schedule a meeting with Sarah and Keith next Tuesday at 2 PM to discuss the facade review" — Copilot checks everyone's calendar availability, finds a time that works, and creates the invite. This is one of the most useful features for anyone who spends time coordinating calendars.</li>
+</ul>
+
 <h4>Two Ways to Search</h4>
 <ul>
-  <li><strong>From the chat:</strong> Type <strong>/</strong> (forward slash) in the message box to start a search directly from any conversation. Or simply ask in Work mode: "Find the document about..."</li>
+  <li><strong>From the chat:</strong> Type <strong>/</strong> in the message box or simply ask in Work mode: "Find the document about..."</li>
   <li><strong>From the sidebar:</strong> Click <strong>Search</strong> in the left sidebar to search your past Copilot conversations.</li>
 </ul>
 
@@ -1035,6 +1063,11 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <h4>Exercise 4: Meeting Search</h4>
 <p><strong>7.</strong> Send:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Search my recent Teams meetings for any discussion about project timelines or deadlines. What was decided and who has outstanding action items?</code></div>
+
+<h4>Exercise 5: Schedule a Meeting</h4>
+<p><strong>8.</strong> Try Copilot's scheduling. Send this (replace the names with real colleagues):</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Schedule a 30-minute meeting with [name 1] and [name 2] sometime next week to discuss the facade material review. Check everyone's availability and suggest the best time.</code></div>
+<p><strong>9.</strong> Copilot will check calendars and propose a time. Review the suggestion — if it works, confirm and Copilot creates the calendar invite with an agenda.</p>
 
 <p><strong>Iterate:</strong> Try combining search types — find a file, then ask about the person who created it, then ask about meetings where that topic was discussed:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Connect the dots: find the latest permit submission document, tell me who submitted it, and search for any meetings in the last month where permit timelines were discussed.</code></div>
