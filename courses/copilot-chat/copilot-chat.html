@@ -878,23 +878,76 @@ When the interview is complete, output the results formatted as a Copilot Custom
   implement: `
 <h3>Create, Edit, and Share a Page</h3>
 
-<p><strong>1.</strong> Open Copilot Chat. Send this prompt to generate useful content:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a project plan for organizing a team training session on AI tools. Include: objectives (3 bullet points), logistics checklist (5 items), a 2-hour agenda outline, and a list of materials needed.</code></div>
+<p>Pages turn throwaway chat responses into living documents you can share and collaborate on. Pick your role below to create a Page tailored to your work:</p>
 
-<p><strong>2.</strong> Read the response. At the bottom, click <strong>"Edit in Pages"</strong> (or the Page icon).</p>
+<div class="option-tabs" id="options-3">
+  <button class="option-btn active" onclick="switchOption(3,'arch',this)">Architecture</button>
+  <button class="option-btn" onclick="switchOption(3,'hr',this)">HR</button>
+  <button class="option-btn" onclick="switchOption(3,'mktg',this)">Marketing</button>
+  <button class="option-btn" onclick="switchOption(3,'exec',this)">Executive</button>
+  <button class="option-btn" onclick="switchOption(3,'ops',this)">Operations</button>
+</div>
 
-<p><strong>3.</strong> A Copilot Page opens. Add your own heading at the bottom: type <strong>## Assigned Roles</strong> and add 3 bullet points with team member names.</p>
-
+<div class="option-content active" id="option-3-arch">
+<h4>Architecture: Design Review Summary Page</h4>
+<p><strong>1.</strong> Open Copilot Chat. Send this prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a meeting summary for a facade material review meeting. Include: project name (use "Riverside Tower"), decisions made (selected terracotta rainscreen over aluminum curtain wall), action items organized by consultant (structural engineer to confirm load capacity, envelope consultant to provide updated details, cost estimator to revise budget), and next milestones (design development submission in 3 weeks).</code></div>
+<p><strong>2.</strong> Read the response. At the bottom, click <strong>"Edit in Pages"</strong>.</p>
+<p><strong>3.</strong> In the Page, add your own heading: type <strong>## Open Questions</strong> and list 2-3 unresolved items from the review (e.g., color sample approval, mock-up schedule).</p>
 <p><strong>4.</strong> Use Copilot on the Page. Click the Copilot icon and type:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a section called "Follow-Up Actions" with 5 post-training tasks including sending a feedback survey, sharing recorded sessions, and scheduling a 2-week check-in.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a section called "Consultant Responsibility Matrix" with a table listing each consultant, their action items, deadlines, and status column.</code></div>
+<p><strong>5.</strong> Click <strong>Share</strong> (top right). Copy the link and paste it into a Teams channel for the project team.</p>
+</div>
 
-<p><strong>5.</strong> Click <strong>Share</strong> (top right). Copy the link.</p>
+<div class="option-content" id="option-3-hr" style="display:none">
+<h4>HR: New Hire Onboarding Checklist Page</h4>
+<p><strong>1.</strong> Open Copilot Chat. Send this prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a new hire onboarding checklist for a Designer joining the Residential Studio. Include sections for: Role Details (title, department, start date, manager), Software Access (list 6 architecture tools like Revit, Rhino, Bluebeam, Adobe Creative Suite, Microsoft 365, project management tool), First-Week Meetings (5 meetings with team lead, HR orientation, IT setup, studio tour, mentor intro), and Mentor Assignment (mentor name placeholder, weekly check-in schedule, 30-60-90 day goals).</code></div>
+<p><strong>2.</strong> Read the response. At the bottom, click <strong>"Edit in Pages"</strong>.</p>
+<p><strong>3.</strong> In the Page, add your own heading: type <strong>## HR Notes</strong> and add notes about benefits enrollment deadline and parking pass request.</p>
+<p><strong>4.</strong> Use Copilot on the Page. Click the Copilot icon and type:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Pre-Start Checklist" section at the top with tasks HR must complete before the new hire's first day — offer letter signed, background check cleared, workstation ordered, email account created, building access card requested.</code></div>
+<p><strong>5.</strong> Click <strong>Share</strong> (top right). Copy the link and send it to the hiring manager.</p>
+</div>
 
-<p><strong>Iterate:</strong> Ask Copilot on the Page to add one more section:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a section about next steps for rolling this training out to other teams.</code></div>
+<div class="option-content" id="option-3-mktg" style="display:none">
+<h4>Marketing: Award Submission Tracker Page</h4>
+<p><strong>1.</strong> Open Copilot Chat. Send this prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an award submission tracker table for our architecture firm's completed projects. Include columns for: Project Name, Award Name (e.g., AIA Design Award, Architizer A+, SARA NY), Submission Deadline, Submission Status (Not Started / In Progress / Submitted), Materials Needed (photos, drawings, narrative, project data), and Assigned To. Add 4 sample rows with realistic architecture award names and staggered deadlines.</code></div>
+<p><strong>2.</strong> Read the response. At the bottom, click <strong>"Edit in Pages"</strong>.</p>
+<p><strong>3.</strong> In the Page, add your own heading: type <strong>## Photography Schedule</strong> and list 2-3 projects that need professional photography before submission.</p>
+<p><strong>4.</strong> Use Copilot on the Page. Click the Copilot icon and type:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Narrative Templates" section with a brief outline of what a typical award submission narrative should cover: project overview (2 sentences), design challenge, design solution, community impact, and sustainability features.</code></div>
+<p><strong>5.</strong> Click <strong>Share</strong> (top right). Copy the link and share it with the marketing team channel.</p>
+</div>
+
+<div class="option-content" id="option-3-exec" style="display:none">
+<h4>Executive: Weekly Project Status Dashboard Page</h4>
+<p><strong>1.</strong> Open Copilot Chat. Send this prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a weekly project status dashboard for an architecture firm's leadership team. Include: an Active Projects Table with columns for Project Name, Phase (SD/DD/CD/CA), Status (On Track / At Risk / Behind), Budget Status (On Budget / Over / Under), Timeline (target completion date), and Project Lead. Add 5 sample rows with realistic project names. Below the table, add sections for "Decisions Needed This Week" (3 items) and "Top Risks" (3 risks with mitigation notes).</code></div>
+<p><strong>2.</strong> Read the response. At the bottom, click <strong>"Edit in Pages"</strong>.</p>
+<p><strong>3.</strong> In the Page, add your own heading: type <strong>## Pipeline Update</strong> and note any new proposals submitted or RFPs in progress.</p>
+<p><strong>4.</strong> Use Copilot on the Page. Click the Copilot icon and type:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Staffing Snapshot" section with a summary of current team utilization — how many people are fully allocated vs. available for new work, and any hiring needs.</code></div>
+<p><strong>5.</strong> Click <strong>Share</strong> (top right). Copy the link and distribute it before the weekly leadership meeting.</p>
+</div>
+
+<div class="option-content" id="option-3-ops" style="display:none">
+<h4>Operations: Resource Allocation Overview Page</h4>
+<p><strong>1.</strong> Open Copilot Chat. Send this prompt:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a resource allocation overview for an architecture firm's operations team. Include: a Team Members Table with columns for Name, Role, Current Project Assignment(s), Utilization Rate (percentage), and Upcoming Availability (date available or "Fully allocated through [date]"). Add 8 sample rows with a mix of architects, designers, and project managers at varying utilization levels. Below the table, add a "Reallocation Opportunities" section identifying team members who could shift to understaffed projects.</code></div>
+<p><strong>2.</strong> Read the response. At the bottom, click <strong>"Edit in Pages"</strong>.</p>
+<p><strong>3.</strong> In the Page, add your own heading: type <strong>## Upcoming Project Starts</strong> and list 2-3 projects kicking off in the next month that will need staffing.</p>
+<p><strong>4.</strong> Use Copilot on the Page. Click the Copilot icon and type:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Contractor & Temp Staffing" section with guidelines for when to bring in contract support — utilization thresholds, preferred vendors, and approval process.</code></div>
+<p><strong>5.</strong> Click <strong>Share</strong> (top right). Copy the link and share it with project managers before the weekly resourcing meeting.</p>
+</div>
+
+<p><strong>Iterate:</strong> Ask Copilot on the Page to refine your content:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Reorganize this Page with the most actionable items at the top and reference material at the bottom.</code></div>
 
 <div class="note-box">
-  <strong>Success check:</strong> Your Page should have AI-generated content + your manual edits + a shareable link. Three sources of content on one collaborative Page.
+  <strong>Success check:</strong> Your Page should have AI-generated content + your manual edits + a shareable link. Three sources of content on one collaborative Page. Could a teammate open this link and immediately understand the status without asking you a question?
 </div>
 
 <p class="personalization-note">[PERSONALIZED: swap the Page creation topic with organization-specific deliverable types from Listen Labs interviews]</p>

@@ -224,44 +224,107 @@ const LESSONS = [
 `,
   implement: `
 <h3>Exercise: Draft, Rewrite, and Agent-Edit in Word</h3>
-<p>You summarized an email thread in the last step. Now imagine turning that summary into a full memo.</p>
+<p>You summarized an email thread in the last step. Now imagine turning that summary into a full memo. Pick your role below to get a tailored drafting exercise:</p>
 
+<div class="option-tabs">
+  <button class="option-tab active" onclick="switchOption(1,'a',this)">Architecture</button>
+  <button class="option-tab" onclick="switchOption(1,'b',this)">HR</button>
+  <button class="option-tab" onclick="switchOption(1,'c',this)">Marketing</button>
+  <button class="option-tab" onclick="switchOption(1,'d',this)">Executive</button>
+  <button class="option-tab" onclick="switchOption(1,'e',this)">Operations</button>
+</div>
+
+<div class="option-content active" data-lesson="1" data-key="a">
+<h4>Architecture: Consultant Coordination Memo</h4>
 <ol>
 <li>Open <strong>Word</strong>. Create a new blank document.</li>
 <li>Click the <strong>Copilot icon</strong> in the Home ribbon tab.</li>
 <li>Type this prompt:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a one-page project status update. The project is 'Office Renovation' which is 60% complete, on budget, but 2 weeks behind schedule due to permit delays. Include sections for Summary, Progress, Risks, and Next Steps.</div></li>
-<li>Read what Copilot generates. Confirm it created real structure with headers (Summary, Progress, Risks, Next Steps).</li>
-<li>Select the entire <strong>Risks</strong> section. Right-click and choose <strong>Rewrite with Copilot</strong>.</li>
-<li>Choose <strong>"Make it more formal"</strong> from the tone options.</li>
-<li>Compare the original Risks text with the rewritten version. The vocabulary should be more professional and the sentences more structured.</li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a consultant coordination memo regarding facade waterproofing issues on the Riverside Tower project. Include these sections: Project Name and Number, Issue Description (water infiltration detected at curtain wall transitions during envelope testing), Consultant Actions Needed (envelope consultant to review detail revisions, structural engineer to confirm backup wall capacity, waterproofing sub to propose remediation), Deadline (responses needed within 10 business days), and Next Steps. Use a professional but direct tone.</div></li>
+<li>Read what Copilot generates. Confirm it created real structure with headers and specific consultant responsibilities.</li>
+<li>Select the <strong>Issue Description</strong> section. Right-click and choose <strong>Rewrite with Copilot</strong>. Choose <strong>"Make it more formal"</strong>.</li>
+<li>Compare the original with the rewritten version. The vocabulary should be more technical and precise.</li>
 </ol>
+<p><strong>Agent Mode:</strong> Click the Copilot icon and type:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Edit this document: add an Executive Summary at the top (2 sentences), and add a responsibility matrix table at the bottom listing each consultant, their action item, and deadline.</div>
+<p><strong>Iterate:</strong> Refine the output:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Make the action items more specific — include exact deliverable names and reference any applicable building code sections.</div>
+</div>
 
-<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Make this more concise — cut anything that doesn't directly support the main point.</div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add specific metrics or data points where possible.</div>
-
-<h4>Agent Mode: Multi-Step Edit</h4>
-<ol start="8">
-<li>Click the Copilot icon again and type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Edit this document: add an Executive Summary at the top that's 2 sentences long, and add a timeline table at the bottom with milestones for the next 4 weeks.</div></li>
-<li>Watch as Copilot makes multiple edits across the document. It should add content at the top AND bottom. This is Agent Mode in action.</li>
-<li>Verify: The document should now have an Executive Summary paragraph at the top and a 4-row table at the bottom.</li>
+<div class="option-content" data-lesson="1" data-key="b">
+<h4>HR: Employee Policy Update Memo</h4>
+<ol>
+<li>Open <strong>Word</strong>. Create a new blank document.</li>
+<li>Click the <strong>Copilot icon</strong> in the Home ribbon tab.</li>
+<li>Type this prompt:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft an employee policy update memo announcing new remote work guidelines. Include these sections: Subject Line, Effective Date (May 1, 2026), Who It Applies To (all full-time employees), Key Changes (hybrid schedule now 3 days in-office / 2 days remote, core hours 10am-3pm on in-office days, remote work from outside the state requires manager approval), How to Request Exceptions, and Contact for Questions. Keep the tone professional but approachable.</div></li>
+<li>Read what Copilot generates. Confirm it created clear sections with all the policy details.</li>
+<li>Select the <strong>Key Changes</strong> section. Right-click and choose <strong>Rewrite with Copilot</strong>. Choose <strong>"Make it more concise"</strong>.</li>
+<li>Compare the original with the rewritten version. The bullet points should be tighter.</li>
 </ol>
+<p><strong>Agent Mode:</strong> Click the Copilot icon and type:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Edit this document: add an FAQ section at the bottom with 5 common questions employees might have about the new policy, and add a brief leadership message at the top from the Head of HR.</div>
+<p><strong>Iterate:</strong> Refine the output:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Make the tone warmer — this should feel supportive, not bureaucratic. Add a sentence about how the firm values flexibility.</div>
+</div>
 
-<h4>Bonus: Tone Flip</h4>
-<ol start="11">
-<li>Select the full document text. Click the Copilot icon and type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Rewrite this in a casual, friendly tone suitable for a team Slack message. Cut the length in half.</div></li>
-<li>Compare before and after. The language should shift from formal business writing to conversational.</li>
+<div class="option-content" data-lesson="1" data-key="c">
+<h4>Marketing: Project Case Study Narrative</h4>
+<ol>
+<li>Open <strong>Word</strong>. Create a new blank document.</li>
+<li>Click the <strong>Copilot icon</strong> in the Home ribbon tab.</li>
+<li>Type this prompt:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a case study narrative for a completed architecture project. The project is "Harbor View Residences," a 200-unit waterfront residential building. Include these sections: Project Overview (2 paragraphs — location, program, client), Design Challenges (tight site, flood zone requirements, community opposition to height), Design Solutions (stepped massing, elevated ground floor, public waterfront promenade), Outcomes (LEED Gold, 95% sold before completion, AIA merit award), and a placeholder for a Client Quote. Write in a polished editorial tone suitable for the firm's website.</div></li>
+<li>Read what Copilot generates. Confirm it created a compelling narrative with all requested sections.</li>
+<li>Select the <strong>Design Solutions</strong> section. Right-click and choose <strong>Rewrite with Copilot</strong>. Choose <strong>"Make it more enthusiastic"</strong>.</li>
+<li>Compare the versions. The rewrite should feel more like a design story and less like a report.</li>
 </ol>
+<p><strong>Agent Mode:</strong> Click the Copilot icon and type:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Edit this document: add a "Project Data" sidebar section with key metrics (total SF, unit count, project timeline, budget range) and add pull-quote placeholders throughout the narrative.</div>
+<p><strong>Iterate:</strong> Refine the output:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Tighten the opening paragraph — lead with the most striking design feature, not the address. Make a reader want to keep reading.</div>
+</div>
+
+<div class="option-content" data-lesson="1" data-key="d">
+<h4>Executive: Board Briefing Memo</h4>
+<ol>
+<li>Open <strong>Word</strong>. Create a new blank document.</li>
+<li>Click the <strong>Copilot icon</strong> in the Home ribbon tab.</li>
+<li>Type this prompt:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a board briefing memo for an architecture firm's quarterly meeting. Include these sections: Executive Summary (2-3 sentences on overall firm health), Project Pipeline Status (8 active projects, 3 in proposals, 2 recently completed — summarize in a table), Revenue Update (Q1 revenue at $4.2M vs. $3.8M target, backlog at $12M), Strategic Decision Needed (whether to open a second office — present pros, cons, estimated cost, and a recommendation), and Next Quarter Priorities (3 items). Use a concise executive tone — no fluff.</div></li>
+<li>Read what Copilot generates. Confirm it created a decision-ready memo with clear structure.</li>
+<li>Select the <strong>Strategic Decision</strong> section. Right-click and choose <strong>Rewrite with Copilot</strong>. Choose <strong>"Make it more formal"</strong>.</li>
+<li>Compare the versions. The rewrite should sound boardroom-ready.</li>
+</ol>
+<p><strong>Agent Mode:</strong> Click the Copilot icon and type:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Edit this document: add a financial summary table at the top comparing this quarter to last quarter, and add a risk register section at the bottom with the top 3 firm-level risks and mitigation status.</div>
+<p><strong>Iterate:</strong> Refine the output:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Strengthen the recommendation in the Strategic Decision section — be more direct about which option you recommend and why. Add a one-sentence ROI estimate.</div>
+</div>
+
+<div class="option-content" data-lesson="1" data-key="e">
+<h4>Operations: Project Handoff Document</h4>
+<ol>
+<li>Open <strong>Word</strong>. Create a new blank document.</li>
+<li>Click the <strong>Copilot icon</strong> in the Home ribbon tab.</li>
+<li>Type this prompt:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Draft a project handoff document for transferring project lead responsibilities on "Central Park Mixed-Use Tower" from the current PM to a new PM. Include these sections: Project Summary (project name, client, phase, key dates), Open Items (list 6 pending tasks — permit resubmission, consultant invoice review, client presentation prep, spec section updates, RFI responses, site visit scheduling), Key Contacts (table with client, structural engineer, MEP consultant, contractor, and their contact info placeholders), Pending Deliverables (table with deliverable name, due date, status, notes), and Transition Timeline (2-week overlap plan). Use a clear, operational tone.</div></li>
+<li>Read what Copilot generates. Confirm it created a comprehensive handoff with tables and specific action items.</li>
+<li>Select the <strong>Open Items</strong> section. Right-click and choose <strong>Rewrite with Copilot</strong>. Choose <strong>"Make it more concise"</strong>.</li>
+<li>Compare the versions. Each open item should be a clear one-liner, not a paragraph.</li>
+</ol>
+<p><strong>Agent Mode:</strong> Click the Copilot icon and type:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Edit this document: add a "File Locations" section listing where all project files live (SharePoint site, Revit model server, Bluebeam sessions, email folders), and add a "Lessons Learned" section with 3 things the outgoing PM would want the incoming PM to know.</div>
+<p><strong>Iterate:</strong> Refine the output:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Add priority flags (High/Medium/Low) to each open item and sort them by deadline.</div>
+</div>
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
   Does the document read like something you would actually send? Is the structure clear enough that a reader could skim headings and get the full picture? Did Agent Mode place edits where you expected — or did it surprise you? What would you refine before sharing this with a stakeholder?
 </div>
 
-<p class="personalization-note">[PERSONALIZED: swap the Office Renovation scenario with organization-specific document types and project names from Listen Labs interviews]</p>
+<p class="personalization-note">[PERSONALIZED: swap the scenario with organization-specific document types and project names from Listen Labs interviews]</p>
 `,
   advanced: `
 <h3>Going Deeper</h3>
