@@ -96,7 +96,7 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
   </div>
   <div class="progress-bar-container">
     <div class="progress-info">
-      <span id="progressLabel">0 / 8 core steps</span>
+      <span id="progressLabel">0 / 6 core steps</span>
       <span id="progressPts">0 pts</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
@@ -108,8 +108,8 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
 </div>
 
 <script>
-const CORE_COUNT = 8;
-const CORE_POINTS = 160;
+const CORE_COUNT = 6;
+const CORE_POINTS = 125;
 let completed = JSON.parse(localStorage.getItem('apps-completed') || '[]');
 let currentLesson = 0;
 let currentTab = 'learn';
@@ -614,332 +614,78 @@ Dec	13200	10500</code></div></li>
 `
 },
 
-/* ===== LESSON 5 ===== */
+/* ===== LESSON 5: SharePoint ===== */
 {
-  id: 6, title: "Cross-App Workflows", points: 25, bonus: false,
+  id: 6, title: "SharePoint & Copilot", points: 20, bonus: false,
   learn: `
-<h3>Cross-App Workflows</h3>
-<p>You've used Copilot in five apps individually. The real power is chaining them together.</p>
-<p>Think of cross-app workflows like an assembly line — each app handles one step, and the output flows to the next. Outlook gathers the raw material, Word shapes it, Excel validates it, PowerPoint packages it, and Teams delivers it.</p>
+<h3>Your Organization's Knowledge Hub</h3>
+<p><em>You've used Copilot in five core apps. Now meet the platform behind them all — SharePoint is where your organization's files, sites, and knowledge live, and Copilot can work directly inside it.</em></p>
 
-<h4>The Pattern</h4>
-<p>Most Copilot workflows follow this flow:</p>
-<ol>
-  <li><strong>Gather</strong> (Outlook/Teams) &mdash; collect information from emails and meetings</li>
-  <li><strong>Draft</strong> (Word/Excel) &mdash; create documents or analyze data</li>
-  <li><strong>Present</strong> (PowerPoint) &mdash; turn your draft into slides</li>
-  <li><strong>Share</strong> (Teams/Pages) &mdash; distribute and collaborate</li>
-</ol>
-<p>When you reference a Word document in a PowerPoint prompt, or ask Copilot in Teams about an email, it understands the full context across apps.</p>
+<h4>What Copilot Does in SharePoint</h4>
+<ul>
+  <li><strong>AI-powered search:</strong> Ask questions about your SharePoint content in natural language — "Find the latest permit documents for the Fort Lauderdale project"</li>
+  <li><strong>Page creation:</strong> Describe what you want and Copilot generates a SharePoint page — layouts, content, and structure from a prompt</li>
+  <li><strong>Document summaries:</strong> Click on any document in a library and ask Copilot to summarize it without opening the file</li>
+  <li><strong>Create an agent:</strong> Build an AI assistant grounded on your SharePoint library's documents (see the screenshot — the "Create an agent" button appears right in your document library toolbar)</li>
+</ul>
 
-<h4>Copilot Pages</h4>
-<p>Pages are the shared hub for cross-app work. Any time Copilot generates something useful, click <strong>"Edit in Pages"</strong> to save it as a living, collaborative document. Share it in a Teams chat or channel so others can build on it.</p>
+<h4>SharePoint + Agents</h4>
+<p>This is where SharePoint connects to the Agents module: you can create a Copilot agent directly from a SharePoint document library. The agent uses those documents as its knowledge base. Team members can then ask the agent questions and get answers grounded in your actual files — not generic AI responses.</p>
 
 <div class="tip-box">
-  <div class="tip-title">Tip</div>
-  Think of each app as a specialist: Outlook is your comms analyst, Excel is your data scientist, Word is your writer, PowerPoint is your designer, and Teams is your project manager. Copilot lets them all talk to each other.
+  <div class="tip-title">Key Insight</div>
+  <p>SharePoint is the foundation of Work mode in Copilot Chat. When you search in Work mode, Copilot is searching SharePoint (and OneDrive, Outlook, Teams) behind the scenes. The better organized your SharePoint sites are, the better ALL of Copilot works.</p>
 </div>
 `,
   implement: `
-<h3>Exercise: Multi-App Workflow by Role</h3>
-<p>Remember the 'You Ask Me' technique from the Chat module? Use it here to scope your workflow before executing.</p>
-<p>Pick the role closest to yours. Each tab walks through a complete multi-app pipeline specific to that role at ODA.</p>
+<h3>Explore Copilot in SharePoint</h3>
 
-<div class="option-tabs">
-  <button class="option-tab active" onclick="switchOption(5,'a',this)">Architecture</button>
-  <button class="option-tab" onclick="switchOption(5,'b',this)">HR</button>
-  <button class="option-tab" onclick="switchOption(5,'c',this)">Marketing</button>
-  <button class="option-tab" onclick="switchOption(5,'d',this)">Executive</button>
-  <button class="option-tab" onclick="switchOption(5,'e',this)">Operations</button>
-</div>
+<p><strong>1.</strong> Open <strong>SharePoint</strong> in your browser. Navigate to a site your team uses (or your organization's main portal).</p>
 
-<div class="option-content active" data-lesson="5" data-key="a">
-<h4>Architecture: Facade Material Recommendation Workflow</h4>
-<ol>
-<li><strong>Copilot Chat (Web mode):</strong> Start with research:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Research the latest facade material options for residential high-rises — compare aluminum curtain wall, precast concrete, and terracotta rainscreen systems. Include cost per square foot, maintenance requirements, and energy performance ratings.</code></div></li>
-<li><strong>Word:</strong> Draft the recommendation memo:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the facade research, draft a 1-page design recommendation memo for the project team. Include: Executive Summary, Material Comparison Table, Our Recommendation with Justification, and Next Steps for consultant coordination.</code></div></li>
-<li><strong>PowerPoint:</strong> Create the client presentation:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a 5-slide design presentation from this memo for the client review meeting. Include material photos or descriptions, the comparison table, and our recommendation.</code></div></li>
-<li><strong>Outlook:</strong> Share with the team:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft an email to the project team and facade consultant sharing the memo and presentation. Subject: "Facade Material Recommendation — Review by Friday." Keep it brief.</code></div></li>
-</ol>
+<p><strong>2.</strong> Find a document library with files in it. Look for the <strong>AI actions</strong> or <strong>Copilot</strong> button in the toolbar above the file list.</p>
 
-<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make the timeline slide more visual — use a Gantt-style layout if possible.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add specific square footage and budget figures where placeholders appear.</code></div>
-</div>
+<p><strong>3.</strong> Click on any document in the library (do not open it — just select it). Ask Copilot to summarize it:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize this document in 3 bullet points. What is the main topic, who is it for, and what action does it require?</code></div>
 
-<div class="option-content" data-lesson="5" data-key="b">
-<h4>HR: Onboarding Package Pipeline</h4>
-<p class="personalization-note">[PERSONALIZED: swap with organization-specific onboarding steps and HR documents from Listen Labs interviews]</p>
-<ol>
-<li><strong>Outlook:</strong> Search for recent onboarding-related emails. Ask Copilot:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find emails about new hire onboarding from the past month. Summarize the key logistics, deadlines, and any unresolved questions.</code></div></li>
-<li><strong>Word:</strong> Draft the onboarding guide:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a new employee onboarding guide for ODA. Include: Welcome Message, First Week Schedule, Key Contacts, IT Setup Checklist, and HR Policies Overview.</code></div></li>
-<li><strong>PowerPoint:</strong> Create the orientation deck:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a 7-slide new hire orientation presentation from /Onboarding Guide.docx. Make it welcoming and visual with the company culture front and center.</code></div></li>
-<li><strong>Teams:</strong> Share in the HR channel and ask Copilot:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a message to the HR team introducing the new onboarding package and asking for feedback by Friday.</code></div></li>
-</ol>
+<p><strong>4.</strong> Now try creating a SharePoint page. Click <strong>New &rarr; Page</strong> (or look for the AI-assisted page creation option). Describe what you want:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a project status page for the Riverside Tower project. Include sections for: Project Overview, Current Phase (Design Development), Key Milestones with dates, Team Contacts, and Open Issues. Use a clean layout with headers and a table for milestones.</code></div>
 
-<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make the first-week schedule more specific — add times, locations, and contact names.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a 30-60-90 day milestone checklist to the onboarding guide.</code></div>
-</div>
+<p><strong>5.</strong> Look for the <strong>"Create an agent"</strong> button in your document library toolbar. Click it and read the description — this creates an AI agent grounded on the documents in that library. (You do not need to create the agent now — just confirm you can see the option.)</p>
 
-<div class="option-content" data-lesson="5" data-key="c">
-<h4>Marketing: Campaign Brief to Launch</h4>
-<p class="personalization-note">[PERSONALIZED: swap with organization-specific campaign types and brand guidelines from Listen Labs interviews]</p>
-<ol>
-<li><strong>Copilot Chat:</strong> Research the campaign topic:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Research the top 3 trends in sustainable architecture marketing for 2026. Include statistics on client preferences and digital engagement in the AEC industry.</code></div></li>
-<li><strong>Word:</strong> Draft the campaign brief:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a marketing campaign brief for ODA's sustainability practice. Include: Campaign Objective, Target Audience, Key Messages, Channels, Timeline, and Success Metrics. Use these research findings: [paste findings].</code></div></li>
-<li><strong>Excel:</strong> Build the budget:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a campaign budget table with columns: Channel, Estimated Spend, Expected Reach, Cost Per Lead. Add rows for LinkedIn, Email, Website, Events, and PR.</code></div></li>
-<li><strong>PowerPoint:</strong> Pitch the campaign:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a 5-slide campaign pitch deck from /Campaign Brief.docx. Focus on the business case, creative direction, and expected ROI. Make it compelling for leadership approval.</code></div></li>
-</ol>
+<p><strong>6.</strong> Test the AI search. If your SharePoint site has a search bar, try a natural language query:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find all documents related to facade specifications or building envelope details uploaded in the last 3 months.</code></div>
 
-<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add competitor examples to the creative direction slide.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make the ROI projections more conservative and add a risk scenario.</code></div>
-</div>
+<p><strong>Iterate:</strong> Try searching for a document you know exists but can never find. Describe it by content, not filename:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find the spreadsheet that has our project budget breakdown by phase. I think it was shared by the operations team sometime this quarter.</code></div>
 
-<div class="option-content" data-lesson="5" data-key="d">
-<h4>Executive: Quarterly Business Review</h4>
-<p class="personalization-note">[PERSONALIZED: swap with organization-specific KPIs and review cadence from Listen Labs interviews]</p>
-<ol>
-<li><strong>Copilot Chat (Work mode):</strong> Gather context:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize key themes from my emails and meetings over the past month related to project status, revenue, risks, and team capacity.</code></div></li>
-<li><strong>Excel:</strong> Analyze the numbers:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize this data. What are the top 3 trends, any areas of concern, and how does this quarter compare to last quarter?</code></div></li>
-<li><strong>Word:</strong> Draft the QBR document:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a quarterly business review document. Include: Executive Summary, Key Metrics (use these numbers: [paste Excel findings]), Accomplishments, Risks, and Next Quarter Priorities.</code></div></li>
-<li><strong>PowerPoint:</strong> Build the leadership deck:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a leadership-ready presentation from /QBR Document.docx. Focus on metrics, risks, and priorities. Keep it to 6 slides with clear data visualizations.</code></div></li>
-</ol>
+<p class="personalization-note">[PERSONALIZED: swap SharePoint search prompts with organization-specific document libraries and project names from Listen Labs interviews]</p>
 
-<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Strengthen the Executive Summary — lead with the single most important takeaway.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add year-over-year comparisons to every metric slide.</code></div>
-</div>
-
-<div class="option-content" data-lesson="5" data-key="e">
-<h4>Operations: Vendor Review Pipeline</h4>
-<p class="personalization-note">[PERSONALIZED: swap with organization-specific vendor types and evaluation criteria from Listen Labs interviews]</p>
-<ol>
-<li><strong>Outlook:</strong> Gather vendor communications:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find all emails from vendors or about vendor contracts in the past 60 days. Summarize the key issues, pending decisions, and renewal dates.</code></div></li>
-<li><strong>Excel:</strong> Build the comparison:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a vendor comparison table with columns: Vendor Name, Service Category, Annual Cost, Contract End Date, Performance Rating (1-5), and Renewal Recommendation.</code></div></li>
-<li><strong>Word:</strong> Draft the review:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a vendor review memo for leadership. Include: Overview of Current Vendors, Performance Summary, Cost Analysis, Recommended Changes, and Action Items. Reference the vendor comparison data.</code></div></li>
-<li><strong>PowerPoint:</strong> Present findings:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a 5-slide vendor review presentation from /Vendor Review Memo.docx. Highlight cost savings opportunities and underperforming contracts. Include a recommendation slide.</code></div></li>
-</ol>
-
-<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a total cost savings projection if we implement all recommended vendor changes.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Flag any contracts expiring in the next 90 days that need immediate attention.</code></div>
-</div>
-
-<div class="tip-box">
-  <div class="tip-title">Success Check</div>
-  Did data actually flow between apps — or did you start fresh in each one? Could you trace a line from the first input to the final output? Is the presentation something you would share with a real stakeholder, or does it need another round? What step in the pipeline felt weakest?
+<div class="note-box">
+  <strong>Success check:</strong> You should have: (1) summarized a document without opening it, (2) created or started creating a SharePoint page from a prompt, (3) confirmed the "Create an agent" option exists in your library, and (4) found a document using natural language search.
 </div>
 `,
   advanced: `
-<h3>Going Deeper</h3>
-<h4>Power Automate Integration</h4>
-<p>Create automated workflows that trigger Copilot actions. For example: when a new email arrives from a specific client, automatically summarize it and post the summary to a Teams channel.</p>
+<h3>SharePoint Organization Tips for Better AI</h3>
+<p>Copilot's quality depends directly on how well your SharePoint is organized:</p>
+<ul>
+  <li><strong>Descriptive filenames:</strong> "2026-Q1-Facade-Specs-Riverside.pdf" beats "Document1-final-v3.pdf"</li>
+  <li><strong>Metadata columns:</strong> Add columns like Project, Phase, Document Type to your libraries. Copilot uses metadata for more precise search.</li>
+  <li><strong>Consistent folder structure:</strong> Organize by project &rarr; phase &rarr; document type. Everyone finds files faster.</li>
+  <li><strong>Store in SharePoint, not local drives:</strong> Files on your desktop are invisible to Copilot. Move shared files to SharePoint so the whole team benefits.</li>
+</ul>
 
-<h4>Reusable Workflow Templates</h4>
-<p>Document your most common multi-app workflows as templates. Include the prompts you use at each step so team members can replicate the workflow. Store these in a shared Copilot Page or SharePoint site.</p>
-
-<h4>Measuring Workflow Efficiency</h4>
-<p>Track how long tasks take before and after implementing Copilot workflows. Common benchmarks: 50-70% reduction in report creation time, 30-40% faster email processing, 60% faster presentation creation.</p>
+<h3>Creating Agents from Document Libraries</h3>
+<p>When you click "Create an agent" in a SharePoint library, Copilot Studio opens with that library pre-loaded as the agent's knowledge source. You can then:</p>
+<ul>
+  <li>Add custom instructions (e.g., "always cite the document name and page number")</li>
+  <li>Define conversation starters ("What are our project standards for exterior cladding?")</li>
+  <li>Share the agent with your team via a link or embed it in a Teams channel</li>
+</ul>
+<p>This bridges the Apps module and the Agents module — SharePoint provides the knowledge, Copilot Studio provides the agent interface.</p>
 `
 },
 
 /* ===== LESSON 6 ===== */
-{
-  id: 7, title: "Copilot Search", points: 15, bonus: false,
-  learn: `
-<h3>Copilot Search: Find Anything in Your Organization</h3>
-<p>You've been working in apps. But what if you can't find the file you need? Copilot Search finds anything in your organization.</p>
-<p>Think of Copilot Search as a librarian who has read every document in your company. You don't need the exact title — just describe what you're looking for, and they'll find it.</p>
-
-<h4>How It's Different from Regular Search</h4>
-<p>Microsoft Search matches keywords. Copilot Search understands <strong>intent</strong>. Instead of searching "Q4 budget spreadsheet marketing," you can ask: <span class="inline-code">Find the budget spreadsheet the marketing team shared last quarter</span>. Copilot searches across OneDrive, SharePoint, Outlook, Teams, and 100+ connected data sources simultaneously.</p>
-
-<h4>What You Can Search For</h4>
-<ul>
-  <li><strong>Files:</strong> "Find the proposal we sent to the client in March" — even if you don't remember the filename</li>
-  <li><strong>Emails:</strong> "Show me emails from Sarah about the vendor contract" — across your entire mailbox</li>
-  <li><strong>Meetings:</strong> "When did we last discuss the rebranding?" — searches meeting transcripts and notes</li>
-  <li><strong>People:</strong> "Who in our org has experience with sustainability reporting?" — finds experts by their document history</li>
-</ul>
-
-<h4>Natural Language Queries</h4>
-<p>The real power is that you search the way you think. Examples:</p>
-<ul>
-  <li><span class="inline-code">Where is the spreadsheet that breaks down marketing ROI by region?</span></li>
-  <li><span class="inline-code">Show me everything related to the Fort Lauderdale project from the last 2 months</span></li>
-  <li><span class="inline-code">What was decided in last Tuesday's meeting about the new hire?</span></li>
-</ul>
-
-<div class="tip-box">
-  <div class="tip-title">For Teams with Disorganized File Servers</div>
-  <p>If your shared drive or server has years of accumulated folders with inconsistent naming, Copilot Search is your best friend. Instead of manually browsing folder trees, ask: "Find the latest facade details for the Fort Lauderdale project" or "Show me all RFP responses we submitted in the last year." Copilot searches by content, not just filename — so even poorly named files can be found if the content matches.</p>
-</div>
-
-<h4>SharePoint AI Pages (NEW 2026)</h4>
-<p>You can now create SharePoint pages using natural language: "Create a project status page with timeline, team members, and deliverables." Copilot generates the page layout and pulls relevant content from your org data.</p>
-
-<div class="tip-box">
-  <div class="tip-title">Tip</div>
-  Copilot Search is available at no extra cost with your M365 Copilot license. Access it through the Copilot app on desktop, web, or mobile. The more organized your org's content (descriptive filenames, SharePoint over personal drives), the better results you get.
-</div>
-`,
-  implement: `
-<h3>Exercise: Enterprise Search with Copilot</h3>
-
-<ol>
-<li>Open <strong>Copilot Chat</strong> in Work mode (in Teams or at microsoft365.com/chat). Make sure "Work" is selected, not "Web."</li>
-<li>Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find all documents related to our active residential projects that were modified in the last 30 days. Include permit submissions, consultant correspondence, and design review notes.</code></div></li>
-<li>Check: Does Copilot return a list of real files you recognize? If yes, your organizational data is well-indexed. If the list is empty, try "files I created" instead of "edited."</li>
-</ol>
-
-<h4>SharePoint Search</h4>
-<ol start="4">
-<li>Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Search SharePoint for any files related to 'budget' or 'quarterly report'. Show me the 5 most recent.</code></div></li>
-<li>Check: Did Copilot return file names with locations? Click on one of the links to confirm it opens the correct file.</li>
-</ol>
-
-<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>From those results, show me only files I authored or co-authored, sorted by most recent.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Which of these documents have been updated by someone else since I last opened them?</code></div>
-
-<h4>People Discovery</h4>
-<ol start="6">
-<li>Pick a topic relevant to your work (e.g., "data migration," "product launch," "compliance"). Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Who in my organization has worked on documents about project documentation, consultant coordination, or design reviews? List their names and which files they edited.</code></div>
-<p class="personalization-note">[PERSONALIZED: swap topic keywords above with organization-specific expertise areas from Listen Labs interviews]</p></li>
-<li>If Copilot returns names, follow up:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What was the most recent document [first person's name] shared about this topic?</code></div></li>
-<li>Check: Did Copilot find a specific file with a date? If yes, people discovery is working.</li>
-</ol>
-
-<h4>Narrowing Results</h4>
-<ol start="9">
-<li>If any previous search returned too many results, practice narrowing:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>From those results, show me only PowerPoint files modified in the last 2 weeks.</code></div></li>
-<li>Copilot should filter the results. If it cannot, rephrase as a fresh query with all constraints included.</li>
-</ol>
-
-<div class="tip-box">
-  <div class="tip-title">Success Check</div>
-  Did Copilot find files you had forgotten about? Were the search results accurate enough to be useful, or did you need multiple attempts to narrow down? Could you find the right person for a question faster this way than by asking around? What search would save you the most time if you ran it every week?
-</div>
-`,
-  advanced: `
-<h3>Going Deeper</h3>
-<h4>Knowledge Management Strategies</h4>
-<p>Optimize your organization's content for Copilot discovery: use descriptive filenames, maintain consistent folder structures, and ensure important documents are stored in SharePoint rather than personal OneDrive folders.</p>
-
-<h4>Optimizing SharePoint for Copilot</h4>
-<p>Structure your SharePoint sites with clear navigation, metadata, and content types. Copilot uses this structure to understand the relationships between documents and provide more relevant search results.</p>
-
-<h4>Content Governance</h4>
-<p>Implement content lifecycle policies to keep your organization's knowledge current. Archive outdated documents, update stale content, and ensure sensitive information has appropriate access controls. Clean data produces better Copilot results.</p>
-`
-},
-
-/* ===== LESSON 7 ===== */
-{
-  id: 8, title: "Pages & Shared Outputs", points: 15, bonus: false,
-  learn: `
-<h3>Pages & Shared Outputs</h3>
-<p>You've created outputs in every app. Pages let you share AI-generated work without opening another app.</p>
-<p>Think of Pages as a shared whiteboard that remembers everything. You pin your best Copilot outputs there, your team adds to them, and the result is a living document that grows smarter over time.</p>
-
-<h4>How They Work</h4>
-<p>When Copilot generates something useful in any app&mdash;a summary, a plan, a table&mdash;click <strong>"Edit in Pages"</strong> to save it as a persistent, editable document. From there you can continue editing with Copilot or manually, share it via link with colleagues who can also edit, and drop it into a Teams chat for discussion.</p>
-
-<h4>Real-Time Collaboration</h4>
-<p>Multiple people can edit a Page simultaneously. Think of it as a lightweight collaborative document that is faster to create than a Word doc but more persistent than a chat message.</p>
-
-<h4>Notebooks (NEW)</h4>
-<p>Copilot Notebooks are a space for longer-form AI work. You can ground Copilot agents on notebook content&mdash;meaning the AI references your accumulated notes when answering questions. When you are ready to formalize, export to Word or PowerPoint.</p>
-
-<h4>OneDrive Sharing with Copilot Summaries (NEW)</h4>
-<p>When you share a file from OneDrive or the Windows share dialog, Copilot can now generate a summary alongside the file. Recipients see a brief AI-generated description of the content before even opening it &mdash; useful for large documents or spreadsheets where the key takeaway is not obvious from the filename.</p>
-
-<div class="tip-box">
-  <div class="tip-title">Tip</div>
-  Use Pages for work in progress&mdash;meeting prep, brainstorms, research. When the content matures, export to a formal Word document or PowerPoint deck. Pages bridge thinking and publishing.
-</div>
-`,
-  implement: `
-<h3>Exercise: Create, Edit, and Share a Copilot Page</h3>
-
-<h4>Create a Page</h4>
-<ol>
-<li>Open <strong>Copilot Chat</strong> (in Teams or at microsoft365.com/chat).</li>
-<li>Have a conversation that produces useful content. Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a project plan for organizing a team offsite. Include objectives, logistics checklist, agenda outline, and budget categories.</code></div>
-<p class="personalization-note">[PERSONALIZED: swap offsite topic with organization-specific recurring planning tasks from Listen Labs interviews]</p></li>
-<li>At the bottom of the response, look for the <strong>"Edit in Pages"</strong> button. Click it.</li>
-<li>A Copilot Page opens in a new view. Confirm you can see the project plan content displayed as an editable document.</li>
-</ol>
-
-<h4>Edit the Page</h4>
-<ol start="5">
-<li>Click at the bottom of the Page content. Type a new heading: <strong>## Next Steps</strong></li>
-<li>Below it, add 3 bullet points manually:
-  <ul><li>- Confirm venue by Friday</li><li>- Send calendar invites to all participants</li><li>- Finalize catering vendor</li></ul></li>
-<li>Now use Copilot on the Page. Click the Copilot icon and type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a section about team-building activities suitable for a group of 20 people. Include both indoor and outdoor options.</code></div></li>
-<li>Check: The Page should now have your manual edits AND the Copilot-generated activities section.</li>
-</ol>
-
-<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Reorganize this Page with the most actionable items at the top and reference material at the bottom.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a status column to the checklist so the team can track progress.</code></div>
-
-<h4>Share the Page</h4>
-<ol start="9">
-<li>Click <strong>Share</strong> (top right of the Page).</li>
-<li>Copy the link.</li>
-<li>Paste the link into a Teams chat or save it in your browser bookmarks.</li>
-<li>This Page is now a living document. Anyone with the link can view it. Collaborators with edit access can modify it.</li>
-</ol>
-
-<div class="tip-box">
-  <div class="tip-title">Success Check</div>
-  Is this Page useful enough that a teammate would actually bookmark it? Does mixing your manual edits with Copilot content feel seamless, or can you tell where the AI stops and you start? Would this Page replace an existing document or process on your team? What would make it more valuable?
-</div>
-`,
-  advanced: `
-<h3>Going Deeper</h3>
-<h4>Pages as Team Knowledge Bases</h4>
-<p>Create a set of living Pages for your team: one for meeting decisions, one for project status, one for FAQs. Update them regularly from Copilot conversations to keep them current.</p>
-
-<h4>Project Planning with Pages</h4>
-<p>Use Pages as collaborative project planning spaces. Start with Copilot-generated plans, then refine them as a team. The combination of AI speed and human judgment produces better plans than either alone.</p>
-
-<h4>Notebooks to Formal Documents</h4>
-<p>Use Notebooks for extended research and brainstorming sessions. When you are ready to publish, export to Word for formatting or PowerPoint for presentation. This workflow keeps your messy thinking separate from your polished output.</p>
-`
-},
-
-/* ===== LESSON 8 ===== */
 {
   id: 9, title: "App Champion Challenge", points: 25, bonus: true,
   learn: `
@@ -1006,78 +752,6 @@ Dec	13200	10500</code></div></li>
 
 <h4>Measuring Impact</h4>
 <p>Track the time savings and quality improvements from your Copilot workflows. Concrete metrics (e.g., "reduced report creation from 4 hours to 45 minutes") make a compelling case for broader adoption.</p>
-`
-},
-
-/* ===== LESSON 9 ===== */
-{
-  id: 10, title: "Team Workflow Design", points: 15, bonus: true,
-  learn: `
-<h3>Bonus: Team Workflow Design</h3>
-<p>You've built your own workflows and proven they work. Now scale that knowledge — design a workflow someone else can run without you in the room.</p>
-<p>Think of this as writing a recipe. Anyone should be able to follow the steps, use the same prompts, and get a consistent result — even if they've never used Copilot before.</p>
-<p>In this challenge, you will pick your most time-consuming recurring task, build a step-by-step Copilot workflow for it, test every prompt, and share the template with your team.</p>
-`,
-  implement: `
-<h3>Bonus: Design a Repeatable Team Workflow</h3>
-<p>This challenge is open-ended, but starts with a concrete template you fill in.</p>
-
-<h4>Step 1: Pick Your Recurring Task</h4>
-<ol>
-<li>Think of a task you or your team repeats weekly or monthly that involves at least 2 M365 apps and takes 15+ minutes. Examples: weekly status report, client meeting prep, monthly expense review.</li>
-<li>Write down the task name and which apps are involved.</li>
-</ol>
-
-<h4>Step 2: Generate the Template</h4>
-<ol start="3">
-<li>Open <strong>Copilot Chat</strong> or a <strong>Word document</strong> with Copilot. Type this prompt, replacing the bracketed text with your actual task:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>I am a project architect at ODA, a global architecture and design firm. Help me create a workflow template for a recurring task related to client presentations, RFP proposals, and award submissions.
-
-Structure the template with:
-- Workflow Name
-- Trigger (what starts it, e.g., "Every Friday at 2pm")
-- Apps Used
-- Prerequisites (files, access, data needed)
-- Step-by-step Instructions with the exact Copilot prompt for each step
-- Expected Output
-- Estimated Time</code></div></li>
-<li>Review the template. Replace any generic placeholder text with your real prompts and file names.</li>
-</ol>
-
-<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make each step more specific — include exact menu locations and button names so a beginner could follow along.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a troubleshooting section for common issues at each step.</code></div>
-
-<h4>Step 3: Test Each Prompt</h4>
-<ol start="5">
-<li>Open each app listed in the template and run the Copilot prompts one by one.</li>
-<li>For each prompt, rate the output: did it produce what the template promised? If not, revise the prompt and test again.</li>
-<li>Update the template with the tested, working prompts.</li>
-</ol>
-
-<h4>Step 4: Polish and Share</h4>
-<ol start="8">
-<li>Ask Copilot to review your template:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Review this workflow template and improve it for clarity. Ensure each step is specific enough that someone unfamiliar with the process could follow it without asking questions.</code></div></li>
-<li>Save the template as a Copilot Page or Word document.</li>
-<li>Share the link in a Teams channel or send it to a colleague and ask them to try following it.</li>
-</ol>
-
-<div class="tip-box">
-  <div class="tip-title">Success Check</div>
-  Could a teammate follow your template without asking you a single question? Did every prompt produce the expected output on the first try, or did you need to revise? What would break if someone ran this workflow with different data or a different project? Is this template worth maintaining, or was it a one-time exercise?
-</div>
-`,
-  advanced: `
-<h3>Going Deeper</h3>
-<h4>Training Colleagues</h4>
-<p>Host a short "Copilot Tips" session for your team. Walk through your workflow template live, showing the prompts and outputs at each step. Hands-on demonstration is the most effective way to drive adoption.</p>
-
-<h4>Measuring Adoption</h4>
-<p>Track how many team members use your workflow template and collect feedback. Use Microsoft Viva Insights or simple polls to measure time savings and satisfaction.</p>
-
-<h4>Building a Workflow Library</h4>
-<p>Encourage team members to create their own workflow templates. Collect them in a shared SharePoint site organized by department and task type. Over time, this becomes a valuable knowledge base that accelerates onboarding and standardizes best practices.</p>
 `
 }
 ];
