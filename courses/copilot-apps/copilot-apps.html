@@ -33,6 +33,13 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
 .points { margin-left: auto; font-size: 0.75rem; color: #999; white-space: nowrap; }
 .label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+/* Sidebar footer (nav links) */
+.sidebar-footer { margin-top: auto; padding: 14px 20px 16px; border-top: 1px solid #ddd8ce; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+.sidebar-footer a { color: #217346; text-decoration: none; font-weight: 600; }
+.sidebar-footer a:hover { text-decoration: underline; }
+.sidebar-footer .logout-link { color: #888; font-weight: 500; cursor: pointer; }
+.sidebar-footer .logout-link:hover { color: #1a1a2e; }
+
 /* Main */
 .main { margin-left: 300px; flex: 1; padding: 40px 48px; max-width: 900px; }
 .step-header { margin-bottom: 28px; }
@@ -102,6 +109,10 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
   </div>
   <div id="navList"></div>
+  <div class="sidebar-footer">
+    <a href="/">&#8592; All Courses</a>
+    <a class="logout-link" onclick="logout()">Sign out</a>
+  </div>
 </aside>
 
 <main class="main" id="lessonContent"></main>
@@ -876,6 +887,13 @@ function syncProgress() {
       body: JSON.stringify(body)
     }).catch(err => console.warn('Progress sync failed:', err));
   }, 250);
+}
+
+function logout() {
+  fetch('/api/logout').then(() => {
+    localStorage.removeItem('workshop_user');
+    window.location.href = '/login.html';
+  });
 }
 
 /* Init */

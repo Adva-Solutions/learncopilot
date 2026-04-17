@@ -425,6 +425,23 @@ body {
 .quiz-question label { display: block; padding: 6px 0; cursor: pointer; }
 .quiz-question input[type="radio"] { margin-right: 8px; }
 
+/* Sidebar footer (nav links) */
+.sidebar-footer {
+  margin-top: auto;
+  padding: 14px 20px 16px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px;
+}
+.sidebar-footer a {
+  color: var(--accent); text-decoration: none; font-weight: 600;
+}
+.sidebar-footer a:hover { text-decoration: underline; }
+.sidebar-footer .logout-link {
+  color: var(--text-muted, #888); font-weight: 500; cursor: pointer;
+}
+.sidebar-footer .logout-link:hover { color: var(--text, #1a1a2e); }
+
 /* Responsive */
 @media (max-width: 900px) {
   body { flex-direction: column; }
@@ -449,6 +466,10 @@ body {
   </div>
   <div class="nav-section-label">Core Steps</div>
   <div id="nav-list"></div>
+  <div class="sidebar-footer">
+    <a href="/">&#8592; All Courses</a>
+    <a class="logout-link" onclick="logout()">Sign out</a>
+  </div>
 </aside>
 
 <div class="main" id="main-content">
@@ -1701,6 +1722,13 @@ function copyCode(btn) {
   }).catch(function() {
     btn.textContent = 'Failed';
     setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+  });
+}
+
+function logout() {
+  fetch('/api/logout').then(function() {
+    localStorage.removeItem('workshop_user');
+    window.location.href = '/login.html';
   });
 }
 

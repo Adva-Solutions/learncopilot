@@ -164,15 +164,29 @@
     border-top: 1px solid #ddd8ce;
     font-size: 13px;
     color: #888;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .sidebar-footer a {
     color: #7b5ea7;
     text-decoration: none;
+    font-weight: 600;
   }
 
   .sidebar-footer a:hover {
     text-decoration: underline;
+  }
+
+  .sidebar-footer .logout-link {
+    color: #888;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .sidebar-footer .logout-link:hover {
+    color: #1a1a2e;
   }
 
   /* ── Main Content ── */
@@ -562,6 +576,7 @@
     <nav class="sidebar-nav" id="sidebar-nav"></nav>
     <div class="sidebar-footer">
       <a href="/">&#8592; All Courses</a>
+      <a class="logout-link" onclick="logout()">Sign out</a>
     </div>
   </aside>
 
@@ -2105,6 +2120,14 @@ function copyCode(btn) {
   navigator.clipboard.writeText(pre.textContent).then(() => {
     btn.textContent = 'Copied!';
     setTimeout(() => btn.textContent = 'Copy', 1500);
+  });
+}
+
+/* ── Logout ── */
+function logout() {
+  fetch('/api/logout').then(() => {
+    localStorage.removeItem('workshop_user');
+    window.location.href = '/login.html';
   });
 }
 
