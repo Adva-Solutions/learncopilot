@@ -33,6 +33,15 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
 .points { margin-left: auto; font-size: 0.75rem; color: #999; white-space: nowrap; }
 .label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+/* Interactive exercise checklists */
+.exercise-check { list-style: none; padding: 0; margin: 12px 0 18px; counter-reset: item; }
+.exercise-check > li { margin: 8px 0; padding: 10px 14px; background: #fafafa; border: 1px solid #ddd8ce; border-radius: 6px; transition: background 0.15s ease; }
+.exercise-check > li:hover { background: #f5f5f0; }
+.exercise-check label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; font-size: 0.95rem; line-height: 1.55; }
+.exercise-check input[type="checkbox"] { margin-top: 3px; width: 16px; height: 16px; accent-color: #217346; flex-shrink: 0; cursor: pointer; }
+.exercise-check label:has(input:checked) { color: #888; }
+.exercise-check label:has(input:checked) strong { color: #888; }
+
 /* Sidebar footer (nav links) */
 .sidebar-footer { margin-top: auto; padding: 14px 20px 16px; border-top: 1px solid #ddd8ce; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
 .sidebar-footer a { color: #217346; text-decoration: none; font-weight: 600; }
@@ -690,7 +699,7 @@ Dec 2025	480000	420000	12	70</code></div></li>
 
 /* ===== LESSON 5 (BONUS) ===== */
 {
-  id: 9, title: "App Champion Challenge", points: 25, bonus: true,
+  id: 6, title: "App Champion Challenge", points: 25, bonus: true,
   learn: `
 <h3>Bonus: App Champion Challenge</h3>
 <p>You've built workflows across apps and searched your entire organization. Now prove you can do it end-to-end with your own real work — no hand-holding.</p>
@@ -826,6 +835,62 @@ function renderLesson() {
 
   html += '</div>';
   main.innerHTML = html;
+
+  if (currentTab === 'implement') {
+    transformExerciseLists();
+    restoreExerciseChecks();
+  }
+}
+
+/* Convert <ol> blocks in the Exercises tab into interactive checklists.
+   Each <li> becomes a <label>-wrapped checkbox. Inline children (code
+   blocks, <div>, nested lists) are preserved. */
+function transformExerciseLists() {
+  const scope = document.querySelector('#lessonContent .content');
+  if (!scope) return;
+  scope.querySelectorAll('ol').forEach(ol => {
+    if (ol.closest('.exercise-check')) return; // already converted / nested
+    const ul = document.createElement('ul');
+    ul.className = 'exercise-check';
+    [...ol.children].forEach(li => {
+      if (li.tagName !== 'LI') return;
+      const newLi = document.createElement('li');
+      const label = document.createElement('label');
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      label.appendChild(cb);
+      const span = document.createElement('span');
+      while (li.firstChild) span.appendChild(li.firstChild);
+      label.appendChild(span);
+      newLi.appendChild(label);
+      ul.appendChild(newLi);
+    });
+    ol.replaceWith(ul);
+  });
+}
+
+/* Persistence for exercise checkboxes, keyed by lesson index. */
+function loadExerciseChecks() {
+  try { return JSON.parse(localStorage.getItem('apps-exercise-checks') || '{}'); }
+  catch { return {}; }
+}
+function saveExerciseChecks(all) {
+  localStorage.setItem('apps-exercise-checks', JSON.stringify(all));
+}
+function restoreExerciseChecks() {
+  const all = loadExerciseChecks();
+  const mine = all[currentLesson] || [];
+  const boxes = document.querySelectorAll('.exercise-check input[type="checkbox"]');
+  boxes.forEach((cb, i) => {
+    cb.checked = !!mine[i];
+    cb.addEventListener('change', () => {
+      const state = loadExerciseChecks();
+      const arr = state[currentLesson] || [];
+      arr[i] = cb.checked;
+      state[currentLesson] = arr;
+      saveExerciseChecks(state);
+    });
+  });
 }
 
 function switchTab(tab) {
