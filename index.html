@@ -333,6 +333,9 @@
 
 <footer class="footer">
   Prepared by <a href="https://adva-solutions.com" target="_blank">Adva Solutions</a>
+  <span id="reset-wrap" style="margin-left:18px; display:none;">
+    &middot; <a class="footer-reset" onclick="resetMyProgress()" style="cursor:pointer; color:#bbb;">Reset my progress</a>
+  </span>
 </footer>
 
 <script>
@@ -359,6 +362,37 @@ function logout() {
   });
 }
 
+/* Self-serve progress reset (student-facing).
+   Clears the three completion keys and exercise ticks, then posts
+   empty state to the server so the Progress Board reflects the reset. */
+async function resetMyProgress() {
+  const anyProgress =
+    (JSON.parse(localStorage.getItem('chat-completed-v2') || '[]').length +
+     JSON.parse(localStorage.getItem('apps-completed') || '[]').length +
+     JSON.parse(localStorage.getItem('agents-completed') || '[]').length) > 0;
+  if (!anyProgress) {
+    alert('No progress to reset.');
+    return;
+  }
+  if (!confirm('Reset all your workshop progress? This cannot be undone.')) return;
+  localStorage.removeItem('chat-completed-v2');
+  localStorage.removeItem('apps-completed');
+  localStorage.removeItem('agents-completed');
+  localStorage.removeItem('chat-exercise-checks');
+  try {
+    await fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat: { completed: [], points: 0 },
+        apps: { completed: [], points: 0 },
+        agents: { completed: [], points: 0 },
+      }),
+    });
+  } catch (e) { /* non-fatal — local state is cleared */ }
+  window.location.reload();
+}
+
 /* Load progress from localStorage for instant display.
    Denominators are CORE lesson counts only (chat=6, apps=5, agents=8);
    bonus lessons don't push % past 100. */
@@ -381,6 +415,10 @@ function updateDashboardProgress() {
 
   document.getElementById('prog-agents').style.width = agentsPct + '%';
   document.getElementById('pct-agents').textContent = agentsPct + '%';
+
+  const hasAny = chatCompleted.length + appsCompleted.length + agentsCompleted.length > 0;
+  const wrap = document.getElementById('reset-wrap');
+  if (wrap) wrap.style.display = hasAny ? '' : 'none';
 }
 
 updateDashboardProgress();
