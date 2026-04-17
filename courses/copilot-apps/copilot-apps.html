@@ -833,11 +833,8 @@ function switchOption(lesson, key, btn) {
 }
 
 function markComplete(idx) {
-  if (!completed.includes(idx)) {
-    completed.push(idx);
-  } else {
-    completed = completed.filter(i => i !== idx);
-  }
+  if (completed.includes(idx)) return;
+  completed.push(idx);
   localStorage.setItem('apps-completed', JSON.stringify(completed));
   updateProgress();
   buildNav();
