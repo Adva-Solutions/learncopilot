@@ -247,6 +247,43 @@ body {
 }
 .note-box strong { color: var(--note-border); }
 
+/* Exercise checkbox list */
+.exercise-check {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 18px;
+}
+.exercise-check > li {
+  margin: 8px 0;
+  padding: 10px 14px;
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: background 0.15s ease;
+}
+.exercise-check > li:hover { background: #f5f4f1; }
+.exercise-check label {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.exercise-check input[type="checkbox"] {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.exercise-check input[type="checkbox"]:checked + * ,
+.exercise-check label:has(input:checked) {
+  color: var(--text-muted);
+}
+.exercise-check label:has(input:checked) strong { color: var(--text-muted); }
+
 /* Code */
 .code-block {
   position: relative;
@@ -445,7 +482,7 @@ const LESSONS = [
 
 <h4>Top Bar</h4>
 <ul>
-  <li><strong>Work / Web toggle (top center):</strong> The most important control. <strong>Work</strong> searches your organization's data — emails, files, Teams chats, SharePoint. <strong>Web</strong> searches the public internet. You will master this in Lesson 2.</li>
+  <li><strong>Work / Web toggle (top center):</strong> One of several scope controls. <strong>Work</strong> grounds responses in your organization's data — emails, files, Teams chats, SharePoint. <strong>Web</strong> searches the public internet. Useful to know, but not something you will touch constantly. We will return to this in Lesson 4 when we talk about search scope.</li>
   <li><strong>Auto (model selector, top right):</strong> Click this dropdown to choose how Copilot thinks:
     <ul>
       <li><strong>Auto</strong> — Copilot decides how long to think. Best default for most tasks.</li>
@@ -455,20 +492,20 @@ const LESSONS = [
       <li><strong>GPT (OpenAI)</strong> — OpenAI's GPT model. The default behind Auto for most tasks.</li>
     </ul>
   </li>
-  <li><strong>Edit / Compose icons (top right):</strong> Start a new composition or edit mode. The pencil icon opens a fresh editing canvas.</li>
-  <li><strong>Three-dot menu (far right):</strong> Opens a dropdown with: <strong>Recent pages</strong>, <strong>Scheduled prompts</strong> (set up recurring AI tasks), <strong>Send feedback</strong>, <strong>Settings</strong> (Custom Instructions, Memory, preferences), <strong>Quick Help</strong>, and a <strong>Web search</strong> toggle that controls whether Copilot includes web results in its responses.</li>
+  <li><strong>Edit icon (top right):</strong> Opens an inline canvas where you can also start a <strong>temporary chat</strong> — a disposable conversation that does not save to history or feed memory. Handy for quick one-offs and sensitive drafts. There is no pencil glyph on this button in the current UI.</li>
+  <li><strong>Three-dot menu (far right):</strong> Opens a dropdown with: <strong>Recent pages</strong>, <strong>Scheduled prompts</strong> (set up recurring AI tasks), <strong>Send feedback</strong>, <strong>Settings</strong> (Custom Instructions, Memory, Sources, preferences — we go deep in Lesson 1), <strong>Quick Help</strong>, and a <strong>Web search</strong> toggle that controls whether Copilot includes web results.</li>
 </ul>
 
 <h4>Left Sidebar</h4>
 <ul>
   <li><strong>New chat:</strong> Start a fresh conversation. Each chat has its own context — Copilot does not carry over information between chats unless you set up Custom Instructions or Memory.</li>
-  <li><strong>Search:</strong> Search your previous conversations. Useful when you remember asking something last week but cannot find which chat it was in.</li>
-  <li><strong>Library:</strong> Your saved prompts, templates, and bookmarked responses. Over time this becomes your personal prompt library.</li>
-  <li><strong>Create:</strong> Opens the visual creation workspace — image generation, design tools, and more. We cover this in Lesson 7 (Copilot Create).</li>
-  <li><strong>Agents:</strong> Built-in agents like <strong>Researcher</strong> (deep web research with citations) and <strong>Analyst</strong> (data analysis). You can also create custom agents and access them here. We cover agents in the Building Agents module.</li>
-  <li><strong>Notebooks:</strong> Persistent research workspaces that combine references, notes, and chat side by side. We cover this in Lesson 2.</li>
+  <li><strong>Search:</strong> Searches <strong>your files</strong> — documents, emails, meeting content across Microsoft 365. This is not the place to search past conversations. We go deep on this in Lesson 4.</li>
+  <li><strong>Library:</strong> Where your <strong>artifacts</strong> are stored — pages, generated images, created documents, and other outputs Copilot produces. It becomes your asset collection over time. We cover it throughout L3 and L5.</li>
+  <li><strong>Create:</strong> Opens the creation workspace for images, PowerPoint, Word, Excel, video, infographics, and more. We cover this in Lesson 5.</li>
+  <li><strong>Agents:</strong> Built-in agents like <strong>Researcher</strong> (deep web research with citations) and <strong>Analyst</strong> (data analysis). You can also create custom agents. We cover agents in the Building Agents module.</li>
+  <li><strong>Notebooks:</strong> Persistent, project-scoped workspaces that combine references, notebook instructions, and chat side by side. We cover this in Lesson 2.</li>
   <li><strong>Chats:</strong> Your conversation history. Click any chat to pick up where you left off.</li>
-  <li><strong>Apps:</strong> Links to Copilot features inside your Microsoft 365 apps — Outlook, Word, Excel, PowerPoint, Teams. We cover these in the Copilot in Apps module.</li>
+  <li><strong>Apps:</strong> Links to Copilot inside Outlook, Word, Excel, PowerPoint, Teams. Covered in the Copilot in Apps module.</li>
   <li><strong>Your profile (bottom left):</strong> Shows your name and license tier (e.g., "M365 Copilot Premium"). Click for account settings.</li>
 </ul>
 
@@ -478,23 +515,13 @@ const LESSONS = [
   <li><strong>+ button (left of message box):</strong> Attach files, images, or paste content for Copilot to analyze. Supports Word, Excel, PowerPoint, PDF, images, and more.</li>
   <li><strong>Microphone icon:</strong> Click to dictate instead of typing. We cover voice input in the bonus lesson.</li>
   <li><strong>Voice mode icon (sound waves):</strong> Opens a full voice conversation mode where you can talk with Copilot like a phone call.</li>
-  <li><strong>Quick action pills:</strong> Below the message box you will see buttons like <strong>Summarize</strong>, <strong>Rewrite</strong>, <strong>Create</strong>, <strong>Learn</strong>, and <strong>...</strong> (more). These are one-click shortcuts to common tasks. Click any pill to start that type of task without typing a prompt.</li>
-  <li><strong>Suggestion cards:</strong> Below the pills, Copilot shows contextual suggestions based on your recent activity — documents you opened, close collaborators, emails that need attention. Click any card to start a conversation about that topic.</li>
-  <li><strong>Browse more prompts:</strong> At the very bottom, click this link to explore Copilot's full prompt gallery organized by category.</li>
+  <li><strong>Quick action pills:</strong> Below the message box — <strong>Summarize</strong>, <strong>Rewrite</strong>, <strong>Create</strong>, <strong>Learn</strong>, and <strong>…</strong>. Each pill is actually a <strong>dropdown</strong> — click it and you get a menu of suggested prompts for that action, so you can pick a starting point instead of typing from scratch.</li>
+  <li><strong>Three-dots (…) pill:</strong> Opens the full <strong>Copilot prompt gallery</strong> — both Microsoft's <strong>suggested prompts</strong> and your own <strong>saved prompts</strong>, organized by category.</li>
+  <li><strong>Suggestion cards:</strong> Below the pills, Copilot shows contextual suggestions based on your recent activity — documents you opened, close collaborators, emails that need attention.</li>
 </ul>
 
-<div class="tip-box">
-  <strong>The AI Equation:</strong>
-  <div class="equation" style="margin:12px 0 4px">
-    <div class="eq-block">LLM<br><span style="font-size:11px;font-weight:400;color:#888">Frozen model</span></div>
-    <div class="eq-op">+</div>
-    <div class="eq-block">Context<br><span style="font-size:11px;font-weight:400;color:#888">Your input</span></div>
-    <div class="eq-op">+</div>
-    <div class="eq-block">Tools<br><span style="font-size:11px;font-weight:400;color:#888">Capabilities</span></div>
-    <div class="eq-op">=</div>
-    <div class="eq-block" style="background:var(--accent)">Agentic AI<br><span style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.7)">Useful output</span></div>
-  </div>
-  You cannot change the model. But you control <strong>context</strong> (what you tell it) and <strong>tools</strong> (what it can access). Better context + more tools = better results. That is the whole game.
+<div class="note-box">
+  <strong>Chat Settings worth a quick peek:</strong> The Settings panel (three-dot menu → Settings) now has a <strong>Sources</strong> tab in addition to General, Data controls, Personalization, Notifications, and Agents. We go deep on all of these in Lesson 1 — and since this surface keeps evolving, it is worth revisiting every few weeks.
 </div>
 
 <p>Think of this like the first time you got a new phone. You spend 10 minutes poking around — wallpaper, notifications, accounts — and then it works the way you want. Same here.</p>
@@ -504,52 +531,50 @@ const LESSONS = [
   implement: `
 <h3>Explore Every Corner</h3>
 
-<p>Work through this checklist. Check off each item as you go.</p>
+<p>Work through this checklist. Tick each item as you go.</p>
 
 <h4>Top Bar</h4>
-<ol>
-  <li>Open <strong>m365.cloud.microsoft</strong> and sign in with your work account.</li>
-  <li>Find the <strong>Work / Web toggle</strong> at the top center. Click <strong>Web</strong>, then click <strong>Work</strong> to switch back. Notice how the label changes.</li>
-  <li>Look at the top right. Find <strong>Auto</strong> (the model selector). Click it — see what options are available. Close without changing anything.</li>
-  <li>Click the <strong>three-dot menu</strong> (far top right). Browse the options. Find <strong>Settings</strong> and click it.</li>
-</ol>
+<ul class="exercise-check">
+  <li><label><input type="checkbox"> Open <strong>m365.cloud.microsoft</strong> and sign in with your work account.</label></li>
+  <li><label><input type="checkbox"> Find the <strong>Work / Web toggle</strong> at the top center. Click <strong>Web</strong>, then click <strong>Work</strong> to switch back. Notice how the label changes.</label></li>
+  <li><label><input type="checkbox"> Look at the top right. Find <strong>Auto</strong> (the model selector). Click it — see what options are available. Close without changing anything.</label></li>
+  <li><label><input type="checkbox"> Click the <strong>Edit icon</strong> (top right). Notice it opens an inline canvas and lets you start a <strong>temporary chat</strong>. Close it.</label></li>
+  <li><label><input type="checkbox"> Click the <strong>three-dot menu</strong> (far top right). Browse the options. Find <strong>Settings</strong> and click it.</label></li>
+</ul>
 
 <h4>Settings</h4>
-<ol start="5">
-  <li>Inside Settings, find <strong>Custom Instructions</strong>. Open it — it should be empty for now. This is where your "AI operating system" will live after Lesson 1. Close it.</li>
-  <li>Find <strong>Memory</strong>. Check whether it is turned on or off. If it is off, turn it on. Close Settings.</li>
-</ol>
-
-<h4>Left Sidebar</h4>
-<ol start="7">
-  <li>Click <strong>Search</strong> in the left sidebar. Type a word related to your recent work. See if any past conversations appear. Close search.</li>
-  <li>Click <strong>Create</strong>. You will see the visual creation workspace. Browse for 10 seconds — we will come back to this in Lesson 7. Click <strong>New chat</strong> to go back to the main chat.</li>
-  <li>Look at the <strong>Agents</strong> section. Click <strong>Researcher</strong>. Read the description — this is the agent that does deep web research (Lesson 6). Click the back arrow to return to the main chat.</li>
-  <li>Click <strong>Notebooks</strong> (or "All notebooks"). See what is there — probably empty. We will create one in Lesson 2.</li>
-</ol>
-
-<h4>Chat Area</h4>
-<ol start="11">
-  <li>Click the <strong>+ button</strong> (left of the message box). See the attachment options — files, images, etc. Close without attaching anything.</li>
-  <li>Look at the <strong>quick action pills</strong> below the message box: Summarize, Rewrite, Create, Learn, and "..." for more. Click <strong>...</strong> to see additional options. Close.</li>
-  <li>Click the <strong>microphone icon</strong>. Speak a short sentence. Watch it transcribe. (If prompted for permission, allow microphone access.)</li>
-  <li>Send this test message:</li>
-</ol>
-
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What tools and data sources do you currently have access to? List everything you can see — my files, email, calendar, and any connected apps.</code></div>
-
-<p>Read the response. Copilot should describe what organizational data it can access.</p>
-
-<p><strong>15.</strong> Now click one of the <strong>quick action pills</strong> — try <strong>Summarize</strong>. When prompted, paste any block of text (an email, a paragraph from a document, or even the response Copilot just gave you). See how the pill shortcut works differently from typing a prompt.</p>
-
-<h4>Try the Model Selector</h4>
-<p><strong>16.</strong> Click <strong>Auto</strong> in the top right to open the model dropdown. Switch to <strong>Think Deeper</strong>. Send this prompt:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the pros and cons of using precast concrete vs. terracotta rainscreen panels for a residential tower facade? Consider cost, durability, aesthetics, maintenance, and sustainability. Think through each factor carefully.</code></div>
-<p><strong>17.</strong> Read the response — it should be more thorough and structured than a Quick Response would be.</p>
-<p><strong>18.</strong> Switch back to <strong>Auto</strong> when you are done. Auto is the best default for everyday use — save Think Deeper for complex questions that need real analysis.</p>
+<ul class="exercise-check">
+  <li><label><input type="checkbox"> Inside Settings, click through each tab: <strong>General</strong>, <strong>Data controls</strong>, <strong>Personalization</strong>, <strong>Notifications</strong>, <strong>Agents</strong>, and <strong>Sources</strong>. Just get a feel for what is there — we configure most of these in Lesson 1.</label></li>
+  <li><label><input type="checkbox"> In <strong>Personalization</strong>, locate <strong>Custom instructions</strong>, <strong>Work profile</strong>, <strong>Saved memories</strong>, and <strong>Chat history (Frontier)</strong>. Leave them for now. Close Settings.</label></li>
+</ul>
 
 <div class="note-box">
-  <strong>Success check:</strong> You have now touched every part of the interface: top bar (Work/Web toggle, model selector with Think Deeper, settings), left sidebar (Search, Create, Agents, Notebooks, chat history), chat area (message box, attachments, microphone, voice mode, quick action pills), and Settings (Custom Instructions, Memory). You have a complete map.
+  <strong>Heads up:</strong> We will not click through Search, Create, Agents, or Notebooks from the sidebar in this lesson — they each get their own dedicated lesson. For now, just know they are there.
+</div>
+
+<h4>Chat Area</h4>
+<ul class="exercise-check">
+  <li><label><input type="checkbox"> Click the <strong>+ button</strong> (left of the message box). See the attachment options — files, images, etc. Close without attaching anything.</label></li>
+  <li><label><input type="checkbox"> Look at the <strong>quick action pills</strong> below the message box: Summarize, Rewrite, Create, Learn, and <strong>…</strong>. Click the caret on <strong>Summarize</strong> — it is a dropdown with suggested prompts.</label></li>
+  <li><label><input type="checkbox"> Click the <strong>…</strong> pill. This opens the <strong>Copilot prompt gallery</strong> with Microsoft's suggested prompts plus your saved prompts.</label></li>
+  <li><label><input type="checkbox"> Click the <strong>microphone icon</strong>. Speak a short sentence. Watch it transcribe. (Allow mic access if prompted.)</label></li>
+  <li><label><input type="checkbox"> Send this test message:</label>
+  <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What tools and data sources do you currently have access to? List everything you can see — my files, email, calendar, and any connected apps.</code></div>
+  <p>Read the response. Copilot should describe what organizational data it can access.</p>
+  </li>
+</ul>
+
+<h4>Try the Model Selector</h4>
+<ul class="exercise-check">
+  <li><label><input type="checkbox"> Click <strong>Auto</strong> in the top right. Switch to <strong>Think Deeper</strong>. Send this prompt:</label>
+  <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the pros and cons of using precast concrete vs. terracotta rainscreen panels for a residential tower facade? Consider cost, durability, aesthetics, maintenance, and sustainability. Think through each factor carefully.</code></div>
+  </li>
+  <li><label><input type="checkbox"> Read the response — it should be more thorough and structured than a Quick Response would be.</label></li>
+  <li><label><input type="checkbox"> Switch back to <strong>Auto</strong>. Auto is the best default — save Think Deeper for complex questions that need real analysis.</label></li>
+</ul>
+
+<div class="note-box">
+  <strong>Success check:</strong> You have touched the top bar (Work/Web toggle, model selector, Edit / temporary chat), the Settings panel (all six tabs including Sources), and the chat area (attachments, pill dropdowns, prompt gallery, microphone). You have a complete map. Search, Create, Agents, and Notebooks get their own lessons.
 </div>
 
 <button class="mark-complete-btn" id="complete-btn-0" onclick="markComplete(0)">Mark Complete</button>
@@ -577,40 +602,68 @@ const LESSONS = [
 {
   id: 'custom-instructions-memory',
   title: 'Custom Instructions & Memory',
-  points: 15,
+  points: 20,
   learn: `
 <h3>Make Copilot Know You</h3>
 <p>You just explored the interface. Now let us configure it so Copilot knows who you are — every time, without you repeating yourself.</p>
 
 <p>It is like setting up a new phone's contacts, preferences, and home screen — you do it once, then it just works.</p>
 
-<h3>Custom Instructions</h3>
-<p>Custom Instructions live in Settings. They are sent with every conversation automatically. Think of them as your permanent briefing to Copilot. There are five key sections to fill out:</p>
+<div class="tip-box">
+  <strong>The AI Equation:</strong>
+  <div class="equation" style="margin:12px 0 4px">
+    <div class="eq-block">LLM<br><span style="font-size:11px;font-weight:400;color:#888">Frozen model</span></div>
+    <div class="eq-op">+</div>
+    <div class="eq-block">Context<br><span style="font-size:11px;font-weight:400;color:#888">What it knows about you & your work</span></div>
+    <div class="eq-op">+</div>
+    <div class="eq-block">Tools<br><span style="font-size:11px;font-weight:400;color:#888">What it can do & reach</span></div>
+    <div class="eq-op">=</div>
+    <div class="eq-block" style="background:var(--accent)">Useful AI<br><span style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.7)">Output you can act on</span></div>
+  </div>
+  You cannot change the model. But you control <strong>context</strong> (what you tell it about you, your work, and your files) and <strong>tools</strong> (what it is allowed to reach). Better context + more tools = better results. This lesson is about context; the rest of the course is about tools.
+</div>
+
+<h3>Where Context Lives: the Personalization Panel</h3>
+<p>Open <strong>Settings → Personalization</strong>. Context is not one toggle — it is a stack. Four pieces feed every conversation:</p>
+<ul>
+  <li><strong>Custom instructions:</strong> Explicit rules you write (name, role, communication style, priorities, avoidances). Applied on every new chat.</li>
+  <li><strong>Work profile:</strong> Copilot uses your M365 work profile signals (role, org structure, recent collaborators, documents you touch) to tailor answers.</li>
+  <li><strong>Saved memories:</strong> Short facts Copilot learns and saves automatically as you chat — "prefers tables over paragraphs," "works on Hudson Yards." You can view, edit, or delete any of them.</li>
+  <li><strong>Chat history (Frontier):</strong> Lets Copilot draw on your past chats to personalize responses. Toggle-able.</li>
+</ul>
+
+<h3>Custom Instructions — the five sections you fill out</h3>
 <ol>
   <li><strong>Identity:</strong> Your name, role, organization, and team</li>
-  <li><strong>Communication style:</strong> How you like responses formatted (bullets vs. paragraphs, formal vs. casual)</li>
+  <li><strong>Communication style:</strong> Bullets vs. paragraphs, formal vs. casual</li>
   <li><strong>Goals:</strong> What you are working on, what projects matter most</li>
-  <li><strong>Schedule context:</strong> Your typical work patterns, timezone, recurring meetings</li>
+  <li><strong>Schedule context:</strong> Work patterns, timezone, recurring meetings</li>
   <li><strong>Avoidances:</strong> What you do NOT want (jargon, emojis, overly long responses)</li>
 </ol>
 
-<h3>Copilot Memory</h3>
-<p>Memory (GA January 2026) is different from Custom Instructions. Instead of you writing rules, Copilot <strong>learns your preferences automatically</strong> as you chat. You will occasionally see a "memory updated" signal. It remembers things like "this user prefers tables over paragraphs" or "this user works on the Hudson Yards project."</p>
-<p>You can view, edit, or delete memories anytime in <strong>Settings &gt; Memory</strong>.</p>
+<h3>Copilot Memory — auto-learned preferences</h3>
+<p>Memory is different from Custom Instructions. Instead of you writing rules, Copilot <strong>learns your preferences automatically</strong> as you chat. You will occasionally see a "memory updated" signal. Manage individual memories in <strong>Settings → Personalization → Saved memories</strong>.</p>
 
 <table style="width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;">
   <thead><tr style="border-bottom:2px solid var(--border);">
     <th style="text-align:left;padding:8px 12px;">Feature</th>
     <th style="text-align:left;padding:8px 12px;">Custom Instructions</th>
-    <th style="text-align:left;padding:8px 12px;">Memory</th>
+    <th style="text-align:left;padding:8px 12px;">Saved memories</th>
   </tr></thead>
   <tbody>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Who writes it?</td><td style="padding:8px 12px;">You</td><td style="padding:8px 12px;">Copilot</td></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">How it works</td><td style="padding:8px 12px;">Explicit rules you define</td><td style="padding:8px 12px;">Automatic learning from conversations</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">When it applies</td><td style="padding:8px 12px;">Every conversation</td><td style="padding:8px 12px;">Every conversation</td></tr>
-    <tr><td style="padding:8px 12px;">How to manage</td><td style="padding:8px 12px;">Edit text in Settings</td><td style="padding:8px 12px;">View/delete individual memories in Settings</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">When it applies</td><td style="padding:8px 12px;">Every new conversation</td><td style="padding:8px 12px;">Every new conversation</td></tr>
+    <tr><td style="padding:8px 12px;">How to manage</td><td style="padding:8px 12px;">Edit text in Settings</td><td style="padding:8px 12px;">View/delete individual memories</td></tr>
   </tbody>
 </table>
+
+<h3>Sources: tools, not just a settings panel</h3>
+<p>Sitting next to Personalization in Settings is <strong>Sources</strong>. This is where context ends and <strong>tools</strong> begin — it lists the <strong>external services</strong> Copilot can reach beyond the core Microsoft 365 surface. Your M365 apps (Outlook, Teams, SharePoint, OneDrive) are already wired in via your Work profile; Sources is for the third-party tools your admin has connected: things like <strong>Google Calendar, Google Contacts, Canva, HubSpot, Intercom, Linear, Notion</strong>, and more. Each connector is labeled with where it applies (e.g., <em>Used in Chat and Researcher</em>). Think of sources as the right-hand side of the AI equation: the reach your Copilot has when it goes to do something. We will come back to this concept across every following lesson — notebook references, search scope, page sharing, Create outputs all build on what is wired in here.</p>
+
+<div class="note-box">
+  <strong>This surface keeps evolving.</strong> Personalization and Sources both get new sub-features regularly. Make a habit of opening Settings every few weeks and scanning for new tabs and toggles — it is the fastest way to spot new capabilities before a colleague tells you.
+</div>
 
 <button class="continue-btn" onclick="switchTab(1,'implement')">Continue to Exercises &rarr;</button>
 `,
@@ -649,7 +702,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Update my Custom Instructions: add that I prefer bullet points over paragraphs, and that I work primarily on residential condo projects. Remove the section about scheduling — I do not need that.</code></div>
 
 <p><strong>Step 5: Install it.</strong></p>
-<p>Copy the final output. Go to <strong>Settings &rarr; Custom Instructions</strong>. Paste it in. Click <strong>Save</strong>.</p>
+<p>Copy the final output. Open the three-dot menu and go to <strong>Settings &rarr; Personalization &rarr; Custom instructions</strong> — Personalization is the middle step where Custom instructions, Work profile, Saved memories, and Chat history all live. Paste your block into the Custom instructions field. Click <strong>Save</strong>.</p>
 
 <p><strong>Step 6: Test it.</strong></p>
 <p>Open a <strong>NEW conversation</strong> (important — Custom Instructions only apply to new chats). Send:</p>
@@ -681,42 +734,47 @@ When the interview is complete, output the results formatted as a Copilot Custom
 {
   id: 'knowledge-notebook',
   title: "Build Your Knowledge Notebook",
-  points: 15,
+  points: 20,
   learn: `
 <h3>Give Copilot a Knowledge Base</h3>
 <p><em>You configured Copilot to know who you are. Now give it a knowledge base — the documents, references, and context it needs to do your actual work.</em></p>
 
-<p>In a regular chat, Copilot starts fresh every time. It can search your org data (Work mode) or the web (Web mode) — but it does not <strong>remember</strong> your project context between conversations.</p>
+<p>A regular chat is not stateless — if you enabled <strong>chat memory</strong> and <strong>chat history</strong> in Lesson 1, Copilot carries a thin thread of preferences across conversations. But it is not project-scoped: it is not going to remember that your facade detail lives in a specific spec document, and it is not going to cite section numbers out of your codes. That level of granularity needs a container.</p>
 
-<p><strong>Notebooks change that.</strong> A Notebook is a persistent workspace where you:</p>
+<p><strong>Notebooks change that.</strong> A Notebook is a persistent, project-scoped workspace where you:</p>
 <ul>
   <li>Upload or link <strong>reference files</strong> — specs, reports, guidelines, templates</li>
-  <li>Write <strong>custom instructions</strong> specific to that notebook (not your global ones — these are project-level)</li>
+  <li>Write <strong>Copilot instructions</strong> specific to that notebook (not your global ones — these are project-level)</li>
   <li>Chat with Copilot <strong>grounded on those references</strong> — every response draws from your uploaded context</li>
 </ul>
 
 <p>Think of it this way: a regular chat is asking a smart colleague a question in the hallway. A Notebook is sitting them down at your desk, handing them your project folder, and saying "Read this first, then help me."</p>
 
-<h3>When to Use a Notebook</h3>
+<h3>When to Use a Notebook vs. a Chat</h3>
 <table style="width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;">
   <thead><tr style="border-bottom:2px solid var(--border);">
     <th style="text-align:left;padding:8px 12px;">Scenario</th>
     <th style="text-align:left;padding:8px 12px;">Tool</th>
   </tr></thead>
   <tbody>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Quick question, no context needed</td><td style="padding:8px 12px;">Copilot Chat</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Find a file or email from your org</td><td style="padding:8px 12px;">Work Mode search</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Quick question, or a one-time task (possibly several turns) that is not part of an ongoing project</td><td style="padding:8px 12px;">Copilot Chat</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">You need a specific <strong>model</strong> (Think Deeper, Claude Sonnet, etc.) — notebooks do not yet expose the model selector</td><td style="padding:8px 12px;">Copilot Chat</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Find a file or email from your org</td><td style="padding:8px 12px;">Copilot Search (Lesson 4)</td></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Ongoing project with specific documents</td><td style="padding:8px 12px;"><strong>Notebook</strong></td></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;">Team knowledge base with standards and guidelines</td><td style="padding:8px 12px;"><strong>Notebook</strong></td></tr>
     <tr><td style="padding:8px 12px;">Department reference library (codes, policies, templates)</td><td style="padding:8px 12px;"><strong>Notebook</strong></td></tr>
   </tbody>
 </table>
 
-<h3>The Power: Custom Instructions + References + Chat</h3>
+<div class="note-box">
+  <strong>Model caveat:</strong> Notebooks currently do not let you pick a model — Copilot decides. If you need to force Think Deeper or switch to Claude Sonnet, stay in the general chat.
+</div>
+
+<h3>The Power: Copilot Instructions + References + Chat</h3>
 <p>A Notebook combines three things that make Copilot dramatically more useful:</p>
 <ol>
   <li><strong>References:</strong> The files Copilot reads before answering (your project docs, not the whole internet)</li>
-  <li><strong>Notebook instructions:</strong> Rules specific to this context ("always cite the section number when referencing the building code")</li>
+  <li><strong>Copilot instructions:</strong> Rules specific to this context ("always cite the section number when referencing the building code")</li>
   <li><strong>Persistent chat:</strong> The conversation stays — come back tomorrow and it remembers what you discussed</li>
 </ol>
 
@@ -725,7 +783,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
   implement: `
 <h3>Build a Notebook for Your Role</h3>
 
-<p>Choose your role. You will create a Notebook, configure it, upload references, and run two prompts that demonstrate the power of grounded AI.</p>
+<p>Choose your role. You will create a Notebook, upload references, add Copilot instructions, invite a collaborator, then run two grounded prompts.</p>
 
 <div class="option-tabs" id="options-2">
   <button class="option-btn active" onclick="switchOption(2,'arch',this)">Architecture</button>
@@ -736,134 +794,149 @@ When the interview is complete, output the results formatted as a Copilot Custom
 </div>
 
 <div class="option-content active" id="option-2-arch">
-<h4>Step 1: Create the Notebook</h4>
-<p>Click <strong>Notebooks</strong> in the left sidebar. Click <strong>New Notebook</strong>. Name it: <strong>Building Code &amp; Project Standards</strong></p>
+<h4>Step 1: Create &amp; name the Notebook</h4>
+<p>Click <strong>Notebooks</strong> in the left sidebar → <strong>New Notebook</strong>. Name it: <strong>Building Code &amp; Project Standards</strong>.</p>
 
-<h4>Step 2: Add Custom Instructions</h4>
-<p>In the Notebook settings or instructions area, paste:</p>
+<h4>Step 2: Upload References (do this first)</h4>
+<p>Drop in 2-3 ODA architecture references. These download as Word documents so the notebook will accept them:</p>
+<ul>
+  <li><a href="/mock-data/building-codes/nyc-residential-code-reference.pdf" download>NYC Residential Building Code Reference</a></li>
+  <li><a href="/mock-data/specifications/project-spec-excerpt.pdf" download>Project Specifications (facade, hardware, plumbing)</a></li>
+  <li><a href="/mock-data/building-codes/nyc-vs-florida-comparison.pdf" download>NYC vs Florida Code Comparison</a></li>
+</ul>
+
+<h4>Step 3: Open Copilot instructions (now available after initialization)</h4>
+<p>Click the notebook title dropdown → <strong>Copilot instructions</strong>. Paste:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are an architecture project assistant for ODA, a global design firm. When answering questions:
 - Always cite the specific section or page number from the reference documents
 - Flag any code compliance concerns with the prefix [CODE ALERT]
 - When comparing materials or systems, use a table format
 - Default to NYC and Florida building codes unless I specify otherwise</code></div>
 
-<h4>Step 3: Upload References</h4>
-<p>Add 2-3 files that are relevant to your current project. Download these ODA architecture references:</p>
-<ul>
-  <li><a href="/mock-data/building-codes/nyc-residential-code-reference.txt" download>NYC Residential Building Code Reference</a></li>
-  <li><a href="/mock-data/specifications/project-spec-excerpt.txt" download>Project Specifications (facade, hardware, plumbing)</a></li>
-  <li><a href="/mock-data/building-codes/nyc-vs-florida-comparison.txt" download>NYC vs Florida Code Comparison</a></li>
-</ul>
+<h4>Step 4: Invite collaborators</h4>
+<p>Click the <strong>people icon</strong> at the top of the notebook → <strong>Invite / manage members</strong>. Add a colleague (or at least scan the sharing options so you know where they live). Notebooks are collaborative — your teammates can contribute references and prompts.</p>
 
-<h4>Step 4: Run Power Prompt #1 — Cross-Reference</h4>
+<h4>Step 5: Power Prompt #1 — Cross-Reference</h4>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the documents I uploaded, what are the top 3 code compliance risks for this project? For each risk, cite the specific code section and the specific page or section in our project documents where the issue exists.</code></div>
 <p>This prompt forces Copilot to cross-reference YOUR documents against the code — something that would take you hours manually.</p>
 
-<h4>Step 5: Run Power Prompt #2 — Generate a Deliverable</h4>
+<h4>Step 6: Power Prompt #2 — Generate a Deliverable</h4>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the references in this notebook, draft a consultant coordination email summarizing the open items that need resolution before our next permit submission. Organize by consultant (structural, MEP, facade) and include the specific document references for each item.</code></div>
 <p>Notice how Copilot pulls from your uploaded files to create a real deliverable — not generic advice, but specific references from your actual project documents.</p>
 </div>
 
 <div class="option-content" id="option-2-hr">
-<h4>Step 1: Create the Notebook</h4>
-<p>Click <strong>Notebooks</strong> in the left sidebar. Click <strong>New Notebook</strong>. Name it: <strong>HR Policies &amp; Onboarding</strong></p>
+<h4>Step 1: Create &amp; name the Notebook</h4>
+<p>Click <strong>Notebooks</strong> → <strong>New Notebook</strong>. Name it: <strong>HR Policies &amp; Onboarding</strong>.</p>
 
-<h4>Step 2: Add Custom Instructions</h4>
+<h4>Step 2: Upload References (do this first)</h4>
+<ul>
+  <li><a href="/mock-data/hr/employee-handbook-excerpt.pdf" download>Employee Handbook Excerpt</a> (PTO, remote work, benefits)</li>
+  <li><a href="/mock-data/hr/onboarding-checklist.pdf" download>New-Hire Onboarding Checklist</a></li>
+  <li><a href="/mock-data/hr/recruiting-pipeline.csv" download>Recruiting Pipeline Tracker</a></li>
+</ul>
+
+<h4>Step 3: Open Copilot instructions</h4>
+<p>Click the notebook title dropdown → <strong>Copilot instructions</strong>. Paste:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are an HR assistant for ODA. When answering questions:
 - Always reference the specific policy document and section
 - Flag any compliance concerns with [COMPLIANCE NOTE]
 - When comparing benefits or policies, use a table format
 - Be cautious about legal advice — flag when something needs legal review</code></div>
 
-<h4>Step 3: Upload References</h4>
-<p>Download and upload these ODA HR documents:</p>
-<ul>
-  <li><a href="/mock-data/hr/employee-handbook-excerpt.txt" download>Employee Handbook Excerpt</a> (PTO, remote work, benefits)</li>
-  <li><a href="/mock-data/hr/onboarding-checklist.txt" download>New-Hire Onboarding Checklist</a></li>
-  <li><a href="/mock-data/hr/recruiting-pipeline.csv" download>Recruiting Pipeline Tracker</a></li>
-</ul>
+<h4>Step 4: Invite collaborators</h4>
+<p>Click the <strong>people icon</strong> → <strong>Invite / manage members</strong>. Add another HR team member (or scan the options to see how scope works).</p>
 
-<h4>Step 4: Power Prompt #1</h4>
+<h4>Step 5: Power Prompt #1</h4>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the employee handbook, what is the process for handling a leave of absence request? Walk me through every step, citing the specific handbook sections.</code></div>
 
-<h4>Step 5: Power Prompt #2</h4>
+<h4>Step 6: Power Prompt #2</h4>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the onboarding checklist in this notebook, draft a first-week schedule for a new senior architect at ODA. Include Revit and Rhino software access setup, BIM 360 training, seating assignment, and first-week meetings with the project team lead.</code></div>
 </div>
 
 <div class="option-content" id="option-2-mktg">
-<h4>Step 1: Create the Notebook</h4>
-<p>Click <strong>Notebooks</strong>. Name it: <strong>Marketing &amp; Awards Pipeline</strong></p>
+<h4>Step 1: Create &amp; name the Notebook</h4>
+<p>Click <strong>Notebooks</strong> → <strong>New Notebook</strong>. Name it: <strong>Marketing &amp; Awards Pipeline</strong>.</p>
 
-<h4>Step 2: Add Custom Instructions</h4>
+<h4>Step 2: Upload References (do this first)</h4>
+<ul>
+  <li><a href="/mock-data/marketing/oda-awards-tracker.csv" download>Awards Tracker</a> (AIA, Architizer, CTBUH submissions)</li>
+  <li><a href="/mock-data/proposals/aia-award-narrative.pdf" download>AIA Award Narrative Draft</a></li>
+  <li><a href="/mock-data/marketing/oda-newsletter-sample.pdf" download>ODA Newsletter Sample</a></li>
+</ul>
+
+<h4>Step 3: Open Copilot instructions</h4>
+<p>Click the notebook title dropdown → <strong>Copilot instructions</strong>. Paste:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are a marketing assistant for ODA, a global architecture firm. When answering:
 - Reference specific project names and details from uploaded documents
 - Match ODA's brand voice: sophisticated, design-forward, concise
 - When listing awards or deadlines, use a table with submission dates
 - Always include image/visual requirements when discussing submissions</code></div>
 
-<h4>Step 3: Upload References</h4>
-<p>Download and upload these ODA marketing documents:</p>
-<ul>
-  <li><a href="/mock-data/marketing/oda-awards-tracker.csv" download>Awards Tracker</a> (AIA, Architizer, CTBUH submissions)</li>
-  <li><a href="/mock-data/proposals/aia-award-narrative.txt" download>AIA Award Narrative Draft</a></li>
-  <li><a href="/mock-data/marketing/oda-newsletter-sample.txt" download>ODA Newsletter Sample</a></li>
-</ul>
+<h4>Step 4: Invite collaborators</h4>
+<p>Click the <strong>people icon</strong> → <strong>Invite / manage members</strong>. Add a marketing teammate.</p>
 
-<h4>Step 4: Power Prompt #1</h4>
+<h4>Step 5: Power Prompt #1</h4>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the awards tracker and project details, which submissions have the best chance of winning? For each, cite the specific project data and explain what makes it a strong candidate. Flag any submissions with missing photography or incomplete narratives.</code></div>
 
-<h4>Step 5: Power Prompt #2</h4>
+<h4>Step 6: Power Prompt #2</h4>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the award narrative and newsletter sample in this notebook, draft a 250-word award submission narrative for the Harbor View Residences project. Match ODA's brand voice: sophisticated, design-forward, concise.</code></div>
 </div>
 
 <div class="option-content" id="option-2-exec">
-<h4>Step 1: Create the Notebook</h4>
-<p>Click <strong>Notebooks</strong>. Name it: <strong>Executive Project Overview</strong></p>
+<h4>Step 1: Create &amp; name the Notebook</h4>
+<p>Click <strong>Notebooks</strong> → <strong>New Notebook</strong>. Name it: <strong>Executive Project Overview</strong>.</p>
 
-<h4>Step 2: Add Custom Instructions</h4>
+<h4>Step 2: Upload References (do this first)</h4>
+<ul>
+  <li><a href="/mock-data/executive/oda-qbr-q1-2025.pdf" download>Q1 2025 Quarterly Business Review</a></li>
+  <li><a href="/mock-data/executive/property-summary-1.pdf" download>Property Summary 1</a> | <a href="/mock-data/executive/property-summary-2.pdf" download>Property Summary 2</a></li>
+</ul>
+
+<h4>Step 3: Open Copilot instructions</h4>
+<p>Click the notebook title dropdown → <strong>Copilot instructions</strong>. Paste:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are an executive briefing assistant for ODA. When answering:
 - Lead with the bottom line — decisions needed, risks, and financial impact
 - Use bullet points, not paragraphs
 - When summarizing multiple projects, use a comparison table
 - Flag anything that needs immediate attention with [ACTION REQUIRED]</code></div>
 
-<h4>Step 3: Upload References</h4>
-<p>Download and upload these ODA executive documents:</p>
-<ul>
-  <li><a href="/mock-data/executive/oda-qbr-q1-2025.txt" download>Q1 2025 Quarterly Business Review</a></li>
-  <li><a href="/mock-data/executive/property-summary-1.txt" download>Property Summary 1</a> | <a href="/mock-data/executive/property-summary-2.txt" download>Property Summary 2</a></li>
-</ul>
+<h4>Step 4: Invite collaborators</h4>
+<p>Click the <strong>people icon</strong> → <strong>Invite / manage members</strong>. Add your chief-of-staff or another exec.</p>
 
-<h4>Step 4: Power Prompt #1</h4>
+<h4>Step 5: Power Prompt #1</h4>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the QBR document, give me a 5-minute executive briefing: what is the status of each active project, which projects are at risk, and what decisions need to be made this quarter?</code></div>
 
-<h4>Step 5: Power Prompt #2</h4>
+<h4>Step 6: Power Prompt #2</h4>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Compare the two property summaries in this notebook. Create a side-by-side comparison table covering: price, square footage, price per SF, location, amenities, and any red flags. End with a recommendation.</code></div>
 </div>
 
 <div class="option-content" id="option-2-ops">
-<h4>Step 1: Create the Notebook</h4>
-<p>Click <strong>Notebooks</strong>. Name it: <strong>Operations &amp; Resource Planning</strong></p>
+<h4>Step 1: Create &amp; name the Notebook</h4>
+<p>Click <strong>Notebooks</strong> → <strong>New Notebook</strong>. Name it: <strong>Operations &amp; Resource Planning</strong>.</p>
 
-<h4>Step 2: Add Custom Instructions</h4>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are an operations assistant for ODA. When answering:
-- Always reference specific project names and dates from the uploaded documents
-- When tracking resources, use a table with columns for project, team size, utilization, and timeline
-- Flag overallocation or scheduling conflicts with [RESOURCE ALERT]
-- Default to weekly planning cycles unless I specify otherwise</code></div>
-
-<h4>Step 3: Upload References</h4>
-<p>Download and upload these ODA operations documents:</p>
+<h4>Step 2: Upload References (do this first)</h4>
 <ul>
   <li><a href="/mock-data/staffing/oda-resource-allocation.csv" download>Resource Allocation Spreadsheet</a> (team assignments, utilization, skills)</li>
   <li><a href="/mock-data/financials/oda-project-tracking.csv" download>Project Tracking Data</a> (phases, fees, hours, budget status)</li>
   <li><a href="/mock-data/financials/oda-monthly-financials.csv" download>Monthly Financials</a></li>
 </ul>
 
-<h4>Step 4: Power Prompt #1</h4>
+<h4>Step 3: Open Copilot instructions</h4>
+<p>Click the notebook title dropdown → <strong>Copilot instructions</strong>. Paste:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are an operations assistant for ODA. When answering:
+- Always reference specific project names and dates from the uploaded documents
+- When tracking resources, use a table with columns for project, team size, utilization, and timeline
+- Flag overallocation or scheduling conflicts with [RESOURCE ALERT]
+- Default to weekly planning cycles unless I specify otherwise</code></div>
+
+<h4>Step 4: Invite collaborators</h4>
+<p>Click the <strong>people icon</strong> → <strong>Invite / manage members</strong>. Add a project manager or studio director.</p>
+
+<h4>Step 5: Power Prompt #1</h4>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the resource allocation data, which team members are overallocated (above 100% total)? Show me a table of each person, their current project assignments, allocation percentage, and utilization. Flag anyone above 90%.</code></div>
 
-<h4>Step 5: Power Prompt #2</h4>
+<h4>Step 6: Power Prompt #2</h4>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the project tracking and resource data, draft a weekly resource planning email for ODA leadership. Highlight any projects at risk of missing milestones, flag the summer utilization dip, and recommend specific staffing adjustments with justification from the data.</code></div>
 </div>
 
@@ -876,16 +949,44 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <button class="mark-complete-btn" id="complete-btn-2" onclick="markComplete(2)">Mark Complete</button>
 `,
   advanced: `
-<h3>Organizational Search Tips</h3>
-<ul>
-  <li>Be specific about file names or people: "Find the email from Sarah about the Hudson Yards permit"</li>
-  <li>Reference time: "Show me Teams messages from last week about the client presentation"</li>
-  <li>Copilot respects SharePoint permissions — it only searches content you have access to</li>
-  <li>If nothing appears, the file may be on a local drive (not indexed). Move it to OneDrive or SharePoint.</li>
-</ul>
+<h3>Quick Create — turn your notebook into something</h3>
+<p>Once your notebook has references, the <strong>Quick Create</strong> button (next to "New page") lets Copilot generate a derived artifact from everything in the notebook. Six options today — two production-ready, four marked Frontier:</p>
 
-<h3>Notebooks as Project Hubs</h3>
-<p>Use Notebooks as persistent knowledge bases for ongoing projects. Add key documents, meeting notes, and research. When you chat inside a Notebook, Copilot uses those references as context — giving you grounded, project-specific answers without re-uploading files every time.</p>
+<div class="note-box">
+  <strong>Frontier = preview.</strong> Mind map, Document, Presentation, and Worksheet are labeled Frontier. They work, but they can fail, behave inconsistently, or change from week to week. Expect quirks and have a fallback.
+</div>
+
+<h4>1. Audio overview (production-ready — deep dive below)</h4>
+<p>Produces an MP3 of your notebook content — a spoken summary that plays inside the notebook's Created content pane. Good for reviewing material while driving, handing a brief to a colleague who prefers audio, or accessibility.</p>
+<p>When you click Audio overview, a <strong>Customize</strong> dialog opens with five controls:</p>
+<ul>
+  <li><strong>Language:</strong> English, Spanish, Japanese, French, German, Portuguese, Italian, Chinese. (More land regularly — check.)</li>
+  <li><strong>Voice:</strong> Named voice pairs (e.g., Ava/Steffan). Pick the tone that fits your audience.</li>
+  <li><strong>Format:</strong> <em>Narration</em> (single AI host, tight summary) or <em>Dialog</em> (two AI hosts in conversation — more engaging, longer).</li>
+  <li><strong>Style:</strong> <em>Professional</em> or <em>Casual</em>.</li>
+  <li><strong>Duration:</strong> Shorter / Medium / Longer.</li>
+  <li><strong>Any additional customizations (optional):</strong> Free-text steering — e.g., "Focus on the code compliance risks," "Skip the financials section," "Frame as a briefing for a new project manager."</li>
+</ul>
+<p>Click <strong>Generate audio</strong>. Produce takes a minute or two. Playable in-notebook; downloadable as MP3.</p>
+
+<h4>2. Study guide (production-ready)</h4>
+<p>Generates a multi-page interactive study companion inside the notebook. Four page types: <strong>Summary</strong> (overview of key concepts), <strong>Topic</strong> pages (detailed breakdowns), <strong>Flashcards</strong> (retrieval practice), and <strong>Quiz</strong> pages (self-assessment). Originally designed for academic use, but also works well for onboarding material, certification prep, and "make sure I actually understood this spec" self-tests.</p>
+
+<h4>3. Mind map (Frontier)</h4>
+<p>Visualizes the concepts and relationships across your references as a node/edge diagram. Good for getting your head around a dense set of documents before diving in. Frontier — output layout and detail varies; regenerate if the first pass is too shallow or too noisy.</p>
+
+<h4>4. Document (Frontier)</h4>
+<p>Drafts a Word-style document from your notebook content. The exact output surface (in-notebook page vs. separate .docx) is still evolving — confirm where yours lands. Best for when you want a structured write-up in prose form, not a visual asset.</p>
+
+<h4>5. Presentation (Frontier)</h4>
+<p>Generates a slide-by-slide deck. Slide count and layout are auto-decided — expect to clean up afterwards. Useful as a starting skeleton, not a finished deliverable.</p>
+
+<h4>6. Worksheet (Frontier)</h4>
+<p>Generates a worksheet of questions and exercises from the notebook content. Leans academic in tone; repurposable for workshop exercises and team quizzes.</p>
+
+<div class="tip-box">
+  <strong>Try it now:</strong> Go back to the notebook you just built. Click <strong>Quick create → Audio overview</strong>, set Format = Dialog, Style = Casual, Duration = Shorter, and add a custom prompt: "Frame this as a kickoff briefing for a colleague who is joining the project on Monday." Listen to what comes out. This single exercise shows why notebooks are more than a chat with attachments — they are a source-of-truth Copilot can repackage into any format.
+</div>
 `
 },
 
@@ -893,33 +994,45 @@ When the interview is complete, output the results formatted as a Copilot Custom
 {
   id: 'copilot-pages',
   title: 'Copilot Pages',
-  points: 15,
+  points: 20,
   learn: `
 <h3>From Scratchpad to Shared Artifact</h3>
-<p>You just searched your organization's data and created a Notebook. Now turn those results into something you can share.</p>
+<p>You just built a Notebook grounded in your project documents. Now turn the conversations inside it into shareable artifacts.</p>
 
 <p>Chat is your scratchpad. A Page is the finished artifact you share with your team.</p>
 
 <h3>What Are Copilot Pages?</h3>
-<p>Every time Copilot gives you a great response, it lives in that chat — and only that chat. Pages change that. A Page is a <strong>shareable, editable document</strong> you create from any Copilot response with one click.</p>
+<p>Every time Copilot gives you a great response, it lives in that chat — and only that chat. Pages change that. A Page is a <strong>shareable, editable document</strong> you can create from any Copilot response and collaborate on live.</p>
 
-<h3>How to Create a Page</h3>
-<p>At the bottom of any Copilot response, look for the <strong>"Edit in Pages"</strong> button. Click it, and your response becomes an editable document.</p>
+<h3>Where Pages Come From</h3>
+<p>Pages can be created from three places — but the one we will use in this course is <strong>inside the notebook you just built</strong>, so the Page stays grounded in the same references. The other entry points exist and are useful to know about:</p>
+<ul>
+  <li><strong>From within a Notebook</strong> (what we will do): the Page inherits the notebook's references and instructions, so follow-ups stay grounded in your sources.</li>
+  <li><strong>From the Library:</strong> create a blank Page directly from the artifacts list.</li>
+  <li><strong>From general chat:</strong> any response has an <strong>Edit in Pages</strong> action — great for quick one-offs, but without the notebook's grounding.</li>
+</ul>
+
+<h3>Pages &amp; Notebooks, Back and Forth</h3>
+<p>A Page you create can be <strong>added back to a notebook</strong> as one of that notebook's sources. And regardless of where it was created, a Page can be <strong>shared with people inside or outside the notebook</strong> — the notebook's member list does not gate who can see the Page. Link sharing controls that separately (we cover it in the exercises).</p>
 
 <h3>What You Can Do with Pages</h3>
 <ul>
-  <li><strong>Edit directly:</strong> Add your own text, headings, bullet points — just like a Word doc</li>
-  <li><strong>Ask Copilot to add more:</strong> Click the Copilot icon on the Page and prompt for additional content</li>
-  <li><strong>Share via link:</strong> Click Share, copy the link, paste it in Teams or email</li>
-  <li><strong>Collaborate live:</strong> Multiple people can edit the same Page simultaneously</li>
+  <li><strong>Edit directly:</strong> Add your own text, headings, and bullets. Note: Pages do <strong>not</strong> render Markdown in the body — type plain text and use <strong>right-click</strong> to get the usual Word-like formatting options (bold, headings, lists, link, insert table).</li>
+  <li><strong>Ask Copilot to add more:</strong> The side Copilot chat is already open on any Page — just type your follow-up there.</li>
+  <li><strong>Share via link with scoped access:</strong> Anyone in the org, existing access only, or specific people you choose — plus Can edit vs. view, plus optional expiration date.</li>
+  <li><strong>Collaborate live:</strong> Multiple people can edit the same Page simultaneously.</li>
 </ul>
 
 <button class="continue-btn" onclick="switchTab(3,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Create, Edit, and Share a Page</h3>
+<h3>Create, Edit, and Share a Page — from Inside Your Notebook</h3>
 
-<p>Pages turn throwaway chat responses into living documents you can share and collaborate on. Pick your role below to create a Page tailored to your work:</p>
+<p>You will work inside the notebook you built in Lesson 2 so the Page inherits your references and stays grounded in the same sources. Pick your department below.</p>
+
+<div class="note-box">
+  <strong>The sequence for every Page:</strong> (1) decide a title + which documents inform it → (2) click <strong>Create</strong> to spin up the Page → (3) open Copilot instructions if you want to steer tone and structure → (4) run the power prompts → (5) iterate → (6) set link access → (7) share to Teams. Do NOT use Markdown in the Page body; use plain text and right-click for Word-style formatting (bold, headings, lists, link, table).
+</div>
 
 <div class="option-tabs" id="options-3">
   <button class="option-btn active" onclick="switchOption(3,'arch',this)">Architecture</button>
@@ -931,64 +1044,80 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <div class="option-content active" id="option-3-arch">
 <h4>Architecture: Design Review Summary Page</h4>
-<p><strong>1.</strong> Open Copilot Chat. Send this prompt:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a meeting summary for a facade material review meeting. Include: project name (Shore Club Fort Lauderdale), decisions made (selected terracotta rainscreen over aluminum curtain wall — reference cost data: terracotta at $85/SF vs aluminum at $62/SF), action items organized by consultant (structural engineer to confirm load capacity, envelope consultant to provide updated details, cost estimator to revise budget), and next milestones (CD submission in 3 weeks, permit filing in 6 weeks).</code></div>
-<p><strong>2.</strong> Read the response. At the bottom, click <strong>"Edit in Pages"</strong>.</p>
-<p><strong>3.</strong> In the Page, add your own heading: type <strong>## Open Questions</strong> and list 2-3 unresolved items from the review (e.g., color sample approval, mock-up schedule).</p>
-<p><strong>4.</strong> Use Copilot on the Page. Click the Copilot icon and type:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a section called "Consultant Responsibility Matrix" with a table listing each consultant, their action items, deadlines, and status column.</code></div>
-<p><strong>5.</strong> Click <strong>Share</strong> (top right). Copy the link and paste it into a Teams channel for the project team.</p>
+<p><strong>1. Inside your Building Code &amp; Project Standards notebook</strong> from L2, click <strong>+ New page</strong>. Title it: <strong>Shore Club — Facade Material Review Summary</strong>. Confirm the references attached (spec excerpt, code comparison) — those will ground every answer on this Page. Click <strong>Create</strong>.</p>
+<p><strong>2. Open Copilot instructions</strong> for the Page (notebook title dropdown → Copilot instructions apply here too). Leave the L2 instructions — they still fit.</p>
+<p><strong>3. Power Prompt #1</strong> — in the side Copilot chat (already open on the Page), send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a meeting summary for the Shore Club Fort Lauderdale facade material review. Include: decisions made (selected terracotta rainscreen over aluminum curtain wall — cite cost: terracotta $85/SF vs aluminum $62/SF), action items organized by consultant (structural load capacity, envelope details, cost estimator revisions), and next milestones (CD submission in 3 weeks, permit filing in 6 weeks). Cite the specific section of our spec document wherever a material decision is referenced.</code></div>
+<p><strong>4. Edit manually</strong> — right-click in the Page to add a heading "Open Questions" (plain text, use right-click for formatting — not Markdown). List 2-3 unresolved items (color sample approval, mock-up schedule).</p>
+<p><strong>5. Power Prompt #2 — with visualizations</strong> — in the side Copilot chat, send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Consultant Responsibility Matrix" section with a table of each consultant, action items, deadlines, and status. Then add two visualizations inline on the Page: (1) a horizontal bar chart comparing terracotta vs aluminum cost per SF from the decision above; (2) a timeline graphic showing CD submission, permit filing, and mock-up review milestones over the next 8 weeks.</code></div>
+<p><strong>6. Iterate</strong> in the side chat until the Page reads the way you want:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Reorganize with the most actionable items at the top and reference material at the bottom.</code></div>
 </div>
 
 <div class="option-content" id="option-3-hr" style="display:none">
 <h4>HR: New Hire Onboarding Checklist Page</h4>
-<p><strong>1.</strong> Open Copilot Chat. Send this prompt:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a new hire onboarding checklist for a Designer joining the Residential Studio. Include sections for: Role Details (title, department, start date, manager), Software Access (list 6 architecture tools like Revit, Rhino, Bluebeam, Adobe Creative Suite, Microsoft 365, project management tool), First-Week Meetings (5 meetings with team lead, HR orientation, IT setup, studio tour, mentor intro), and Mentor Assignment (mentor name placeholder, weekly check-in schedule, 30-60-90 day goals).</code></div>
-<p><strong>2.</strong> Read the response. At the bottom, click <strong>"Edit in Pages"</strong>.</p>
-<p><strong>3.</strong> In the Page, add your own heading: type <strong>## HR Notes</strong> and add notes about benefits enrollment deadline and parking pass request.</p>
-<p><strong>4.</strong> Use Copilot on the Page. Click the Copilot icon and type:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Pre-Start Checklist" section at the top with tasks HR must complete before the new hire's first day — offer letter signed, background check cleared, workstation ordered, email account created, building access card requested.</code></div>
-<p><strong>5.</strong> Click <strong>Share</strong> (top right). Copy the link and send it to the hiring manager.</p>
+<p><strong>1. Inside your HR Policies &amp; Onboarding notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Designer Onboarding — Residential Studio</strong>. References from L2 (handbook, onboarding checklist) carry over. Click <strong>Create</strong>.</p>
+<p><strong>2. Open Copilot instructions</strong> (carry over the L2 HR instructions).</p>
+<p><strong>3. Power Prompt #1</strong> — in the side Copilot chat:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using our onboarding checklist and handbook, create an onboarding plan for a Designer joining the Residential Studio. Include: Role Details (title, dept, start date, manager), Software Access (6 tools — Revit, Rhino, Bluebeam, Adobe CS, Microsoft 365, project management), First-Week Meetings (5 — team lead, HR orientation, IT, studio tour, mentor intro), Mentor Assignment (weekly check-ins, 30-60-90 day goals). Cite handbook sections where relevant.</code></div>
+<p><strong>4. Edit manually</strong> — right-click for formatting. Add a heading "HR Notes" and note benefits enrollment deadline + parking pass request.</p>
+<p><strong>5. Power Prompt #2 — with visualizations</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Pre-Start Checklist" section at the top (offer letter signed, background check cleared, workstation ordered, email account, building access card). Then add two visualizations on the Page: (1) a horizontal timeline of the first 90 days with milestones at days 1, 7, 30, 60, 90; (2) a stacked bar chart showing time allocation across orientation / software training / shadowing / independent work across the first 4 weeks.</code></div>
+<p><strong>6. Iterate</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Surface everything the hiring manager owns vs. everything HR owns — add an owner column and group the checklist accordingly.</code></div>
 </div>
 
 <div class="option-content" id="option-3-mktg" style="display:none">
 <h4>Marketing: Award Submission Tracker Page</h4>
-<p><strong>1.</strong> Open Copilot Chat. Send this prompt:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an award submission tracker for ODA's completed projects. Include columns for: Project Name, Award Name (AIA Design Award, Architizer A+, CTBUH, SARA NY), Submission Deadline, Status (Not Started / In Progress / Submitted), Materials Needed (photos, drawings, narrative, project data), and Assigned To. Add rows for: Harbor View Residences (AIA Design), Wynwood Arts Mixed-Use (Architizer A+), Shore Club (CTBUH), and Riverside Tower (SARA NY).</code></div>
-<p><strong>2.</strong> Read the response. At the bottom, click <strong>"Edit in Pages"</strong>.</p>
-<p><strong>3.</strong> In the Page, add your own heading: type <strong>## Photography Schedule</strong> and list 2-3 projects that need professional photography before submission.</p>
-<p><strong>4.</strong> Use Copilot on the Page. Click the Copilot icon and type:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Narrative Templates" section with a brief outline of what a typical award submission narrative should cover: project overview (2 sentences), design challenge, design solution, community impact, and sustainability features.</code></div>
-<p><strong>5.</strong> Click <strong>Share</strong> (top right). Copy the link and share it with the marketing team channel.</p>
+<p><strong>1. Inside your Marketing &amp; Awards Pipeline notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Q2 Award Submission Tracker</strong>. Awards tracker + narrative drafts carry over as references. Click <strong>Create</strong>.</p>
+<p><strong>2. Open Copilot instructions</strong> (L2 marketing instructions apply).</p>
+<p><strong>3. Power Prompt #1</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the awards tracker in this notebook, build an award submission tracker as a table: Project Name, Award (AIA Design, Architizer A+, CTBUH, SARA NY), Submission Deadline, Status, Materials Needed, Assigned To. Populate with Harbor View (AIA), Wynwood Arts (Architizer A+), Shore Club (CTBUH), Riverside Tower (SARA NY). Pull real submission deadlines from the tracker.</code></div>
+<p><strong>4. Edit manually</strong> — right-click to add a heading "Photography Schedule" and list 2-3 projects needing pro shoots before submission.</p>
+<p><strong>5. Power Prompt #2 — with visualizations</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Narrative Templates" section outlining what a typical submission covers (project overview in 2 sentences, design challenge, design solution, community impact, sustainability). Then add two visualizations: (1) a horizontal Gantt-style chart of all four submissions against their deadlines across Q2; (2) a bar chart showing how many materials (photos/drawings/narrative/project data) are ready vs. outstanding per submission.</code></div>
+<p><strong>6. Iterate</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Flag the highest-risk submission (shortest time-to-deadline with most missing materials) at the top.</code></div>
 </div>
 
 <div class="option-content" id="option-3-exec" style="display:none">
 <h4>Executive: Weekly Project Status Dashboard Page</h4>
-<p><strong>1.</strong> Open Copilot Chat. Send this prompt:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a weekly project status dashboard for ODA's leadership team. Include: an Active Projects Table with columns for Project Name, Phase (SD/DD/CD/CA), Status (On Track / At Risk / Behind), Budget Status (On Budget / Over / Under), Timeline, and Project Lead. Add rows for: Shore Club (CD, On Track), Mayflower (CD, At Risk — permit delays), Jersey City Waterfront (SD, On Track), The Mira Hotel Dubai (SD, On Track), Harbor View (CA, On Track), Riverside Tower (DD, Behind — over budget by 12%). Add sections for "Decisions Needed This Week" and "Top Risks."</code></div>
-<p><strong>2.</strong> Read the response. At the bottom, click <strong>"Edit in Pages"</strong>.</p>
-<p><strong>3.</strong> In the Page, add your own heading: type <strong>## Pipeline Update</strong> and note any new proposals submitted or RFPs in progress.</p>
-<p><strong>4.</strong> Use Copilot on the Page. Click the Copilot icon and type:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Staffing Snapshot" section with a summary of current team utilization — how many people are fully allocated vs. available for new work, and any hiring needs.</code></div>
-<p><strong>5.</strong> Click <strong>Share</strong> (top right). Copy the link and distribute it before the weekly leadership meeting.</p>
+<p><strong>1. Inside your Executive Project Overview notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Weekly Project Status — Leadership Brief</strong>. QBR + property summaries carry over. Click <strong>Create</strong>.</p>
+<p><strong>2. Open Copilot instructions</strong> (L2 exec instructions apply).</p>
+<p><strong>3. Power Prompt #1</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the QBR, build an Active Projects Table: Project, Phase (SD/DD/CD/CA), Status (On Track/At Risk/Behind), Budget Status (On/Over/Under), Timeline, Project Lead. Populate from the QBR with Shore Club, Mayflower, Jersey City Waterfront, The Mira Hotel Dubai, Harbor View, Riverside Tower. Follow with "Decisions Needed This Week" and "Top Risks" sections, pulling specifics from the QBR.</code></div>
+<p><strong>4. Edit manually</strong> — right-click to add a heading "Pipeline Update" and note new proposals or RFPs in flight.</p>
+<p><strong>5. Power Prompt #2 — with visualizations</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Staffing Snapshot" summarizing utilization — fully-allocated vs. available, with hiring needs. Then add two visualizations: (1) a stacked bar chart of project count by status (On Track / At Risk / Behind); (2) a bar chart of budget variance (%) by project with a zero line, so over-budget projects sit above and under-budget below.</code></div>
+<p><strong>6. Iterate</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Move the three most urgent decisions to the very top of the Page above the project table.</code></div>
 </div>
 
 <div class="option-content" id="option-3-ops" style="display:none">
 <h4>Operations: Resource Allocation Overview Page</h4>
-<p><strong>1.</strong> Open Copilot Chat. Send this prompt:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a resource allocation overview for an architecture firm's operations team. Include: a Team Members Table with columns for Name, Role, Current Project Assignment(s), Utilization Rate (percentage), and Upcoming Availability (date available or "Fully allocated through [date]"). Add 8 sample rows with a mix of architects, designers, and project managers at varying utilization levels. Below the table, add a "Reallocation Opportunities" section identifying team members who could shift to understaffed projects.</code></div>
-<p><strong>2.</strong> Read the response. At the bottom, click <strong>"Edit in Pages"</strong>.</p>
-<p><strong>3.</strong> In the Page, add your own heading: type <strong>## Upcoming Project Starts</strong> and list 2-3 projects kicking off in the next month that will need staffing.</p>
-<p><strong>4.</strong> Use Copilot on the Page. Click the Copilot icon and type:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Contractor & Temp Staffing" section with guidelines for when to bring in contract support — utilization thresholds, preferred vendors, and approval process.</code></div>
-<p><strong>5.</strong> Click <strong>Share</strong> (top right). Copy the link and share it with project managers before the weekly resourcing meeting.</p>
+<p><strong>1. Inside your Operations &amp; Resource Planning notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Weekly Resource Overview</strong>. Resource allocation + project tracking CSVs carry over. Click <strong>Create</strong>.</p>
+<p><strong>2. Open Copilot instructions</strong> (L2 ops instructions apply).</p>
+<p><strong>3. Power Prompt #1</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the resource allocation CSV, build a Team Members table: Name, Role, Current Project Assignment(s), Utilization Rate, Upcoming Availability. Sort by utilization descending. Below the table, add a "Reallocation Opportunities" section identifying team members who could shift to understaffed projects — cite specific projects from the tracking CSV.</code></div>
+<p><strong>4. Edit manually</strong> — right-click to add a heading "Upcoming Project Starts" and list 2-3 projects kicking off in the next month that will need staffing.</p>
+<p><strong>5. Power Prompt #2 — with visualizations</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Contractor &amp; Temp Staffing" section (utilization thresholds, preferred vendors, approval process). Then add two visualizations: (1) a horizontal bar chart of utilization % per team member, with a 90% overallocation line; (2) a monthly line chart of total utilization for the studio over the last 6 months from the financials CSV, so we can see the summer dip.</code></div>
+<p><strong>6. Iterate</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Reorganize so anyone over 100% is flagged at the very top with the specific project they should reduce hours on.</code></div>
 </div>
 
-<p><strong>Iterate:</strong> Ask Copilot on the Page to refine your content:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Reorganize this Page with the most actionable items at the top and reference material at the bottom.</code></div>
+<h4>Final step — set link access, THEN share to Teams</h4>
+<p>Once the Page reads the way you want, click <strong>Share</strong> (top right). In the Link settings dialog, choose your scope:</p>
+<ul>
+  <li><strong>People in [your organization]:</strong> anyone in the company with the link can open it.</li>
+  <li><strong>Only people with existing access:</strong> tightest — no new people gain access via the link.</li>
+  <li><strong>People you choose:</strong> explicit allowlist.</li>
+</ul>
+<p>Then set <strong>Can edit</strong> vs <strong>Can view</strong>, and optionally set an <strong>expiration date</strong>. Apply. Copy the link. <em>Now</em> paste into the relevant Teams channel — this is the last step, after you have iterated and locked the access scope.</p>
 
 <div class="note-box">
-  <strong>Success check:</strong> Your Page should have AI-generated content + your manual edits + a shareable link. Three sources of content on one collaborative Page. Could a teammate open this link and immediately understand the status without asking you a question?
+  <strong>Success check:</strong> Your Page has AI-generated content, your manual edits, at least one visualization, and a share link with a deliberate access scope. It lives inside the notebook so Copilot can still answer follow-ups grounded in the same sources. A teammate should open the link and know what is happening without asking a single question.
 </div>
 
 <p class="personalization-note">[PERSONALIZED: swap the Page creation topic with organization-specific deliverable types from Listen Labs interviews]</p>
@@ -996,14 +1125,23 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <button class="mark-complete-btn" id="complete-btn-3" onclick="markComplete(3)">Mark Complete</button>
 `,
   advanced: `
+<h3>Where finished Pages live: the Library</h3>
+<p>Every Page you create — whether from inside a notebook, from general chat, or from scratch — is automatically filed in your <strong>Library</strong> (left sidebar). The Library is Copilot's artifact store: pages, saved images, created documents, saved prompts. Open it after a Page is published to confirm it landed and to find it again later.</p>
+<p>A few habits that pay off:</p>
+<ul>
+  <li>Open the Library periodically and prune — old one-off Pages accumulate.</li>
+  <li>Rename your Pages with a prefix like <strong>[Project] — [Artifact]</strong> so the Library list stays scannable.</li>
+  <li>From the Library, you can re-share a Page with different access scope without opening the Page itself.</li>
+</ul>
+
 <h3>Pages as Team Knowledge Hubs</h3>
 <p>Some teams use Copilot Pages as living project documents — updated weekly with new Copilot-generated content and team edits. Unlike a static Word doc, a Page stays connected to Copilot so you can always ask it to update, summarize, or expand sections.</p>
 
 <h3>Pages vs. Word</h3>
 <p><strong>Pages:</strong> Quick, collaborative, AI-connected. Best for meeting notes, brainstorm results, project plans you are iterating on. <strong>Word:</strong> Formal, formatted, printable. Best for polished documents that need templates or official formatting.</p>
 
-<h3>Connecting Pages to Notebooks</h3>
-<p>Copilot Notebooks can reference Pages as sources. Research you save in a Page can inform your notebook-based analysis. Build a workflow: Chat &rarr; Page &rarr; Notebook &rarr; refined output.</p>
+<h3>Connecting Pages back to Notebooks</h3>
+<p>A Page can be <strong>added back into a notebook</strong> as one of its references — the loop closes. So the workflow is not linear but circular: build the notebook, spin off a Page, add the Page back as a source, ask the notebook a new question that now cites both the original docs and your synthesized Page. This is how institutional knowledge compounds inside Copilot.</p>
 `
 },
 
@@ -1011,37 +1149,27 @@ When the interview is complete, output the results formatted as a Copilot Custom
 {
   id: 'copilot-search',
   title: 'Copilot Search',
-  points: 15,
+  points: 10,
   learn: `
 <h3>Find Anything in Your Organization</h3>
-<p><em>You've built Pages from your conversations. Now find anything across your entire organization — files, emails, meetings, people — in seconds.</em></p>
+<p><em>You built a notebook and shared a Page. Now find anything across your entire organization — files, emails, meetings, people.</em></p>
 
-<p>Forget digging through folders. Copilot Search understands what you <strong>mean</strong>, not just what you type. Instead of searching "Q4 budget spreadsheet marketing," you ask: "Find the budget spreadsheet the marketing team shared last quarter."</p>
+<p>Copilot gives you two distinct search surfaces, and they work differently. Using the wrong one is the most common reason people think "Copilot can't find my file."</p>
 
-<h4>The / (Slash) Commands</h4>
-<p>Type <strong>/</strong> (forward slash) in the message box to access powerful shortcuts:</p>
+<h4>1. The <span style="font-family:monospace;">/</span> (Slash) Reference in Chat — Exact Match Only</h4>
+<p>Typing <strong>/</strong> in the message box opens a picker for <strong>pulling a specific file, person, or email into your prompt as context</strong>. It is <strong>not</strong> natural language. You need to type the actual filename, the person's name, or the exact subject line — just like @-mentioning someone in Outlook.</p>
 <ul>
-  <li><strong>/</strong> — Opens a menu of quick actions: search files, reference documents, and more</li>
-  <li><strong>Schedule a meeting:</strong> Type something like "Schedule a meeting with Sarah and Keith next Tuesday at 2 PM to discuss the facade review" — Copilot checks everyone's calendar availability, finds a time that works, and creates the invite. This is one of the most useful features for anyone who spends time coordinating calendars.</li>
+  <li><span class="inline-code">/Shore Club Spec v3.docx</span> — pulls that exact file into your prompt as a reference.</li>
+  <li><span class="inline-code">/Sarah Chen</span> — pulls that person's profile into context.</li>
+  <li><span class="inline-code">/Re: Permit submission timeline</span> — pulls that email thread.</li>
 </ul>
+<p>If you do not know the exact name, the slash picker will not help you. Use the Search tab or a natural-language Work-mode prompt instead.</p>
 
-<h4>Two Ways to Search</h4>
-<ul>
-  <li><strong>From the chat:</strong> Type <strong>/</strong> in the message box or simply ask in Work mode: "Find the document about..."</li>
-  <li><strong>From the sidebar:</strong> Click <strong>Search</strong> in the left sidebar to search your past Copilot conversations.</li>
-</ul>
+<h4>2. The Search tab in the sidebar — for files, not conversations</h4>
+<p>Click <strong>Search</strong> in the left sidebar. This searches <strong>your Microsoft 365 content</strong> — documents, emails, meeting content — across OneDrive, SharePoint, Outlook, and Teams. It is not a search over your past Copilot conversations; it is a search over your work.</p>
 
-<h4>What Copilot Search Covers</h4>
-<ul>
-  <li><strong>Files:</strong> OneDrive, SharePoint, Teams files — even if you don't remember the filename</li>
-  <li><strong>Emails:</strong> Any email in your mailbox, searchable by content, sender, date, or topic</li>
-  <li><strong>Meetings:</strong> Transcripts, recaps, and notes from Teams meetings</li>
-  <li><strong>People:</strong> Find colleagues by expertise, project involvement, or document authorship</li>
-  <li><strong>Messages:</strong> Teams chats and channel conversations</li>
-</ul>
-
-<h4>Natural Language Queries</h4>
-<p>The real power is searching the way you think:</p>
+<h4>3. Natural-language search from the chat</h4>
+<p>Within a regular chat (Work mode on), you can just ask. Copilot Search understands what you <strong>mean</strong>:</p>
 <ul>
   <li><span class="inline-code">Where is the spreadsheet that breaks down project costs by phase?</span></li>
   <li><span class="inline-code">Show me everything related to the Fort Lauderdale project from the last 2 months</span></li>
@@ -1049,9 +1177,21 @@ When the interview is complete, output the results formatted as a Copilot Custom
   <li><span class="inline-code">Who has experience with waterproofing specifications?</span></li>
 </ul>
 
+<h4>What Copilot Search Covers</h4>
+<ul>
+  <li><strong>Files:</strong> OneDrive, SharePoint, Teams files — even if you do not remember the filename</li>
+  <li><strong>Emails:</strong> Any email in your mailbox, searchable by content, sender, date, or topic</li>
+  <li><strong>Meetings:</strong> Transcripts, recaps, and notes from Teams meetings</li>
+  <li><strong>People:</strong> Find colleagues by expertise, project involvement, or document authorship</li>
+  <li><strong>Messages:</strong> Teams chats and channel conversations</li>
+</ul>
+
+<h4>Scheduling and "connect the dots" queries live in the chat</h4>
+<p>More complex, multi-tool requests — scheduling, finding a person + a file + a meeting all at once — happen in the regular chat, not in the Search tab. Example: "Schedule a 30-min meeting with Sarah and Keith next Tuesday to discuss the facade review" — Copilot pulls from your calendar and theirs, finds a time, drafts the invite. That kind of cross-tool chaining cannot happen inside the Search tab.</p>
+
 <div class="tip-box">
-  <div class="tip-title">For Teams with Disorganized File Servers</div>
-  <p>If your shared drives are chaotic (no consistent naming, deep nested folders), Copilot Search is your best friend. It searches by <strong>content</strong>, not filename. Even if a critical document is buried in a folder called "Misc_2024_old," Copilot can find it if you describe what's in it.</p>
+  <div class="tip-title">Rule of thumb</div>
+  <p><strong>Know the exact name?</strong> Use <span style="font-family:monospace;">/</span> in chat. <strong>Looking up a file by content / topic?</strong> Use the Search tab or a natural-language chat prompt. <strong>Doing anything multi-step (schedule, cross-reference, find-a-person-then-their-docs)?</strong> Stay in chat.</p>
 </div>
 
 <button class="continue-btn" onclick="switchTab(4,'implement')">Continue to Exercises &rarr;</button>
@@ -1059,41 +1199,54 @@ When the interview is complete, output the results formatted as a Copilot Custom
   implement: `
 <h3>Search Your Organization's Data</h3>
 
-<p>Make sure you are in <strong>Work mode</strong> (not Web) for all exercises.</p>
+<p>The exercises are split into two buckets because the tools are different. Make sure you are in <strong>Work mode</strong> (not Web) throughout.</p>
 
-<h4>Exercise 1: Find Project Documents</h4>
-<p><strong>1.</strong> Send:</p>
+<h3>Bucket A — Search tab (exact-match lookups)</h3>
+<p>These go in the <strong>Search</strong> tab in the left sidebar. Expect exact matches on file name, person, or email subject.</p>
+
+<h4>Exercise A1: Find a document by exact name</h4>
+<p><strong>1.</strong> Open the <strong>Search</strong> tab. Type the exact filename (or part of it) of a Shore Club document you know exists in your org — e.g., <em>Shore Club Spec</em>. Pick the right result from the list.</p>
+
+<h4>Exercise A2: Find a specific person</h4>
+<p><strong>2.</strong> In Search, type a colleague's name. Open their profile and notice what appears — recent files they authored, meetings you share, email threads. This is where <strong>/</strong> in chat draws from when you reference them.</p>
+
+<h4>Exercise A3: Find a specific email</h4>
+<p><strong>3.</strong> In Search, paste the exact subject line of a recent email ("Re: Permit submission timeline" or similar). Confirm the thread opens.</p>
+
+<div class="note-box">
+  <strong>Reminder:</strong> The Search tab is not natural language. If you do not know the exact name, do not waste your time here — jump to Bucket B.
+</div>
+
+<h3>Bucket B — Chat (natural language + multi-step workflows)</h3>
+<p>These go in a regular <strong>Work-mode chat</strong>. Copilot chains tools — calendar, email, files, meetings — in a single response.</p>
+
+<h4>Exercise B1: Find documents by content (not filename)</h4>
+<p><strong>4.</strong> Send:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find all documents related to the Shore Club Fort Lauderdale project that were modified in the last 30 days. Include permit submissions, consultant correspondence, and design review notes.</code></div>
-<p><strong>2.</strong> Check: Did Copilot return real files you recognize? Click on one to confirm it opens the right document.</p>
-
-<h4>Exercise 2: Search by Content</h4>
-<p><strong>3.</strong> Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Search for any documents that mention "facade" or "building envelope" or "waterproofing" or "terracotta rainscreen." Show me the 5 most recent, with the author and last modified date.</code></div>
-<p><strong>4.</strong> Try narrowing the results:</p>
+<p><strong>5.</strong> Did Copilot return real files? Click one to confirm it opens. Narrow the results:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>From those results, show me only files related to the Shore Club or Riverside Tower projects.</code></div>
 
-<h4>Exercise 3: People Discovery</h4>
-<p><strong>5.</strong> Send:</p>
+<h4>Exercise B2: People discovery by expertise</h4>
+<p><strong>6.</strong> Send:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Who in my organization has worked on documents about consultant coordination, permit submissions, or construction administration? List their names and the specific files they edited.</code></div>
-<p><strong>6.</strong> Follow up on someone from the results:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What was the most recent document [name from results] shared about this topic? Summarize it in 2 sentences.</code></div>
 
-<h4>Exercise 4: Meeting Search</h4>
+<h4>Exercise B3: Search Teams meetings</h4>
 <p><strong>7.</strong> Send:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Search my recent Teams meetings for any discussion about Shore Club deadlines, permit timelines, or CD submission dates. What was decided and who has outstanding action items?</code></div>
 
-<h4>Exercise 5: Schedule a Meeting</h4>
-<p><strong>8.</strong> Try Copilot's scheduling. Send this (replace the names with real colleagues):</p>
+<h4>Exercise B4: Schedule a meeting with real people</h4>
+<p><strong>8.</strong> Replace the names with real colleagues and send:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Schedule a 30-minute meeting with [name 1] and [name 2] sometime next week to discuss the Shore Club facade material review and permit submission timeline. Check everyone's availability and suggest the best time.</code></div>
-<p><strong>9.</strong> Copilot will check calendars and propose a time. Review the suggestion — if it works, confirm and Copilot creates the calendar invite with an agenda.</p>
+<p><strong>9.</strong> Copilot proposes a time. Confirm and it creates the calendar invite with an agenda.</p>
 
-<p><strong>Iterate:</strong> Try combining search types — find a file, then ask about the person who created it, then ask about meetings where that topic was discussed:</p>
+<h4>Exercise B5: Connect the dots (multi-step)</h4>
+<p><strong>10.</strong> The payoff query — find a file, identify who made it, then search meetings where the topic came up:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Connect the dots: find the latest Shore Club permit submission document, tell me who submitted it, and search for any meetings in the last month where the Shore Club permit timeline was discussed.</code></div>
 
 <p class="personalization-note">[PERSONALIZED: swap search queries with organization-specific project names, document types, and colleague names from Listen Labs interviews]</p>
 
 <div class="note-box">
-  <strong>Success check:</strong> You should have found real files by content (not just filename), discovered a colleague through expertise search, and searched meeting transcripts. If results are sparse, try broader terms — Copilot Search improves as your organization stores more content in Microsoft 365.
+  <strong>Success check:</strong> You have done both — exact-match lookups in the Search tab, and natural-language + multi-tool workflows in chat. The split is the whole point of this lesson: use the right surface for the right kind of question.
 </div>
 
 <button class="mark-complete-btn" id="complete-btn-4" onclick="markComplete(4)">Mark Complete</button>
@@ -1120,15 +1273,19 @@ When the interview is complete, output the results formatted as a Copilot Custom
   points: 15,
   learn: `
 <h3>From Iteration to Publishing</h3>
-<p><em>You searched your org data and found what you needed. Now package your best work into reusable, shareable assets.</em></p>
+<p><em>You have notebooks full of content and Pages summarizing it. Now package that work into the formats your team actually consumes — decks, documents, spreadsheets, visuals, videos.</em></p>
 
-<h3>Create Is for Publishing and Reuse</h3>
-<p>Click <strong>Create</strong> in the left navigation. This is not a scratchpad — it is a <strong>publishing workspace</strong>. Use Create when you want to:</p>
+<h3>Create Is a Publishing Workspace — for Any Artifact Type</h3>
+<p>Click <strong>Create</strong> in the left sidebar. "What do you want to create?" lines up the output types as pills across the top:</p>
 <ul>
-  <li>Turn an approved dashboard, chart, or visual into a <strong>reusable asset</strong></li>
-  <li>Package content for others to consume <strong>without re-running the logic</strong></li>
-  <li>Create organizational artifacts: reports, apps, shared pages, visual assets</li>
-  <li>Align with governance, sharing, and access controls</li>
+  <li><strong>Create an image</strong> — text-to-image, with a full image-editing toolkit once generated.</li>
+  <li><strong>PowerPoint</strong> — a deck from a prompt, a document, or reference material.</li>
+  <li><strong>Word</strong> — long-form documents (reports, memos, briefs, proposals).</li>
+  <li><strong>Excel</strong> — spreadsheets with formulas, pivots, simple models.</li>
+  <li><strong>Create a video</strong> — Frontier. Generate clips, build video projects, or start from a PowerPoint or document.</li>
+  <li><strong>Design an infographic</strong> — stylized single-image summaries of data or concepts.</li>
+  <li><strong>Create a story</strong> — narrative-driven visual output.</li>
+  <li><strong>More…</strong> opens secondary types: <strong>Poster</strong>, <strong>Edit an image</strong>, <strong>Form</strong>, <strong>Banner</strong>, <strong>Draft</strong>, templates (Start from a template / Brand templates / All templates), and <strong>Brand kits</strong>.</li>
 </ul>
 
 <h4>Create vs. Notebooks</h4>
@@ -1140,34 +1297,44 @@ When the interview is complete, output the results formatted as a Copilot Custom
   </tr></thead>
   <tbody>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Purpose</td><td style="padding:8px 12px;">Experimentation and iteration</td><td style="padding:8px 12px;">Publishing and reuse</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Best for</td><td style="padding:8px 12px;">Exploring ideas, drafting, refining</td><td style="padding:8px 12px;">Finalized visuals, shareable assets</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Best for</td><td style="padding:8px 12px;">Exploring ideas, drafting, refining</td><td style="padding:8px 12px;">Finalized artifacts — decks, docs, sheets, visuals, videos</td></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Audience</td><td style="padding:8px 12px;">You (and collaborators)</td><td style="padding:8px 12px;">Your organization</td></tr>
     <tr><td style="padding:8px 12px;font-weight:600;">Lifecycle</td><td style="padding:8px 12px;">Fluid, ongoing</td><td style="padding:8px 12px;">Approve → publish → distribute</td></tr>
   </tbody>
 </table>
 
-<h3>What You Can Create</h3>
+<h3>Image Editing — Worth Calling Out</h3>
+<p>When you use Create to generate an image, the Image Editing panel gives you a rich toolkit <em>after</em> the first generation — not just "regenerate." You get:</p>
 <ul>
-  <li><strong>Images from text</strong> — Describe any scene, concept, or visual and Copilot generates it</li>
-  <li><strong>Design iterations</strong> — Generate, then refine: "Make the background darker," "Change to watercolor." Designer tools give you controls for adjustments.</li>
-  <li><strong>Brand-consistent visuals</strong> — With Brand Kit (set up by your admin), Copilot uses your org's colors, fonts, and logo</li>
-  <li><strong>Organizational artifacts</strong> — Reports, dashboards, shared pages that others can consume without rebuilding</li>
+  <li><strong>Background:</strong> Remove / Blur / Color</li>
+  <li><strong>Object transform:</strong> Erase, Move, Cutout, Crop-to-object, Create sticker</li>
+  <li><strong>Enhancements:</strong> Upscale, Focus, Color pop</li>
+  <li><strong>Filters &amp; Effects:</strong> Punch, Golden, Radiate, and more</li>
+  <li><strong>Crop &amp; rotate, Adjustments, Auto enhance, Erase</strong> along the top toolbar</li>
 </ul>
+<p>Once edited, you can <strong>add the image directly to a Page</strong> — closing the loop with the Pages you built in L3.</p>
 
-<h3>Saving Your Work: The Library</h3>
-<p>Everything you create can be saved to your <strong>Library</strong> (left sidebar). The Library stores your saved images, prompts, and responses — your personal asset collection. Save anything you want to reuse: presentation graphics, concept visuals, templates, or prompts that worked well.</p>
+<h3>Brand Kits</h3>
+<p>With a Brand Kit configured by your admin, Copilot uses your org's colors, fonts, and logo automatically. Open <strong>More… → Brand kits</strong> or <strong>Manage brand kits</strong> to see what is set up.</p>
+
+<h3>Saving Your Work: the Library</h3>
+<p>Everything you create is saved to the <strong>Library</strong>. Pages, images, drafts, documents, saved prompts — all one asset collection, all searchable. Revisit the Library regularly; it is where Copilot's output accumulates into something reusable.</p>
 
 <div class="tip-box">
-  <div class="tip-title">Workflow</div>
-  <p><strong>Iterate</strong> in Notebooks and Chat. When something is ready, <strong>publish</strong> it through Create. Save your best assets to the <strong>Library</strong> for reuse.</p>
+  <div class="tip-title">Workflow reminder</div>
+  <p><strong>Iterate</strong> in Notebooks and Chat. <strong>Synthesize</strong> in a Page. <strong>Publish</strong> the formal artifact through Create. <strong>Reuse</strong> from the Library.</p>
 </div>
 
 <button class="continue-btn" onclick="switchTab(5,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Create Visuals for Your Role</h3>
+<h3>Publish an Artifact That Pulls from Your Notebook &amp; Page</h3>
 
-<p>Click <strong>Create</strong> in the left sidebar to open the visual workspace. Pick your role below for a tailored creation exercise.</p>
+<p>Click <strong>Create</strong> in the left sidebar. Every department below gets a <em>different</em> artifact type — PowerPoint, Word, Image, Infographic, Excel — so you can feel where each one shines. The source material is whatever you already built in Lesson 2 (notebook) and Lesson 3 (Page). Pick your role.</p>
+
+<div class="note-box">
+  <strong>Pattern for every exercise:</strong> (1) Open <strong>Create</strong> and pick the artifact type → (2) Reference the L2 notebook or L3 Page so Copilot pulls from the right source → (3) Run the generation prompt → (4) Iterate with a second prompt → (5) Save to Library and (where noted) add back to your Page.
+</div>
 
 <div class="option-tabs" id="options-5">
   <button class="option-btn active" onclick="switchOption(5,'arch',this)">Architecture</button>
@@ -1178,78 +1345,134 @@ When the interview is complete, output the results formatted as a Copilot Custom
 </div>
 
 <div class="option-content active" id="option-5-arch">
-<p><strong>1.</strong> Generate a concept visualization:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an exterior rendering of a 45-story mixed-use tower in Fort Lauderdale with a terracotta rainscreen and glass facade, ocean-facing stepped terraces with lush plantings, and a public waterfront promenade at ground level. Warm afternoon light, ocean in background. Style: architectural visualization, photorealistic.</code></div>
-<p><strong>2.</strong> Create a variation for a client presentation:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create the same building but as a clean line drawing with minimal color — suitable for a Shore Club design presentation slide background. Show the stepped massing clearly.</code></div>
-<p><strong>3.</strong> Generate a material study:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Show me a close-up facade detail: terracotta rainscreen panels with dark metal mullions and floor-to-ceiling glass, typical of ODA's residential tower designs. Focus on the material texture and how light hits the surface. Photorealistic.</code></div>
+<h4>Architecture &rarr; PowerPoint: Shore Club Client Pitch Deck</h4>
+<p><strong>1.</strong> In Create, click the <strong>PowerPoint</strong> pill. You will see "Create a presentation about…" with options for <em>From a prompt</em>, <em>From a document</em>, <em>From a topic</em>.</p>
+<p><strong>2. Generation prompt</strong> — reference the Shore Club Page you built in L3 and the building code / spec references in your L2 notebook:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Build a 10-slide client pitch deck for Shore Club Fort Lauderdale. Pull facts from my "Shore Club — Facade Material Review Summary" Page and the spec + building code references in the Building Code &amp; Project Standards notebook. Slide outline: (1) Title + hero image placeholder, (2) Project vision, (3) Site + context, (4) Massing concept, (5) Facade material decision (terracotta rainscreen with cost rationale $85/SF vs alum $62/SF), (6) Envelope performance + code compliance highlights, (7) Consultant team + responsibility matrix, (8) Timeline (CD in 3 weeks, permit in 6 weeks), (9) Open questions, (10) Next milestones. Use a clean, design-firm aesthetic.</code></div>
+<p><strong>3. Iterate</strong> — tighten the deck:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Tighten the facade material slide into two columns: terracotta pros on the left, aluminum pros on the right, with the cost line as a callout. Replace the timeline slide with a horizontal bar across the next 8 weeks. Add speaker notes to every slide.</code></div>
+<p><strong>4.</strong> Save the deck to your Library. From the deck's share menu, you can drop the link into the Shore Club Page you built in L3 so the Page and the deck stay connected.</p>
 </div>
 
-<div class="option-content" id="option-5-hr">
-<p><strong>1.</strong> Generate an onboarding welcome graphic:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a warm, professional welcome graphic for new employees at a design firm. Show a modern open-plan office with natural light, collaborative spaces, and a "Welcome to the team" theme. Style: clean illustration, suitable for an email header.</code></div>
-<p><strong>2.</strong> Create a company culture visual:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an illustration representing teamwork and collaboration in a creative workplace — people sketching, reviewing models, and discussing designs around a table. Flat vector style with warm earth tones.</code></div>
+<div class="option-content" id="option-5-hr" style="display:none">
+<h4>HR &rarr; Word Document: Formal Onboarding Packet</h4>
+<p><strong>1.</strong> In Create, click the <strong>Word</strong> pill. "Create a document about…" opens.</p>
+<p><strong>2. Generation prompt</strong> — grounded in your HR Policies &amp; Onboarding notebook and the "Designer Onboarding — Residential Studio" Page you built in L3:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a formal onboarding packet (Word document) for a new Designer in the Residential Studio. Source the content from my "Designer Onboarding — Residential Studio" Page and the handbook / onboarding checklist references in the HR Policies &amp; Onboarding notebook. Sections: Welcome letter, Role &amp; reporting structure, First-week schedule (5 meetings with owners and times), Software access (6 tools + request process), Benefits enrollment (deadline + link), Mentor program (30-60-90 day goals), Building &amp; IT access, Expectations for the first 90 days, Signatures page. Professional tone, printable layout.</code></div>
+<p><strong>3. Iterate</strong> — polish for distribution:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a Table of Contents, make every section heading Heading 2 style, and insert a two-column table for the software access row (Tool | Access owner). Keep total length to 4-5 pages.</code></div>
+<p><strong>4.</strong> Save to the Library. The Word doc becomes the handoff-ready version of the Page — the Page is for collaboration, the Word doc is for signatures and HR files.</p>
 </div>
 
-<div class="option-content" id="option-5-mktg">
-<p><strong>1.</strong> Generate a social media graphic:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a social media graphic announcing that ODA won an AIA Design Award for Harbor View Residences. Show a modern waterfront residential tower at golden hour with "AIA Award Winner" text overlay. Style: polished, Instagram-ready, square format.</code></div>
-<p><strong>2.</strong> Create an RFP proposal cover:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a sophisticated cover image for an architecture RFP proposal. Abstract geometric shapes suggesting building forms, deep navy background with gold accents. Clean and corporate. No text.</code></div>
+<div class="option-content" id="option-5-mktg" style="display:none">
+<h4>Marketing &rarr; Image (deep dive): Award Announcement Hero</h4>
+<p>This is the department that goes deepest on <strong>image editing</strong> — you will generate, edit with the full toolkit, then <em>add the image directly to the Page</em> from L3.</p>
+<p><strong>1.</strong> In Create, click <strong>Create an image</strong>.</p>
+<p><strong>2. Generation prompt</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a square social-media-ready hero image announcing ODA's AIA Design Award win for Harbor View Residences. Show a modern waterfront residential tower at golden hour, viewed from a low angle. Sophisticated, cinematic, award-worthy. Leave the top third clean for text overlay.</code></div>
+<p><strong>3. Open the Image Editing panel</strong> (appears next to the generated image). Work through each cluster — this is the whole point of the exercise:</p>
+<ul>
+  <li><strong>Background &rarr; Blur</strong> or <strong>Color</strong> — try blurring the background and see how it changes the focus.</li>
+  <li><strong>Object transform &rarr; Erase</strong> — remove any stray element (a crane, a sign) that you don't want.</li>
+  <li><strong>Object transform &rarr; Cutout</strong> — isolate the tower from the sky.</li>
+  <li><strong>Enhancements &rarr; Upscale</strong> — push resolution for print use.</li>
+  <li><strong>Enhancements &rarr; Color pop</strong> — desaturate everything except the tower.</li>
+  <li><strong>Filters &amp; Effects &rarr; Golden</strong> or <strong>Radiate</strong> — try one, revert if overkill.</li>
+  <li><strong>Top toolbar</strong> — Crop &amp; rotate into a square, Auto enhance once.</li>
+</ul>
+<p><strong>4. Iterate</strong> with a second prompt if the composition is wrong:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Same tower, but from a further distance with more sky above it for text overlay. Keep the golden-hour mood.</code></div>
+<p><strong>5. Add the image directly to your L3 Page.</strong> From the image's share/save menu, choose <strong>Add to Page</strong> and pick the <em>Q2 Award Submission Tracker</em> Page. The image now lives inside the Page so the announcement visual and the submission tracker are one artifact.</p>
+<p><strong>6.</strong> Save the final image to your Library so the social team can reuse it.</p>
 </div>
 
-<div class="option-content" id="option-5-exec">
-<p><strong>1.</strong> Generate a presentation cover:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a cover slide image for a board presentation at an architecture firm. Show an abstract aerial view of a modern urban development — clean lines, green spaces, mixed-use buildings. Style: sophisticated, minimal, suitable for a dark slide background.</code></div>
-<p><strong>2.</strong> Create a strategic vision graphic:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an infographic-style illustration showing a firm's growth trajectory: from small studio to global practice. Use a timeline visual with architectural landmarks at each stage. Flat design, corporate colors.</code></div>
+<div class="option-content" id="option-5-exec" style="display:none">
+<h4>Executive &rarr; Infographic: Board-Ready QBR Visual</h4>
+<p><strong>1.</strong> In Create, click <strong>Design an infographic</strong>. If it is not on the first row, expand <strong>More…</strong>.</p>
+<p><strong>2. Generation prompt</strong> — pulling from the QBR in your Executive Project Overview notebook and the Leadership Brief Page:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Design a single-page infographic summarizing this quarter for the board. Source: my "Weekly Project Status — Leadership Brief" Page and the QBR + property summaries in the Executive Project Overview notebook. Must include: portfolio at a glance (project count, revenue, win rate), status distribution (On Track / At Risk / Behind as a donut), top 3 risks (short icons + 1-line each), staffing headline number, pipeline highlights. Sophisticated, restrained — think McKinsey, not advertising.</code></div>
+<p><strong>3. Iterate</strong> — push it toward something you'd actually present:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Move the donut to the top-right, make the top 3 risks the visual center, and add a small bar chart along the bottom showing revenue by project. Navy + white + one accent color only.</code></div>
+<p><strong>4.</strong> Save to Library and drop the infographic into the top of your Leadership Brief Page so the board version and the working version stay linked.</p>
 </div>
 
-<div class="option-content" id="option-5-ops">
-<p><strong>1.</strong> Generate a project milestone visual:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create an illustration of a construction project timeline showing 5 phases: schematic design, design development, construction documents, permitting, and construction. Use a horizontal flowchart style with icons for each phase. Clean, professional, suitable for a project kickoff presentation.</code></div>
-<p><strong>2.</strong> Create a team utilization graphic:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a visual showing a team resource dashboard — abstract representations of people assigned to different colored project streams. Modern infographic style, clean layout.</code></div>
+<div class="option-content" id="option-5-ops" style="display:none">
+<h4>Operations &rarr; Excel Workbook: Resource Allocation Model</h4>
+<p><strong>1.</strong> In Create, click the <strong>Excel</strong> pill. "Create a spreadsheet about…" opens.</p>
+<p><strong>2. Generation prompt</strong> — sourced from your Operations &amp; Resource Planning notebook (resource allocation + tracking CSVs) and the Weekly Resource Overview Page:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Build a resource allocation workbook. Source: the resource allocation CSV + project tracking CSV in my Operations &amp; Resource Planning notebook, plus the "Weekly Resource Overview" Page. Sheets: (1) People — Name, Role, Utilization %, Current Project(s), Available Date, with conditional formatting flagging &gt;90%; (2) Projects — Project, Phase, Start/End, FTEs needed, FTEs assigned, Gap; (3) Summary — SUMIF-driven totals per project and per person, plus a pivot of utilization by role. Add a chart on the Summary sheet: horizontal bar of utilization % with a 90% threshold line.</code></div>
+<p><strong>3. Iterate</strong> — make it usable:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Reallocation Opportunities" sheet that flags every person &gt;90% and pairs them with understaffed projects using XLOOKUP against the Projects sheet. Also add named ranges so the formulas read cleanly.</code></div>
+<p><strong>4.</strong> Save to Library. Link the workbook from your Weekly Resource Overview Page so the narrative Page and the model live side-by-side — one for reading, one for running numbers.</p>
 </div>
 
-<p><strong>Refine your favorite result:</strong></p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make it more abstract and change the color scheme to warm earth tones.</code></div>
-
-<p><strong>Save to Library:</strong> When you create something you like, click the three-dot menu on the image and select <strong>Save</strong>. Go to <strong>Library</strong> in the left sidebar to find all your saved creations. Your Library is your personal asset collection — saved prompts, images, and responses you can reuse.</p>
+<h4>Last step — save and close the loop</h4>
+<p>Everything you publish lands in <strong>Library</strong> (left sidebar). Open it after finishing and confirm the artifact is there. Whenever possible (Marketing image, Executive infographic), add the final output <strong>back to your L3 Page</strong> so the Page becomes the one URL a teammate needs.</p>
 
 <div class="note-box">
-  <strong>Success check:</strong> You should have at least 2 role-specific images, one refined iteration, and at least one image saved to your Library.
+  <strong>Success check:</strong> You published one artifact in an output format that matches your department (deck / doc / image / infographic / workbook), it references content from your L2 notebook and L3 Page, you iterated at least once, and it is saved in Library. For Marketing: the edited image is inserted into the Page.
 </div>
 
-<p class="personalization-note">[PERSONALIZED: swap image generation prompts with organization-specific visual needs from Listen Labs interviews]</p>
+<p class="personalization-note">[PERSONALIZED: swap the artifact type per department with the publishing format that team actually ships in — e.g. Ops may prefer Word runbooks over Excel; Marketing may need Poster instead of Image.]</p>
 
 <button class="mark-complete-btn" id="complete-btn-5" onclick="markComplete(5)">Mark Complete</button>
 `,
   advanced: `
-<h3>Brand Kit Setup</h3>
-<p>If your admin has configured a Brand Kit in the Microsoft 365 admin center, Copilot automatically uses your org's colors, fonts, and logo when generating visual content. Ask your admin about setting this up.</p>
+<h3>Pick the Right Artifact for the Job</h3>
+<p>Create is deceptively broad — people default to images because they are fun, but the other artifact types are where the real time savings are. Quick mental model:</p>
+<table style="width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;">
+  <thead><tr style="border-bottom:2px solid var(--border);">
+    <th style="text-align:left;padding:8px 12px;">Artifact</th>
+    <th style="text-align:left;padding:8px 12px;">Best for</th>
+    <th style="text-align:left;padding:8px 12px;">Avoid when</th>
+  </tr></thead>
+  <tbody>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">PowerPoint</td><td style="padding:8px 12px;">Client pitches, internal reviews, any linear narrative</td><td style="padding:8px 12px;">You just want a quick summary (use a Page)</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Word</td><td style="padding:8px 12px;">Formal docs, contracts, onboarding packets, anything signable/printable</td><td style="padding:8px 12px;">The team lives in Pages and will actively edit</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Excel</td><td style="padding:8px 12px;">Models, trackers, anything with formulas or pivots</td><td style="padding:8px 12px;">You want a static read — a table inside a Page is lighter</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Image</td><td style="padding:8px 12px;">Social posts, deck covers, concept visuals, material studies</td><td style="padding:8px 12px;">The content is data — infographic is better</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Infographic</td><td style="padding:8px 12px;">Board summaries, executive dashboards, single-page synthesis</td><td style="padding:8px 12px;">The audience needs to drill in — give them Excel</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Video (Frontier)</td><td style="padding:8px 12px;">Training snippets, announcements, deck-to-video</td><td style="padding:8px 12px;">Still in Frontier — may fail; always have a backup</td></tr>
+    <tr><td style="padding:8px 12px;font-weight:600;">Poster / Banner / Form</td><td style="padding:8px 12px;">Events, intake flows, single-purpose assets</td><td style="padding:8px 12px;">Production marketing — use the full tool for final polish</td></tr>
+  </tbody>
+</table>
 
-<h3>Architecture Use Cases</h3>
+<h3>Chaining Artifacts Together</h3>
+<p>The real unlock is chaining output formats against one source:</p>
 <ul>
-  <li><strong>Concept visualization:</strong> Quick moodboards and concept renders for early-stage design discussions</li>
-  <li><strong>Material studies:</strong> "Show me a facade with terracotta panels and floor-to-ceiling glass"</li>
-  <li><strong>Presentation graphics:</strong> Custom visuals for client presentations and design reviews</li>
+  <li><strong>Page &rarr; PowerPoint:</strong> from a Page, ask Create to generate a deck that uses the Page as source. The deck inherits the structure.</li>
+  <li><strong>Excel &rarr; Infographic:</strong> build the model, then ask Create for an infographic summarizing the key numbers — board-ready in minutes.</li>
+  <li><strong>Image &rarr; deck / Page:</strong> any image you edit via the Image Editing toolkit can be dropped straight into a PowerPoint slide or pinned into a Page.</li>
+  <li><strong>Word &rarr; Page:</strong> paste a Word doc's content into a Page to kick off collaborative editing, then export back to Word when it is final.</li>
 </ul>
 
-<h3>Combining with PowerPoint</h3>
-<p>Generate an image with Create, download it, then insert it into a PowerPoint slide that Copilot created. Or ask Copilot in PowerPoint to generate a visual directly within a slide.</p>
+<h3>Image Editing — Power Moves</h3>
+<p>The Image Editing toolkit covered in Learn is more capable than it looks. A few combinations that earn their keep:</p>
+<ul>
+  <li><strong>Cutout + Background color</strong> — isolate a subject and drop a flat brand-color backdrop. Instant marketing asset.</li>
+  <li><strong>Upscale + Crop &amp; rotate</strong> — generate once at default resolution, then upscale + crop for print.</li>
+  <li><strong>Color pop + Erase</strong> — desaturate the scene, erase clutter, and you have a clean hero image with a single color focal point.</li>
+  <li><strong>Create sticker</strong> — generate a transparent-background element (a logo treatment, an icon) for use in Pages or decks.</li>
+</ul>
+
+<h3>Brand Kits</h3>
+<p>If your admin configured a <strong>Brand Kit</strong> (<em>More… &rarr; Brand kits</em>), Copilot applies your org's palette, fonts, and logo across Create outputs automatically. It is worth asking IT about — it is the single biggest lever for making Create outputs look "on brand" without manual rework.</p>
+
+<h3>Templates and Reuse</h3>
+<p><strong>More… &rarr; Start from a template</strong> / <strong>Brand templates</strong> / <strong>All templates</strong> pulls from org-approved starting points. If your team has a shared deck template or Word template, this is where it surfaces. Reuse beats re-create.</p>
+
+<h3>The Library Discipline</h3>
+<p>Everything from Create lands in the <strong>Library</strong>. Over a few weeks this becomes your personal studio — saved prompts, generated images, created decks. A small habit that pays off: rename artifacts with a <strong>[Project] — [Type] — [Date]</strong> prefix so the Library stays scannable. The Library is also where you re-share artifacts with different access scopes without opening them.</p>
 `
 },
 
-// ── 8: Bonus: Voice, Scheduled Prompts & Web Search ──
+// ── 8: Bonus: Voice & Scheduled Prompts ──
 {
-  id: 'voice-scheduled-web',
-  title: 'Bonus: Voice, Scheduling & Web Search',
-  points: 20,
+  id: 'voice-scheduled',
+  title: 'Bonus: Voice & Scheduling',
+  points: 10,
   learn: `
-<h3>Three Features You Should Try Before You Leave</h3>
+<h3>Two Features You Should Try Before You Leave</h3>
 
 <h4>1. Voice Conversation</h4>
 <p>Copilot has two voice features:</p>
@@ -1267,13 +1490,10 @@ When the interview is complete, output the results formatted as a Copilot Custom
 </ul>
 <p>Scheduled prompts are Copilot's version of automation — they run in the background and have results waiting for you when you open Copilot.</p>
 
-<h4>3. Web Search Toggle</h4>
-<p>In the same three-dot menu, you will see a <strong>Web search</strong> toggle. When turned on, Copilot includes public web results in its responses (even in Work mode). When turned off, it only uses your organization's data. Toggle this based on whether you want external information mixed in.</p>
-
 <button class="continue-btn" onclick="switchTab(6,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Try All Three</h3>
+<h3>Try Both</h3>
 
 <h4>Exercise 1: Voice Conversation</h4>
 <p><strong>1.</strong> Click the <strong>voice mode icon</strong> (sound waves, right side of the message box). Allow microphone access if prompted.</p>
@@ -1295,27 +1515,13 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize my unread emails from the weekend and this morning. Flag anything urgent or time-sensitive. List any meetings I have today with a one-line prep note for each.</code></div>
 <p><strong>9.</strong> Save the scheduled prompt. Next Monday, Copilot will run this automatically and have results waiting for you.</p>
 
-<h4>Exercise 4: Toggle Web Search</h4>
-<p><strong>10.</strong> Click the <strong>three-dot menu</strong> again. Find the <strong>Web search</strong> toggle.</p>
-<p><strong>11.</strong> Turn it OFF. Ask Copilot a question that requires external info:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the latest changes to NYC building code for residential construction?</code></div>
-<p><strong>12.</strong> Read the response — it should only reference your org data (or say it cannot find the answer).</p>
-<p><strong>13.</strong> Now turn Web search back ON and ask the same question. Notice how the response now includes public web sources.</p>
-
 <div class="note-box">
-  <strong>Success check:</strong> You had a voice conversation (not just dictation), set up a scheduled prompt for next week, and saw the difference between web search on vs. off.
+  <strong>Success check:</strong> You had a voice conversation (not just dictation) and set up a scheduled prompt for next week.
 </div>
 
 <button class="mark-complete-btn" id="complete-btn-6" onclick="markComplete(6)">Mark Complete</button>
 `,
   advanced: `
-<h3>Meeting Transcription Workflows</h3>
-<ol>
-  <li>Record a meeting in Teams (with transcription enabled)</li>
-  <li>After the meeting, use Copilot to summarize: "What were the key decisions and action items?"</li>
-  <li>Save the summary to a Copilot Page and share with attendees</li>
-</ol>
-
 <h3>Accessibility</h3>
 <p>Voice input is not just convenience — it is accessibility. Users with mobility limitations, repetitive strain injuries, or visual impairments can interact with Copilot entirely through voice. The combination of voice input + AI processing + voice output creates a fully accessible AI workflow.</p>
 
@@ -1333,7 +1539,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
    ENGINE
    ═══════════════════════════════════════════════════════════ */
 const CORE_COUNT = 6;
-const CORE_POINTS = 80;
+const CORE_POINTS = 90;
 let completed = JSON.parse(localStorage.getItem('chat-completed-v2') || '[]');
 let currentLesson = 0;
 let currentTab = 'learn';
