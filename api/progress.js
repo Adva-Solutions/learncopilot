@@ -34,18 +34,24 @@ export default async function handler(req, res) {
 
     const { chat, apps, agents } = req.body || {};
     const userKey = user.uid ? `${user.name}::${user.uid}` : user.name;
-    const data = {
-      name: user.name,
-      department: user.department || null,
-      slug,
-      updatedAt: Date.now(),
-      chat: chat || { completed: [], points: 0 },
-      apps: apps || { completed: [], points: 0 },
-      agents: agents || { completed: [], points: 0 },
-      totalPoints: (chat?.points || 0) + (apps?.points || 0) + (agents?.points || 0)
-    };
+    const defaults = { completed: [], points: 0 };
 
     try {
+      const existingRaw = await r.get(`${prefix}progress:${userKey}`);
+      let existing = null;
+      try { existing = existingRaw ? JSON.parse(existingRaw) : null; } catch { existing = null; }
+
+      const data = {
+        name: user.name,
+        department: user.department || existing?.department || null,
+        slug,
+        updatedAt: Date.now(),
+        chat:   chat   !== undefined ? chat   : (existing?.chat   || defaults),
+        apps:   apps   !== undefined ? apps   : (existing?.apps   || defaults),
+        agents: agents !== undefined ? agents : (existing?.agents || defaults),
+      };
+      data.totalPoints = (data.chat.points || 0) + (data.apps.points || 0) + (data.agents.points || 0);
+
       await r.sadd(`${prefix}users`, userKey);
       await r.set(`${prefix}progress:${userKey}`, JSON.stringify(data));
       return res.status(200).json({ ok: true });

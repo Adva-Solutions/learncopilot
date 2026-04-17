@@ -1557,22 +1557,19 @@ function updateProgress() {
   syncProgress();
 }
 
+let _chatSyncTimer = null;
 function syncProgress() {
   const user = localStorage.getItem('workshop_user');
   if (!user) return;
-  const chatData = { completed: completed, points: getCompletedPoints() };
-  const body = { chat: chatData };
-  try {
-    const appsCompleted = JSON.parse(localStorage.getItem('apps-completed') || '[]');
-    const agentsCompleted = JSON.parse(localStorage.getItem('agents-completed') || '[]');
-    body.apps = { completed: appsCompleted, points: 0 };
-    body.agents = { completed: agentsCompleted, points: 0 };
-  } catch(e) {}
-  fetch('/api/progress', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  }).catch(function() {});
+  clearTimeout(_chatSyncTimer);
+  _chatSyncTimer = setTimeout(function() {
+    const body = { chat: { completed: completed, points: getCompletedPoints() } };
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).catch(function(err) { console.warn('Progress sync failed:', err); });
+  }, 250);
 }
 
 function buildNav() {

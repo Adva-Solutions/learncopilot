@@ -1983,23 +1983,20 @@ function getCoreCompleted() {
   return completed.filter(i => i < CORE_COUNT).length;
 }
 
-/* ── Sync progress to server ── */
+/* ── Sync progress to server (debounced, partial update) ── */
+let _agentsSyncTimer = null;
 function syncProgress() {
   const user = localStorage.getItem('workshop_user');
   if (!user) return;
-  const agentsData = { completed, points: getCompletedPoints() };
-  const body = { agents: agentsData };
-  try {
-    const chatCompleted = JSON.parse(localStorage.getItem('chat-completed') || '[]');
-    const appsCompleted = JSON.parse(localStorage.getItem('apps-completed') || '[]');
-    body.chat = { completed: chatCompleted, points: 0 };
-    body.apps = { completed: appsCompleted, points: 0 };
-  } catch(e) {}
-  fetch('/api/progress', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  }).catch(() => {});
+  clearTimeout(_agentsSyncTimer);
+  _agentsSyncTimer = setTimeout(() => {
+    const body = { agents: { completed, points: getCompletedPoints() } };
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).catch(err => console.warn('Progress sync failed:', err));
+  }, 250);
 }
 
 /* ── Render sidebar ── */

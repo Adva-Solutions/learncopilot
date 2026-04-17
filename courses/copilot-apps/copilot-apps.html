@@ -863,22 +863,19 @@ function updateProgress() {
   document.getElementById('progressFill').style.width = pct + '%';
 }
 
+let _appsSyncTimer = null;
 function syncProgress() {
   const user = localStorage.getItem('workshop_user');
   if (!user) return;
-  const appsData = { completed, points: getCompletedPoints() };
-  const body = { apps: appsData };
-  try {
-    const chatCompleted = JSON.parse(localStorage.getItem('chat-completed') || '[]');
-    const agentsCompleted = JSON.parse(localStorage.getItem('agents-completed') || '[]');
-    body.chat = { completed: chatCompleted, points: 0 };
-    body.agents = { completed: agentsCompleted, points: 0 };
-  } catch(e) {}
-  fetch('/api/progress', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  }).catch(() => {});
+  clearTimeout(_appsSyncTimer);
+  _appsSyncTimer = setTimeout(() => {
+    const body = { apps: { completed, points: getCompletedPoints() } };
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).catch(err => console.warn('Progress sync failed:', err));
+  }, 250);
 }
 
 /* Init */
