@@ -423,16 +423,12 @@ function updateDashboardProgress() {
 
 updateDashboardProgress();
 
-/* Auth check - redirect to login if not authenticated.
-   On Vercel (production), /api/me returns proper JSON.
-   On static servers (local dev), /api/me returns 404 HTML — detect and skip redirect. */
-fetch('/api/me').then(async r => {
-  if (!r.ok) {
-    const ct = r.headers.get('content-type') || '';
-    if (ct.includes('application/json')) window.location.href = '/login.html';
-    /* else: static server returned 404 HTML — skip redirect for local preview */
-  }
-}).catch(() => {});
+/* Auth check — redirect to login only on explicit 401.
+   Other non-ok statuses (500 on config errors, 404 on static dev servers,
+   network failures) must NOT bounce the student to login. */
+fetch('/api/me').then(r => {
+  if (r.status === 401) window.location.href = '/login.html';
+}).catch(() => { /* network offline — leave the page alone */ });
 </script>
 </body>
 </html>

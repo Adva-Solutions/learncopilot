@@ -189,6 +189,21 @@
     color: #1a1a2e;
   }
 
+  /* Interactive exercise checklists */
+  .exercise-check { list-style: none; padding: 0; margin: 12px 0 18px; }
+  .exercise-check > li { margin: 8px 0; padding: 10px 14px; background: #faf9f6; border: 1px solid #ddd8ce; border-radius: 6px; transition: background 0.15s ease; }
+  .exercise-check > li:hover { background: #f5f4f1; }
+  .exercise-check label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; font-size: 0.95rem; line-height: 1.55; }
+  .exercise-check input[type="checkbox"] { margin-top: 3px; width: 16px; height: 16px; accent-color: #7b5ea7; flex-shrink: 0; cursor: pointer; }
+  .exercise-check label:has(input:checked) { color: #888; }
+  .exercise-check label:has(input:checked) strong { color: #888; }
+
+  /* Step-paragraph decorator checkbox */
+  .step-check-row { position: relative; padding-left: 26px; }
+  .step-check { position: absolute; left: 0; top: 6px; width: 16px; height: 16px; accent-color: #7b5ea7; cursor: pointer; }
+  .step-check-row:has(.step-check:checked) { color: #888; }
+  .step-check-row:has(.step-check:checked) strong { color: #888; }
+
   /* ── Main Content ── */
   .main {
     flex: 1;
@@ -2082,7 +2097,81 @@ function renderLesson() {
     </div>
   `;
 
+  transformExerciseLists();
+  restoreExerciseChecks();
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* Convert <ol> blocks AND <p><strong>Step N:</strong>...</p> paragraphs
+   in the Exercises tab into tickable checklist items. Agents lessons
+   author steps as paragraphs, not ordered lists, so we decorate those
+   in-place rather than restructuring. */
+function transformExerciseLists() {
+  const scope = document.getElementById('tab-implement');
+  if (!scope) return;
+  // (a) <ol> → <ul class="exercise-check">
+  scope.querySelectorAll('ol').forEach(ol => {
+    if (ol.closest('.exercise-check')) return;
+    const ul = document.createElement('ul');
+    ul.className = 'exercise-check';
+    [...ol.children].forEach(li => {
+      if (li.tagName !== 'LI') return;
+      const newLi = document.createElement('li');
+      const label = document.createElement('label');
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      label.appendChild(cb);
+      const span = document.createElement('span');
+      while (li.firstChild) span.appendChild(li.firstChild);
+      label.appendChild(span);
+      newLi.appendChild(label);
+      ul.appendChild(newLi);
+    });
+    ol.replaceWith(ul);
+  });
+  // (b) Decorate <p><strong>Step N:</strong>...</p> with a checkbox.
+  scope.querySelectorAll('p').forEach(p => {
+    if (p.dataset.stepDecorated === '1') return;
+    const first = p.firstElementChild;
+    if (!first || first.tagName !== 'STRONG') return;
+    const txt = (first.textContent || '').trim();
+    // Match "Step 1:", "Step 6 — Iterate:", "Step 2a:", etc.
+    if (!/^Step\s+[\w.-]+\s*(—|:)/i.test(txt)) return;
+    p.dataset.stepDecorated = '1';
+    p.classList.add('step-check-row');
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.className = 'step-check';
+    p.insertBefore(cb, p.firstChild);
+  });
+}
+
+/* Persistence for exercise checkboxes, keyed by lesson index. */
+function loadExerciseChecks() {
+  try { return JSON.parse(localStorage.getItem('agents-exercise-checks') || '{}'); }
+  catch { return {}; }
+}
+function saveExerciseChecks(all) {
+  localStorage.setItem('agents-exercise-checks', JSON.stringify(all));
+}
+function restoreExerciseChecks() {
+  const scope = document.getElementById('tab-implement');
+  if (!scope) return;
+  const all = loadExerciseChecks();
+  const mine = all[currentLesson] || [];
+  // Combined ordered list: <ol>-derived boxes first, then step-decorated boxes.
+  const boxes = scope.querySelectorAll('.exercise-check input[type="checkbox"], input.step-check');
+  boxes.forEach((cb, i) => {
+    cb.checked = !!mine[i];
+    cb.addEventListener('change', () => {
+      const state = loadExerciseChecks();
+      const arr = state[currentLesson] || [];
+      arr[i] = cb.checked;
+      state[currentLesson] = arr;
+      saveExerciseChecks(state);
+    });
+  });
 }
 
 /* ── Navigation ── */
