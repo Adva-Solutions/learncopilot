@@ -279,14 +279,22 @@ async function loadProgress() {
     render(participants);
   } catch (e) {
     document.getElementById('participants-container').innerHTML =
-      '<div class="empty-state"><h3>No progress yet</h3><p>Participants will appear here once they start the workshop.</p></div>';
-    document.getElementById('stat-participants').textContent = '0';
-    document.getElementById('stat-steps').textContent = '0';
-    document.getElementById('stat-points').textContent = '0';
+      '<div class="empty-state"><h3>Could not load progress</h3><p>Connection issue — we will retry automatically.</p></div>';
+    document.getElementById('stats-row').style.display = 'none';
   }
 }
 
 function render(participants) {
+  const statsRow = document.getElementById('stats-row');
+  const container = document.getElementById('participants-container');
+
+  if (!participants.length) {
+    statsRow.style.display = 'none';
+    container.innerHTML = '<div class="empty-state"><h3>Nobody has started yet</h3><p>Participants will appear here once they start the workshop. Be the first — <a href="/" style="color:#c5973e;font-weight:600;text-decoration:none;">jump in</a>.</p></div>';
+    return;
+  }
+  statsRow.style.display = '';
+
   const totalSteps = participants.reduce((s, p) =>
     s + (p.chat?.completed?.length || 0) + (p.apps?.completed?.length || 0) + (p.agents?.completed?.length || 0), 0);
   const totalPts = participants.reduce((s, p) => s + (p.totalPoints || 0), 0);
@@ -294,12 +302,6 @@ function render(participants) {
   document.getElementById('stat-participants').textContent = participants.length;
   document.getElementById('stat-steps').textContent = totalSteps;
   document.getElementById('stat-points').textContent = totalPts;
-
-  const container = document.getElementById('participants-container');
-  if (!participants.length) {
-    container.innerHTML = '<div class="empty-state"><h3>No progress yet</h3><p>Participants will appear here once they start the workshop.</p></div>';
-    return;
-  }
 
   container.innerHTML = '<div class="participants">' + participants.map(p => {
     const isYou = p.name === currentUser;
