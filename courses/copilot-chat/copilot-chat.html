@@ -1666,6 +1666,35 @@ function renderLesson() {
       btn.disabled = true;
     }
   }
+
+  restoreExerciseChecks();
+}
+
+/* ── Exercise checkbox persistence ─────────────────────────────
+   Per-lesson ticked state keyed by lesson index. Checkboxes are
+   identified by their position within the lesson's implement tab. */
+function loadExerciseChecks() {
+  try { return JSON.parse(localStorage.getItem('chat-exercise-checks') || '{}'); }
+  catch { return {}; }
+}
+function saveExerciseChecks(all) {
+  localStorage.setItem('chat-exercise-checks', JSON.stringify(all));
+}
+function restoreExerciseChecks() {
+  if (currentTab !== 'implement') return;
+  var all = loadExerciseChecks();
+  var mine = all[currentLesson] || [];
+  var boxes = document.querySelectorAll('.exercise-check input[type="checkbox"]');
+  boxes.forEach(function(cb, i) {
+    cb.checked = !!mine[i];
+    cb.addEventListener('change', function() {
+      var state = loadExerciseChecks();
+      var arr = state[currentLesson] || [];
+      arr[i] = cb.checked;
+      state[currentLesson] = arr;
+      saveExerciseChecks(state);
+    });
+  });
 }
 
 function switchTab(lessonIdx, tab) {
