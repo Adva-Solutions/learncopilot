@@ -1550,9 +1550,12 @@ function getCompletedPoints() {
 
 function updateProgress() {
   const coreCompleted = completed.filter(i => i < CORE_COUNT).length;
-  const pts = getCompletedPoints();
+  const corePoints = completed.filter(i => i < CORE_COUNT).reduce((s, i) => s + (LESSONS[i]?.points || 0), 0);
+  const bonusPoints = getCompletedPoints() - corePoints;
   document.getElementById('progress-label').textContent = coreCompleted + ' of ' + CORE_COUNT + ' core steps';
-  document.getElementById('progress-pts').textContent = pts + ' / ' + CORE_POINTS + ' pts';
+  document.getElementById('progress-pts').textContent = bonusPoints > 0
+    ? corePoints + ' / ' + CORE_POINTS + ' pts · +' + bonusPoints + ' bonus'
+    : corePoints + ' / ' + CORE_POINTS + ' pts';
   document.getElementById('progress-fill').style.width = (coreCompleted / CORE_COUNT * 100) + '%';
   syncProgress();
 }

@@ -2018,9 +2018,13 @@ function renderSidebar() {
   }).join('');
 
   const core = getCoreCompleted();
-  const pct = Math.round((core / CORE_COUNT) * 100);
+  const pct = Math.min(100, Math.round((core / CORE_COUNT) * 100));
+  const corePts = completed.filter(i => i < CORE_COUNT).reduce((s, i) => s + LESSONS[i].points, 0);
+  const bonusPts = getCompletedPoints() - corePts;
   document.getElementById('progress-text').textContent = `${core} / ${CORE_COUNT} core lessons`;
-  document.getElementById('points-text').textContent = `${getCompletedPoints()} pts`;
+  document.getElementById('points-text').textContent = bonusPts > 0
+    ? `${corePts} / ${CORE_POINTS} pts · +${bonusPts} bonus`
+    : `${corePts} / ${CORE_POINTS} pts`;
   document.getElementById('progress-fill').style.width = pct + '%';
 }
 

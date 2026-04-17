@@ -258,7 +258,8 @@
 
 <script>
 const currentUser = localStorage.getItem('workshop_user');
-const CHAT_STEPS = 6, APPS_STEPS = 5, AGENTS_STEPS = 10;
+// Core (non-bonus) lesson counts per course. Bonus lessons don't count against %.
+const CHAT_STEPS = 6, APPS_STEPS = 5, AGENTS_STEPS = 8;
 
 /* Read slug from URL */
 const urlParams = new URLSearchParams(window.location.search);
@@ -303,9 +304,10 @@ function render(participants) {
   container.innerHTML = '<div class="participants">' + participants.map(p => {
     const isYou = p.name === currentUser;
     const initials = p.name.split(' ').map(w => w[0]).join('').slice(0, 2);
-    const chatPct = Math.round(((p.chat?.completed?.length || 0) / CHAT_STEPS) * 100);
-    const appsPct = Math.round(((p.apps?.completed?.length || 0) / APPS_STEPS) * 100);
-    const agentsPct = Math.round(((p.agents?.completed?.length || 0) / AGENTS_STEPS) * 100);
+    const coreDone = (arr, core) => (arr || []).filter(i => i < core).length;
+    const chatPct = Math.min(100, Math.round((coreDone(p.chat?.completed, CHAT_STEPS) / CHAT_STEPS) * 100));
+    const appsPct = Math.min(100, Math.round((coreDone(p.apps?.completed, APPS_STEPS) / APPS_STEPS) * 100));
+    const agentsPct = Math.min(100, Math.round((coreDone(p.agents?.completed, AGENTS_STEPS) / AGENTS_STEPS) * 100));
     const deptBadge = p.department ? `<span class="dept-badge">${p.department}</span>` : '';
 
     return `

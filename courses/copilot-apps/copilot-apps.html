@@ -856,10 +856,13 @@ function copyCode(btn) {
 
 function updateProgress() {
   const coreCompleted = completed.filter(i => i < CORE_COUNT).length;
-  const pts = getCompletedPoints();
+  const corePts = completed.filter(i => i < CORE_COUNT).reduce((s, i) => s + LESSONS[i].points, 0);
+  const bonusPts = getCompletedPoints() - corePts;
   document.getElementById('progressLabel').textContent = `${coreCompleted} / ${CORE_COUNT} core steps`;
-  document.getElementById('progressPts').textContent = `${pts} pts`;
-  const pct = CORE_POINTS > 0 ? Math.round((completed.filter(i => i < CORE_COUNT).reduce((s, i) => s + LESSONS[i].points, 0) / CORE_POINTS) * 100) : 0;
+  document.getElementById('progressPts').textContent = bonusPts > 0
+    ? `${corePts} / ${CORE_POINTS} pts · +${bonusPts} bonus`
+    : `${corePts} / ${CORE_POINTS} pts`;
+  const pct = CORE_POINTS > 0 ? Math.min(100, Math.round((corePts / CORE_POINTS) * 100)) : 0;
   document.getElementById('progressFill').style.width = pct + '%';
 }
 

@@ -289,8 +289,8 @@
         <span class="progress-pct" id="pct-chat" style="color:#0078d4">0%</span>
       </div>
       <div class="course-meta">
-        <span class="course-meta-steps">6 steps</span>
-        <span class="course-meta-pts">80 pts</span>
+        <span class="course-meta-steps">6 core + 1 bonus</span>
+        <span class="course-meta-pts">100 pts</span>
       </div>
     </a>
 
@@ -306,8 +306,8 @@
         <span class="progress-pct" id="pct-apps" style="color:#217346">0%</span>
       </div>
       <div class="course-meta">
-        <span class="course-meta-steps">5 steps</span>
-        <span class="course-meta-pts">105 pts</span>
+        <span class="course-meta-steps">5 core + 1 bonus</span>
+        <span class="course-meta-pts">130 pts</span>
       </div>
     </a>
 
@@ -323,7 +323,7 @@
         <span class="progress-pct" id="pct-agents" style="color:#7b5ea7">0%</span>
       </div>
       <div class="course-meta">
-        <span class="course-meta-steps">10 steps</span>
+        <span class="course-meta-steps">8 core + 2 bonus</span>
         <span class="course-meta-pts">200 pts</span>
       </div>
     </a>
@@ -359,15 +359,19 @@ function logout() {
   });
 }
 
-/* Load progress from localStorage for instant display */
+/* Load progress from localStorage for instant display.
+   Denominators are CORE lesson counts only (chat=6, apps=5, agents=8);
+   bonus lessons don't push % past 100. */
+const CHAT_CORE = 6, APPS_CORE = 5, AGENTS_CORE = 8;
 function updateDashboardProgress() {
   const chatCompleted = JSON.parse(localStorage.getItem('chat-completed-v2') || '[]');
   const appsCompleted = JSON.parse(localStorage.getItem('apps-completed') || '[]');
   const agentsCompleted = JSON.parse(localStorage.getItem('agents-completed') || '[]');
 
-  const chatPct = Math.round((chatCompleted.length / 6) * 100);
-  const appsPct = Math.round((appsCompleted.length / 5) * 100);
-  const agentsPct = Math.round((agentsCompleted.length / 10) * 100);
+  const coreDone = (arr, core) => arr.filter(i => i < core).length;
+  const chatPct = Math.min(100, Math.round((coreDone(chatCompleted, CHAT_CORE) / CHAT_CORE) * 100));
+  const appsPct = Math.min(100, Math.round((coreDone(appsCompleted, APPS_CORE) / APPS_CORE) * 100));
+  const agentsPct = Math.min(100, Math.round((coreDone(agentsCompleted, AGENTS_CORE) / AGENTS_CORE) * 100));
 
   document.getElementById('prog-chat').style.width = chatPct + '%';
   document.getElementById('pct-chat').textContent = chatPct + '%';
