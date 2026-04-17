@@ -33,6 +33,13 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
 .points { margin-left: auto; font-size: 0.75rem; color: #999; white-space: nowrap; }
 .label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+/* Sidebar footer (nav links) */
+.sidebar-footer { margin-top: auto; padding: 14px 20px 16px; border-top: 1px solid #ddd8ce; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+.sidebar-footer a { color: #217346; text-decoration: none; font-weight: 600; }
+.sidebar-footer a:hover { text-decoration: underline; }
+.sidebar-footer .logout-link { color: #888; font-weight: 500; cursor: pointer; }
+.sidebar-footer .logout-link:hover { color: #1a1a2e; }
+
 /* Main */
 .main { margin-left: 300px; flex: 1; padding: 40px 48px; max-width: 900px; }
 .step-header { margin-bottom: 28px; }
@@ -102,6 +109,10 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
   </div>
   <div id="navList"></div>
+  <div class="sidebar-footer">
+    <a href="/">&#8592; All Courses</a>
+    <a class="logout-link" onclick="logout()">Sign out</a>
+  </div>
 </aside>
 
 <main class="main" id="lessonContent"></main>
@@ -833,11 +844,8 @@ function switchOption(lesson, key, btn) {
 }
 
 function markComplete(idx) {
-  if (!completed.includes(idx)) {
-    completed.push(idx);
-  } else {
-    completed = completed.filter(i => i !== idx);
-  }
+  if (completed.includes(idx)) return;
+  completed.push(idx);
   localStorage.setItem('apps-completed', JSON.stringify(completed));
   updateProgress();
   buildNav();
@@ -856,29 +864,36 @@ function copyCode(btn) {
 
 function updateProgress() {
   const coreCompleted = completed.filter(i => i < CORE_COUNT).length;
-  const pts = getCompletedPoints();
+  const corePts = completed.filter(i => i < CORE_COUNT).reduce((s, i) => s + LESSONS[i].points, 0);
+  const bonusPts = getCompletedPoints() - corePts;
   document.getElementById('progressLabel').textContent = `${coreCompleted} / ${CORE_COUNT} core steps`;
-  document.getElementById('progressPts').textContent = `${pts} pts`;
-  const pct = CORE_POINTS > 0 ? Math.round((completed.filter(i => i < CORE_COUNT).reduce((s, i) => s + LESSONS[i].points, 0) / CORE_POINTS) * 100) : 0;
+  document.getElementById('progressPts').textContent = bonusPts > 0
+    ? `${corePts} / ${CORE_POINTS} pts · +${bonusPts} bonus`
+    : `${corePts} / ${CORE_POINTS} pts`;
+  const pct = CORE_POINTS > 0 ? Math.min(100, Math.round((corePts / CORE_POINTS) * 100)) : 0;
   document.getElementById('progressFill').style.width = pct + '%';
 }
 
+let _appsSyncTimer = null;
 function syncProgress() {
   const user = localStorage.getItem('workshop_user');
   if (!user) return;
-  const appsData = { completed, points: getCompletedPoints() };
-  const body = { apps: appsData };
-  try {
-    const chatCompleted = JSON.parse(localStorage.getItem('chat-completed') || '[]');
-    const agentsCompleted = JSON.parse(localStorage.getItem('agents-completed') || '[]');
-    body.chat = { completed: chatCompleted, points: 0 };
-    body.agents = { completed: agentsCompleted, points: 0 };
-  } catch(e) {}
-  fetch('/api/progress', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  }).catch(() => {});
+  clearTimeout(_appsSyncTimer);
+  _appsSyncTimer = setTimeout(() => {
+    const body = { apps: { completed, points: getCompletedPoints() } };
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).catch(err => console.warn('Progress sync failed:', err));
+  }, 250);
+}
+
+function logout() {
+  fetch('/api/logout').then(() => {
+    localStorage.removeItem('workshop_user');
+    window.location.href = '/login.html';
+  });
 }
 
 /* Init */

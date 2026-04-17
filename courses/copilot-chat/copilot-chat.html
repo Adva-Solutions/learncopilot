@@ -425,6 +425,23 @@ body {
 .quiz-question label { display: block; padding: 6px 0; cursor: pointer; }
 .quiz-question input[type="radio"] { margin-right: 8px; }
 
+/* Sidebar footer (nav links) */
+.sidebar-footer {
+  margin-top: auto;
+  padding: 14px 20px 16px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px;
+}
+.sidebar-footer a {
+  color: var(--accent); text-decoration: none; font-weight: 600;
+}
+.sidebar-footer a:hover { text-decoration: underline; }
+.sidebar-footer .logout-link {
+  color: var(--text-muted, #888); font-weight: 500; cursor: pointer;
+}
+.sidebar-footer .logout-link:hover { color: var(--text, #1a1a2e); }
+
 /* Responsive */
 @media (max-width: 900px) {
   body { flex-direction: column; }
@@ -449,6 +466,10 @@ body {
   </div>
   <div class="nav-section-label">Core Steps</div>
   <div id="nav-list"></div>
+  <div class="sidebar-footer">
+    <a href="/">&#8592; All Courses</a>
+    <a class="logout-link" onclick="logout()">Sign out</a>
+  </div>
 </aside>
 
 <div class="main" id="main-content">
@@ -1550,29 +1571,29 @@ function getCompletedPoints() {
 
 function updateProgress() {
   const coreCompleted = completed.filter(i => i < CORE_COUNT).length;
-  const pts = getCompletedPoints();
+  const corePoints = completed.filter(i => i < CORE_COUNT).reduce((s, i) => s + (LESSONS[i]?.points || 0), 0);
+  const bonusPoints = getCompletedPoints() - corePoints;
   document.getElementById('progress-label').textContent = coreCompleted + ' of ' + CORE_COUNT + ' core steps';
-  document.getElementById('progress-pts').textContent = pts + ' / ' + CORE_POINTS + ' pts';
+  document.getElementById('progress-pts').textContent = bonusPoints > 0
+    ? corePoints + ' / ' + CORE_POINTS + ' pts · +' + bonusPoints + ' bonus'
+    : corePoints + ' / ' + CORE_POINTS + ' pts';
   document.getElementById('progress-fill').style.width = (coreCompleted / CORE_COUNT * 100) + '%';
   syncProgress();
 }
 
+let _chatSyncTimer = null;
 function syncProgress() {
   const user = localStorage.getItem('workshop_user');
   if (!user) return;
-  const chatData = { completed: completed, points: getCompletedPoints() };
-  const body = { chat: chatData };
-  try {
-    const appsCompleted = JSON.parse(localStorage.getItem('apps-completed') || '[]');
-    const agentsCompleted = JSON.parse(localStorage.getItem('agents-completed') || '[]');
-    body.apps = { completed: appsCompleted, points: 0 };
-    body.agents = { completed: agentsCompleted, points: 0 };
-  } catch(e) {}
-  fetch('/api/progress', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  }).catch(function() {});
+  clearTimeout(_chatSyncTimer);
+  _chatSyncTimer = setTimeout(function() {
+    const body = { chat: { completed: completed, points: getCompletedPoints() } };
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).catch(function(err) { console.warn('Progress sync failed:', err); });
+  }, 250);
 }
 
 function buildNav() {
@@ -1645,6 +1666,35 @@ function renderLesson() {
       btn.disabled = true;
     }
   }
+
+  restoreExerciseChecks();
+}
+
+/* ── Exercise checkbox persistence ─────────────────────────────
+   Per-lesson ticked state keyed by lesson index. Checkboxes are
+   identified by their position within the lesson's implement tab. */
+function loadExerciseChecks() {
+  try { return JSON.parse(localStorage.getItem('chat-exercise-checks') || '{}'); }
+  catch { return {}; }
+}
+function saveExerciseChecks(all) {
+  localStorage.setItem('chat-exercise-checks', JSON.stringify(all));
+}
+function restoreExerciseChecks() {
+  if (currentTab !== 'implement') return;
+  var all = loadExerciseChecks();
+  var mine = all[currentLesson] || [];
+  var boxes = document.querySelectorAll('.exercise-check input[type="checkbox"]');
+  boxes.forEach(function(cb, i) {
+    cb.checked = !!mine[i];
+    cb.addEventListener('change', function() {
+      var state = loadExerciseChecks();
+      var arr = state[currentLesson] || [];
+      arr[i] = cb.checked;
+      state[currentLesson] = arr;
+      saveExerciseChecks(state);
+    });
+  });
 }
 
 function switchTab(lessonIdx, tab) {
@@ -1701,6 +1751,13 @@ function copyCode(btn) {
   }).catch(function() {
     btn.textContent = 'Failed';
     setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+  });
+}
+
+function logout() {
+  fetch('/api/logout').then(function() {
+    localStorage.removeItem('workshop_user');
+    window.location.href = '/login.html';
   });
 }
 

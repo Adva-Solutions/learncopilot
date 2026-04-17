@@ -164,15 +164,29 @@
     border-top: 1px solid #ddd8ce;
     font-size: 13px;
     color: #888;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .sidebar-footer a {
     color: #7b5ea7;
     text-decoration: none;
+    font-weight: 600;
   }
 
   .sidebar-footer a:hover {
     text-decoration: underline;
+  }
+
+  .sidebar-footer .logout-link {
+    color: #888;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .sidebar-footer .logout-link:hover {
+    color: #1a1a2e;
   }
 
   /* ── Main Content ── */
@@ -562,6 +576,7 @@
     <nav class="sidebar-nav" id="sidebar-nav"></nav>
     <div class="sidebar-footer">
       <a href="/">&#8592; All Courses</a>
+      <a class="logout-link" onclick="logout()">Sign out</a>
     </div>
   </aside>
 
@@ -1983,23 +1998,20 @@ function getCoreCompleted() {
   return completed.filter(i => i < CORE_COUNT).length;
 }
 
-/* ── Sync progress to server ── */
+/* ── Sync progress to server (debounced, partial update) ── */
+let _agentsSyncTimer = null;
 function syncProgress() {
   const user = localStorage.getItem('workshop_user');
   if (!user) return;
-  const agentsData = { completed, points: getCompletedPoints() };
-  const body = { agents: agentsData };
-  try {
-    const chatCompleted = JSON.parse(localStorage.getItem('chat-completed') || '[]');
-    const appsCompleted = JSON.parse(localStorage.getItem('apps-completed') || '[]');
-    body.chat = { completed: chatCompleted, points: 0 };
-    body.apps = { completed: appsCompleted, points: 0 };
-  } catch(e) {}
-  fetch('/api/progress', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  }).catch(() => {});
+  clearTimeout(_agentsSyncTimer);
+  _agentsSyncTimer = setTimeout(() => {
+    const body = { agents: { completed, points: getCompletedPoints() } };
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).catch(err => console.warn('Progress sync failed:', err));
+  }, 250);
 }
 
 /* ── Render sidebar ── */
@@ -2021,9 +2033,13 @@ function renderSidebar() {
   }).join('');
 
   const core = getCoreCompleted();
-  const pct = Math.round((core / CORE_COUNT) * 100);
+  const pct = Math.min(100, Math.round((core / CORE_COUNT) * 100));
+  const corePts = completed.filter(i => i < CORE_COUNT).reduce((s, i) => s + LESSONS[i].points, 0);
+  const bonusPts = getCompletedPoints() - corePts;
   document.getElementById('progress-text').textContent = `${core} / ${CORE_COUNT} core lessons`;
-  document.getElementById('points-text').textContent = `${getCompletedPoints()} pts`;
+  document.getElementById('points-text').textContent = bonusPts > 0
+    ? `${corePts} / ${CORE_POINTS} pts · +${bonusPts} bonus`
+    : `${corePts} / ${CORE_POINTS} pts`;
   document.getElementById('progress-fill').style.width = pct + '%';
 }
 
@@ -2104,6 +2120,14 @@ function copyCode(btn) {
   navigator.clipboard.writeText(pre.textContent).then(() => {
     btn.textContent = 'Copied!';
     setTimeout(() => btn.textContent = 'Copy', 1500);
+  });
+}
+
+/* ── Logout ── */
+function logout() {
+  fetch('/api/logout').then(() => {
+    localStorage.removeItem('workshop_user');
+    window.location.href = '/login.html';
   });
 }
 

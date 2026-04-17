@@ -44,8 +44,8 @@ export default async function handler(req, res) {
   if (password !== LEGACY_PASSWORD) return res.status(401).json({ error: 'Wrong password' });
 
   const uid = await findOrCreateUid(r, trimmed, '');
-  const token = createToken(trimmed, '', '', uid);
+  const token = createToken(trimmed, '', department || '', uid);
   const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
   res.setHeader('Set-Cookie', `workshop_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800${secure}`);
-  return res.status(200).json({ ok: true, name: trimmed });
+  return res.status(200).json({ ok: true, name: trimmed, department: department || null });
 }
