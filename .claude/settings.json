@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "CLAUDE_PLUGIN_ROOT=\"$(git rev-parse --show-toplevel)/.superpowers\" bash \"$(git rev-parse --show-toplevel)/.superpowers/hooks/session-start\"",
+            "timeout": 10000
+          }
+        ]
+      }
+    ]
+  }
+}
