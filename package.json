@@ -1,6 +1,9 @@
 {
   "name": "learncopilot",
   "private": true,
+  "scripts": {
+    "test": "node --test 'test/*.js'"
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.88.0",
     "ioredis": "^5.10.1"
