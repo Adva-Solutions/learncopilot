@@ -44,39 +44,30 @@ h1 { font-size: 32px; font-weight: 700; }
 h2 { font-size: 26px; font-weight: 600; }
 h3 { font-size: 20px; font-weight: 600; }
 
-/* NAV */
-.top-nav {
-  background: var(--dark);
-  padding: 0 48px;
-  border-bottom: 2px solid var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 60px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+/* GLOBAL TOP NAV */
+.global-nav { position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 1000; background: var(--dark); border-bottom: 2px solid var(--accent); display: flex; align-items: center; padding: 0 24px; gap: 16px; }
+.global-nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--white); text-decoration: none; letter-spacing: 0.04em; }
+.global-nav-brand:hover { opacity: 0.85; }
+.global-nav-courses { display: flex; gap: 2px; margin-left: auto; margin-right: auto; background: rgba(255,255,255,0.08); padding: 4px; border-radius: 22px; }
+.course-pill { padding: 6px 16px; border-radius: 18px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); text-decoration: none; transition: all 0.15s; }
+.course-pill:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+.course-pill.active { background: var(--accent); color: var(--dark); }
+.global-nav-links { display: flex; gap: 4px; align-items: center; }
+.global-nav-link { padding: 6px 14px; border-radius: 18px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); text-decoration: none; transition: all 0.15s; cursor: pointer; background: none; border: none; font-family: inherit; }
+.global-nav-link:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+.global-nav-link.active { color: var(--white); background: rgba(255,255,255,0.12); }
+body { padding-top: 60px; }
+
+/* ADMIN SUBNAV (appears below global nav) */
+.admin-subnav { background: #fff; border-bottom: 1px solid var(--border-light); padding: 12px 24px; display: flex; gap: 6px; position: sticky; top: 60px; z-index: 50; }
+.admin-subnav a, .admin-subnav button { padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 600; color: var(--text-secondary); text-decoration: none; cursor: pointer; background: none; border: none; font-family: inherit; transition: all 0.15s; }
+.admin-subnav a:hover, .admin-subnav button:hover { color: var(--dark); background: var(--bg); }
+.admin-subnav a.active { color: var(--dark); background: var(--accent-light); }
+@media (max-width: 768px) {
+  .global-nav { padding: 0 10px; gap: 6px; }
+  .course-pill { padding: 5px 10px; font-size: 12px; }
+  .global-nav-link { padding: 5px 10px; font-size: 12px; }
 }
-.nav-left { display: flex; align-items: center; gap: 16px; }
-.nav-brand {
-  font-size: 22px; font-weight: 700;
-  color: var(--white); text-decoration: none;
-  letter-spacing: 0.04em;
-  font-family: 'Cormorant Garamond', serif;
-}
-.nav-brand:hover { opacity: 0.8; }
-.nav-divider { width: 1px; height: 24px; background: rgba(255,255,255,0.15); }
-.nav-subtitle { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 500; }
-.nav-right { display: flex; align-items: center; gap: 8px; }
-.nav-link {
-  padding: 7px 16px; border-radius: 20px;
-  font-size: 13px; font-weight: 600;
-  text-decoration: none; transition: all 0.15s;
-  color: rgba(255,255,255,0.6); cursor: pointer;
-  background: none; border: none;
-}
-.nav-link:hover { color: var(--white); background: rgba(255,255,255,0.08); }
-.nav-link.active { color: var(--white); background: rgba(255,255,255,0.12); }
 
 /* MAIN */
 .main { max-width: 1040px; margin: 0 auto; padding: 40px 24px 80px; }
@@ -296,15 +287,22 @@ tr:hover td { background: var(--accent-light); }
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="top-nav">
-  <div class="nav-left">
-    <a class="nav-brand" href="#dashboard">Copilot Admin</a>
-    <div class="nav-divider"></div>
-    <span class="nav-subtitle">Workshop Manager</span>
+<!-- GLOBAL NAV -->
+<nav class="global-nav">
+  <a href="/" class="global-nav-brand">adva</a>
+  <div class="global-nav-courses">
+    <a href="/courses/copilot-chat/copilot-chat.html" class="course-pill">Chat</a>
+    <a href="/courses/copilot-apps/copilot-apps.html" class="course-pill">Apps</a>
+    <a href="/courses/building-agents/building-agents.html" class="course-pill">Agents</a>
   </div>
-  <div class="nav-right" id="nav-links"></div>
+  <div class="global-nav-links">
+    <a href="/progress.html" class="global-nav-link">Leaderboard</a>
+    <a href="/admin.html" class="global-nav-link active">Admin</a>
+  </div>
 </nav>
+
+<!-- ADMIN SUBNAV -->
+<div class="admin-subnav" id="nav-links"></div>
 
 <!-- APP -->
 <div class="main" id="app"></div>
@@ -542,7 +540,10 @@ async function renderDashboard(app) {
         <a class="btn btn-primary" href="#new-workshop">+ New Workshop</a>
       </div>
     </div>
+    <div id="default-workshop-slot"></div>
     <div class="loading-state"><div class="spinner"></div><p style="margin-top:12px;">Loading workshops...</p></div>`;
+
+  renderDefaultWorkshopCard();
 
   try {
     const data = await apiFetch(API.clients);
@@ -551,6 +552,57 @@ async function renderDashboard(app) {
   } catch (err) {
     app.querySelector('.loading-state').innerHTML = `<p style="color:var(--red);">Failed to load workshops: ${esc(err.message)}</p>`;
   }
+}
+
+async function renderDefaultWorkshopCard() {
+  const slot = document.getElementById('default-workshop-slot');
+  if (!slot) return;
+  slot.innerHTML = `
+    <div class="card" style="margin-bottom:20px;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:280px;">
+          <h3 style="margin-bottom:6px;">Default Workshop</h3>
+          <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;">The built-in workshop for users who log in without a client slug. Its password is managed via the <code>WORKSHOP_PASSWORD</code> environment variable on Vercel.</p>
+          <p style="font-size:14px;margin-top:10px;"><strong id="default-participant-count">…</strong> participants</p>
+        </div>
+        <div>
+          <button class="btn btn-outline btn-sm" id="default-reset-btn">Reset Progress</button>
+        </div>
+      </div>
+    </div>`;
+
+  try {
+    const res = await fetch('/api/progress');
+    const data = await res.json();
+    const count = (data.participants || []).length;
+    const el = document.getElementById('default-participant-count');
+    if (el) el.textContent = count;
+  } catch {
+    const el = document.getElementById('default-participant-count');
+    if (el) el.textContent = '?';
+  }
+
+  const btn = document.getElementById('default-reset-btn');
+  if (btn) btn.onclick = () => {
+    showModal(
+      'Reset Default Workshop Progress',
+      'This will reset all progress for users in the default workshop across Chat, Apps, and Agents. This cannot be undone.',
+      async () => {
+        try {
+          await apiFetch(API.reset, {
+            method: 'POST',
+            body: JSON.stringify({ slug: '' }),
+          });
+          toast('Default workshop progress reset');
+          renderDefaultWorkshopCard();
+        } catch (err) {
+          toast('Reset failed: ' + err.message, true);
+        }
+      },
+      'Reset All Progress',
+      true
+    );
+  };
 }
 
 function renderWorkshopList(app) {
