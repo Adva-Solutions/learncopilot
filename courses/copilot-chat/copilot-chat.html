@@ -188,10 +188,16 @@ body {
   font-weight: 700;
   margin-bottom: 4px;
 }
-.step-header .pts-badge {
-  font-size: 13px;
+.step-header .pts {
+  display: inline-block;
+  background: var(--accent-light);
   color: var(--accent);
+  font-size: 0.8rem;
   font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-left: 10px;
+  vertical-align: middle;
 }
 
 /* Tabs */
@@ -201,21 +207,19 @@ body {
   border-bottom: 2px solid var(--border);
   margin-bottom: 28px;
 }
-.tab-btn {
+.tab {
   padding: 10px 22px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  border: none;
-  background: none;
   color: var(--text-muted);
   border-bottom: 2px solid transparent;
   margin-bottom: -2px;
   transition: all 0.15s ease;
   font-family: var(--font-body);
 }
-.tab-btn:hover { color: var(--text); }
-.tab-btn.active {
+.tab:hover { color: var(--text); }
+.tab.active {
   color: var(--accent);
   border-bottom-color: var(--accent);
   font-weight: 600;
