@@ -55,7 +55,20 @@ if (typeof window !== 'undefined') {
 // --- DOM layer (browser only) ---
 if (typeof window !== 'undefined') {
 
-let state = null; // { courseId, progressCategory, lessons, coreCount, currentLesson, currentTab, completed: Set, pendingWrite: Promise|null, flushTimer: number|null }
+let state = null; // { courseId, progressCategory, lessons, coreCount, currentLesson, currentTab, completed: Set, pendingWrite: Promise|null, flushTimer: number|null, customRenderLesson: Function|null, customRenderNav: Function|null }
+
+function getState() {
+  if (!state) return null;
+  return {
+    courseId: state.courseId,
+    progressCategory: state.progressCategory,
+    lessons: state.lessons,
+    currentLesson: state.currentLesson,
+    currentTab: state.currentTab,
+    completed: Array.from(state.completed).sort((a,b)=>a-b),
+    coreCount: state.coreCount,
+  };
+}
 
 function qs(id) { return document.getElementById(id); }
 
@@ -84,50 +97,57 @@ function dispatchChange() {
 
 function renderLesson(index) {
   if (!state) return;
-  const L = state.lessons[index];
-  if (!L) return;
+  if (index < 0 || index >= state.lessons.length) return;
   state.currentLesson = index;
-  const main = qs('lesson-content');
-  if (!main) return;
 
-  const tab = state.currentTab;
-  const coreCount = state.coreCount;
-  const done = state.completed.has(index);
+  if (state.customRenderLesson) {
+    state.customRenderLesson();  // course owns the innerHTML of #lesson-content
+  } else {
+    const L = state.lessons[index];
+    if (!L) return;
+    const main = qs('lesson-content');
+    if (!main) return;
 
-  // Header label: "Lesson N — " for core lessons, "Bonus — " for bonus lessons.
-  const headerLabel = index < coreCount ? 'Lesson ' + (index + 1) + ' \u2014 ' : 'Bonus \u2014 ';
+    const tab = state.currentTab;
+    const coreCount = state.coreCount;
+    const done = state.completed.has(index);
 
-  // Bonus badge (shown when lesson has bonus === true).
-  const bonusBadge = L.bonus
-    ? ' <span style="background:#fff3e0;color:#e65100;font-size:0.75rem;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle;">BONUS</span>'
-    : '';
+    // Header label: "Lesson N — " for core lessons, "Bonus — " for bonus lessons.
+    const headerLabel = index < coreCount ? 'Lesson ' + (index + 1) + ' \u2014 ' : 'Bonus \u2014 ';
 
-  // Tab button at the bottom of .content.
-  let tabButton = '';
-  if (tab === 'learn') {
-    tabButton = '<button class="continue-btn" onclick="switchTab(\'implement\')">Continue to Exercises &rarr;</button>';
-  } else if (tab === 'implement') {
-    tabButton = '<button class="mark-complete-btn' + (done ? ' completed' : '') + '" onclick="markComplete(' + index + ')">' + (done ? '&#10003; Completed' : 'Mark Complete') + '</button>';
+    // Bonus badge (shown when lesson has bonus === true).
+    const bonusBadge = L.bonus
+      ? ' <span style="background:#fff3e0;color:#e65100;font-size:0.75rem;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle;">BONUS</span>'
+      : '';
+
+    // Tab button at the bottom of .content.
+    let tabButton = '';
+    if (tab === 'learn') {
+      tabButton = '<button class="continue-btn" onclick="switchTab(\'implement\')">Continue to Exercises &rarr;</button>';
+    } else if (tab === 'implement') {
+      tabButton = '<button class="mark-complete-btn' + (done ? ' completed' : '') + '" onclick="markComplete(' + index + ')">' + (done ? '&#10003; Completed' : 'Mark Complete') + '</button>';
+    }
+
+    // Tab body (raw HTML from lesson content).
+    const tabBody = L[tab] || '';
+
+    main.innerHTML =
+      '<div class="step-header">' +
+        '<h2>' + headerLabel + escapeHtml(L.title) + ' <span class="pts">' + L.points + ' pts</span>' + bonusBadge + '</h2>' +
+      '</div>' +
+      '<div class="tabs">' +
+        '<div class="tab' + (tab === 'learn'     ? ' active' : '') + '" onclick="switchTab(\'learn\')">Learn</div>' +
+        '<div class="tab' + (tab === 'implement' ? ' active' : '') + '" onclick="switchTab(\'implement\')">Exercises</div>' +
+        '<div class="tab' + (tab === 'advanced'  ? ' active' : '') + '" onclick="switchTab(\'advanced\')">Advanced</div>' +
+      '</div>' +
+      '<div class="content">' +
+        tabBody +
+        tabButton +
+      '</div>';
+
+    repaintNav();
   }
 
-  // Tab body (raw HTML from lesson content).
-  const tabBody = L[tab] || '';
-
-  main.innerHTML =
-    '<div class="step-header">' +
-      '<h2>' + headerLabel + escapeHtml(L.title) + ' <span class="pts">' + L.points + ' pts</span>' + bonusBadge + '</h2>' +
-    '</div>' +
-    '<div class="tabs">' +
-      '<div class="tab' + (tab === 'learn'     ? ' active' : '') + '" onclick="switchTab(\'learn\')">Learn</div>' +
-      '<div class="tab' + (tab === 'implement' ? ' active' : '') + '" onclick="switchTab(\'implement\')">Exercises</div>' +
-      '<div class="tab' + (tab === 'advanced'  ? ' active' : '') + '" onclick="switchTab(\'advanced\')">Advanced</div>' +
-    '</div>' +
-    '<div class="content">' +
-      tabBody +
-      tabButton +
-    '</div>';
-
-  repaintNav();
   if (location.hash !== '#lesson-' + index) {
     history.replaceState(null, '', '#lesson-' + index);
   }
@@ -160,6 +180,10 @@ function markComplete(index) {
 
 function repaintNav() {
   if (!state) return;
+  if (state.customRenderNav) {
+    state.customRenderNav();  // course owns the innerHTML of #lesson-nav
+    return;
+  }
   const nav = qs('lesson-nav');
   if (!nav) return;
 
@@ -262,7 +286,7 @@ function installKeybinds() {
   window.addEventListener('beforeunload', () => { if (state && state.flushTimer) flush(); });
 }
 
-async function initCourse({ courseId, progressCategory, lessons, coreCount }) {
+async function initCourse({ courseId, progressCategory, lessons, coreCount, renderLesson: customRenderLesson, renderNav: customRenderNav }) {
   // IMPORTANT 6: guard against empty lessons array
   if (!lessons || lessons.length === 0) return;
 
@@ -276,6 +300,8 @@ async function initCourse({ courseId, progressCategory, lessons, coreCount }) {
     })(),
     completed: new Set(),
     flushTimer: null,
+    customRenderLesson: (typeof customRenderLesson === 'function') ? customRenderLesson : null,
+    customRenderNav: (typeof customRenderNav === 'function') ? customRenderNav : null,
   };
 
   // IMPORTANT 5: fast path — paint immediately with local data so users
@@ -311,7 +337,7 @@ function escapeHtml(s) {
 }
 
 window.LessonRuntime = Object.assign(window.LessonRuntime || {}, {
-  initCourse, renderLesson, switchTab, markComplete, gotoLesson,
+  initCourse, renderLesson, switchTab, markComplete, gotoLesson, getState,
 });
 
 // Global aliases for lesson content onclick handlers (legacy compat).
