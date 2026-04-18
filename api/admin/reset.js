@@ -10,25 +10,26 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: 'Admin authentication required' });
   }
 
-  const { slug } = req.body || {};
-  if (!slug) {
-    return res.status(400).json({ error: 'slug is required' });
-  }
+  const body = req.body || {};
+  const rawSlug = body.slug;
+  const isDefault = rawSlug === '' || rawSlug === null || rawSlug === undefined || rawSlug === '__default__';
+  const prefix = isDefault ? 'workshop:' : `client:${rawSlug}:`;
 
   const r = getRedis();
 
   try {
-    // Verify client exists
-    const raw = await r.get(`client:${slug}`);
-    if (!raw) return res.status(404).json({ error: 'Workshop not found' });
-
-    const users = await r.smembers(`client:${slug}:users`);
-    for (const user of users) {
-      await r.del(`client:${slug}:progress:${user}`);
+    if (!isDefault) {
+      const raw = await r.get(`client:${rawSlug}`);
+      if (!raw) return res.status(404).json({ error: 'Workshop not found' });
     }
-    await r.del(`client:${slug}:users`);
 
-    return res.status(200).json({ ok: true, cleared: users.length, slug });
+    const users = await r.smembers(`${prefix}users`);
+    for (const user of users) {
+      await r.del(`${prefix}progress:${user}`);
+    }
+    await r.del(`${prefix}users`);
+
+    return res.status(200).json({ ok: true, cleared: users.length, slug: isDefault ? null : rawSlug });
   } catch (e) {
     return res.status(500).json({ error: 'Redis error', detail: e.message });
   }

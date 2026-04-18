@@ -21,39 +21,26 @@
   }
   @keyframes fadeIn { to { opacity: 1; } }
 
-  .top-nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    height: 60px;
-    background: #0c1f3f;
-    border-bottom: 2px solid #c5973e;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 32px;
-    z-index: 100;
-  }
-  .top-nav-brand {
-    font-size: 22px; font-weight: 700;
-    color: #fff; text-decoration: none;
-    letter-spacing: 0.04em;
-  }
-  .top-nav-brand:hover { opacity: 0.8; }
-  .nav-links { display: flex; gap: 8px; align-items: center; }
-  .nav-link {
-    padding: 8px 20px;
-    border-radius: 24px;
-    font-size: 14px; font-weight: 600;
-    text-decoration: none;
-    transition: all 0.15s;
-  }
-  .nav-link-workshop {
-    background: #c5973e; color: #0c1f3f;
-  }
-  .nav-link-workshop:hover { background: #d4a94d; }
-  .nav-link-active {
-    background: rgba(255,255,255,0.1); color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
+  /* GLOBAL TOP NAV */
+  .global-nav { position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 1000; background: #0c1f3f; border-bottom: 2px solid #c5973e; display: flex; align-items: center; padding: 0 24px; gap: 16px; }
+  .global-nav-brand { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; font-weight: 700; color: #fff; text-decoration: none; letter-spacing: 0.04em; }
+  .global-nav-brand:hover { opacity: 0.85; }
+  .global-nav-courses { display: flex; gap: 2px; margin-left: auto; margin-right: auto; background: rgba(255,255,255,0.08); padding: 4px; border-radius: 22px; }
+  .course-pill { padding: 6px 16px; border-radius: 18px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); text-decoration: none; transition: all 0.15s; }
+  .course-pill:hover { color: #fff; background: rgba(255,255,255,0.08); }
+  .course-pill.active { background: #c5973e; color: #0c1f3f; }
+  .global-nav-links { display: flex; gap: 4px; align-items: center; }
+  .global-nav-link { padding: 6px 14px; border-radius: 18px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); text-decoration: none; transition: all 0.15s; }
+  .global-nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+  .global-nav-link.active { color: #fff; background: rgba(255,255,255,0.12); }
+  @media (max-width: 768px) {
+    .global-nav { padding: 0 10px; gap: 6px; }
+    .course-pill { padding: 5px 10px; font-size: 12px; }
+    .global-nav-link { padding: 5px 10px; font-size: 12px; }
   }
 
-  .page { max-width: 960px; margin: 0 auto; padding: 92px 32px 60px; }
+  .page { max-width: 960px; margin: 0 auto; padding: 32px 32px 60px; }
+  body { padding-top: 60px; }
 
   .page-header {
     text-align: center;
@@ -215,12 +202,16 @@
 </head>
 <body>
 
-<nav class="top-nav">
-  <a href="/" class="top-nav-brand">adva</a>
-  <div class="nav-links">
-    <a href="/" class="nav-link nav-link-workshop" id="nav-workshop">Workshop</a>
-    <a href="/progress.html" class="nav-link nav-link-active" id="nav-progress">Leaderboard</a>
-    <a href="/admin.html" class="nav-link" id="nav-admin" style="color:rgba(255,255,255,0.6);">Admin</a>
+<nav class="global-nav">
+  <a href="/" class="global-nav-brand">adva</a>
+  <div class="global-nav-courses">
+    <a href="/courses/copilot-chat/copilot-chat.html" class="course-pill">Chat</a>
+    <a href="/courses/copilot-apps/copilot-apps.html" class="course-pill">Apps</a>
+    <a href="/courses/building-agents/building-agents.html" class="course-pill">Agents</a>
+  </div>
+  <div class="global-nav-links">
+    <a href="/progress.html" class="global-nav-link active">Leaderboard</a>
+    <a href="/admin.html" class="global-nav-link">Admin</a>
   </div>
 </nav>
 
@@ -260,11 +251,7 @@ const CHAT_STEPS = 6, APPS_STEPS = 5, AGENTS_STEPS = 8;
 const urlParams = new URLSearchParams(window.location.search);
 const slug = urlParams.get('slug') || '';
 
-/* Update nav links to preserve slug */
-if (slug) {
-  document.getElementById('nav-workshop').href = '/?slug=' + encodeURIComponent(slug);
-  document.getElementById('nav-progress').href = '/progress.html?slug=' + encodeURIComponent(slug);
-}
+/* slug (if present) is preserved via data fetches; global nav points to bare routes */
 
 async function loadProgress() {
   try {

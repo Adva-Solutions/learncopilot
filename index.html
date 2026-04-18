@@ -41,59 +41,69 @@
   }
   @keyframes fadeIn { to { opacity: 1; } }
 
-  /* TOP NAV */
-  .top-nav {
+  /* GLOBAL TOP NAV (shared across platform) */
+  .global-nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 60px; z-index: 1000;
     background: var(--dark);
-    padding: 0 48px;
     border-bottom: 2px solid var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    display: flex; align-items: center;
+    padding: 0 24px; gap: 16px;
   }
-  .nav-left { display: flex; align-items: center; gap: 16px; }
-  .nav-brand {
+  .global-nav-brand {
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 22px; font-weight: 700;
     color: var(--white); text-decoration: none;
     letter-spacing: 0.04em;
   }
-  .nav-brand:hover { opacity: 0.8; }
-  .nav-divider {
-    width: 1px; height: 24px;
-    background: rgba(255,255,255,0.15);
+  .global-nav-brand:hover { opacity: 0.85; }
+  .global-nav-courses {
+    display: flex; gap: 2px;
+    margin-left: auto; margin-right: auto;
+    background: rgba(255,255,255,0.08);
+    padding: 4px; border-radius: 22px;
   }
-  .nav-subtitle {
-    font-size: 13px; color: rgba(255,255,255,0.5);
-    font-weight: 500; letter-spacing: 0.3px;
-  }
-  .nav-right { display: flex; align-items: center; gap: 12px; }
-  .nav-link {
-    padding: 7px 18px; border-radius: 20px;
+  .course-pill {
+    padding: 6px 16px; border-radius: 18px;
     font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.65);
     text-decoration: none; transition: all 0.15s;
-    color: rgba(255,255,255,0.6);
   }
-  .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.08); }
-  .nav-link-progress { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+  .course-pill:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+  .course-pill.active { background: var(--accent); color: var(--dark); }
+  .global-nav-links { display: flex; gap: 4px; align-items: center; }
+  .global-nav-link {
+    padding: 6px 14px; border-radius: 18px;
+    font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none; transition: all 0.15s;
+    cursor: pointer; background: none; border: none; font-family: inherit;
+  }
+  .global-nav-link:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+  .global-nav-link.active { color: var(--white); background: rgba(255,255,255,0.12); }
   .nav-user {
-    font-size: 13px; color: rgba(255,255,255,0.5);
-    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: rgba(255,255,255,0.55);
+    display: flex; align-items: center; gap: 6px; margin-left: 8px;
   }
   .nav-user-avatar {
-    width: 30px; height: 30px; border-radius: 50%;
+    width: 28px; height: 28px; border-radius: 50%;
     background: rgba(197,151,62,0.3);
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 12px; color: var(--accent);
+    font-weight: 700; font-size: 11px; color: var(--accent);
     text-transform: uppercase;
   }
   .nav-logout {
-    font-size: 12px; color: rgba(255,255,255,0.35);
-    text-decoration: none; cursor: pointer;
+    font-size: 12px; color: rgba(255,255,255,0.4);
+    text-decoration: none; cursor: pointer; margin-left: 4px;
   }
-  .nav-logout:hover { color: rgba(255,255,255,0.7); }
+  .nav-logout:hover { color: rgba(255,255,255,0.8); }
+  body { padding-top: 60px; }
+  @media (max-width: 768px) {
+    .global-nav { padding: 0 10px; gap: 6px; }
+    .course-pill { padding: 5px 10px; font-size: 12px; }
+    .global-nav-link { padding: 5px 10px; font-size: 12px; }
+    .nav-user span { display: none; }
+  }
 
   /* HERO */
   .hero {
@@ -250,15 +260,16 @@
 </head>
 <body>
 
-<nav class="top-nav">
-  <div class="nav-left">
-    <a href="/" class="nav-brand">adva</a>
-    <div class="nav-divider"></div>
-    <span class="nav-subtitle" id="nav-subtitle">Copilot Workshop</span>
+<nav class="global-nav">
+  <a href="/" class="global-nav-brand">adva</a>
+  <div class="global-nav-courses">
+    <a href="/courses/copilot-chat/copilot-chat.html" class="course-pill">Chat</a>
+    <a href="/courses/copilot-apps/copilot-apps.html" class="course-pill">Apps</a>
+    <a href="/courses/building-agents/building-agents.html" class="course-pill">Agents</a>
   </div>
-  <div class="nav-right">
-    <a href="/progress.html" class="nav-link nav-link-progress">Leaderboard</a>
-    <a href="/admin.html" class="nav-link">Admin</a>
+  <div class="global-nav-links">
+    <a href="/progress.html" class="global-nav-link">Leaderboard</a>
+    <a href="/admin.html" class="global-nav-link">Admin</a>
     <div class="nav-user" id="nav-user"></div>
   </div>
 </nav>
@@ -342,7 +353,6 @@
 <script>
 /* Apply tenant config */
 if (typeof TENANT !== 'undefined') {
-  document.getElementById('nav-subtitle').textContent = TENANT.workshopTitle || 'Copilot Workshop';
   document.title = (TENANT.workshopTitle || 'Copilot Workshop') + ' — Adva Academy';
 }
 
