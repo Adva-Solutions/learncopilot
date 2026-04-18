@@ -18,7 +18,7 @@ async function findOrCreateUid(r, name, slug) {
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { name, password, slug, department } = req.body || {};
+  const { name, password, slug } = req.body || {};
   if (!name || !password) return res.status(400).json({ error: 'Name and password required' });
 
   const r = getRedis();
@@ -32,10 +32,10 @@ export default async function handler(req, res) {
     if (password !== client.password) return res.status(401).json({ error: 'Wrong password' });
 
     const uid = await findOrCreateUid(r, trimmed, slug);
-    const token = createToken(trimmed, slug, department || '', uid);
+    const token = createToken(trimmed, slug, uid);
     const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
     res.setHeader('Set-Cookie', `workshop_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800${secure}`);
-    return res.status(200).json({ ok: true, name: trimmed, slug, department: department || null });
+    return res.status(200).json({ ok: true, name: trimmed, slug });
   }
 
   // Legacy/default login
@@ -44,8 +44,8 @@ export default async function handler(req, res) {
   if (password !== LEGACY_PASSWORD) return res.status(401).json({ error: 'Wrong password' });
 
   const uid = await findOrCreateUid(r, trimmed, '');
-  const token = createToken(trimmed, '', department || '', uid);
+  const token = createToken(trimmed, '', uid);
   const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
   res.setHeader('Set-Cookie', `workshop_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800${secure}`);
-  return res.status(200).json({ ok: true, name: trimmed, department: department || null });
+  return res.status(200).json({ ok: true, name: trimmed });
 }

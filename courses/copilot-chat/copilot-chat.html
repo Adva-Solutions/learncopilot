@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Copilot Chat — Workshop</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230c1f3f'/><polygon points='16,8 28,13 16,18 4,13' fill='%23c5973e'/><path d='M9 15 V20 Q16 23 23 20 V15' fill='none' stroke='%23c5973e' stroke-width='1.5'/><line x1='28' y1='13' x2='28' y2='21' stroke='%23c5973e' stroke-width='1.2'/><circle cx='28' cy='22' r='1.2' fill='%23c5973e'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -442,15 +443,76 @@ body {
 }
 .sidebar-footer .logout-link:hover { color: var(--text, #1a1a2e); }
 
+/* Top-right floating links (Leaderboard + Admin) */
+.top-right-links {
+  position: fixed; top: 16px; right: 22px;
+  display: flex; gap: 10px;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  z-index: 50;
+}
+.top-right-links a {
+  color: var(--text-muted); text-decoration: none;
+  padding: 6px 12px; border-radius: 14px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid var(--border);
+  transition: all 0.15s;
+}
+.top-right-links a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Numbered exercise cards (Know Your Way Around) */
+.exercise-card {
+  display: flex; gap: 14px;
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.exercise-card-num {
+  flex-shrink: 0;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 15px;
+}
+.exercise-card-body { flex: 1; min-width: 0; }
+.exercise-card-body h4 {
+  font-family: var(--font-display); font-size: 18px;
+  margin-bottom: 6px;
+}
+.exercise-card-body p { margin-bottom: 8px; }
+.exercise-card-body ol, .exercise-card-body ul { margin: 6px 0 10px 22px; }
+.exercise-card-body li { margin-bottom: 4px; }
+.exercise-card-body label.exercise-check {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px; border-radius: 16px;
+  background: #f5f4f1; border: 1px solid var(--border);
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  cursor: pointer; transition: all 0.15s;
+  margin-top: 4px;
+}
+.exercise-card-body label.exercise-check:has(input:checked) {
+  background: #e8f5e9; border-color: #81c784; color: #2e7d32;
+}
+.exercise-card-body label.exercise-check input { margin: 0; }
+
+.region-map { margin: 12px 0 18px 22px; }
+.region-map li { margin-bottom: 8px; }
+
 /* Responsive */
 @media (max-width: 900px) {
   body { flex-direction: column; }
   .sidebar { width: 100%; min-width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
   .main { padding: 28px 20px 60px; }
+  .top-right-links { top: 10px; right: 10px; }
 }
 </style>
 </head>
 <body>
+
+<div class="top-right-links">
+  <a href="/progress.html">Leaderboard</a>
+  <a href="/admin.html">Admin</a>
+</div>
 
 <aside class="sidebar">
   <div class="sidebar-header">
@@ -488,114 +550,129 @@ const LESSONS = [
   points: 5,
   learn: `
 <h3>The 10% Problem</h3>
-<p>Most people use AI the same way: open a chat, type a question, read the answer. That is 10% of what Copilot can do. This course teaches the other 90%.</p>
+<p>Most people use AI the same way: open a chat, type a question, read the answer. That is about 10% of what M365 Copilot can do. This course teaches the other 90%.</p>
 
 <div class="tip-box">
   <div class="tip-title">New to AI?</div>
-  <p>If you have never used an AI tool beyond a quick Google-style search, you are in the right place. This course starts from zero. Every step tells you exactly where to click and what to type. By the end of today, you will have used AI for real work — not just experiments.</p>
+  <p>If you have never used an AI tool beyond a quick Google-style search, you are in the right place. This course starts from zero. By the end of today, you will have used AI for real work — not just experiments.</p>
 </div>
 
 <div class="note-box">
-  <strong>No install required:</strong> Copilot is already part of your Microsoft 365 subscription. Open m365.cloud.microsoft in your browser — no IT tickets, no downloads, no waiting. If you can access Outlook and Teams, you can access Copilot.
+  <strong>No install required.</strong> Open <strong>m365.cloud.microsoft</strong> in your browser and sign in with your work account. No IT tickets, no downloads.
 </div>
 
-<p>Let us walk through every part of the interface so you know where everything lives.</p>
+<h3>A Quick Map — Four Regions</h3>
+<p>Before you touch anything, know the lay of the land. M365 Copilot has four regions you will come back to all day:</p>
 
-<h4>Top Bar</h4>
-<ul>
-  <li><strong>Work / Web toggle (top center):</strong> One of several scope controls. <strong>Work</strong> grounds responses in your organization's data — emails, files, Teams chats, SharePoint. <strong>Web</strong> searches the public internet. Useful to know, but not something you will touch constantly. We will return to this in Lesson 4 when we talk about search scope.</li>
-  <li><strong>Auto (model selector, top right):</strong> Click this dropdown to choose how Copilot thinks:
-    <ul>
-      <li><strong>Auto</strong> — Copilot decides how long to think. Best default for most tasks.</li>
-      <li><strong>Quick Response</strong> — Answers right away. Use for simple questions, lookups, and reformatting.</li>
-      <li><strong>Think Deeper</strong> — Takes more time for better answers. Use for complex analysis, strategy, multi-step reasoning, or when you need Copilot to really think through a problem.</li>
-      <li><strong>Sonnet (Claude)</strong> — Anthropic's Claude model. Try it for writing, editing, and nuanced communication.</li>
-      <li><strong>GPT (OpenAI)</strong> — OpenAI's GPT model. The default behind Auto for most tasks.</li>
-    </ul>
-  </li>
-  <li><strong>Edit icon (top right):</strong> Opens an inline canvas where you can also start a <strong>temporary chat</strong> — a disposable conversation that does not save to history or feed memory. Handy for quick one-offs and sensitive drafts. There is no pencil glyph on this button in the current UI.</li>
-  <li><strong>Three-dot menu (far right):</strong> Opens a dropdown with: <strong>Recent pages</strong>, <strong>Scheduled prompts</strong> (set up recurring AI tasks), <strong>Send feedback</strong>, <strong>Settings</strong> (Custom Instructions, Memory, Sources, preferences — we go deep in Lesson 1), <strong>Quick Help</strong>, and a <strong>Web search</strong> toggle that controls whether Copilot includes web results.</li>
-</ul>
+<ol class="region-map">
+  <li><strong>Top bar</strong> — the <strong>Work / Web mode toggle</strong> (choose whether Copilot answers from your organization's data or also from the public internet), the model selector (Auto / Quick response / Think Deeper), and the three-dot menu (Settings, temporary chat).</li>
+  <li><strong>Left sidebar</strong> — where you navigate between New chat, Search, Library, Create, Agents, Notebooks, Chats, and Apps.</li>
+  <li><strong>Chat area</strong> — the center of the screen: the message box, quick-action pills, the prompt gallery, and the microphone.</li>
+  <li><strong>Settings</strong> — opened from the three-dot menu. This is where you make Copilot yours (Custom instructions, Sources, Memory).</li>
+</ol>
 
-<h4>Left Sidebar</h4>
-<ul>
-  <li><strong>New chat:</strong> Start a fresh conversation. Each chat has its own context — Copilot does not carry over information between chats unless you set up Custom Instructions or Memory.</li>
-  <li><strong>Search:</strong> Searches <strong>your files</strong> — documents, emails, meeting content across Microsoft 365. This is not the place to search past conversations. We go deep on this in Lesson 4.</li>
-  <li><strong>Library:</strong> Where your <strong>artifacts</strong> are stored — pages, generated images, created documents, and other outputs Copilot produces. It becomes your asset collection over time. We cover it throughout L3 and L5.</li>
-  <li><strong>Create:</strong> Opens the creation workspace for images, PowerPoint, Word, Excel, video, infographics, and more. We cover this in Lesson 5.</li>
-  <li><strong>Agents:</strong> Built-in agents like <strong>Researcher</strong> (deep web research with citations) and <strong>Analyst</strong> (data analysis). You can also create custom agents. We cover agents in the Building Agents module.</li>
-  <li><strong>Notebooks:</strong> Persistent, project-scoped workspaces that combine references, notebook instructions, and chat side by side. We cover this in Lesson 2.</li>
-  <li><strong>Chats:</strong> Your conversation history. Click any chat to pick up where you left off.</li>
-  <li><strong>Apps:</strong> Links to Copilot inside Outlook, Word, Excel, PowerPoint, Teams. Covered in the Copilot in Apps module.</li>
-  <li><strong>Your profile (bottom left):</strong> Shows your name and license tier (e.g., "M365 Copilot Premium"). Click for account settings.</li>
-</ul>
-
-<h4>Chat Area</h4>
-<ul>
-  <li><strong>Message box (center):</strong> Where you type prompts. "Message Copilot" placeholder text.</li>
-  <li><strong>+ button (left of message box):</strong> Attach files, images, or paste content for Copilot to analyze. Supports Word, Excel, PowerPoint, PDF, images, and more.</li>
-  <li><strong>Microphone icon:</strong> Click to dictate instead of typing. We cover voice input in the bonus lesson.</li>
-  <li><strong>Voice mode icon (sound waves):</strong> Opens a full voice conversation mode where you can talk with Copilot like a phone call.</li>
-  <li><strong>Quick action pills:</strong> Below the message box — <strong>Summarize</strong>, <strong>Rewrite</strong>, <strong>Create</strong>, <strong>Learn</strong>, and <strong>…</strong>. Each pill is actually a <strong>dropdown</strong> — click it and you get a menu of suggested prompts for that action, so you can pick a starting point instead of typing from scratch.</li>
-  <li><strong>Three-dots (…) pill:</strong> Opens the full <strong>Copilot prompt gallery</strong> — both Microsoft's <strong>suggested prompts</strong> and your own <strong>saved prompts</strong>, organized by category.</li>
-  <li><strong>Suggestion cards:</strong> Below the pills, Copilot shows contextual suggestions based on your recent activity — documents you opened, close collaborators, emails that need attention.</li>
-</ul>
-
-<div class="note-box">
-  <strong>Chat Settings worth a quick peek:</strong> The Settings panel (three-dot menu → Settings) now has a <strong>Sources</strong> tab in addition to General, Data controls, Personalization, Notifications, and Agents. We go deep on all of these in Lesson 1 — and since this surface keeps evolving, it is worth revisiting every few weeks.
-</div>
-
-<p>Think of this like the first time you got a new phone. You spend 10 minutes poking around — wallpaper, notifications, accounts — and then it works the way you want. Same here.</p>
+<p>That is the whole orientation. The Exercise tab walks you through each region click by click and explains <em>why</em> each control matters. Treat it like unboxing a new phone — 10 minutes of exploring now pays off every day after.</p>
 
 <button class="continue-btn" onclick="switchTab(0,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
 <h3>Explore Every Corner</h3>
+<p>Work through the cards below. Each one tells you <strong>what to do</strong> and <strong>why it matters</strong>. Tick it when you are done.</p>
 
-<p>Work through this checklist. Tick each item as you go.</p>
-
-<h4>Top Bar</h4>
-<ul class="exercise-check">
-  <li><label><input type="checkbox"> Open <strong>m365.cloud.microsoft</strong> and sign in with your work account.</label></li>
-  <li><label><input type="checkbox"> Find the <strong>Work / Web toggle</strong> at the top center. Click <strong>Web</strong>, then click <strong>Work</strong> to switch back. Notice how the label changes.</label></li>
-  <li><label><input type="checkbox"> Look at the top right. Find <strong>Auto</strong> (the model selector). Click it — see what options are available. Close without changing anything.</label></li>
-  <li><label><input type="checkbox"> Click the <strong>Edit icon</strong> (top right). Notice it opens an inline canvas and lets you start a <strong>temporary chat</strong>. Close it.</label></li>
-  <li><label><input type="checkbox"> Click the <strong>three-dot menu</strong> (far top right). Browse the options. Find <strong>Settings</strong> and click it.</label></li>
-</ul>
-
-<h4>Settings</h4>
-<ul class="exercise-check">
-  <li><label><input type="checkbox"> Inside Settings, click through each tab: <strong>General</strong>, <strong>Data controls</strong>, <strong>Personalization</strong>, <strong>Notifications</strong>, <strong>Agents</strong>, and <strong>Sources</strong>. Just get a feel for what is there — we configure most of these in Lesson 1.</label></li>
-  <li><label><input type="checkbox"> In <strong>Personalization</strong>, locate <strong>Custom instructions</strong>, <strong>Work profile</strong>, <strong>Saved memories</strong>, and <strong>Chat history (Frontier)</strong>. Leave them for now. Close Settings.</label></li>
-</ul>
-
-<div class="note-box">
-  <strong>Heads up:</strong> We will not click through Search, Create, Agents, or Notebooks from the sidebar in this lesson — they each get their own dedicated lesson. For now, just know they are there.
+<div class="exercise-card">
+  <div class="exercise-card-num">1</div>
+  <div class="exercise-card-body">
+    <h4>Sign in</h4>
+    <p><strong>Do:</strong> Open <strong>m365.cloud.microsoft</strong> and sign in with your work account.</p>
+    <p><strong>Why:</strong> This is M365 Copilot's home base — the same chat you will use inside Outlook, Word, Excel, PowerPoint, and Teams, only standalone.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
 </div>
 
-<h4>Chat Area</h4>
-<ul class="exercise-check">
-  <li><label><input type="checkbox"> Click the <strong>+ button</strong> (left of the message box). See the attachment options — files, images, etc. Close without attaching anything.</label></li>
-  <li><label><input type="checkbox"> Look at the <strong>quick action pills</strong> below the message box: Summarize, Rewrite, Create, Learn, and <strong>…</strong>. Click the caret on <strong>Summarize</strong> — it is a dropdown with suggested prompts.</label></li>
-  <li><label><input type="checkbox"> Click the <strong>…</strong> pill. This opens the <strong>Copilot prompt gallery</strong> with Microsoft's suggested prompts plus your saved prompts.</label></li>
-  <li><label><input type="checkbox"> Click the <strong>microphone icon</strong>. Speak a short sentence. Watch it transcribe. (Allow mic access if prompted.)</label></li>
-  <li><label><input type="checkbox"> Send this test message:</label>
-  <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What tools and data sources do you currently have access to? List everything you can see — my files, email, calendar, and any connected apps.</code></div>
-  <p>Read the response. Copilot should describe what organizational data it can access.</p>
-  </li>
-</ul>
+<div class="exercise-card">
+  <div class="exercise-card-num">2</div>
+  <div class="exercise-card-body">
+    <h4>Pick your thinking depth — the model selector</h4>
+    <p><strong>Do:</strong></p>
+    <ol>
+      <li>In the top right, find the button labeled <strong>Auto</strong>.</li>
+      <li>Click it — you will see <strong>Auto</strong>, <strong>Quick response</strong>, and <strong>Think Deeper</strong>.</li>
+      <li>Select <strong>Think Deeper</strong>.</li>
+    </ol>
+    <p><strong>Why:</strong> <em>Auto</em> lets Copilot pick speed vs. depth automatically. <em>Think Deeper</em> forces a reasoning model — best for analysis, multi-step problems, and anything you want Copilot to really think through before answering.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
+</div>
 
-<h4>Try the Model Selector</h4>
-<ul class="exercise-check">
-  <li><label><input type="checkbox"> Click <strong>Auto</strong> in the top right. Switch to <strong>Think Deeper</strong>. Send this prompt:</label>
-  <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the pros and cons of using precast concrete vs. terracotta rainscreen panels for a residential tower facade? Consider cost, durability, aesthetics, maintenance, and sustainability. Think through each factor carefully.</code></div>
-  </li>
-  <li><label><input type="checkbox"> Read the response — it should be more thorough and structured than a Quick Response would be.</label></li>
-  <li><label><input type="checkbox"> Switch back to <strong>Auto</strong>. Auto is the best default — save Think Deeper for complex questions that need real analysis.</label></li>
-</ul>
+<div class="exercise-card">
+  <div class="exercise-card-num">3</div>
+  <div class="exercise-card-body">
+    <h4>Switch the Work / Web toggle to Web</h4>
+    <p><strong>Do:</strong> At the top of the Copilot screen, find the <strong>Work / Web</strong> toggle. It starts on <strong>Work</strong>. Click <strong>Web</strong>.</p>
+    <p><strong>Why:</strong> In <strong>Work</strong> mode, Copilot answers from your organization's data — emails, files, Teams chats, SharePoint. In <strong>Web</strong> mode, Copilot can also pull information from the <em>public internet</em>. We switch to Web any time we want Copilot to look at <em>external</em> information — news, regulations, industry standards, competitors, anything outside your tenant.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
+</div>
+
+<div class="exercise-card">
+  <div class="exercise-card-num">4</div>
+  <div class="exercise-card-body">
+    <h4>Send your first Think Deeper prompt</h4>
+    <p><strong>Do:</strong> Paste this into the message box and send it.</p>
+    <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What are the pros and cons of using precast concrete vs. terracotta rainscreen panels for a residential tower facade? Consider cost, durability, aesthetics, maintenance, and sustainability. Think through each factor carefully.</code></div>
+    <p><strong>Why:</strong> This is the kind of open-ended question that shows the difference between a fast answer and a thoughtful one — and lets you see Web mode kick in when the answer pulls in external standards or vendor information.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
+</div>
+
+<div class="exercise-card">
+  <div class="exercise-card-num">5</div>
+  <div class="exercise-card-body">
+    <h4>See how Copilot is thinking</h4>
+    <p><strong>Do:</strong> While Think Deeper generates the answer, look at the top of the response — there is a <strong>reasoning summary</strong> with a small <strong>caret / arrow</strong>. Click it to expand.</p>
+    <p><strong>Why:</strong> This reveals the <em>plan</em> Copilot built and the steps it took to reach the answer. Use it to check the model's logic — it is the fastest way to spot when Copilot has misread the question or skipped a factor that matters to you.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
+</div>
+
+<div class="exercise-card">
+  <div class="exercise-card-num">6</div>
+  <div class="exercise-card-body">
+    <h4>Left sidebar — the eight destinations</h4>
+    <p><strong>Do:</strong> Hover (do not click yet) each item in the left sidebar: <strong>New chat</strong>, <strong>Search</strong>, <strong>Library</strong>, <strong>Create</strong>, <strong>Agents</strong>, <strong>Notebooks</strong>, <strong>Chats</strong>, <strong>Apps</strong>. Read the tooltip for each.</p>
+    <p><strong>Why:</strong> Each of these is a full feature we cover in a later lesson. For now just know they exist so you can recognize them when you get there.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
+</div>
+
+<div class="exercise-card">
+  <div class="exercise-card-num">7</div>
+  <div class="exercise-card-body">
+    <h4>The chat area — message box and pills</h4>
+    <p><strong>Do:</strong></p>
+    <ol>
+      <li>Click the <strong>+ button</strong> to the left of the message box. Notice you can attach files or images. Close without attaching.</li>
+      <li>Look at the <strong>quick-action pills</strong>: <strong>Summarize</strong>, <strong>Rewrite</strong>, <strong>Create</strong>, <strong>Learn</strong>, and <strong>…</strong>. Click the caret on <strong>Summarize</strong> — it is a dropdown of suggested prompts.</li>
+      <li>Click the <strong>…</strong> pill to open the full <strong>prompt gallery</strong>.</li>
+      <li>Click the <strong>microphone</strong> and speak one short sentence to see dictation work.</li>
+    </ol>
+    <p><strong>Why:</strong> Most people type everything from scratch. These pills and the gallery are shortcuts — you will use them constantly once you know they are there.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
+</div>
+
+<div class="exercise-card">
+  <div class="exercise-card-num">8</div>
+  <div class="exercise-card-body">
+    <h4>Settings — a quick tour</h4>
+    <p><strong>Do:</strong> From the <strong>three-dot menu</strong> (top right), open <strong>Settings</strong>. Click each tab: <strong>General</strong>, <strong>Data controls</strong>, <strong>Personalization</strong>, <strong>Notifications</strong>, <strong>Agents</strong>, <strong>Sources</strong>. Do not change anything yet — just get a feel for what is there.</p>
+    <p><strong>Why:</strong> <em>Personalization</em> is where the next lesson (Custom Instructions &amp; Memory) lives. The <em>Sources</em> tab is where you control what data Copilot grounds on. Knowing they exist now makes the next lessons feel familiar.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
+</div>
 
 <div class="note-box">
-  <strong>Success check:</strong> You have touched the top bar (Work/Web toggle, model selector, Edit / temporary chat), the Settings panel (all six tabs including Sources), and the chat area (attachments, pill dropdowns, prompt gallery, microphone). You have a complete map. Search, Create, Agents, and Notebooks get their own lessons.
+  <strong>Success check:</strong> You signed in, switched to Think Deeper, flipped the Work / Web toggle to Web, sent a reasoning prompt, opened the thinking-process view, and mapped the sidebar, chat area, and Settings. You now have the full map — the rest of this module goes deep on each surface.
 </div>
 
 <button class="mark-complete-btn" id="complete-btn-0" onclick="markComplete(0)">Mark Complete</button>
@@ -1605,9 +1682,10 @@ function buildNav() {
     }
     const isDone = completed.includes(i);
     const isActive = i === currentLesson;
+    const numLabel = i < CORE_COUNT ? 'L' + (i + 1) : 'Bonus';
     html += '<div class="nav-item' + (isActive ? ' active' : '') + '" onclick="loadLesson(' + i + ')">';
     html += '<div class="check' + (isDone ? ' done' : '') + '">' + (isDone ? '&#10003;' : '') + '</div>';
-    html += '<span>' + lesson.title + '</span>';
+    html += '<span><strong style="color:#0078d4;margin-right:6px;font-weight:700;">' + numLabel + '</strong>' + lesson.title + '</span>';
     if (lesson.points > 0) {
       html += '<span class="pts">' + lesson.points + ' pts</span>';
     }
@@ -1630,8 +1708,9 @@ function renderLesson() {
   var html = '';
 
   // Step header
+  const headerLabel = currentLesson < CORE_COUNT ? 'Lesson ' + (currentLesson + 1) + ' — ' : 'Bonus — ';
   html += '<div class="step-header">';
-  html += '<h2>' + lesson.title + '</h2>';
+  html += '<h2>' + headerLabel + lesson.title + '</h2>';
   if (lesson.points > 0) {
     html += '<span class="pts-badge">' + lesson.points + ' points</span>';
   }

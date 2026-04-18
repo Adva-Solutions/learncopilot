@@ -43,7 +43,6 @@ export default async function handler(req, res) {
 
       const data = {
         name: user.name,
-        department: user.department || existing?.department || null,
         slug,
         updatedAt: Date.now(),
         chat:   chat   !== undefined ? chat   : (existing?.chat   || defaults),

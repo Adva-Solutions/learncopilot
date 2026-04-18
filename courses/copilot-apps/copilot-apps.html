@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230c1f3f'/><polygon points='16,8 28,13 16,18 4,13' fill='%23c5973e'/><path d='M9 15 V20 Q16 23 23 20 V15' fill='none' stroke='%23c5973e' stroke-width='1.5'/><line x1='28' y1='13' x2='28' y2='21' stroke='%23c5973e' stroke-width='1.2'/><circle cx='28' cy='22' r='1.2' fill='%23c5973e'/></svg>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Copilot in Apps - Workshop</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -101,9 +102,17 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
 .option-tab.active { background: #217346; border-color: #217346; color: white; }
 .option-content { display: none; }
 .option-content.active { display: block; }
+
+.top-right-links { position: fixed; top: 16px; right: 22px; display: flex; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; z-index: 50; }
+.top-right-links a { color: #6b7280; text-decoration: none; padding: 6px 12px; border-radius: 14px; background: rgba(255,255,255,0.95); border: 1px solid #ddd8ce; transition: all 0.15s; }
+.top-right-links a:hover { background: #217346; color: #fff; border-color: #217346; }
 </style>
 </head>
 <body>
+<div class="top-right-links">
+  <a href="/progress.html">Leaderboard</a>
+  <a href="/admin.html">Admin</a>
+</div>
 <div class="app">
 <aside class="sidebar">
   <div class="sidebar-header">
@@ -795,9 +804,10 @@ function buildNav() {
     if (i === CORE_COUNT) html += '<div class="nav-section-label">Bonus Challenges</div>';
     const done = completed.includes(i);
     const active = i === currentLesson;
+    const numLabel = i < CORE_COUNT ? 'L' + (i + 1) : 'Bonus';
     html += `<div class="nav-item${active ? ' active' : ''}" onclick="loadLesson(${i})">
       <span class="check${done ? ' done' : ''}">${done ? '&#10003;' : ''}</span>
-      <span class="label">${l.title}</span>
+      <span class="label"><strong style="color:#217346;margin-right:6px;font-weight:700;">${numLabel}</strong>${l.title}</span>
       <span class="points">${l.points} pts</span>
     </div>`;
   });
@@ -817,9 +827,10 @@ function renderLesson() {
   const main = document.getElementById('lessonContent');
 
   const bonusLabel = l.bonus ? ' <span style="background:#fff3e0;color:#e65100;font-size:0.75rem;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle;">BONUS</span>' : '';
+  const headerLabel = currentLesson < CORE_COUNT ? 'Lesson ' + (currentLesson + 1) + ' — ' : 'Bonus — ';
 
   let html = `<div class="step-header">
-    <h2>${l.title} <span class="pts">${l.points} pts</span>${bonusLabel}</h2>
+    <h2>${headerLabel}${l.title} <span class="pts">${l.points} pts</span>${bonusLabel}</h2>
   </div>
   <div class="tabs">
     <div class="tab${currentTab === 'learn' ? ' active' : ''}" onclick="switchTab('learn')">Learn</div>

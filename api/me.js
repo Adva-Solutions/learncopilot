@@ -10,9 +10,9 @@ function sign(data) {
   return crypto.createHmac('sha256', getSecret()).update(data).digest('hex').slice(0, 16);
 }
 
-export function createToken(name, slug, department, uid) {
+export function createToken(name, slug, uid) {
   const id = uid || crypto.randomBytes(4).toString('hex');
-  const payload = JSON.stringify({ n: name, s: slug || '', d: department || '', u: id });
+  const payload = JSON.stringify({ n: name, s: slug || '', u: id });
   return `${Buffer.from(payload).toString('base64')}.${sign(payload)}`;
 }
 
@@ -24,10 +24,10 @@ function verify(token) {
   if (sig !== expected) return null;
   try {
     const data = JSON.parse(payload);
-    return { name: data.n, slug: data.s || null, department: data.d || null, uid: data.u || null };
+    return { name: data.n, slug: data.s || null, uid: data.u || null };
   } catch {
-    const [name, slug, department] = payload.split('|');
-    return { name, slug: slug || null, department: department || null };
+    const [name, slug] = payload.split('|');
+    return { name, slug: slug || null };
   }
 }
 

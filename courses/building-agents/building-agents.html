@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Building Agents - Learn Copilot</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230c1f3f'/><polygon points='16,8 28,13 16,18 4,13' fill='%23c5973e'/><path d='M9 15 V20 Q16 23 23 20 V15' fill='none' stroke='%23c5973e' stroke-width='1.5'/><line x1='28' y1='13' x2='28' y2='21' stroke='%23c5973e' stroke-width='1.2'/><circle cx='28' cy='22' r='1.2' fill='%23c5973e'/></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -574,10 +575,19 @@
     .nav-item { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; }
     .nav-item.active { border-bottom-color: #7b5ea7; border-left: none; }
     .main { padding: 24px 20px 60px; }
+    .top-right-links { top: 10px; right: 10px; }
   }
+
+  .top-right-links { position: fixed; top: 16px; right: 22px; display: flex; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; z-index: 50; }
+  .top-right-links a { color: #6b7280; text-decoration: none; padding: 6px 12px; border-radius: 14px; background: rgba(255,255,255,0.95); border: 1px solid #ddd8ce; transition: all 0.15s; }
+  .top-right-links a:hover { background: #7b5ea7; color: #fff; border-color: #7b5ea7; }
 </style>
 </head>
 <body>
+<div class="top-right-links">
+  <a href="/progress.html">Leaderboard</a>
+  <a href="/admin.html">Admin</a>
+</div>
 <div class="app">
   <!-- ── Sidebar ── -->
   <aside class="sidebar">
@@ -2042,10 +2052,11 @@ function renderSidebar() {
     let cls = 'nav-item';
     if (active) cls += ' active';
     if (done) cls += ' completed';
+    const numLabel = l.bonus ? 'Bonus' : 'L' + (i + 1);
     return `
       <div class="${cls}" onclick="goToLesson(${i})">
         <div class="nav-icon">${done ? '&#10003;' : i + 1}</div>
-        <span class="nav-label">${l.title}</span>
+        <span class="nav-label"><strong style="color:#7b5ea7;margin-right:6px;font-weight:700;">${numLabel}</strong>${l.title}</span>
         ${l.bonus ? '<span class="nav-badge">Bonus</span>' : ''}
         <span class="nav-pts">${l.points} pts</span>
       </div>`;
@@ -2070,7 +2081,7 @@ function renderLesson() {
 
   main.innerHTML = `
     <div class="lesson-header">
-      <div class="lesson-number">${l.bonus ? 'Bonus' : 'Lesson ' + currentLesson}</div>
+      <div class="lesson-number">${l.bonus ? 'Bonus' : 'Lesson ' + (currentLesson + 1)}</div>
       <h2>${l.title}</h2>
       <div class="lesson-meta">
         <span>${l.points} points</span>
