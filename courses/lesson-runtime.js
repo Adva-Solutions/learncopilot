@@ -65,6 +65,23 @@ const LOCAL_STORAGE_KEYS = {
   'building-agents': 'agents-completed',
 };
 
+function dispatchChange() {
+  if (!state) return;
+  const completedArr = Array.from(state.completed).sort((a,b)=>a-b);
+  const detail = {
+    courseId: state.courseId,
+    progressCategory: state.progressCategory,
+    currentLesson: state.currentLesson,
+    currentTab: state.currentTab,
+    lessons: state.lessons,
+    completed: completedArr,
+    completedCount: completedArr.length,
+    totalCount: state.lessons.length,
+    points: window.LessonRuntime.sumPoints(state.lessons, completedArr),
+  };
+  window.dispatchEvent(new CustomEvent('lessonruntime:change', { detail }));
+}
+
 function renderLesson(index) {
   if (!state) return;
   const L = state.lessons[index];
@@ -93,6 +110,7 @@ function renderLesson(index) {
   if (location.hash !== '#lesson-' + index) {
     history.replaceState(null, '', '#lesson-' + index);
   }
+  dispatchChange();
 }
 
 function switchTab(index, tabName) {
@@ -111,6 +129,7 @@ function markComplete(index) {
   const btn = document.querySelector('.mark-complete-btn');
   if (btn) { btn.textContent = '✓ Completed'; btn.classList.add('completed'); }
   scheduleFlush();
+  dispatchChange();
 }
 
 function repaintNav() {
@@ -221,6 +240,7 @@ async function initCourse({ courseId, progressCategory, lessons }) {
 
   installKeybinds();
   renderLesson(state.currentLesson);
+  dispatchChange();
 
   // Slow path — reconcile with server progress and repaint nav if needed.
   const server = await loadServerProgress();
@@ -234,6 +254,7 @@ async function initCourse({ courseId, progressCategory, lessons }) {
   }
   if (mig.shouldClearLocal) clearLocalCompleted(courseId);
   repaintNav();
+  dispatchChange();
 }
 
 function escapeHtml(s) {
