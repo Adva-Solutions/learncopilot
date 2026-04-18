@@ -319,8 +319,8 @@
         <span class="progress-pct" id="pct-apps" style="color:#217346">0%</span>
       </div>
       <div class="course-meta">
-        <span class="course-meta-steps">5 core + 1 bonus</span>
-        <span class="course-meta-pts">130 pts</span>
+        <span class="course-meta-steps">3 core + 2 bonus</span>
+        <span class="course-meta-pts">95 pts</span>
       </div>
     </a>
 
@@ -336,8 +336,8 @@
         <span class="progress-pct" id="pct-agents" style="color:#7b5ea7">0%</span>
       </div>
       <div class="course-meta">
-        <span class="course-meta-steps">8 core + 2 bonus</span>
-        <span class="course-meta-pts">200 pts</span>
+        <span class="course-meta-steps">4 core</span>
+        <span class="course-meta-pts">100 pts</span>
       </div>
     </a>
 
@@ -408,7 +408,7 @@ async function resetMyProgress() {
 /* Load progress from localStorage for instant display.
    Denominators are CORE lesson counts only (chat=6, apps=5, agents=8);
    bonus lessons don't push % past 100. */
-const CHAT_CORE = 6, APPS_CORE = 5, AGENTS_CORE = 8;
+const CHAT_CORE = 6, APPS_CORE = 3, AGENTS_CORE = 4;
 function updateDashboardProgress() {
   const chatCompleted = JSON.parse(localStorage.getItem('chat-completed-v2') || '[]');
   const appsCompleted = JSON.parse(localStorage.getItem('apps-completed') || '[]');

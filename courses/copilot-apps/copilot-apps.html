@@ -143,7 +143,7 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
   </div>
   <div class="progress-bar-container">
     <div class="progress-info">
-      <span id="progressLabel">0 / 5 core steps</span>
+      <span id="progressLabel">0 / 3 core steps</span>
       <span id="progressPts">0 pts</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
@@ -159,8 +159,8 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
 </div>
 
 <script>
-const CORE_COUNT = 5;
-const CORE_POINTS = 105;
+const CORE_COUNT = 3;
+const CORE_POINTS = 65;
 let completed = JSON.parse(localStorage.getItem('apps-completed') || '[]');
 let currentLesson = 0;
 let currentTab = 'learn';
@@ -567,10 +567,10 @@ Dec 2025	480000	420000	12	70</code></div></li>
 
 /* ===== LESSON 3 ===== */
 {
-  id: 4, title: "PowerPoint Copilot", points: 20, bonus: false,
+  id: 4, title: "PowerPoint Copilot", points: 15, bonus: true,
   learn: `
 <h3>Copilot in PowerPoint</h3>
-<p>You've drafted documents and analyzed data. Now turn those into presentations — Copilot can build an entire deck from a prompt or a Word doc.</p>
+<p>If your role involves client decks, design presentations, or internal reviews, this bonus lesson is for you. Copilot can build an entire deck from a prompt or a Word doc.</p>
 <p>Think of Copilot in PowerPoint as a presentation designer who works instantly. You hand over your notes, and they hand back a polished deck — your job is art direction, not slide building.</p>
 <p>Click the <strong>Copilot icon in the Home ribbon</strong> to start.</p>
 
@@ -642,10 +642,10 @@ Dec 2025	480000	420000	12	70</code></div></li>
 
 /* ===== LESSON 4 ===== */
 {
-  id: 5, title: "Teams Copilot", points: 20, bonus: false,
+  id: 5, title: "Teams Copilot", points: 15, bonus: true,
   learn: `
 <h3>Copilot in Teams</h3>
-<p>You've created documents and presentations. Teams is where you share them, discuss them, and meet about them — and Copilot captures everything.</p>
+<p>If your day is filled with meetings and channel conversations, this bonus lesson will save you hours. Copilot in Teams captures everything so you don't have to.</p>
 <p>Think of Copilot in Teams as a teammate who never misses a meeting and always takes perfect notes. You can walk in late, leave early, or skip entirely — and still know exactly what happened.</p>
 
 <h4>Meeting Recaps</h4>
@@ -735,85 +735,6 @@ Dec 2025	480000	420000	12	70</code></div></li>
 
 <h4>Connecting Meeting Decisions to Markups</h4>
 <p>After a design review meeting, use Copilot to extract specific decisions: "List every change that was agreed upon for the floor plans." Then use that list as your markup guide in Bluebeam — you will know exactly what needs to be updated without re-watching the recording or re-reading your notes. Export the action items to a Copilot Page so the whole team can reference them.</p>
-`
-},
-
-/* ===== LESSON 5 (BONUS) ===== */
-{
-  id: 6, title: "App Champion Challenge", points: 25, bonus: true,
-  learn: `
-<h3>Bonus: App Champion Challenge</h3>
-<p>You've built workflows across apps and searched your entire organization. Now prove you can do it end-to-end with your own real work — no hand-holding.</p>
-<p>Think of this as your final exam, except the exam is your actual job. Pick a real task, run the full pipeline, and document it so others can follow.</p>
-<p>Design and execute a single workflow that touches at least 4 Microsoft 365 apps, with data flowing between them to produce a tangible output. The exercises walk you through one example&mdash;but the real challenge is adapting it to your own work.</p>
-`,
-  implement: `
-<h3>Bonus: Execute a 4-App Champion Workflow</h3>
-<p>This challenge is open-ended, but here is a concrete starting path. Adapt it to your own work scenario.</p>
-
-<h4>Step 1: Gather in Copilot Chat</h4>
-<ol>
-<li>Open <strong>Copilot Chat</strong> in Work mode. Type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>I work at ODA, a global architecture and design firm. I'm preparing a quarterly business review. Gather relevant information from my recent emails, meetings, and documents from the past month about project documentation, consultant coordination, design reviews, project status, risks, and wins.</code></div></li>
-<li>Copy the key findings from the response.</li>
-</ol>
-
-<h4>Step 2: Analyze in Excel</h4>
-<ol start="3">
-<li>Open <strong>Excel</strong> with the <a href="/mock-data/financials/oda-project-tracking.csv" download>ODA project tracking data</a> or the <a href="/mock-data/financials/oda-monthly-financials.csv" download>monthly financials</a>. Open Copilot and type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize this data. Which projects are over budget? What is the firm-wide utilization trend? Flag any areas of concern.</code></div></li>
-<li>Note the key numbers Copilot identifies.</li>
-</ol>
-
-<h4>Step 3: Draft in Word</h4>
-<ol start="5">
-<li>Open <strong>Word</strong>. Click Copilot and type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a quarterly business review document. Include: Executive Summary, Key Metrics (use these numbers: [paste Excel findings]), Accomplishments, Risks, and Next Quarter Priorities.</code></div></li>
-<li>Save the document.</li>
-</ol>
-
-<h4>Step 4: Present in PowerPoint</h4>
-<ol start="7">
-<li>Open <strong>PowerPoint</strong>. Click Copilot and type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a leadership-ready presentation from /mock-data/executive/oda-qbr-q1-2025.txt. Focus on metrics, risks, and priorities. Keep it to 6 slides.</code></div></li>
-<li>Review the deck. You have now used 4 apps in one workflow.</li>
-</ol>
-
-<p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Strengthen the executive summary slide — lead with the single biggest win this quarter.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a risk mitigation slide with proposed actions for each risk identified.</code></div>
-
-<h4>Step 5: Document Your Workflow</h4>
-<ol start="9">
-<li>Open a <strong>Copilot Page</strong> and type:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a workflow log with these columns: Step Number, App Used, What I Did, Prompt Used, Output Quality (1-5). I'll fill in the details.</code></div></li>
-<li>Fill in each row with the steps you took. This log becomes a reusable template.</li>
-</ol>
-
-<div class="tip-box">
-  <div class="tip-title">Success Check</div>
-  Did data genuinely flow between apps, or did you start from scratch in each one? Could a colleague follow your workflow log and reproduce the same result? Which step saved you the most time compared to doing it manually? What would you automate if you ran this workflow every week?
-</div>
-`,
-  advanced: `
-<h3>Going Deeper</h3>
-<h4>Becoming an AI Champion</h4>
-<p>AI Champions in organizations share their knowledge, create templates, and help colleagues adopt AI tools. Consider creating a short guide or presentation about your workflow to share with your team.</p>
-
-<h4>Building a Prompt Library</h4>
-<p>As you complete workflows, save your best prompts in a shared location. A good prompt library categorized by app and use case becomes an invaluable team resource.</p>
-
-<h4>Measuring Impact</h4>
-<p>Track the time savings and quality improvements from your Copilot workflows. Concrete metrics (e.g., "reduced report creation from 4 hours to 45 minutes") make a compelling case for broader adoption.</p>
-
-<h3>Beyond Copilot: Other AI Tools in Your Office Apps</h3>
-<p>Copilot is not the only AI that works inside Microsoft Office. Other AI providers have built dedicated <strong>add-ins</strong> (plugins) that embed directly into Excel, Word, and PowerPoint:</p>
-<ul>
-  <li><strong>Claude (Anthropic)</strong> — Has native add-ins for Excel, PowerPoint, and Word. Each runs as a sidebar inside the app, reads the live file, and writes changes back. Claude's add-ins share context across apps — an analysis in Excel can inform a memo it drafts in Word. Particularly strong for nuanced writing and editing.</li>
-  <li><strong>ChatGPT (OpenAI)</strong> — Also available as an Office add-in for similar in-app AI assistance.</li>
-</ul>
-<p>These add-ins coexist with Copilot — you can have both installed. Use Copilot for deep Microsoft Graph integration (email, calendar, Teams, SharePoint) and try Claude or ChatGPT add-ins when you want a second opinion, a different writing style, or a specific model's strengths.</p>
-<p>To install: go to <strong>Home &rarr; Add-ins</strong> in any Office app and search for "Claude" or "ChatGPT."</p>
 `
 }
 ];

@@ -616,7 +616,7 @@
       <h1><span class="logo">B</span> Building Agents</h1>
     </div>
     <div class="sidebar-progress">
-      <div><strong id="progress-text">0 / 6 core lessons</strong> &middot; <span id="points-text">0 pts</span></div>
+      <div><strong id="progress-text">0 / 4 core lessons</strong> &middot; <span id="points-text">0 pts</span></div>
       <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
     </div>
     <nav class="sidebar-nav" id="sidebar-nav"></nav>
@@ -635,10 +635,10 @@
    LESSONS DATA
    ================================================================ */
 const LESSONS = [
-  // ── Lesson 0 ──
+  // ── Lesson 0: What's an Agent? (merge of old L0 + L1) ──
   {
     title: "What's an Agent?",
-    points: 10,
+    points: 15,
     bonus: false,
     learn: `
 <div class="note-box" style="background:#f8f3ff;border-left:3px solid #7b5ea7;padding:12px 16px;margin-bottom:18px;">
@@ -662,7 +662,23 @@ const LESSONS = [
 </ul>
 
 <h3>Why This Matters</h3>
-<p>Without tools, an agent is just a chatbot. Without instructions, it has no focus. Without knowledge, it hallucinates. Without memory, it starts over every conversation. Each piece of the equation is essential &mdash; and by the end of this module, you will have built agents that combine all five.</p>
+<p>Without tools, an agent is just a chatbot. Without instructions, it has no focus. Without knowledge, it hallucinates. Without memory, it starts over every conversation. Each piece of the equation is essential.</p>
+
+<h3>Pre-Built vs. Custom Agents</h3>
+<p>You do not need to build every agent from scratch. Microsoft ships a <strong>gallery</strong> of ready-made agents you can add to your sidebar and use immediately. When none of those fit, you build your own. In this course you will do both &mdash; starting today by exploring what is already available.</p>
+<p>Alongside the gallery, Microsoft offers templates that accelerate building when you are ready:</p>
+<ul>
+  <li><strong>Text Translator</strong> &mdash; translates content across languages with context awareness</li>
+  <li><strong>Corporate Comms Crafter</strong> &mdash; drafts internal communications in your org's tone</li>
+  <li><strong>RFP Generator</strong> &mdash; produces proposal responses from your past submissions</li>
+  <li><strong>Customer Insights Assistant</strong> &mdash; synthesizes customer feedback and trends</li>
+  <li><strong>Writing Coach</strong> &mdash; improves writing clarity and professionalism</li>
+  <li><strong>Prompt Coach</strong> &mdash; helps you write better prompts for AI tools</li>
+  <li><strong>Meeting Coach</strong> &mdash; prepares briefings and follow-ups for meetings</li>
+</ul>
+
+<h3>Sharing Levels</h3>
+<p>Every agent can be shared at three levels: <strong>Only you</strong> (personal), <strong>Specific users</strong> (selected colleagues), or <strong>Anyone in your organization</strong> (full org gallery). You will pick the right level for each agent you build later in the course.</p>
 
 <div class="tip-box">
   <div class="tip-title">Tip</div>
@@ -676,30 +692,33 @@ const LESSONS = [
 <h4>Step 1: Open Copilot</h4>
 <p>Navigate to <strong>m365.cloud.microsoft</strong> and open <strong>Copilot</strong> from the left sidebar or app launcher.</p>
 
-<h4>Step 2: Find the Agent Gallery</h4>
+<h4>Step 2: Find All Agents</h4>
 <p>In the left sidebar, look for <strong>"Agents"</strong> (or <strong>"All agents"</strong>). Click it to open the gallery.</p>
 
-<h4>Step 3: Browse What's Available</h4>
+<h4>Step 3: Browse the Gallery</h4>
 <p>Scroll through the gallery. You will see agents like <strong>Researcher</strong>, <strong>Analyst</strong>, and any organization-specific agents your team has shared. Read the descriptions &mdash; each agent is built for a different type of task.</p>
 
-<h4>Step 4: Pick 3 Agents</h4>
-<p>Find 3 agents that look useful for your daily work. Consider what tasks they could handle that you currently do manually.</p>
+<h4>Step 4: Add 3 Agents to Your Sidebar</h4>
+<p>Pin or add at least 3 agents to your sidebar. Good starting picks:</p>
+<ul>
+  <li><strong>Researcher</strong> &mdash; for deep web research tasks</li>
+  <li><strong>Analyst</strong> &mdash; for data and spreadsheet analysis</li>
+  <li>One org-specific or template-based agent relevant to your role</li>
+</ul>
 
-<h4>Step 5: Add Them to Your Sidebar</h4>
-<p>Click the <strong>+</strong> or <strong>pin</strong> icon on each agent to add it to your sidebar. This makes them accessible with one click from any M365 app.</p>
-
-<h4>Step 6: Test One</h4>
-<p>Open one of the agents you added and ask it a simple question related to your work. For example, if you added the Researcher, try:</p>
+<h4>Step 5: Open One and Test It</h4>
+<p>Open one of the agents you added and ask it something relevant to your work:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Agent Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>What are the top 3 trends in my industry this year? Give me a brief summary with sources.</pre>
+  <pre>Give me a quick overview of what you can do. Then help me with a task: summarize the key considerations for [a topic relevant to your role].</pre>
 </div>
+<p>Evaluate: Was it useful? Did it cite sources? Did it take any actions beyond generating text?</p>
+
+<h4>Step 6: @Mention the Agent Elsewhere</h4>
+<p>Open a different M365 app &mdash; for example, <strong>Teams</strong> chat or the <strong>Word</strong> sidebar. Type <strong>@</strong> followed by the agent name to invoke it directly within that app. This is how agents become part of your daily workflow without context-switching.</p>
 
 <h4>Step 7: Reflect</h4>
-<p>Compare what the agent did to what regular Copilot Chat would have done. Ask yourself: <em>Did the agent take any actions that regular Copilot Chat could not? Did it cite sources differently? Did it produce a more structured output?</em></p>
-
-<h4>Reflective Check</h4>
-<p>You have now browsed the gallery, added agents to your sidebar, and tested one. Which of the 3 agents you picked is most relevant to your daily work &mdash; and why?</p>
+<p>Compare what the agent did to what regular Copilot Chat would have done. Which of the 3 agents you picked is most relevant to your daily work &mdash; and why?</p>
     `,
     advanced: `
 <h3>The Agent Spectrum</h3>
@@ -712,91 +731,7 @@ const LESSONS = [
 </ul>
 <p>Most people jump to building agents too soon. Start with a prompt. If you find yourself reusing it, upgrade to custom instructions. If others need it, build an agent. If the task spans multiple domains, chain agents together.</p>
 
-<h3>Why Agents Matter for Organizations</h3>
-<p>The real power of agents is not personal productivity &mdash; it is <strong>organizational consistency</strong>. An agent that writes status reports the same way every time, cites the same sources, and follows the same format means your entire team produces uniform output. That is repeatable, shareable, and scalable.</p>
-
-<h3>What's Ahead</h3>
-<p>By the end of this module, you will have explored pre-built agents, put the Researcher and Analyst to work, built custom agents in Copilot Studio, and connected agents into multi-step workflows. Each lesson builds on the last.</p>
-    `
-  },
-
-  // ── Lesson 1 ──
-  {
-    title: "Browse & Add Agents",
-    points: 15,
-    bonus: false,
-    learn: `
-<p><em>In the last step, you learned what makes an agent different from a chatbot. Now you will explore what agents are already available and add them to your toolkit.</em></p>
-
-<h3>Pre-Built Agents</h3>
-<p>Microsoft provides pre-built agents in the gallery that are ready to use immediately. The two most powerful are <strong>Researcher</strong> (deep web research with citations) and <strong>Analyst</strong> (data analysis and visualization). Beyond those, your organization may have shared custom agents built by your team or IT department.</p>
-
-<h3>Templates for Building</h3>
-<p>When you are ready to create new agents, Microsoft offers templates to accelerate the process:</p>
-<ul>
-  <li><strong>Text Translator</strong> &mdash; translates content across languages with context awareness</li>
-  <li><strong>Corporate Comms Crafter</strong> &mdash; drafts internal communications in your org's tone</li>
-  <li><strong>RFP Generator</strong> &mdash; produces proposal responses from your past submissions</li>
-  <li><strong>Customer Insights Assistant</strong> &mdash; synthesizes customer feedback and trends</li>
-  <li><strong>Writing Coach</strong> &mdash; improves writing clarity and professionalism</li>
-  <li><strong>Prompt Coach</strong> &mdash; helps you write better prompts for AI tools</li>
-  <li><strong>Meeting Coach</strong> &mdash; prepares briefings and follow-ups for meetings</li>
-</ul>
-
-<h3>How Agents Appear in Your Workflow</h3>
-<p>Once you add an agent to your sidebar, it becomes accessible everywhere. You can <strong>@mention</strong> an agent in Teams chat, in the Copilot sidebar in Word, in Outlook, and across other M365 apps. This means you do not have to leave your current app to use an agent &mdash; bring the agent to your work, not the other way around.</p>
-
-<h3>Browsing vs. Building</h3>
-<p>The gallery has two entry points: <strong>"All agents"</strong> opens the gallery where you browse and add existing agents. <strong>"New agent"</strong> opens the builder where you create from scratch or from a template. Know the difference &mdash; browse first, build later.</p>
-
-<h3>Sharing</h3>
-<p>Agents can be shared with different audiences:</p>
-<ul>
-  <li><strong>Only you</strong> &mdash; personal agents for your own workflows</li>
-  <li><strong>Specific users</strong> &mdash; share with your team or department</li>
-  <li><strong>Anyone in your organization</strong> &mdash; publish to the full org gallery</li>
-</ul>
-<p class="personalization-note">[PERSONALIZED: Check your organization's agent gallery for department-specific agents that may already solve problems you face daily.]</p>
-    `,
-    implement: `
-<h3>Try It: Build Your Agent Toolkit</h3>
-
-<h4>Step 1: Open the Agent Gallery</h4>
-<p>Go to <strong>Copilot</strong> and click <strong>"Agents"</strong> (or <strong>"All agents"</strong>) in the left sidebar.</p>
-
-<h4>Step 2: Browse by Category</h4>
-<p>Scroll through the available agents. Look for agents relevant to your department &mdash; some may be Microsoft-provided, others may have been built and shared by colleagues.</p>
-
-<h4>Step 3: Add at Least 3 Agents</h4>
-<p>Pin or add at least 3 agents to your sidebar. Good starting picks:</p>
-<ul>
-  <li><strong>Researcher</strong> &mdash; for deep web research tasks</li>
-  <li><strong>Analyst</strong> &mdash; for data and spreadsheet analysis</li>
-  <li>One org-specific or template-based agent relevant to your role</li>
-</ul>
-
-<h4>Step 4: Test an Agent</h4>
-<p>Open one of the agents you added. Have a test conversation &mdash; ask it something relevant to your work:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Agent Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Give me a quick overview of what you can do. Then help me with a task: summarize the key considerations for [a topic relevant to your role].</pre>
-</div>
-<p>Evaluate the response: Was it useful? Did it cite sources? Did it take any actions beyond generating text?</p>
-
-<h4>Step 5: Try @Mentioning an Agent</h4>
-<p>Open a different M365 app &mdash; for example, <strong>Teams</strong> chat or the <strong>Word</strong> sidebar. Type <strong>@</strong> followed by the agent name to invoke it directly within that app. This is how agents become part of your daily workflow without context-switching.</p>
-
-<h4>Step 6: Preview the Templates</h4>
-<p>Go back to Copilot and click <strong>"New agent"</strong>. Browse the Templates dropdown to see what is available. Do not build anything yet &mdash; just familiarize yourself with the options. Note which templates could save you time.</p>
-
-<h4>Iteration</h4>
-<p>Not happy with an agent's responses? Check if it has a <strong>"Configure"</strong> option &mdash; some org agents let you view and tweak their instructions. If a pre-built agent is close but not quite right, that is a signal to build your own later in this module.</p>
-
-<h4>Reflective Check</h4>
-<p>You have now browsed the gallery, added agents, tested one in conversation, and tried @mentioning from another app. Which agent felt most immediately useful &mdash; and what would you change about it?</p>
-    `,
-    advanced: `
-<h3>Templates: When to Use Them</h3>
+<h3>Template vs. Build From Scratch</h3>
 <p>Use a template when it matches your use case closely &mdash; you will spend 10 minutes customizing instead of 30 minutes building from scratch. Build from scratch when your task is highly specific to your organization or when no template comes close.</p>
 <p>The best approach: start from a template, test it, and then heavily customize the instructions and knowledge sources until it fits your exact needs.</p>
 
@@ -809,58 +744,57 @@ const LESSONS = [
   <li><strong>Action reliability</strong> &mdash; when it takes actions (sending emails, creating files), does it do so correctly?</li>
 </ul>
 
-<h3>The @Mention Pattern</h3>
-<p>The @mention capability is what makes agents truly powerful in daily work. Instead of opening a separate app or portal, you invoke the agent exactly where you need it:</p>
-<ul>
-  <li><strong>In Teams:</strong> @Researcher can answer questions mid-conversation</li>
-  <li><strong>In Word:</strong> @WritingCoach can review a paragraph you just wrote</li>
-  <li><strong>In Outlook:</strong> @MeetingCoach can prep you before a meeting</li>
-</ul>
-<p>The pattern is: bring the agent to your context, not the other way around. This is what makes agents sticky in a workflow &mdash; they meet you where you already are.</p>
+<h3>Why Agents Matter for Organizations</h3>
+<p>The real power of agents is not personal productivity &mdash; it is <strong>organizational consistency</strong>. An agent that writes status reports the same way every time, cites the same sources, and follows the same format means your entire team produces uniform output. That is repeatable, shareable, and scalable.</p>
     `
   },
 
-  // ── Lesson 2 ──
+  // ── Lesson 1: Pre-Built Agents (merge of old L2 Researcher + L3 Analyst) ──
   {
-    title: "The Researcher",
-    points: 20,
+    title: "Pre-Built Agents",
+    points: 30,
     bonus: false,
     learn: `
-<p><em>You have browsed and added agents to your toolkit. Now let's put the Researcher to work on a real task for your department.</em></p>
+<p><em>Microsoft gives you two powerful pre-built agents out of the box: the <strong>Researcher</strong> for web research and the <strong>Analyst</strong> for data work. This lesson covers both &mdash; pick the one most relevant to your role, or try both.</em></p>
 
-<h3>What the Researcher Does</h3>
-<p>The Researcher agent performs deep, multi-source web research with citations. It does not just search &mdash; it <strong>synthesizes</strong>. Give it a complex question and watch it work.</p>
-
-<h3>How It Differs from Regular Search</h3>
-<p>A regular web search gives you a list of links. The Researcher does something fundamentally different:</p>
+<h3>The Researcher</h3>
+<p>The Researcher agent performs deep, multi-source web research with citations. It does not just search &mdash; it <strong>synthesizes</strong>. Give it a complex question and it will:</p>
 <ul>
-  <li><strong>Breaks your question into sub-questions</strong> &mdash; it decomposes a complex topic into searchable parts</li>
-  <li><strong>Reads full articles</strong> &mdash; not just snippets from search result previews, but the complete content</li>
-  <li><strong>Synthesizes across sources</strong> &mdash; connects findings from multiple articles into a coherent analysis</li>
-  <li><strong>Produces structured reports</strong> &mdash; with numbered citations, organized sections, and clear conclusions</li>
+  <li><strong>Break your question into sub-questions</strong> &mdash; decomposing a complex topic into searchable parts</li>
+  <li><strong>Read full articles</strong> &mdash; not just snippets, but the complete content</li>
+  <li><strong>Synthesize across sources</strong> &mdash; connecting findings from multiple articles into coherent analysis</li>
+  <li><strong>Produce structured reports</strong> &mdash; with numbered citations, organized sections, and clear conclusions</li>
 </ul>
+<p>Once the Researcher finishes, you can export directly to <strong>Word</strong>, <strong>PowerPoint</strong>, <strong>PDF</strong>, or an <strong>audio overview</strong>.</p>
 
-<h3>Export Formats</h3>
-<p>Once the Researcher finishes, you can export results directly to:</p>
+<h3>The Analyst</h3>
+<p>The Researcher finds information from the web. The Analyst works with <em>your</em> data &mdash; spreadsheets, files, and numbers. Upload a file (Excel, CSV, or other structured data) and it analyzes patterns, creates visualizations, and delivers insights in plain language.</p>
 <ul>
-  <li><strong>Word</strong> &mdash; editable document with full formatting</li>
-  <li><strong>PowerPoint</strong> &mdash; presentation-ready slides</li>
-  <li><strong>PDF</strong> &mdash; for sharing and archiving</li>
-  <li><strong>Audio overview</strong> &mdash; a spoken summary you can listen to</li>
+  <li><strong>Trend analysis</strong> &mdash; identifies patterns over time</li>
+  <li><strong>Anomaly detection</strong> &mdash; flags outliers and unusual values automatically</li>
+  <li><strong>Visualization</strong> &mdash; creates charts, graphs, and dashboards from your raw data</li>
+  <li><strong>Summary dashboards</strong> &mdash; produces key metrics and KPIs at a glance</li>
 </ul>
+<p>The Analyst works with <strong>Excel files</strong> (.xlsx), <strong>CSV files</strong> (.csv), and uploaded data from your organization. Drag and drop a file directly into the conversation to get started.</p>
 
-<h3>When to Use Researcher vs. Regular Search</h3>
-<p><strong>Use the Researcher</strong> when you need to compare multiple sources, synthesize a complex topic, or produce a report with citations. Think: anything that would normally take you 30+ minutes of Googling and reading.</p>
-<p><strong>Use regular search</strong> for quick factual lookups, finding a specific website, or checking a single data point.</p>
+<h3>When to Use Which</h3>
+<p>Use the <strong>Researcher</strong> when you need to compare multiple sources, synthesize a complex topic, or produce a report with citations &mdash; anything that would normally take 30+ minutes of Googling and reading.</p>
+<p>Use the <strong>Analyst</strong> when the question is about <em>your</em> data &mdash; trends in spreadsheets, variance across departments, outliers in a dataset. The Analyst looks at the big picture; Excel Copilot (a different tool) is for working inside a specific sheet.</p>
 
-<h3>The Research Workflow</h3>
-<p>Ask a question &rarr; Researcher creates a research plan &rarr; executes searches across multiple sources &rarr; reads and analyzes results &rarr; synthesizes into a structured report with numbered citations. The entire process takes 30&ndash;90 seconds for most topics.</p>
-
-<p class="personalization-note">[PERSONALIZED: Think about the last time you spent over 30 minutes researching a topic for work. That is exactly when the Researcher should be your first stop.]</p>
+<p class="personalization-note">[PERSONALIZED: Think about the last time you spent 30+ minutes researching a topic, or the spreadsheet you open most often. Those are exactly the tasks these agents should handle.]</p>
     `,
     implement: `
-<h3>Try It: Put the Researcher to Work</h3>
-<p>Pick the research task most relevant to your role. Each tab gives you a department-specific prompt to try.</p>
+<h3>Try It: Pick Your Agent</h3>
+<p>Pick the agent most relevant to your role, then choose your department. Each combination gives you a tailored exercise.</p>
+
+<div class="option-tabs" id="agentType-options">
+  <button class="option-tab active" onclick="switchOption('agentType', 0)">Researcher</button>
+  <button class="option-tab" onclick="switchOption('agentType', 1)">Analyst</button>
+</div>
+
+<div class="option-content active" id="agentType-option-0">
+<h3>Researcher Exercise</h3>
+<p>Pick your department:</p>
 
 <div class="option-tabs" id="researcher-options">
   <button class="option-tab active" onclick="switchOption('researcher', 0)">Architecture</button>
@@ -962,69 +896,11 @@ const LESSONS = [
 
 <h4>Reflective Check</h4>
 <p>Compare the Researcher output to your normal research process. How long would this have taken you manually? Which citations did you verify &mdash; and were they accurate?</p>
-    `,
-    advanced: `
-<h3>Chaining Researcher Output</h3>
-<p>The Researcher is most powerful when its output feeds into your next step. A strong workflow:</p>
-<ul>
-  <li><strong>Researcher</strong> &rarr; export to Word &rarr; use <strong>Copilot in Word</strong> to restructure the report for your audience &rarr; share via Teams</li>
-  <li><strong>Researcher</strong> &rarr; export to PowerPoint &rarr; use <strong>Copilot in PowerPoint</strong> to refine the slides &rarr; present at a meeting</li>
-  <li><strong>Researcher</strong> &rarr; save to a Copilot <strong>Page</strong> &rarr; reference it in future conversations as persistent context</li>
-</ul>
+</div>
 
-<h3>Research Quality Tips</h3>
-<p>The quality of the Researcher's output depends heavily on the specificity of your question:</p>
-<ul>
-  <li><strong>Weak:</strong> "Research building codes" &mdash; too broad, results will be generic</li>
-  <li><strong>Better:</strong> "Research NYC residential building code changes for 2025-2026 related to accessibility" &mdash; specific jurisdiction, timeframe, and topic</li>
-  <li><strong>Best:</strong> "Research NYC residential building code changes for 2025-2026 related to accessibility requirements for buildings above 75 feet. Compare new standards to previous requirements and cite specific code sections." &mdash; adds constraints and output format</li>
-</ul>
-
-<h3>Pages as Research Libraries</h3>
-<p>When you save Researcher output to a <strong>Page</strong> in Copilot, it becomes a persistent reference you can cite in future conversations. Build a library of research pages over time &mdash; each one becomes part of your personal knowledge base that Copilot can draw from in later sessions.</p>
-    `
-  },
-
-  // ── Lesson 3 ──
-  {
-    title: "The Analyst",
-    points: 20,
-    bonus: false,
-    learn: `
-<p><em>The Researcher finds information from the web. The Analyst works with your data &mdash; spreadsheets, files, and numbers.</em></p>
-
-<h3>What the Analyst Does</h3>
-<p>The Analyst agent is built for data work. Upload a file &mdash; Excel, CSV, or other structured data &mdash; and it analyzes patterns, creates visualizations, and delivers insights in plain language.</p>
-
-<h3>Key Capabilities</h3>
-<ul>
-  <li><strong>Trend analysis</strong> &mdash; identifies patterns over time in your data</li>
-  <li><strong>Anomaly detection</strong> &mdash; flags outliers and unusual values automatically</li>
-  <li><strong>Visualization</strong> &mdash; creates charts, graphs, and dashboards from your raw data</li>
-  <li><strong>Summary dashboards</strong> &mdash; produces key metrics and KPIs at a glance</li>
-</ul>
-
-<h3>Supported Inputs</h3>
-<p>The Analyst works with <strong>Excel files</strong> (.xlsx), <strong>CSV files</strong> (.csv), and uploaded data from your organization. Drag and drop a file directly into the conversation to get started.</p>
-
-<h3>Analyst vs. Excel Copilot</h3>
-<p>Both work with data, but they serve different purposes:</p>
-<table class="comparison-table">
-<tr><th>Scenario</th><th>Use Analyst</th><th>Use Excel Copilot</th></tr>
-<tr><td>Quick exploratory analysis</td><td>&#10003;</td><td></td></tr>
-<tr><td>Comparing multiple files</td><td>&#10003;</td><td></td></tr>
-<tr><td>Getting insights in plain language</td><td>&#10003;</td><td></td></tr>
-<tr><td>Adding formulas to a spreadsheet</td><td></td><td>&#10003;</td></tr>
-<tr><td>Formatting and styling in Excel</td><td></td><td>&#10003;</td></tr>
-<tr><td>Working within an existing workbook</td><td></td><td>&#10003;</td></tr>
-</table>
-<p>Think of the Analyst as your data consultant who looks at the big picture, and Excel Copilot as your spreadsheet power user who works inside the sheet.</p>
-
-<p class="personalization-note">[PERSONALIZED: Think about the spreadsheets you open most often. Which ones would benefit from automated analysis and visualization?]</p>
-    `,
-    implement: `
-<h3>Try It: Put the Analyst to Work</h3>
-<p>Pick the data scenario most relevant to your role. Each tab gives you a specific dataset and analysis prompt.</p>
+<div class="option-content" id="agentType-option-1">
+<h3>Analyst Exercise</h3>
+<p>Pick your department:</p>
 
 <div class="option-tabs" id="analyst-options">
   <button class="option-tab active" onclick="switchOption('analyst', 0)">Architecture</button>
@@ -1141,14 +1017,31 @@ const LESSONS = [
 
 <h4>Reflective Check</h4>
 <p>How did the Analyst's insights compare to what you would have produced manually in Excel? Were the visualizations useful, or would you want different chart types?</p>
+</div>
     `,
     advanced: `
+<h3>Chaining Researcher Output</h3>
+<p>The Researcher is most powerful when its output feeds into your next step:</p>
+<ul>
+  <li><strong>Researcher</strong> &rarr; export to Word &rarr; use <strong>Copilot in Word</strong> to restructure the report for your audience &rarr; share via Teams</li>
+  <li><strong>Researcher</strong> &rarr; export to PowerPoint &rarr; use <strong>Copilot in PowerPoint</strong> to refine the slides &rarr; present at a meeting</li>
+  <li><strong>Researcher</strong> &rarr; save to a Copilot <strong>Page</strong> &rarr; reference it in future conversations as persistent context</li>
+</ul>
+
 <h3>Analyst + Researcher Combo</h3>
-<p>The most powerful analysis combines external context with internal data. A strong workflow:</p>
+<p>The most powerful analysis combines external context with internal data:</p>
 <ul>
   <li>Use the <strong>Researcher</strong> to find industry benchmarks and market context</li>
   <li>Use the <strong>Analyst</strong> to analyze your own data against those benchmarks</li>
-  <li>Combine the insights into a single report that says: "Here is where we stand, here is how we compare, and here is what we should do about it."</li>
+  <li>Combine the insights into a single report: "Here is where we stand, here is how we compare, here is what we should do about it."</li>
+</ul>
+
+<h3>Research Quality Tips</h3>
+<p>The quality of the Researcher's output depends heavily on the specificity of your question:</p>
+<ul>
+  <li><strong>Weak:</strong> "Research building codes" &mdash; too broad, results will be generic</li>
+  <li><strong>Better:</strong> "Research NYC residential building code changes for 2025-2026 related to accessibility" &mdash; specific jurisdiction, timeframe, and topic</li>
+  <li><strong>Best:</strong> "Research NYC residential building code changes for 2025-2026 related to accessibility requirements for buildings above 75 feet. Compare new standards to previous requirements and cite specific code sections." &mdash; adds constraints and output format</li>
 </ul>
 
 <h3>Data Preparation Tips</h3>
@@ -1160,36 +1053,21 @@ const LESSONS = [
   <li><strong>One table per sheet</strong> &mdash; if your file has multiple data tables on one sheet, split them</li>
 </ul>
 
-<h3>Exporting to Presentations</h3>
-<p>When the Analyst creates charts you want to share, the workflow is:</p>
-<ul>
-  <li>Ask the Analyst to create the visualization</li>
-  <li>Export or screenshot the charts</li>
-  <li>Paste into PowerPoint and use <strong>Copilot in PowerPoint</strong> to add executive context, talking points, and slide notes</li>
-</ul>
-<p>This chain &mdash; Analyst for the data, PowerPoint Copilot for the narrative &mdash; produces presentation-ready materials in minutes instead of hours.</p>
+<h3>Pages as Research Libraries</h3>
+<p>When you save Researcher output to a <strong>Page</strong> in Copilot, it becomes a persistent reference you can cite in future conversations. Build a library of research pages over time &mdash; each one becomes part of your personal knowledge base that Copilot can draw from in later sessions.</p>
+
+<h3>Exporting Analyst Charts to Presentations</h3>
+<p>When the Analyst creates charts you want to share: ask for the visualization &rarr; export or screenshot the charts &rarr; paste into PowerPoint &rarr; use <strong>Copilot in PowerPoint</strong> to add executive context, talking points, and slide notes. This chain &mdash; Analyst for the data, PowerPoint Copilot for the narrative &mdash; produces presentation-ready materials in minutes instead of hours.</p>
     `
   },
 
-// ── Lesson 4: Build: Write Like Me ──
-{
-  title: "Build: Write Like Me",
-  points: 25,
-  bonus: false,
-  learn: `
-<p><em>You've used pre-built agents like Researcher and Analyst. Now you'll build your first custom agent &mdash; one that writes emails in your exact voice.</em></p>
-
-<h3>Why Generic AI Emails Sound Wrong</h3>
-<p>You have probably seen it: you ask AI to draft an email and the result sounds like it was written by a corporate manual. The greeting is wrong. The sign-off is wrong. The sentence rhythm is off. It uses phrases you would never say. The problem is not the AI &mdash; it is that the AI has no idea how <strong>you</strong> write.</p>
-<p>Generic AI output lacks your voice, your patterns, your vocabulary, and your sign-offs. A colleague who has read your emails for years would spot the difference immediately. That is the gap we are closing today.</p>
-
-<h3>The Process</h3>
-<p>The idea is simple: extract your writing voice from your real emails, feed that voice profile as instructions to an agent, and the agent learns to mimic you. The result is a first draft that already sounds like something you wrote &mdash; not something you need to rewrite.</p>
-<ol>
-  <li><strong>Extract your writing voice</strong> &mdash; Copilot reads your sent emails and produces a detailed voice profile</li>
-  <li><strong>Feed it as instructions</strong> &mdash; paste that profile into a custom agent's system prompt</li>
-  <li><strong>The agent learns to mimic you</strong> &mdash; every draft it produces now matches your style</li>
-</ol>
+  // ── Lesson 2: Build Your Own Agent (merge of old L4 Write Like Me + L5 Report Writer) ──
+  {
+    title: "Build Your Own Agent",
+    points: 40,
+    bonus: false,
+    learn: `
+<p><em>You've used pre-built agents. Now you'll build your own. This lesson shows two patterns: a <strong>Write Like Me</strong> agent (extracts your voice from sent emails) and a <strong>Report Writer</strong> agent (extracts a document template). Pick the one most useful for your work &mdash; or build both.</em></p>
 
 <h3>The Agent Builder Interface</h3>
 <p>When you create a new agent, you will see two modes at the top: <strong>"Describe"</strong> and <strong>"Configure."</strong> Always use <strong>Configure</strong> for full control. Here is what you will find:</p>
@@ -1200,7 +1078,7 @@ const LESSONS = [
   <li><strong>Capabilities</strong> &mdash; toggles for "Create documents, charts, and code" (enables Word/Excel/PPT output) and "Create images"</li>
   <li><strong>Suggested prompts</strong> &mdash; Title + Message pairs that appear when users first open the agent, guiding them on what to ask</li>
   <li><strong>Template</strong> dropdown &mdash; optional starting points like Text Translator, Writing Coach, etc.</li>
-  <li><strong>Share</strong> button &mdash; three options: "Only you," "Specific users," or "Anyone in your organization"</li>
+  <li><strong>Share</strong> button &mdash; the sharing levels you learned in Lesson 1</li>
 </ul>
 
 <div class="tip-box">
@@ -1208,9 +1086,35 @@ const LESSONS = [
   <p>The Instructions field is where 90% of your agent's quality comes from. A great system prompt is built through iteration, not written perfectly the first time.</p>
 </div>
 
-<p class="personalization-note">[PERSONALIZED: Think about the emails you write most often &mdash; status updates, client responses, team announcements. Those are the styles your agent should learn first.]</p>
-  `,
-  implement: `
+<h3>Pattern 1: Write Like Me</h3>
+<p>You have probably seen it: you ask AI to draft an email and the result sounds like it was written by a corporate manual. The greeting is wrong. The sign-off is wrong. The sentence rhythm is off. The problem is that the AI has no idea how <strong>you</strong> write.</p>
+<p>The idea is simple: extract your writing voice from your real sent emails, feed that voice profile as instructions to an agent, and the agent learns to mimic you. The result is a first draft that already sounds like something you wrote &mdash; not something you need to rewrite.</p>
+<ol>
+  <li><strong>Extract your writing voice</strong> &mdash; Copilot reads your sent emails and produces a detailed voice profile</li>
+  <li><strong>Feed it as instructions</strong> &mdash; paste that profile into a custom agent's system prompt</li>
+  <li><strong>The agent learns to mimic you</strong> &mdash; every draft it produces now matches your style</li>
+</ol>
+
+<h3>Pattern 2: Report Writer</h3>
+<p>Every report agent follows the same flow: <strong>raw data or notes in &rarr; structured document out.</strong> You give it meeting notes, data exports, or bullet points. It gives you a polished, consistently formatted report.</p>
+<p>A good report agent does not start writing immediately. It asks questions first: Who is this report for? What time period does it cover? What is the primary focus? This "interview first, draft second" pattern produces dramatically better output because the agent understands context before it writes.</p>
+<p>Instead of writing a template from scratch, feed an <em>existing</em> report you are happy with to AI. Ask it to extract the structure as a system prompt. The AI reverse-engineers your headings, section order, tone, formatting patterns, and level of detail &mdash; then uses that as a blueprint for generating new reports.</p>
+
+<h3>One Agent per Program, Not per Task</h3>
+<p>Build your report agent by program or initiative, not by individual report instance. The agent knows the structure and the context. You pass the specifics at runtime &mdash; this month's data, this week's updates, this quarter's numbers. One well-configured agent can generate dozens of different reports as long as they follow the same template.</p>
+
+<p class="personalization-note">[PERSONALIZED: Think about the emails or reports you write most often. Whichever takes the most time is the one to automate first.]</p>
+    `,
+    implement: `
+<h3>Build Your Own Agent</h3>
+<p>Pick the pattern most useful for your work.</p>
+
+<div class="option-tabs" id="buildType-options">
+  <button class="option-tab active" onclick="switchOption('buildType', 0)">Write Like Me</button>
+  <button class="option-tab" onclick="switchOption('buildType', 1)">Report Writer</button>
+</div>
+
+<div class="option-content active" id="buildType-option-0">
 <h3>Build Your Write Like Me Agent</h3>
 
 <h4>Step 0: Benchmark</h4>
@@ -1266,69 +1170,18 @@ const LESSONS = [
 
 <h4>Reflective Check</h4>
 <p>Compare your agent's output to the benchmark from Step 0. Does the voice-trained version sound more like you? What specific improvements do you see in greeting style, tone, and vocabulary?</p>
-  `,
-  advanced: `
-<h3>Advanced: Write Like Me</h3>
+</div>
 
-<h4>Sharing Your Agent</h4>
-<p>Click the three-dot menu on your agent, then Share. Choose your audience:</p>
-<ul>
-  <li><strong>Only you</strong> &mdash; personal use, the default</li>
-  <li><strong>Specific users</strong> &mdash; share with selected colleagues by email</li>
-  <li><strong>Anyone in your organization</strong> &mdash; available to all org members</li>
-</ul>
-
-<h4>Privacy Note</h4>
-<p>Writing samples and email access stay within your organization's compliance boundaries. Your voice profile and the agent's Instructions are visible only to people you share the agent with. No data leaves your M365 tenant.</p>
-
-<h4>Pro Tip: Voice Profiles for Others</h4>
-<p>Have the agent analyze a colleague's voice too &mdash; useful for drafting on behalf of executives or team leads. Ask the person's permission first, then run the same extraction prompt using their sent emails (if you have delegate access) or ask them to share 5-10 representative emails.</p>
-
-<h4>Iteration Checklist</h4>
-<p>Before calling your agent "done," verify these elements match your real writing:</p>
-<ul>
-  <li>Greetings &#10003;</li>
-  <li>Sign-offs &#10003;</li>
-  <li>Sentence length &#10003;</li>
-  <li>Formality level &#10003;</li>
-  <li>Vocabulary &#10003;</li>
-  <li>Emoji usage &#10003;</li>
-</ul>
-  `
-},
-
-// ── Lesson 5: Build: Report Writer ──
-{
-  title: "Build: Report Writer",
-  points: 25,
-  bonus: false,
-  learn: `
-<p><em>Your Write Like Me agent learned your voice from emails. Now you'll build an agent that generates entire reports from a template &mdash; same principle, bigger output.</em></p>
-
-<h3>The Core Pattern</h3>
-<p>Every report agent follows the same flow: <strong>raw data or notes in &rarr; structured document out.</strong> You give it meeting notes, data exports, or bullet points. It gives you a polished, consistently formatted report.</p>
-
-<h3>Key Insight: Good Report Agents Ask First</h3>
-<p>A good report agent does not start writing immediately. It asks questions first: Who is this report for? What time period does it cover? What is the primary focus? This "interview first, draft second" pattern produces dramatically better output because the agent understands context before it writes.</p>
-
-<h3>The Extraction Technique</h3>
-<p>Instead of writing a template from scratch, feed an existing report you are happy with to AI. Ask it to extract the structure as a system prompt. The AI reverse-engineers your headings, section order, tone, formatting patterns, and level of detail &mdash; then uses that as a blueprint for generating new reports.</p>
-
-<h3>One Agent per Program, Not per Task</h3>
-<p>Build your report agent by program or initiative, not by individual report instance. The agent knows the structure and the context. You pass the specifics at runtime &mdash; this month's data, this week's updates, this quarter's numbers. One well-configured agent can generate dozens of different reports as long as they follow the same template.</p>
-
-<p class="personalization-note">[PERSONALIZED: Think about the reports you write most often. Which one takes the most time? That is the one to automate first.]</p>
-  `,
-  implement: `
+<div class="option-content" id="buildType-option-1">
 <h3>Build a Report Writer Agent</h3>
 <p>Pick the report type most relevant to your role. Each tab walks you through the same 4-step process customized for a specific department.</p>
 
 <div class="option-tabs" id="reportGroup-options">
-  <button class="option-tab active" onclick="switchOption('reportGroup', 0, this)">Architecture</button>
-  <button class="option-tab" onclick="switchOption('reportGroup', 1, this)">HR</button>
-  <button class="option-tab" onclick="switchOption('reportGroup', 2, this)">Marketing</button>
-  <button class="option-tab" onclick="switchOption('reportGroup', 3, this)">Executive</button>
-  <button class="option-tab" onclick="switchOption('reportGroup', 4, this)">Operations</button>
+  <button class="option-tab active" onclick="switchOption('reportGroup', 0)">Architecture</button>
+  <button class="option-tab" onclick="switchOption('reportGroup', 1)">HR</button>
+  <button class="option-tab" onclick="switchOption('reportGroup', 2)">Marketing</button>
+  <button class="option-tab" onclick="switchOption('reportGroup', 3)">Executive</button>
+  <button class="option-tab" onclick="switchOption('reportGroup', 4)">Operations</button>
 </div>
 
 <div class="option-content active" id="reportGroup-option-0">
@@ -1513,172 +1366,69 @@ const LESSONS = [
 
 <h4>Reflective Check</h4>
 <p>Compare the agent's report to one you wrote manually. Is the structure right? Is the tone right? What sections need more detail? What sections are too long? Update the Instructions accordingly.</p>
-  `,
-  advanced: `
-<h3>Advanced: Report Writer Techniques</h3>
-
-<h4>Agent Chaining Workflow</h4>
-<p>Your Report Writer generates content, but you can chain it with other tools for a full workflow:</p>
+</div>
+    `,
+    advanced: `
+<h3>Agent Chaining Workflow</h3>
+<p>Your agent generates content, but you can chain it with other tools for a full workflow:</p>
 <ol>
-  <li><strong>Report Writer agent</strong> generates the raw content from your materials</li>
+  <li><strong>Your agent</strong> (Write Like Me or Report Writer) generates the raw content</li>
   <li>Open the output in <strong>Word</strong> &rarr; use "Edit with Copilot" to format it into your branded template</li>
   <li>Open <strong>PowerPoint</strong> &rarr; use Copilot to create a presentation deck from the Word document</li>
 </ol>
 <p>This three-step chain (Agent &rarr; Word &rarr; PowerPoint) takes a process that used to require hours and compresses it to minutes.</p>
 
-<h4>Sharing and Team Use</h4>
+<h3>Sharing and Team Use</h3>
 <p>Build one well-configured agent per program or department. Share it with your entire team so everyone generates consistent output. When someone new joins, they do not need to learn the template &mdash; the agent already knows it.</p>
 
-<h4>Version Control</h4>
+<h3>Privacy Note</h3>
+<p>Writing samples and email access stay within your organization's compliance boundaries. Your voice profile and the agent's Instructions are visible only to people you share the agent with. No data leaves your M365 tenant.</p>
+
+<h3>Pro Tip: Voice Profiles for Others</h3>
+<p>Have the agent analyze a colleague's voice too &mdash; useful for drafting on behalf of executives or team leads. Ask the person's permission first, then run the same extraction prompt using their sent emails (if you have delegate access) or ask them to share 5-10 representative emails.</p>
+
+<h3>Iteration Checklist (Write Like Me)</h3>
+<p>Before calling your Write Like Me agent "done," verify these elements match your real writing:</p>
+<ul>
+  <li>Greetings &#10003;</li>
+  <li>Sign-offs &#10003;</li>
+  <li>Sentence length &#10003;</li>
+  <li>Formality level &#10003;</li>
+  <li>Vocabulary &#10003;</li>
+  <li>Emoji usage &#10003;</li>
+</ul>
+
+<h3>Version Control: Update vs. Create New</h3>
 <p>Know when to update the Instructions versus when to create a new agent:</p>
 <ul>
   <li><strong>Tweaks to tone, length, or formatting</strong> &rarr; update the existing Instructions</li>
   <li><strong>Major template changes</strong> (new sections, different audience, different report type) &rarr; create a new agent</li>
 </ul>
-<p>If you are changing more than 30% of the Instructions, it is usually cleaner to start fresh.</p>
 
-<h4>The "One Agent per Program" Principle</h4>
-<p>Resist the urge to build a new agent for every single report. Instead, build one agent per program or initiative. The agent knows the structure and context. You pass the specifics at runtime &mdash; this month's data, this week's updates, this quarter's numbers. One well-configured agent can handle dozens of report variations.</p>
-  `
-},
+<h3>The "One Agent per Program" Principle</h3>
+<p>Resist the urge to build a new agent for every single report or email type. Instead, build one agent per program or initiative. The agent knows the structure and context. You pass the specifics at runtime &mdash; this month's data, this week's updates, this quarter's numbers. One well-configured agent can handle dozens of variations.</p>
+    `
+  },
 
-// ── Lesson 6: Workflow Agents ──
-{
-  title: "Workflow Agents",
-  points: 25,
-  bonus: false,
-  learn: `
-<p><em>You've built agents that work on their own. Now you'll connect them into workflows &mdash; automated chains where the output of one step becomes the input of the next.</em></p>
-
-<h3>From Specialists to Processes</h3>
-<p>Building one agent is like hiring a specialist. Building a workflow is like designing a process where specialists hand off work to each other &mdash; automatically. The Write Like Me agent drafts emails. The Report Writer generates documents. A workflow connects them so that when raw data arrives, a report is generated, formatted, and delivered without you orchestrating each step manually.</p>
-
-<h3>Two Composition Patterns</h3>
-
-<h4>Pattern 1: Workflows Calling Agents (Agent Nodes)</h4>
-<p>A deterministic workflow includes an "agent node" step. The workflow stays in control of the sequence; the agent handles interpretation and reasoning at a specific point in the chain. The workflow decides <em>when</em> things happen. The agent decides <em>what</em> to do at its step.</p>
-<p><strong>Example:</strong> A form response arrives &rarr; data is routed to the right department &rarr; an agent summarizes and categorizes the response &rarr; an email is sent to the assigned reviewer. The workflow controls the routing; the agent handles the summarization.</p>
-
-<h4>Pattern 2: Agents Calling Workflows (Workflows as Tools)</h4>
-<p>An agent uses workflows as tools. The AI decides when and whether to invoke each workflow based on its reasoning. The agent is in control; workflows are capabilities it can trigger.</p>
-<p><strong>Example:</strong> You say "Handle this expense report." The agent reads it, decides it needs manager approval, triggers the approval workflow, waits for the response, then routes based on the outcome. The agent chose to invoke the workflow &mdash; it was not a fixed sequence.</p>
-
-<h3>Available Triggers and Actions</h3>
-<p><strong>Triggers</strong> (what starts a workflow):</p>
-<ul>
-  <li>File uploaded to SharePoint</li>
-  <li>New email received</li>
-  <li>Form submitted</li>
-  <li>Planner task completed</li>
-  <li>Scheduled time (daily, weekly, monthly)</li>
-  <li>Manual run</li>
-</ul>
-<p><strong>Actions</strong> (what a workflow can do):</p>
-<ul>
-  <li>Send email</li>
-  <li>Create a document</li>
-  <li>Update a SharePoint list</li>
-  <li>Post to Teams</li>
-  <li>Call another agent</li>
-</ul>
-
-<h3>Human-in-the-Loop</h3>
-<p>Agents can pause mid-workflow. They send a structured approval request via Outlook, wait for the human response, then resume with the submitted values. This is critical for workflows that involve decisions, sign-offs, or sensitive actions where full automation would be inappropriate.</p>
-
-<div class="tip-box">
-  <div class="tip-title">Tip</div>
-  <p>Start simple. Your first workflow should chain just 2-3 steps. Add complexity only after the basics work reliably.</p>
-</div>
-
-<p class="personalization-note">[PERSONALIZED: Think about processes in your work that cross multiple apps &mdash; email to spreadsheet to report to presentation. Those are your best workflow candidates.]</p>
-  `,
-  implement: `
-<h3>Build Workflow Agents</h3>
-<p>Three exercises, progressively harder. Each builds on what you learned in previous lessons.</p>
-
-<h4>Exercise 1: Design a Workflow Chain (On Paper First)</h4>
-<p>Pick a real process from your work that involves 3 or more steps across different apps. Map it visually: Trigger &rarr; Step 1 &rarr; Step 2 &rarr; Step 3 &rarr; Output.</p>
-<p>Here are example workflows to inspire your design:</p>
-
-<table class="comparison-table">
-<tr><th>Trigger</th><th>Step 1</th><th>Step 2</th><th>Output</th></tr>
-<tr><td>New form response</td><td>Analyst summarizes data</td><td>Email to team lead</td><td>Monthly report updated</td></tr>
-<tr><td>Email from client</td><td>Write Like Me drafts reply</td><td>Manager reviews</td><td>Reply sent</td></tr>
-<tr><td>Weekly schedule</td><td>Researcher gathers news</td><td>Report Writer formats</td><td>Newsletter published</td></tr>
-</table>
-
-<p>Write down your own workflow with at least 3 steps. Identify: what triggers it, what each step does, what data passes between steps, and what the final output is.</p>
-
-<h4>Exercise 2: Build a Basic Agent Flow</h4>
-<p>Open Copilot and click <strong>"New Agent."</strong></p>
-<p>Instead of Configure, try the <strong>"Describe"</strong> approach this time. Describe your workflow in natural language:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>When I ask you to process an email, summarize the key points, identify any action items, and draft a task list I can paste into Planner. Format the task list with checkboxes and due date suggestions based on urgency.</pre>
-</div>
-<p>Test the agent with 3 real emails from your inbox. For each test, evaluate: did it identify the right action items? Are the due date suggestions reasonable? Is anything missing?</p>
-<p>Iterate the description if the output is not right. Add specificity: "Always separate action items for me vs. action items for others" or "Flag anything marked urgent at the top."</p>
-
-<h4>Exercise 3: Chain Your Agents</h4>
-<p>This exercise connects the agents you built in previous lessons into a manual workflow:</p>
-<ol>
-  <li>Open your <strong>Report Writer agent</strong> from Lesson 5. Ask it to generate a report from raw materials (meeting notes, data, or bullet points).</li>
-  <li>Copy the output.</li>
-  <li>Open <strong>Word</strong> &rarr; paste the content &rarr; use <strong>"Edit with Copilot"</strong> to format it into a professional template with headers, tables, and consistent styling.</li>
-  <li>Open <strong>PowerPoint</strong> &rarr; use Copilot to create a presentation from the Word document. Ask it to keep the key data points and add visual structure.</li>
-  <li><strong>Reflect:</strong> This 3-step chain (Agent &rarr; Word &rarr; PowerPoint) is a manual workflow. In Copilot Studio, you could automate this entire sequence with triggers and handoffs.</li>
-</ol>
-
-<div class="tip-box">
-  <div class="tip-title">Tip</div>
-  <p>For fully automated workflows with triggers, you will use Copilot Studio (<strong>copilotstudio.microsoft.com</strong>). The concepts are the same &mdash; triggers, actions, agent nodes &mdash; but the Studio gives you a visual designer for complex chains.</p>
-</div>
-
-<h4>Reflective Check</h4>
-<p>Look at the 3-step chain you built in Exercise 3. Where did the handoffs work well? Where did you lose quality or context between steps? Those friction points are exactly what automated workflows solve.</p>
-  `,
-  advanced: `
-<h3>Advanced: Workflow Architecture</h3>
-
-<h4>Multi-Agent Orchestration</h4>
-<p>There are three ways to compose agents in Copilot Studio:</p>
-<ul>
-  <li><strong>Child agents (embedded):</strong> Share the parent agent's solution and configuration. Best for tightly coupled logic within a single team's domain.</li>
-  <li><strong>Connected agents (standalone):</strong> Maintained by different teams but callable by your agent. Best for cross-department processes where each team owns their own agent.</li>
-  <li><strong>External agents (A2A protocol):</strong> Agents from different platforms communicating via the Agent-to-Agent protocol. Best for multi-vendor environments.</li>
-</ul>
-
-<h4>Performance Tip</h4>
-<p>Keep under 30 tools or topics per agent. Beyond that threshold, the agent's ability to choose the right tool degrades. If you are hitting that limit, split into a multi-agent architecture with a router agent that delegates to specialists.</p>
-
-<h4>Power Automate Integration</h4>
-<p>Existing Power Automate flows can be used by agents without conversion. Modify the trigger to "When an agent calls the flow" and the flow becomes a tool your agent can invoke. This means your organization's existing automation investment carries forward directly into the agent ecosystem.</p>
-
-<h4>The Agent-to-Agent (A2A) Protocol</h4>
-<p>A2A is an open protocol that enables agents from different platforms to communicate. Each agent publishes an "agent card" describing its capabilities. Other agents discover these cards and invoke capabilities as needed. This means a Copilot agent can collaborate with agents built on other platforms &mdash; the protocol handles the handoff.</p>
-  `
-},
-
-// ── Lesson 7: Agent Best Practices ──
-{
-  title: "Agent Best Practices",
-  points: 15,
-  bonus: false,
-  learn: `
-<p><em>You've built agents, used pre-built ones, and connected them into workflows. Before you deploy them widely, let's make sure they're production-ready.</em></p>
+  // ── Lesson 3: Agent Best Practices (was old L7) ──
+  {
+    title: "Agent Best Practices",
+    points: 15,
+    bonus: false,
+    learn: `
+<p><em>You've built agents and used pre-built ones. Before you deploy them widely, let's make sure they're production-ready.</em></p>
 
 <h3>Three Principles for Production Agents</h3>
 
 <h4>1. Test with Real Scenarios</h4>
-<p>Use 5-10 real inputs from your actual work. Screenshot the results. Compare them to your benchmarks from Lesson 4 and Lesson 5. If the agent does not beat the baseline &mdash; the generic Copilot output you captured in Step 0 &mdash; something needs adjusting. Do not deploy an agent that performs worse than plain Copilot.</p>
+<p>Use 5-10 real inputs from your actual work. Screenshot the results. Compare them to your benchmarks from Lesson 2 ("Build Your Own Agent"). If the agent does not beat the baseline &mdash; the generic Copilot output you captured in Step 0 &mdash; something needs adjusting. Do not deploy an agent that performs worse than plain Copilot.</p>
 
 <h4>2. Iterate from Simple to Complex</h4>
-<p>Start with Instructions only. Get the core behavior right. Then add Knowledge sources. Then add capabilities and tools. Then add workflow integrations. Each layer introduces new failure modes, so validate at every step before adding the next.</p>
+<p>Start with Instructions only. Get the core behavior right. Then add Knowledge sources. Then add capabilities and tools. Each layer introduces new failure modes, so validate at every step before adding the next.</p>
 <ol>
   <li>Instructions only &rarr; test</li>
   <li>Add Knowledge &rarr; test</li>
   <li>Add capabilities/tools &rarr; test</li>
-  <li>Add workflows &rarr; test</li>
 </ol>
 
 <h4>3. Deploy in Phases</h4>
@@ -1707,12 +1457,12 @@ const LESSONS = [
 <p>Start at "Only you" and expand as you validate the agent's quality.</p>
 
 <p class="personalization-note">[PERSONALIZED: Think about who on your team would benefit most from your agents. Those are your ideal alpha testers.]</p>
-  `,
-  implement: `
+    `,
+    implement: `
 <h3>Test and Refine Your Agent</h3>
 
 <h4>Step 1: Choose Your Agent</h4>
-<p>Take your <strong>Write Like Me</strong> agent from Lesson 4 or your <strong>Report Writer</strong> agent from Lesson 5. You will put it through a structured testing process.</p>
+<p>Take the agent you built in Lesson 2 &mdash; either the <strong>Write Like Me</strong> or the <strong>Report Writer</strong>. You will put it through a structured testing process.</p>
 
 <h4>Step 2: Run 5 Test Conversations</h4>
 <p>Use varied, realistic inputs &mdash; not the same test every time. For a Write Like Me agent, try different email types: a follow-up, a cold outreach, a meeting request, a project update, and a difficult conversation. For a Report Writer, try different data sets and time periods.</p>
@@ -1742,9 +1492,9 @@ const LESSONS = [
 <p>Incorporate your colleague's feedback into the Instructions. Run one final round of tests to confirm the changes improved the output without breaking what was already working.</p>
 
 <h4>Reflective Check</h4>
-<p>Compare your agent's current output to the benchmark you captured in Lesson 4, Step 0. The difference should be clear. If it is not, you need more iteration rounds.</p>
-  `,
-  advanced: `
+<p>Compare your agent's current output to the benchmark you captured in Lesson 2, Step 0. The difference should be clear. If it is not, you need more iteration rounds.</p>
+    `,
+    advanced: `
 <h3>Advanced: Production Operations</h3>
 
 <h4>The Agent Lifecycle</h4>
@@ -1777,255 +1527,6 @@ const LESSONS = [
   <li>The data sources it depends on are being decommissioned</li>
 </ul>
 <p>Retirement is not failure. It is good governance. A retired agent that served its purpose is better than an abandoned agent that confuses users.</p>
-  `
-}
-,
-
-  // ── Lesson 8 (BONUS) ──
-  {
-    title: "Custom Agent Challenge",
-    points: 30,
-    bonus: true,
-    learn: `
-<p><em>You've built Write Like Me and Report Writer agents following guided steps. Now it's time to design and build an agent completely on your own.</em></p>
-
-<h3>The Capstone Rules</h3>
-<p>Pick a real recurring task from your actual work. The best candidates share three traits:</p>
-<ul>
-  <li><strong>It takes 30+ minutes</strong> each time you do it</li>
-  <li><strong>It follows a predictable pattern</strong> &mdash; similar steps, similar structure, similar output</li>
-  <li><strong>It uses data you can access</strong> &mdash; emails, documents, spreadsheets, or web sources that Copilot can reach</li>
-</ul>
-<p>If a task meets all three criteria, it is a strong agent candidate. If it only meets one or two, keep looking.</p>
-
-<h3>The Design Checklist</h3>
-<p>Before you open Copilot Studio, answer these five questions on paper or in a note:</p>
-<ul>
-  <li><strong>1. Can you describe the agent's job in one sentence?</strong> If you cannot, the scope is too broad. Narrow it.</li>
-  <li><strong>2. What inputs does it need?</strong> Documents, data files, user questions, email threads &mdash; list every source.</li>
-  <li><strong>3. What output should it produce?</strong> A report, a draft email, a checklist, a formatted document &mdash; be specific about the format.</li>
-  <li><strong>4. What knowledge does it need?</strong> Templates, reference documents, past examples, policies, or guidelines it should follow.</li>
-  <li><strong>5. Who will use it?</strong> Just you, your team, your department, or your entire organization? This shapes how detailed the Instructions need to be.</li>
-</ul>
-
-<h3>Agent Ideas &mdash; With Sample Data</h3>
-<p>Each idea below comes with downloadable data files so you can start building immediately. Pick one that matches your role, or adapt it to your own needs:</p>
-<ul>
-  <li><strong>Contract Review Agent</strong> &mdash; compares incoming contracts against your standard terms. Flags missing clauses, conflicting insurance limits, and non-standard reimbursable rates. <em>Download:</em> <a href="/mock-data/contracts/oda-standard-terms.txt" download>Standard Terms</a>, <a href="/mock-data/contracts/sample-contract-residential.txt" download>Sample Contract (Residential)</a>, <a href="/mock-data/contracts/sample-contract-hospitality.txt" download>Sample Contract (Hospitality)</a></li>
-  <li><strong>Submittal QA Agent</strong> &mdash; reviews submittals against project specifications, flags items that don't match spec requirements or are from unapproved manufacturers. <em>Download:</em> <a href="/mock-data/specifications/submittal-log.csv" download>Submittal Log</a>, <a href="/mock-data/specifications/project-spec-excerpt.txt" download>Project Specifications</a></li>
-  <li><strong>Fee Proposal Generator</strong> &mdash; drafts fee proposals using your standard template and historical project data. Supports three pricing methods (time &amp; resources, percentage, fixed fee). <em>Download:</em> <a href="/mock-data/proposals/oda-fee-proposal-template.txt" download>Fee Proposal Template</a>, <a href="/mock-data/financials/oda-project-tracking.csv" download>Project Tracking Data</a></li>
-  <li><strong>Newsletter Generator</strong> &mdash; takes raw project facts and images folder references, then produces a formatted newsletter in your organization's established voice and format. <em>Download:</em> <a href="/mock-data/marketing/oda-newsletter-sample.txt" download>Newsletter Sample</a>, <a href="/mock-data/marketing/oda-awards-tracker.csv" download>Awards Tracker</a></li>
-  <li><strong>Travel Itinerary Agent</strong> &mdash; converts raw booking references, dates, and attendee names into a formatted 10-20 page itinerary with flight details, hotel info, meeting schedules, LinkedIn profiles, and Google Maps links. <em>Download:</em> <a href="/mock-data/executive/travel-itinerary-raw-input.txt" download>Raw Trip Input</a>, <a href="/mock-data/executive/travel-itinerary-template.txt" download>Itinerary Template</a></li>
-  <li><strong>Building Code Q&amp;A Agent</strong> &mdash; answers code compliance questions using uploaded reference documents. Compares requirements across jurisdictions. <em>Download:</em> <a href="/mock-data/building-codes/nyc-residential-code-reference.txt" download>NYC Code Reference</a>, <a href="/mock-data/building-codes/nyc-vs-florida-comparison.txt" download>NYC vs Florida Comparison</a></li>
-</ul>
-
-<div class="tip-box">
-  <div class="tip-title">Tip</div>
-  <p>The best capstone agent is one you will actually keep using after this course. Pick a real pain point, not a theoretical exercise.</p>
-</div>
-    `,
-    implement: `
-<h3>Build Your Capstone Agent</h3>
-
-<h4>Step 1: Pick Your Agent Idea</h4>
-<p>Choose one idea from the list above, or use your own. The only requirement is that it solves a real, recurring task in your work.</p>
-
-<h4>Step 2: Write a One-Sentence Description</h4>
-<p>Fill in this template:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Template</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>This agent [does what] for [whom] using [what data].</pre>
-</div>
-<p>Example: "This agent drafts weekly client update emails for project managers using the latest project status notes and email threads."</p>
-
-<h4>Step 3: Create the Agent</h4>
-<p>Open <strong>Copilot</strong> &rarr; click <strong>Agents</strong> in the left sidebar &rarr; click <strong>New Agent</strong> &rarr; <strong>Configure</strong>.</p>
-
-<h4>Step 4: Fill In the Configuration</h4>
-<ul>
-  <li><strong>Name:</strong> Give it a clear, descriptive name (e.g., "Client Update Drafter")</li>
-  <li><strong>Description:</strong> Paste your one-sentence description from Step 2</li>
-  <li><strong>Instructions:</strong> Write a detailed system prompt. Apply everything you learned about Instructions from Lessons 4 and 5 &mdash; role definition, output format, constraints, tone, and edge case handling. This is the most important field.</li>
-</ul>
-
-<h4>Step 5: Add Knowledge Sources</h4>
-<p>Upload or connect the documents, files, and data your agent needs. The more relevant context it has, the better its output will be.</p>
-
-<h4>Step 6: Create 3&ndash;4 Suggested Prompts</h4>
-<p>Write starter prompts that show users how to interact with the agent. These appear as clickable suggestions when someone opens your agent. Make them specific and action-oriented.</p>
-
-<h4>Step 7: Test with 3 Real Inputs</h4>
-<p>Run your agent with 3 actual inputs from your real work &mdash; not hypothetical examples. For each test, note:</p>
-<ul>
-  <li>Was the output usable as-is, or did it need significant editing?</li>
-  <li>Did it miss any important information?</li>
-  <li>Did it follow the format and tone you specified?</li>
-</ul>
-
-<h4>Step 8: Fix and Retest</h4>
-<p>For every failure you found in Step 7, update your Instructions. Be specific about what went wrong and add explicit guidance to prevent it. Then retest with the same inputs to verify the fix.</p>
-
-<h4>Step 9: Share with a Colleague</h4>
-<p>Send your agent to one colleague. Ask them to try it with their own inputs and give you honest feedback: one thing that worked well and one thing that did not.</p>
-
-<h4>Step 10: Final Polish</h4>
-<p>Update your Instructions one more time based on your colleague's feedback. This final round of refinement is what separates a demo from a tool people actually use.</p>
-
-<div class="tip-box">
-  <div class="tip-title">Tip</div>
-  <p>Your first draft won't be perfect. That's expected. The testing and iteration steps (7&ndash;10) are where the real quality comes from.</p>
-</div>
-
-<h4>Reflective Check</h4>
-<p>Compare your agent's output to what you would produce manually. Where does it match? Where does it fall short? What one change to the Instructions would close the biggest gap?</p>
-    `,
-    advanced: `
-<h3>Building an Agent Portfolio</h3>
-
-<h4>Start Small, Then Scale</h4>
-<p>Begin with 2&ndash;3 personal agents that solve your own recurring tasks. Once they are reliable, identify shared workflows and build team agents that multiple people use. Personal agents are your testing ground &mdash; team agents are your impact multiplier.</p>
-
-<h4>The Agent Card</h4>
-<p>Keep a one-page "agent card" for every agent you build. This is your documentation standard:</p>
-<ul>
-  <li><strong>Name</strong> &mdash; the agent's display name</li>
-  <li><strong>Purpose</strong> &mdash; one sentence describing what it does and for whom</li>
-  <li><strong>Instructions summary</strong> &mdash; the key rules and constraints in the system prompt</li>
-  <li><strong>Knowledge sources</strong> &mdash; what documents or data it relies on</li>
-  <li><strong>Who uses it</strong> &mdash; individuals, teams, or the whole organization</li>
-  <li><strong>Last updated</strong> &mdash; when the Instructions were last revised</li>
-</ul>
-<p>This card makes handoffs easy when someone else needs to maintain the agent, and it prevents the "what does this agent actually do?" problem that plagues undocumented tools.</p>
-
-<h4>Maintenance Rhythm</h4>
-<p>Agents are not "set and forget." Establish a monthly review cadence:</p>
-<ul>
-  <li>Review usage &mdash; is anyone still using it? If not, retire or archive it.</li>
-  <li>Check accuracy &mdash; test with a recent real input. Has the quality drifted?</li>
-  <li>Update knowledge &mdash; add new documents, remove outdated ones.</li>
-  <li>Refine Instructions &mdash; incorporate feedback from the past month.</li>
-</ul>
-<p>A 15-minute monthly check keeps your agents sharp. Without it, they quietly degrade as your processes evolve and their knowledge goes stale.</p>
-    `
-  },
-
-  // ── Lesson 9 (BONUS) ──
-  {
-    title: "Agent Ecosystem Design",
-    points: 15,
-    bonus: true,
-    learn: `
-<p><em>You've built individual agents. Now think bigger &mdash; how do multiple agents work together as a system?</em></p>
-
-<h3>Three Multi-Agent Patterns</h3>
-<p>When a single agent cannot handle the full scope of a workflow, you connect multiple agents into a system. There are three fundamental patterns:</p>
-
-<h4>1. Router Agent</h4>
-<p>A single entry point receives all requests and decides which specialist agent to delegate to. The router reads the user's question, classifies the intent, and forwards it to the right agent.</p>
-<p><strong>Example:</strong> A "Department Help Desk" router receives all employee questions. It routes billing questions to the FAQ Agent, new hire questions to the Onboarding Agent, and technical issues to the IT Support Agent &mdash; all transparently, so the user only interacts with one front door.</p>
-
-<h4>2. Pipeline</h4>
-<p>Data flows through a sequence of agents, each one transforming the output before passing it to the next. The output of Agent 1 becomes the input for Agent 2, and so on.</p>
-<p><strong>Example:</strong> Raw data &rarr; <strong>Analyst Agent</strong> (cleans and summarizes) &rarr; <strong>Report Writer Agent</strong> (formats into a structured report) &rarr; <strong>Newsletter Generator Agent</strong> (adapts into a distribution-ready newsletter).</p>
-
-<h4>3. A2A Protocol</h4>
-<p>Agents built on different platforms &mdash; Copilot Studio, custom SDK, third-party services &mdash; communicate using the <strong>Agent-to-Agent (A2A) protocol</strong>. This is Microsoft's standard for cross-platform agent communication. Each agent publishes an "agent card" describing its capabilities, so other agents can discover what it does and how to call it.</p>
-<p>A2A means you are not locked into a single platform. An agent in Copilot Studio can hand off work to an agent built in Microsoft Foundry or a third-party tool, and vice versa.</p>
-
-<h3>When to Go Multi-Agent</h3>
-<p>You do <em>not</em> need multiple agents for every workflow. Consider a multi-agent approach when:</p>
-<ul>
-  <li><strong>A single agent has too many responsibilities</strong> &mdash; if its Instructions exceed 30+ topics or tools, split it into specialists</li>
-  <li><strong>Different teams own different parts of the process</strong> &mdash; each team maintains their own agent with their own knowledge and rules</li>
-  <li><strong>You need different knowledge sources for different tasks</strong> &mdash; a contract agent needs legal templates while a staffing agent needs resource spreadsheets; keeping them separate avoids knowledge confusion</li>
-</ul>
-
-<p class="personalization-note">[PERSONALIZED: Think about one multi-step process in your organization where at least two different teams or systems are involved. That is a natural candidate for a multi-agent design.]</p>
-    `,
-    implement: `
-<h3>Design a Multi-Agent Pipeline</h3>
-<p>This is primarily a design exercise. You will plan the system on paper (or in Copilot Chat) and test one handoff manually.</p>
-
-<h4>Step 1: Pick 3 Agents</h4>
-<p>Choose 3 agents you have built or used in this module. For example: Researcher, Write Like Me, and Report Writer. Or use 3 agents from the ideas in Lesson 8.</p>
-
-<h4>Step 2: Design the Pipeline</h4>
-<p>Map how they chain together:</p>
-<ul>
-  <li><strong>Agent 1</strong> produces output X</li>
-  <li><strong>Agent 2</strong> takes X as input, produces Y</li>
-  <li><strong>Agent 3</strong> takes Y as input, produces the final output</li>
-</ul>
-<p>Write out the handoff for each step: what data passes between agents? What format is it in? What happens if one agent's output is incomplete?</p>
-
-<h4>Step 3: Document the Pipeline</h4>
-<p>Use a table like this to make the design concrete:</p>
-
-<table class="comparison-table">
-<tr><th>Step</th><th>Agent</th><th>Input</th><th>Output</th><th>Handoff</th></tr>
-<tr><td>1</td><td>Researcher</td><td>Research question</td><td>Research report with citations</td><td>Copy report text</td></tr>
-<tr><td>2</td><td>Report Writer</td><td>Research report + template</td><td>Formatted report draft</td><td>Open in Word</td></tr>
-<tr><td>3</td><td>Copilot in Word</td><td>Draft report</td><td>Final polished document</td><td>Share or export</td></tr>
-</table>
-
-<h4>Step 4: Design Your Own Pipeline</h4>
-<p>Open Copilot Chat and describe your pipeline:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Copilot Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>I want to design a 3-agent pipeline for my team. Here are the agents:
-- Agent 1: [name] &mdash; [what it does]
-- Agent 2: [name] &mdash; [what it does]
-- Agent 3: [name] &mdash; [what it does]
-
-Design the data flow between them. For each handoff, specify: what data passes, what format it should be in, and what happens if the previous agent's output is incomplete or low quality. Present this as a table.</pre>
-</div>
-
-<h4>Step 5: Test One Handoff Manually</h4>
-<p>Pick the first handoff in your pipeline (Agent 1 &rarr; Agent 2). Run Agent 1 with a real input. Copy its output. Paste it into Agent 2 as input. Evaluate:</p>
-<ul>
-  <li>Did Agent 2 understand the output from Agent 1?</li>
-  <li>Was any information lost or mangled in the copy-paste?</li>
-  <li>What would you need to change in Agent 1's output format to make the handoff smoother?</li>
-</ul>
-
-<h4>Step 6: Reflect</h4>
-<p>Ask yourself: "What would it take to automate this handoff &mdash; so I do not have to copy and paste?" That is exactly what Copilot Studio's agent flows and the A2A protocol are designed to do. The manual test you just ran is the prototype for an automated pipeline.</p>
-
-<h4>Reflective Check</h4>
-<p>Did the pipeline produce a better final result than any single agent could have produced alone? Where did the handoffs create friction? What would you change in the design?</p>
-    `,
-    advanced: `
-<h3>Enterprise Agent Ecosystems</h3>
-
-<h4>Governance for Multi-Agent Systems</h4>
-<p>When your organization runs more than a handful of agents, you need governance. Establish these foundations:</p>
-<ul>
-  <li><strong>Agent registry</strong> &mdash; a central catalog listing every agent, its owner, its purpose, and what data it accesses. Without this, you get shadow agents that nobody maintains.</li>
-  <li><strong>Data access documentation</strong> &mdash; for each agent, document exactly which knowledge sources and APIs it connects to. This is critical for security reviews and compliance.</li>
-  <li><strong>Standardized testing requirements</strong> &mdash; every agent must pass a defined set of tests before being deployed to production. Include accuracy checks, edge case handling, and output format validation.</li>
-  <li><strong>Ownership model</strong> &mdash; every agent has a named owner responsible for maintaining its Instructions, updating its knowledge, and reviewing its performance.</li>
-</ul>
-
-<h4>The A2A Protocol in Depth</h4>
-<p>The Agent-to-Agent protocol enables agents from Copilot Studio, Microsoft Foundry, and third-party platforms to discover and communicate with each other. Key concepts:</p>
-<ul>
-  <li><strong>Agent cards</strong> &mdash; each agent publishes a machine-readable description of its capabilities, input requirements, and output formats</li>
-  <li><strong>Discovery</strong> &mdash; agents can find other agents by capability ("I need an agent that can review contracts") rather than by name</li>
-  <li><strong>Context passing</strong> &mdash; agents exchange structured data and conversation context during handoffs, preserving the full history of the interaction</li>
-  <li><strong>Cross-platform</strong> &mdash; a Copilot Studio agent can delegate to a custom-built agent running on a completely different platform, and the user experience remains seamless</li>
-</ul>
-
-<h4>Quarterly Review Cycle</h4>
-<p>Run a quarterly ecosystem review:</p>
-<ul>
-  <li><strong>Retire</strong> agents that have not been used in 90 days</li>
-  <li><strong>Update</strong> active agents with fresh knowledge and refined Instructions</li>
-  <li><strong>Identify gaps</strong> &mdash; are there recurring manual tasks that no agent covers yet?</li>
-  <li><strong>Audit handoffs</strong> &mdash; are the pipeline connections between agents still working correctly?</li>
-</ul>
-
-<h4>The Future: Self-Coordinating Agent Ecosystems</h4>
-<p>The trajectory is clear: from individual agents, to manually connected pipelines, to fully orchestrated ecosystems where agents discover each other, negotiate handoffs, and self-coordinate based on organizational goals. Today you design the connections manually. Tomorrow, a router agent with access to the full agent registry will assemble the right pipeline dynamically based on the task at hand. Building well-documented, well-governed agents now is how you prepare for that future.</p>
     `
   }
 ];
@@ -2033,8 +1534,8 @@ Design the data flow between them. For each handoff, specify: what data passes, 
 /* ================================================================
    ENGINE
    ================================================================ */
-const CORE_COUNT = 8;
-const CORE_POINTS = 155;
+const CORE_COUNT = 4;
+const CORE_POINTS = 100;
 let completed = JSON.parse(localStorage.getItem('agents-completed') || '[]');
 let currentLesson = 0;
 let currentTab = 'learn';
@@ -2288,16 +1789,10 @@ fetch('/api/me').then(r => {
 
 /* ── Opportunity Map callouts ── */
 const MAP_FEATURE_TAGS = {
-  'agents:0': ['Agent Builder'],
-  'agents:1': ['Agent Builder'],
-  'agents:2': ['Researcher'],
-  'agents:3': ['Analyst'],
-  'agents:4': ['Agent Builder', 'Custom Instructions'],
-  'agents:5': ['Agent Builder'],
-  'agents:6': ['Workflow Agents', 'Copilot Studio'],
-  'agents:7': ['Agent Builder'],
-  'agents:8': ['Agent Builder'],
-  'agents:9': ['Workflow Agents'],
+  'agents:0': ['Agent Builder', 'Chat'],
+  'agents:1': ['Researcher', 'Analyst'],
+  'agents:2': ['Agent Builder', 'Custom Instructions'],
+  'agents:3': ['Agent Builder'],
 };
 let _mapCache = null;
 async function loadMapDoc() {
