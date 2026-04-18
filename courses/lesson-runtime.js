@@ -72,6 +72,7 @@ function dispatchChange() {
     courseId: state.courseId,
     progressCategory: state.progressCategory,
     currentLesson: state.currentLesson,
+    currentTab: state.currentTab,
     lessons: state.lessons,
     completed: completedArr,
     completedCount: completedArr.length,

@@ -274,14 +274,16 @@ function restoreExerciseChecks(currentLesson) {
   const all = loadExerciseChecks();
   const mine = all[currentLesson] || [];
   const boxes = document.querySelectorAll('.exercise-check input[type="checkbox"]');
-  boxes.forEach((cb, i) => {
-    cb.checked = !!mine[i];
+  boxes.forEach((cb, idx) => {
+    cb.checked = Boolean(mine[idx]);
+    if (cb.dataset.wired) return;
+    cb.dataset.wired = '1';
     cb.addEventListener('change', () => {
-      const state = loadExerciseChecks();
-      const arr = state[currentLesson] || [];
-      arr[i] = cb.checked;
-      state[currentLesson] = arr;
-      saveExerciseChecks(state);
+      const all = loadExerciseChecks();
+      const state = all[String(currentLesson)] || {};
+      state[idx] = cb.checked;
+      all[String(currentLesson)] = state;
+      saveExerciseChecks(all);
     });
   });
 }
@@ -300,8 +302,12 @@ async function renderMapCallout(courseId, lessonIdx) {
   const callout = document.createElement('div');
   callout.className = 'map-callout';
   callout.innerHTML = `<strong>Relevant to your opportunity map:</strong> ${links}`;
-  const content = document.querySelector('#lesson-content .content') || document.getElementById('lesson-content');
-  if (content) content.prepend(callout);
+  const content = document.querySelector('#lesson-content .tab-content') || document.getElementById('lesson-content');
+  if (content) {
+    const existing = content.querySelector('.map-callout');
+    if (existing) existing.remove();
+    content.prepend(callout);
+  }
 }
 </script>
 <style>.map-callout{background:#fffaea;border:1px solid #e8c46a;padding:8px 12px;margin-bottom:12px;font-size:13px;border-radius:4px}.map-callout a{text-decoration:none;border-bottom:1px dashed #1a2230;color:#1a2230}.map-callout a:hover{border-bottom-style:solid}</style>
@@ -316,8 +322,7 @@ async function renderMapCallout(courseId, lessonIdx) {
     if (typeof renderMapCallout === 'function') {
       renderMapCallout(d.courseId, d.currentLesson);
     }
-    const activeTab = document.querySelector('.tab-btn.active');
-    if (activeTab && activeTab.textContent.trim() === 'Exercises') {
+    if (d.currentTab === 'implement') {
       if (typeof transformExerciseLists === 'function') transformExerciseLists();
       if (typeof restoreExerciseChecks === 'function') restoreExerciseChecks(d.currentLesson);
     }
