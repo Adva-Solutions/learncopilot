@@ -57,6 +57,10 @@ h3 { font-size: 20px; font-weight: 600; }
 .global-nav-link:hover { color: var(--white); background: rgba(255,255,255,0.08); }
 .global-nav-link.active { color: var(--white); background: rgba(255,255,255,0.12); }
 body { padding-top: 60px; }
+/* Login view — hide all nav chrome so admin password screen is clean */
+body[data-admin-view="login"] { padding-top: 0; }
+body[data-admin-view="login"] .global-nav,
+body[data-admin-view="login"] .admin-subnav { display: none; }
 
 /* ADMIN SUBNAV (appears below global nav) */
 .admin-subnav { background: #fff; border-bottom: 1px solid var(--border-light); padding: 12px 24px; display: flex; gap: 6px; position: sticky; top: 60px; z-index: 50; }
@@ -307,6 +311,11 @@ tr:hover td { background: var(--accent-light); }
 <!-- APP -->
 <div class="main" id="app"></div>
 
+<script>
+/* Start in login view — auth-gated nav stays hidden until route() confirms auth */
+document.body.setAttribute('data-admin-view', 'login');
+</script>
+
 <!-- MODAL CONTAINER -->
 <div id="modal-root"></div>
 
@@ -470,6 +479,9 @@ async function route() {
       if (!ok) { window.location.hash = '#login'; return; }
     }
   }
+
+  // Toggle nav chrome: hidden on login view, shown once authenticated
+  document.body.setAttribute('data-admin-view', hash === '#login' ? 'login' : 'app');
 
   renderNav();
 
