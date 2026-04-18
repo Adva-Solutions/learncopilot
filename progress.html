@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Progress Board — Copilot Workshop</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230c1f3f'/><polygon points='16,8 28,13 16,18 4,13' fill='%23c5973e'/><path d='M9 15 V20 Q16 23 23 20 V15' fill='none' stroke='%23c5973e' stroke-width='1.5'/><line x1='28' y1='13' x2='28' y2='21' stroke='%23c5973e' stroke-width='1.2'/><circle cx='28' cy='22' r='1.2' fill='%23c5973e'/></svg>">
 <script src="/tenant-config.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -153,13 +154,6 @@
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
-  .dept-badge {
-    font-size: 11px; font-weight: 600;
-    background: #f0ede6; color: #5a5a6e;
-    padding: 2px 10px; border-radius: 10px;
-    letter-spacing: 0.02em;
-  }
-
   .progress-courses {
     display: flex; gap: 12px; margin-top: 8px;
   }
@@ -225,7 +219,8 @@
   <a href="/" class="top-nav-brand">adva</a>
   <div class="nav-links">
     <a href="/" class="nav-link nav-link-workshop" id="nav-workshop">Workshop</a>
-    <a href="/progress.html" class="nav-link nav-link-active" id="nav-progress">Progress Board</a>
+    <a href="/progress.html" class="nav-link nav-link-active" id="nav-progress">Leaderboard</a>
+    <a href="/admin.html" class="nav-link" id="nav-admin" style="color:rgba(255,255,255,0.6);">Admin</a>
   </div>
 </nav>
 
@@ -307,10 +302,13 @@ function render(participants) {
     const isYou = p.name === currentUser;
     const initials = p.name.split(' ').map(w => w[0]).join('').slice(0, 2);
     const coreDone = (arr, core) => (arr || []).filter(i => i < core).length;
-    const chatPct = Math.min(100, Math.round((coreDone(p.chat?.completed, CHAT_STEPS) / CHAT_STEPS) * 100));
-    const appsPct = Math.min(100, Math.round((coreDone(p.apps?.completed, APPS_STEPS) / APPS_STEPS) * 100));
-    const agentsPct = Math.min(100, Math.round((coreDone(p.agents?.completed, AGENTS_STEPS) / AGENTS_STEPS) * 100));
-    const deptBadge = p.department ? `<span class="dept-badge">${p.department}</span>` : '';
+    const chatDone = coreDone(p.chat?.completed, CHAT_STEPS);
+    const appsDone = coreDone(p.apps?.completed, APPS_STEPS);
+    const agentsDone = coreDone(p.agents?.completed, AGENTS_STEPS);
+    const chatPct = Math.min(100, Math.round((chatDone / CHAT_STEPS) * 100));
+    const appsPct = Math.min(100, Math.round((appsDone / APPS_STEPS) * 100));
+    const agentsPct = Math.min(100, Math.round((agentsDone / AGENTS_STEPS) * 100));
+    const lessonLabel = (done, total) => done >= total ? '✓' : `L${done + 1}`;
 
     return `
       <div class="participant-card ${isYou ? 'is-you' : ''}">
@@ -319,21 +317,20 @@ function render(participants) {
           <div class="participant-name">
             ${p.name}
             ${isYou ? '<span class="you-badge">You</span>' : ''}
-            ${deptBadge}
           </div>
           <div class="progress-courses">
             <div class="course-progress">
-              Chat
+              Chat · ${lessonLabel(chatDone, CHAT_STEPS)}
               <div class="bar-bg"><div class="bar-fill bar-chat" style="width:${chatPct}%"></div></div>
               ${chatPct}%
             </div>
             <div class="course-progress">
-              Apps
+              Apps · ${lessonLabel(appsDone, APPS_STEPS)}
               <div class="bar-bg"><div class="bar-fill bar-apps" style="width:${appsPct}%"></div></div>
               ${appsPct}%
             </div>
             <div class="course-progress">
-              Agents
+              Agents · ${lessonLabel(agentsDone, AGENTS_STEPS)}
               <div class="bar-bg"><div class="bar-fill bar-agents" style="width:${agentsPct}%"></div></div>
               ${agentsPct}%
             </div>

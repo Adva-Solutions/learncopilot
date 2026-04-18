@@ -52,7 +52,6 @@ export default async function handler(req, res) {
       personalization: hasContent ? templateOverrides : null,
       clientName: null,
       logoUrl: null,
-      department: user.department || null,
     });
   }
 
@@ -84,6 +83,5 @@ export default async function handler(req, res) {
     personalization,
     clientName: client.name || null,
     logoUrl: client.logoUrl || null,
-    department: user.department || null,
   });
 }

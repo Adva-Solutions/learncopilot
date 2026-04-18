@@ -58,7 +58,7 @@ As of Apr 2026 Vercel is connected to this GitHub repo. You should not normally 
 - **Rollback**: on the Vercel dashboard, find the previous healthy deployment → *Promote to Production*. Fast path.
 - **Manual deploy** (only if auto-deploy is broken): `vercel --prod`. Needs `vercel link` to have been run once.
 
-Production URL: https://learncopilot-sigma.vercel.app
+Production URL: https://learncopilot.adva-solutions.com
 
 ## 5. Workflow conventions
 
