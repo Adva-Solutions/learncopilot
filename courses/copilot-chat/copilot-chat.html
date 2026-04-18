@@ -674,7 +674,7 @@ async function renderMapCallout(courseId, lessonIdx) {
   const callout = document.createElement('div');
   callout.className = 'map-callout';
   callout.innerHTML = `<strong>Relevant to your opportunity map:</strong> ${links}`;
-  const content = document.querySelector('#lesson-content .content') || document.getElementById('lesson-content');
+  const content = document.querySelector('#lesson-content .tab-content') || document.getElementById('lesson-content');
   if (content) {
     const existing = content.querySelector('.map-callout');
     if (existing) existing.remove();
@@ -686,6 +686,92 @@ async function renderMapCallout(courseId, lessonIdx) {
 <script src="lessons.js"></script>
 <script src="../lesson-runtime.js"></script>
 <script>
+  /* ── Per-course renderers: chat legacy HTML shape ── */
+
+  function chatRenderLesson() {
+    var s = window.LessonRuntime.getState();
+    if (!s) return;
+    var LESSONS = s.lessons;
+    var currentLesson = s.currentLesson;
+    var currentTab = s.currentTab;
+    var completed = s.completed;
+
+    var lesson = LESSONS[currentLesson];
+    var isDone = completed.includes(currentLesson);
+    var html = '';
+
+    // Step header
+    var headerLabel = currentLesson < CORE_COUNT ? 'Lesson ' + (currentLesson + 1) + ' — ' : 'Bonus — ';
+    html += '<div class="step-header">';
+    html += '<h2>' + headerLabel + lesson.title + '</h2>';
+    if (lesson.points > 0) {
+      html += '<span class="pts-badge">' + lesson.points + ' points</span>';
+    }
+    html += '</div>';
+
+    // Tabs
+    html += '<div class="tabs">';
+    html += '<button class="tab-btn' + (currentTab === 'learn' ? ' active' : '') + '" onclick="switchTab(' + currentLesson + ',\'learn\')">Learn</button>';
+    html += '<button class="tab-btn' + (currentTab === 'implement' ? ' active' : '') + '" onclick="switchTab(' + currentLesson + ',\'implement\')">Exercises</button>';
+    html += '<button class="tab-btn' + (currentTab === 'advanced' ? ' active' : '') + '" onclick="switchTab(' + currentLesson + ',\'advanced\')">Advanced</button>';
+    html += '</div>';
+
+    // Content
+    html += '<div class="tab-content">';
+    html += lesson[currentTab] || '<p>No content available for this tab.</p>';
+    html += '</div>';
+
+    document.getElementById('lesson-content').innerHTML = html;
+
+    // Auto-activate first option-content if present
+    var firstOpt = document.querySelector('.option-content');
+    if (firstOpt && !document.querySelector('.option-content.active')) {
+      firstOpt.classList.add('active');
+    }
+
+    // Update complete button state
+    if (currentTab === 'implement') {
+      var btn = document.getElementById('complete-btn-' + currentLesson);
+      if (btn && isDone) {
+        btn.textContent = 'Completed \u2713';
+        btn.classList.add('completed');
+        btn.disabled = true;
+      }
+    }
+
+    restoreExerciseChecks(currentLesson, currentTab);
+    renderMapCallout('chat', currentLesson);
+  }
+
+  function chatRenderNav() {
+    var s = window.LessonRuntime.getState();
+    if (!s) return;
+    var LESSONS = s.lessons;
+    var currentLesson = s.currentLesson;
+    var completed = s.completed;
+    var coreCount = s.coreCount;
+
+    var nav = document.getElementById('lesson-nav');
+    if (!nav) return;
+    var html = '';
+    LESSONS.forEach(function(lesson, i) {
+      if (i === coreCount) {
+        html += '<div class="nav-section-label" style="margin-top:8px">Bonus</div>';
+      }
+      var isDone = completed.includes(i);
+      var isActive = i === currentLesson;
+      var numLabel = i < coreCount ? 'L' + (i + 1) : 'Bonus';
+      html += '<div class="nav-item' + (isActive ? ' active' : '') + '" onclick="loadLesson(' + i + ')">';
+      html += '<div class="check' + (isDone ? ' done' : '') + '">' + (isDone ? '&#10003;' : '') + '</div>';
+      html += '<span><strong style="color:#0078d4;margin-right:6px;font-weight:700;">' + numLabel + '</strong>' + lesson.title + '</span>';
+      if (lesson.points > 0) {
+        html += '<span class="pts">' + lesson.points + ' pts</span>';
+      }
+      html += '</div>';
+    });
+    nav.innerHTML = html;
+  }
+
   window.addEventListener('lessonruntime:change', (e) => {
     const d = e.detail;
     if (typeof updateProgress === 'function') updateProgress(d.completed, d.lessons);
@@ -699,6 +785,8 @@ async function renderMapCallout(courseId, lessonIdx) {
     progressCategory: 'chat',
     lessons: window.LESSONS,
     coreCount: CORE_COUNT,
+    renderLesson: chatRenderLesson,
+    renderNav: chatRenderNav,
   });
 </script>
 </body>
