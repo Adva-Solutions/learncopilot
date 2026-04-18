@@ -433,8 +433,16 @@ async function apiFetch(url, opts = {}) {
   });
   if (res.status === 401) {
     state.authenticated = false;
-    window.location.hash = '#login';
-    throw new Error('Not authenticated');
+    const body = await res.json().catch(() => ({}));
+    const currentHash = window.location.hash || '#login';
+    // Only redirect to login if we're not already there. Setting the hash
+    // while on '#login' (including initial-load empty hash) would fire
+    // hashchange → route() → renderLogin() and wipe any error message the
+    // caller's catch block is about to show.
+    if (currentHash !== '#login') {
+      window.location.hash = '#login';
+    }
+    throw new Error(body.error || 'Not authenticated');
   }
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
