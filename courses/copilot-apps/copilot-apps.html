@@ -219,6 +219,22 @@ async function loadMapDoc() {
     return _mapCache;
   } catch { _mapCache = false; return false; }
 }
+function updateProgress(completedIndices, lessons) {
+  const coreCompleted = completedIndices.filter(i => i < CORE_COUNT).length;
+  const corePts = completedIndices.filter(i => i < CORE_COUNT).reduce((s, i) => s + (lessons[i] ? lessons[i].points : 0), 0);
+  const totalPts = completedIndices.reduce((s, i) => s + (lessons[i] ? lessons[i].points : 0), 0);
+  const bonusPts = totalPts - corePts;
+  const labelEl = document.getElementById('progressLabel');
+  const ptsEl = document.getElementById('progressPts');
+  const fillEl = document.getElementById('progressFill');
+  if (labelEl) labelEl.textContent = `${coreCompleted} / ${CORE_COUNT} core steps`;
+  if (ptsEl) ptsEl.textContent = bonusPts > 0
+    ? `${corePts} / ${CORE_POINTS} pts · +${bonusPts} bonus`
+    : `${corePts} / ${CORE_POINTS} pts`;
+  const pct = CORE_POINTS > 0 ? Math.min(100, Math.round((corePts / CORE_POINTS) * 100)) : 0;
+  if (fillEl) fillEl.style.width = pct + '%';
+}
+
 async function renderMapCallout(courseId, lessonIdx) {
   const key = `${courseId}:${lessonIdx}`;
   const tags = MAP_FEATURE_TAGS[key];
@@ -241,6 +257,15 @@ async function renderMapCallout(courseId, lessonIdx) {
 <script src="lessons.js"></script>
 <script src="../lesson-runtime.js"></script>
 <script>
+  window.addEventListener('lessonruntime:change', (e) => {
+    const d = e.detail;
+    if (typeof updateProgress === 'function') {
+      updateProgress(d.completed, d.lessons);
+    }
+    if (typeof renderMapCallout === 'function') {
+      renderMapCallout(d.courseId, d.currentLesson);
+    }
+  });
   window.LessonRuntime.initCourse({
     courseId: 'copilot-apps',
     progressCategory: 'apps',
