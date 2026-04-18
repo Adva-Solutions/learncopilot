@@ -220,8 +220,8 @@ async function loadMapDoc() {
   } catch { _mapCache = false; return false; }
 }
 function updateProgress(completedIndices, lessons) {
-  const coreCompleted = completedIndices.filter(i => i < CORE_COUNT).length;
-  const corePts = completedIndices.filter(i => i < CORE_COUNT).reduce((s, i) => s + (lessons[i] ? lessons[i].points : 0), 0);
+  const coreCompleted = completedIndices.filter(i => lessons[i] && !lessons[i].bonus).length;
+  const corePts = completedIndices.filter(i => lessons[i] && !lessons[i].bonus).reduce((s, i) => s + lessons[i].points, 0);
   const totalPts = completedIndices.reduce((s, i) => s + (lessons[i] ? lessons[i].points : 0), 0);
   const bonusPts = totalPts - corePts;
   const labelEl = document.getElementById('progressLabel');
@@ -302,12 +302,11 @@ async function renderMapCallout(courseId, lessonIdx) {
   const callout = document.createElement('div');
   callout.className = 'map-callout';
   callout.innerHTML = `<strong>Relevant to your opportunity map:</strong> ${links}`;
-  const content = document.querySelector('#lesson-content .content') || document.getElementById('lesson-content');
-  if (content) {
-    const existing = content.querySelector('.map-callout');
-    if (existing) existing.remove();
-    content.prepend(callout);
-  }
+  const content = document.querySelector('#lesson-content .content');
+  if (!content) return;
+  const existing = content.querySelector('.map-callout');
+  if (existing) existing.remove();
+  content.prepend(callout);
 }
 </script>
 <style>.map-callout{background:#fffaea;border:1px solid #e8c46a;padding:8px 12px;margin-bottom:12px;font-size:13px;border-radius:4px}.map-callout a{text-decoration:none;border-bottom:1px dashed #1a2230;color:#1a2230}.map-callout a:hover{border-bottom-style:solid}</style>

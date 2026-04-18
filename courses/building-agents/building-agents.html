@@ -640,8 +640,8 @@ const CORE_POINTS = 155;
 
 /* ── Update sidebar progress display ── */
 function updateProgress(completedIndices, lessons) {
-  const core = completedIndices.filter(i => i < CORE_COUNT).length;
-  const corePts = completedIndices.filter(i => i < CORE_COUNT).reduce((s, i) => s + (lessons[i] ? lessons[i].points : 0), 0);
+  const core = completedIndices.filter(i => lessons[i] && !lessons[i].bonus).length;
+  const corePts = completedIndices.filter(i => lessons[i] && !lessons[i].bonus).reduce((s, i) => s + lessons[i].points, 0);
   const totalPts = completedIndices.reduce((s, i) => s + (lessons[i] ? lessons[i].points : 0), 0);
   const bonusPts = totalPts - corePts;
   const pct = Math.min(100, Math.round((core / CORE_COUNT) * 100));
@@ -833,7 +833,7 @@ function restoreExerciseChecks(currentLesson, currentTab) {
   /* ── Per-course renderers: agents legacy HTML shape ── */
 
   function getCoreCompleted(lessons, completed, coreCount) {
-    return completed.filter(i => i < coreCount).length;
+    return completed.filter(i => lessons[i] && !lessons[i].bonus).length;
   }
 
   function getCompletedPoints(lessons, completed) {
@@ -921,7 +921,7 @@ function restoreExerciseChecks(currentLesson, currentTab) {
 
     const core = getCoreCompleted(LESSONS, completed, coreCount);
     const pct = Math.min(100, Math.round((core / coreCount) * 100));
-    const corePts = completed.filter(i => i < coreCount).reduce((s2, i) => s2 + (LESSONS[i] ? LESSONS[i].points : 0), 0);
+    const corePts = completed.filter(i => LESSONS[i] && !LESSONS[i].bonus).reduce((s2, i) => s2 + LESSONS[i].points, 0);
     const bonusPts = getCompletedPoints(LESSONS, completed) - corePts;
     const ptEl = document.getElementById('progress-text');
     const ptsEl = document.getElementById('points-text');
