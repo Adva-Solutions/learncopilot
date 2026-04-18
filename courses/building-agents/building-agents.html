@@ -744,7 +744,7 @@ async function renderMapCallout(courseId, lessonIdx) {
   const callout = document.createElement('div');
   callout.className = 'map-callout';
   callout.innerHTML = `<strong>Relevant to your opportunity map:</strong> ${links}`;
-  const content = document.querySelector('#lesson-content .content') || document.getElementById('lesson-content');
+  const content = document.querySelector('#lesson-content .tab-content.active') || document.getElementById('lesson-content');
   if (content) {
     const existing = content.querySelector('.map-callout');
     if (existing) existing.remove();
@@ -757,7 +757,7 @@ async function renderMapCallout(courseId, lessonIdx) {
    author steps as paragraphs, not ordered lists, so we decorate those
    in-place rather than restructuring. */
 function transformExerciseLists() {
-  const scope = document.querySelector('#lesson-content .content');
+  const scope = document.getElementById('tab-implement');
   if (!scope) return;
   // (a) <ol> → <ul class="exercise-check">
   scope.querySelectorAll('ol').forEach(ol => {
@@ -806,7 +806,7 @@ function saveExerciseChecks(all) {
 }
 function restoreExerciseChecks(currentLesson, currentTab) {
   if (currentTab !== 'implement') return;
-  const scope = document.querySelector('#lesson-content .content');
+  const scope = document.getElementById('tab-implement');
   if (!scope) return;
   const all = loadExerciseChecks();
   const mine = all[currentLesson] || [];
@@ -830,6 +830,109 @@ function restoreExerciseChecks(currentLesson, currentTab) {
 <script src="lessons.js"></script>
 <script src="../lesson-runtime.js"></script>
 <script>
+  /* ── Per-course renderers: agents legacy HTML shape ── */
+
+  function getCoreCompleted(lessons, completed, coreCount) {
+    return completed.filter(i => i < coreCount).length;
+  }
+
+  function getCompletedPoints(lessons, completed) {
+    return completed.reduce((sum, i) => sum + (lessons[i] ? lessons[i].points : 0), 0);
+  }
+
+  function agentsRenderLesson() {
+    const s = window.LessonRuntime.getState();
+    if (!s) return;
+    const LESSONS = s.lessons;
+    const currentLesson = s.currentLesson;
+    const currentTab = s.currentTab;
+    const completed = s.completed;
+
+    const l = LESSONS[currentLesson];
+    const done = completed.includes(currentLesson);
+    const main = document.getElementById('lesson-content');
+    if (!main) return;
+
+    main.innerHTML = `
+    <div class="lesson-header">
+      <div class="lesson-number">${l.bonus ? 'Bonus' : 'Lesson ' + (currentLesson + 1)}</div>
+      <h2>${l.title}</h2>
+      <div class="lesson-meta">
+        <span>${l.points} points</span>
+        ${done ? '<span style="color:#7b5ea7;font-weight:600;">&#10003; Completed</span>' : ''}
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab ${currentTab === 'learn' ? 'active' : ''}" onclick="switchTab('learn')">Learn</div>
+      <div class="tab ${currentTab === 'implement' ? 'active' : ''}" onclick="switchTab('implement')">Exercises</div>
+      <div class="tab ${currentTab === 'advanced' ? 'active' : ''}" onclick="switchTab('advanced')">Advanced</div>
+    </div>
+
+    <div class="tab-content content ${currentTab === 'learn' ? 'active' : ''}" id="tab-learn">
+      ${l.learn}
+      <button class="continue-btn" onclick="switchTab('implement')">Continue to Exercises &#8594;</button>
+    </div>
+
+    <div class="tab-content content ${currentTab === 'implement' ? 'active' : ''}" id="tab-implement">
+      ${l.implement}
+      <button class="mark-complete-btn" onclick="markComplete(${currentLesson})" ${done ? 'disabled' : ''}>
+        ${done ? '&#10003; Completed' : '&#10003; Mark Complete'}
+      </button>
+    </div>
+
+    <div class="tab-content content ${currentTab === 'advanced' ? 'active' : ''}" id="tab-advanced">
+      ${l.advanced}
+    </div>
+  `;
+
+    transformExerciseLists();
+    restoreExerciseChecks(currentLesson, currentTab);
+    renderMapCallout('agents', currentLesson);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function agentsRenderNav() {
+    const s = window.LessonRuntime.getState();
+    if (!s) return;
+    const LESSONS = s.lessons;
+    const currentLesson = s.currentLesson;
+    const completed = s.completed;
+    const coreCount = s.coreCount;
+
+    const nav = document.getElementById('lesson-nav');
+    if (!nav) return;
+    nav.innerHTML = LESSONS.map((l, i) => {
+      const done = completed.includes(i);
+      const active = i === currentLesson;
+      let cls = 'nav-item';
+      if (active) cls += ' active';
+      if (done) cls += ' completed';
+      const numLabel = l.bonus ? 'Bonus' : 'L' + (i + 1);
+      return `
+      <div class="${cls}" onclick="goToLesson(${i})">
+        <div class="nav-icon">${done ? '&#10003;' : i + 1}</div>
+        <span class="nav-label"><strong style="color:#7b5ea7;margin-right:6px;font-weight:700;">${numLabel}</strong>${l.title}</span>
+        ${l.bonus ? '<span class="nav-badge">Bonus</span>' : ''}
+        <span class="nav-pts">${l.points} pts</span>
+      </div>`;
+    }).join('');
+
+    const core = getCoreCompleted(LESSONS, completed, coreCount);
+    const pct = Math.min(100, Math.round((core / coreCount) * 100));
+    const corePts = completed.filter(i => i < coreCount).reduce((s2, i) => s2 + (LESSONS[i] ? LESSONS[i].points : 0), 0);
+    const bonusPts = getCompletedPoints(LESSONS, completed) - corePts;
+    const ptEl = document.getElementById('progress-text');
+    const ptsEl = document.getElementById('points-text');
+    const fillEl = document.getElementById('progress-fill');
+    if (ptEl) ptEl.textContent = `${core} / ${coreCount} core lessons`;
+    if (ptsEl) ptsEl.textContent = bonusPts > 0
+      ? `${corePts} / ${CORE_POINTS} pts · +${bonusPts} bonus`
+      : `${corePts} / ${CORE_POINTS} pts`;
+    if (fillEl) fillEl.style.width = pct + '%';
+  }
+
   window.addEventListener('lessonruntime:change', (e) => {
     const d = e.detail;
     if (typeof updateProgress === 'function') updateProgress(d.completed, d.lessons);
@@ -844,6 +947,8 @@ function restoreExerciseChecks(currentLesson, currentTab) {
     progressCategory: 'agents',
     lessons: window.LESSONS,
     coreCount: CORE_COUNT,
+    renderLesson: agentsRenderLesson,
+    renderNav: agentsRenderNav,
   });
 </script>
 </body>
