@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Department Narratives — Workshop Arc</title>
+<script>
+/* Admin-only gate. Checks /api/admin/auth before rendering. */
+(async function () {
+  try {
+    const res = await fetch('/api/admin/auth', { credentials: 'include' });
+    if (!res.ok) { window.location.href = '/admin.html#login'; return; }
+    const data = await res.json();
+    if (!data || !data.authenticated) {
+      window.location.href = '/admin.html#login';
+      return;
+    }
+    document.documentElement.style.visibility = 'visible';
+  } catch (e) {
+    window.location.href = '/admin.html#login';
+  }
+})();
+</script>
+<style>html { visibility: hidden; }</style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Source Sans 3',sans-serif; background:#faf9f6; color:#1a1a2e; line-height:1.6; padding:40px 60px; }
+h1 { font-family:'Cormorant Garamond',serif; font-size:42px; font-weight:700; color:#0c1f3f; margin-bottom:8px; }
+.sub { color:#5a5a6e; font-size:17px; margin-bottom:40px; max-width:720px; }
+.legend { display:flex; gap:20px; margin-bottom:40px; flex-wrap:wrap; font-size:13px; }
+.legend-item { display:flex; align-items:center; gap:6px; }
+.legend-dot { width:12px; height:12px; border-radius:3px; }
+.c-chat { background:#0078d4; }
+.c-apps { background:#217346; }
+.c-agents { background:#7b5ea7; }
+.c-data { background:#c5973e; }
+
+.dept { margin-bottom:60px; background:#fff; border:1px solid #ddd8ce; border-radius:14px; padding:32px 36px; }
+.dept-header { display:flex; align-items:baseline; gap:16px; margin-bottom:8px; border-bottom:2px solid #ddd8ce; padding-bottom:16px; margin-bottom:24px; }
+.dept-name { font-family:'Cormorant Garamond',serif; font-size:30px; font-weight:700; color:#0c1f3f; }
+.dept-tag { font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; padding:4px 10px; border-radius:12px; background:#f0ede6; color:#5a5a6e; }
+.narrative { font-size:16px; color:#5a5a6e; margin-bottom:24px; font-style:italic; padding:14px 18px; background:#f8f6f1; border-left:3px solid #c5973e; border-radius:0 8px 8px 0; }
+.narrative strong { color:#1a1a2e; font-style:normal; }
+
+.arc { display:grid; grid-template-columns:repeat(8,1fr); gap:8px; margin-bottom:20px; }
+.arc-step { background:#fff; border:1px solid #ddd8ce; border-radius:8px; padding:10px 8px; text-align:center; font-size:11px; position:relative; }
+.arc-step.chat { border-top:3px solid #0078d4; }
+.arc-step.apps { border-top:3px solid #217346; }
+.arc-step.agents { border-top:3px solid #7b5ea7; }
+.arc-step .lesson { font-weight:700; font-size:12px; margin-bottom:4px; }
+.arc-step .action { color:#5a5a6e; line-height:1.3; }
+.arc-step:not(:last-child)::after {
+  content:'→'; position:absolute; right:-10px; top:50%; transform:translateY(-50%);
+  color:#c5973e; font-weight:700; z-index:1; font-size:14px;
+}
+
+table { width:100%; border-collapse:collapse; font-size:13px; margin-top:14px; }
+th { background:#0c1f3f; color:#fff; padding:10px 12px; text-align:left; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; }
+th:first-child { border-radius:8px 0 0 0; } th:last-child { border-radius:0 8px 0 0; }
+td { padding:10px 12px; border-bottom:1px solid #e8e4dc; vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+td.module { font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; white-space:nowrap; }
+td.chat-col { color:#0078d4; } td.apps-col { color:#217346; } td.agents-col { color:#7b5ea7; }
+.dataset { font-family:'IBM Plex Mono',monospace; font-size:11px; background:#fff9ed; padding:2px 6px; border-radius:4px; color:#8a6a2e; border:1px solid #f0e2b8; display:inline-block; margin:2px 0; }
+.output-tag { font-size:11px; background:#e8f5e9; color:#217346; padding:2px 8px; border-radius:8px; font-weight:600; display:inline-block; }
+.carry { font-size:11px; color:#999; font-style:italic; margin-top:4px; }
+.culmination { background:linear-gradient(135deg,#7b5ea7 0%,#9973c4 100%); color:#fff; padding:20px 24px; border-radius:10px; margin-top:20px; }
+.culmination h4 { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:700; margin-bottom:8px; }
+.culmination .agents { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:14px; }
+.culmination .agent { background:rgba(255,255,255,0.12); padding:14px 16px; border-radius:8px; font-size:13px; backdrop-filter:blur(10px); }
+.culmination .agent strong { display:block; font-size:14px; margin-bottom:4px; color:#fff; }
+.culmination .agent .source { font-family:'IBM Plex Mono',monospace; font-size:11px; opacity:0.8; margin-top:6px; }
+
+.email-row { background:#fffdf4 !important; }
+.email-row td { border-top:1px dashed #c5973e; }
+
+.meta { display:flex; gap:24px; margin-top:20px; padding-top:16px; border-top:1px solid #e8e4dc; font-size:12px; color:#999; }
+.meta strong { color:#1a1a2e; }
+
+@media(max-width:1200px) { .arc { grid-template-columns:repeat(4,1fr); } }
+@media(max-width:700px) { body { padding:20px; } .arc { grid-template-columns:repeat(2,1fr); } }
+</style>
+</head>
+<body>
+
+<h1>Workshop Arc — Per Department</h1>
+<p class="sub">Each department walks the same 8-lesson path, but with their own dataset, narrative, images, and final custom agents. Every lesson's output feeds the next. The arc culminates in Outlook — a peer-to-peer email to an ODA colleague who might be interested in applying AI to their own work, sharing what was produced without overstating. The journey ends with two custom agents: a <strong>Write Like Me</strong> (voice) and a <strong>department-specific</strong> agent (process).</p>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot c-chat"></div> Copilot Chat</div>
+  <div class="legend-item"><div class="legend-dot c-apps"></div> Copilot in Apps</div>
+  <div class="legend-item"><div class="legend-dot c-agents"></div> Building Agents</div>
+  <div class="legend-item"><div class="legend-dot c-data"></div> Department dataset</div>
+</div>
+
+<!-- ========================================================= -->
+<!-- ARCHITECTURE -->
+<!-- ========================================================= -->
+<div class="dept">
+  <div class="dept-header">
+    <div class="dept-name">Architecture</div>
+    <div class="dept-tag">Shore Club Facade Review</div>
+  </div>
+  <div class="narrative">
+    <strong>The story:</strong> Shore Club Fort Lauderdale has water infiltration at the curtain wall transitions. The student builds a knowledge base on building codes and the spec, synthesizes the facade review findings into a page, generates a <em>technical diagram of the waterproofing detail</em>, edits the review document live with the consultants, runs cost/trade analyses, then writes a friendly retrospective email to colleagues on the project team summarizing what Copilot helped produce — and invites them to try it too, before diving into agents. Finally, they build a voice agent and a Submittal QA agent that persists as a reusable tool.
+  </div>
+
+  <div class="arc">
+    <div class="arc-step chat"><div class="lesson">Chat L3</div><div class="action">Notebook</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L4</div><div class="action">Page</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L5</div><div class="action">Detail<br>Diagram</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Word</div><div class="action">Live Redline</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Excel</div><div class="action">Cost+Qual Viz</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Outlook</div><div class="action">Retro Email</div></div>
+    <div class="arc-step agents"><div class="lesson">Agents L1</div><div class="action">Research</div></div>
+    <div class="arc-step agents"><div class="lesson">Agents L2</div><div class="action">2 Agents</div></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Step</th><th>What they do</th><th>Data in</th><th>Data out</th></tr></thead>
+    <tbody>
+    <tr><td class="module chat-col">Chat L3 · Notebook</td>
+        <td>Build <em>Shore Club Project Knowledge Notebook</em>. Ask questions against building codes and the project spec — flag compliance risks at the facade transitions.</td>
+        <td><span class="dataset">nyc-residential-code-reference.pdf</span><br><span class="dataset">nyc-vs-florida-comparison.pdf</span><br><span class="dataset">project-spec-excerpt.pdf</span></td>
+        <td><span class="output-tag">Notebook</span></td></tr>
+    <tr><td class="module chat-col">Chat L4 · Page</td>
+        <td>Synthesize the review into a <em>Shore Club Facade Review Summary</em> page: decisions, action items by consultant, remediation timeline, open questions.</td>
+        <td>Shore Club notebook</td>
+        <td><span class="output-tag">Page</span></td></tr>
+    <tr><td class="module chat-col">Chat L5 · Image</td>
+        <td>Generate a <em>curtain wall waterproofing detail diagram</em> — cross-section showing the transition joint, flashing, weep path, and where infiltration is occurring. Edit with Cutout + annotation overlay. Save to Library, add to the Page as figure 1.</td>
+        <td>Page + detail requirements</td>
+        <td><span class="output-tag">Technical diagram</span></td></tr>
+    <tr><td class="module apps-col">Apps · Word</td>
+        <td>Export the Page to Word. Add a <em>Building Code References</em> appendix. Live co-edit with the principal in Track Changes mode — accept/reject redlines, compare v1 vs v2.</td>
+        <td>Page (exported) + code PDFs</td>
+        <td><span class="output-tag">Word doc v2</span></td></tr>
+    <tr><td class="module apps-col">Apps · Excel</td>
+        <td><strong>Quant:</strong> project hours + costs by trade; remediation cost projection. <strong>Qual:</strong> themes from consultant feedback in the review. <strong>Viz:</strong> trade cost breakdown + risk heatmap.</td>
+        <td><span class="dataset">oda-construction-costs.csv</span><br><span class="dataset">oda-project-tracking.csv</span></td>
+        <td><span class="output-tag">Excel workbook</span></td></tr>
+    <tr class="email-row"><td class="module apps-col">Apps · Outlook<br><em style="font-weight:400;font-size:10px;">culminating step</em></td>
+        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which ODA architects are working on projects with curtain wall or facade transition details right now?" It surfaces PMs on Harbor View, Riverside Tower, and Wynwood. <strong>Draft an email to one of them</strong> — peer to peer, referencing the waterproofing detail diagram, the consultant matrix, and the trade cost summary from the review. Tone: <em>"Saw you're wrapping CDs on Harbor View — we put together the Shore Club facade review this week using Copilot to ground everything in the project spec and code reference. Sharing because if you're hitting similar transition-joint questions, the approach might be useful. Not claiming it's faster or better — just a different way to pull the review together. Want to take a look?"</em> Edit inline, send.</td>
+        <td>Page + Diagram + Word doc + Excel charts (all produced in prior lessons)</td>
+        <td><span class="output-tag">Sent email</span> to an ODA architect peer</td></tr>
+    <tr><td class="module agents-col">Agents L1 · Pre-Built</td>
+        <td><strong>Researcher:</strong> "Research latest NYC accessibility requirements for residential buildings above 75 ft and how they differ from Florida." Export to Word, append to the code appendix.</td>
+        <td>Live web</td>
+        <td><span class="output-tag">Research report</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="culmination">
+    <h4>⭐ Final deliverable — 2 Custom Agents</h4>
+    <div class="agents">
+      <div class="agent">
+        <strong>Write Like Me</strong>
+        Drafts consultant coordination emails and redlines in the user's professional voice. Trained on last 100 sent emails.
+        <div class="source">Knowledge: Outlook email history</div>
+      </div>
+      <div class="agent">
+        <strong>Submittal QA Agent</strong>
+        Reviews incoming submittals against project specifications, flags items that don't match or come from unapproved manufacturers.
+        <div class="source">Knowledge: project-spec-excerpt.pdf + submittal-log.csv</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- HR -->
+<!-- ========================================================= -->
+<div class="dept">
+  <div class="dept-header">
+    <div class="dept-name">Human Resources</div>
+    <div class="dept-tag">AI-Enhanced Onboarding</div>
+  </div>
+  <div class="narrative">
+    <strong>The story:</strong> HR is piloting AI with new hires first. The student builds a knowledge base on policies and onboarding, synthesizes a launch brief, generates a <em>visual 90-day onboarding journey map</em>, redlines an updated handbook with the People team, analyzes headcount and exit themes, then sends a friendly email to hiring managers walking through what Copilot produced and inviting them to try it before agents come into play. Finally, they build a voice agent and an Onboarding Companion agent.
+  </div>
+
+  <div class="arc">
+    <div class="arc-step chat"><div class="lesson">Chat L3</div><div class="action">Notebook</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L4</div><div class="action">Page</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L5</div><div class="action">Journey<br>Map</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Word</div><div class="action">Handbook Redline</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Excel</div><div class="action">People Analysis</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Outlook</div><div class="action">Retro Email</div></div>
+    <div class="arc-step agents"><div class="lesson">Agents L1</div><div class="action">Research</div></div>
+    <div class="arc-step agents"><div class="lesson">Agents L2</div><div class="action">2 Agents</div></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Step</th><th>What they do</th><th>Data in</th><th>Data out</th></tr></thead>
+    <tbody>
+    <tr><td class="module chat-col">Chat L3 · Notebook</td>
+        <td>Build <em>HR Policies &amp; Onboarding Notebook</em>. Ask about leave policies, first-week schedules, compliance flags.</td>
+        <td><span class="dataset">employee-handbook-excerpt.pdf</span><br><span class="dataset">onboarding-checklist.pdf</span><br><span class="dataset">recruiting-pipeline.csv</span></td>
+        <td><span class="output-tag">Notebook</span></td></tr>
+    <tr><td class="module chat-col">Chat L4 · Page</td>
+        <td>Produce <em>Designer Onboarding — Residential Studio</em> page: 90-day plan, pre-start checklist, mentor assignments, HR notes.</td>
+        <td>HR notebook</td>
+        <td><span class="output-tag">Page</span></td></tr>
+    <tr><td class="module chat-col">Chat L5 · Image</td>
+        <td>Generate a <em>90-day onboarding journey map</em> — visual timeline showing week-by-week milestones (IT setup → Revit training → mentor check-ins → first project assignment → 90-day review). Edit with Color pop to highlight checkpoint weeks. Add to Page.</td>
+        <td>Page + onboarding checklist</td>
+        <td><span class="output-tag">Journey map</span></td></tr>
+    <tr><td class="module apps-col">Apps · Word</td>
+        <td>Open the Employee Handbook in Word. Add an <em>AI Usage Policy</em> section. Co-edit live with the People team using Track Changes for compliance review.</td>
+        <td><span class="dataset">employee-handbook-excerpt.pdf</span></td>
+        <td><span class="output-tag">Updated handbook</span></td></tr>
+    <tr><td class="module apps-col">Apps · Excel</td>
+        <td><strong>Quant:</strong> headcount by department, tenure distribution, ratio of open roles to hires. <strong>Qual:</strong> exit survey themes from recruiting pipeline notes. <strong>Viz:</strong> team composition sunburst + turnover trend.</td>
+        <td><span class="dataset">oda-resource-allocation.csv</span><br><span class="dataset">oda-team-directory.csv</span><br><span class="dataset">recruiting-pipeline.csv</span></td>
+        <td><span class="output-tag">People dashboard</span></td></tr>
+    <tr class="email-row"><td class="module apps-col">Apps · Outlook<br><em style="font-weight:400;font-size:10px;">culminating step</em></td>
+        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which hiring managers at ODA have designer roles open or new hires starting soon?" It surfaces 2–3 managers across residential and hospitality studios. <strong>Draft an email to one of them</strong> — peer to peer, referencing the 90-day onboarding journey map and the AI policy section added to the handbook. Tone: <em>"You mentioned a junior designer starting in the residential studio next month — sharing what we put together this week. We used Copilot to draft the 90-day journey map and the AI section for the handbook. Nothing groundbreaking, and we're still figuring out what's useful vs. what's noise. But if you want to see the approach before your new hire lands, happy to walk through it."</em> Edit and send.</td>
+        <td>Page + Journey map + Handbook v2 + People dashboard</td>
+        <td><span class="output-tag">Sent email</span> to an ODA hiring manager peer</td></tr>
+    <tr><td class="module agents-col">Agents L1 · Pre-Built</td>
+        <td><strong>Researcher:</strong> "Research how design and architecture firms (100-500 employees) structure onboarding for new designers and what they include about AI tools."</td>
+        <td>Live web</td>
+        <td><span class="output-tag">Best-practices report</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="culmination">
+    <h4>⭐ Final deliverable — 2 Custom Agents</h4>
+    <div class="agents">
+      <div class="agent">
+        <strong>Write Like Me</strong>
+        Drafts policy memos and candidate outreach in the HR manager's voice.
+        <div class="source">Knowledge: Outlook email history</div>
+      </div>
+      <div class="agent">
+        <strong>Onboarding Companion Agent</strong>
+        Answers new hire questions (software access, policies, benefits, who to ask) using the handbook and onboarding checklist. Guides them week by week.
+        <div class="source">Knowledge: employee-handbook-excerpt.pdf + onboarding-checklist.pdf</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- MARKETING -->
+<!-- ========================================================= -->
+<div class="dept">
+  <div class="dept-header">
+    <div class="dept-name">Marketing &amp; Communications</div>
+    <div class="dept-tag">Q2 Award Submissions</div>
+  </div>
+  <div class="narrative">
+    <strong>The story:</strong> Q2 has 4 award deadlines. The student builds a knowledge base on submissions in flight, synthesizes a tracker page, generates an <em>award-ready hero composite</em> using Image Editing deep-dive, redlines an award narrative with the creative director, analyzes campaign performance, then emails the marketing team + PR agency a retrospective. Finally, they build a voice agent and a Newsletter Generator.
+  </div>
+
+  <div class="arc">
+    <div class="arc-step chat"><div class="lesson">Chat L3</div><div class="action">Notebook</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L4</div><div class="action">Page</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L5</div><div class="action">Hero<br>Composite</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Word</div><div class="action">Narrative Redline</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Excel</div><div class="action">Campaign Viz</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Outlook</div><div class="action">Retro Email</div></div>
+    <div class="arc-step agents"><div class="lesson">Agents L1</div><div class="action">Research</div></div>
+    <div class="arc-step agents"><div class="lesson">Agents L2</div><div class="action">2 Agents</div></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Step</th><th>What they do</th><th>Data in</th><th>Data out</th></tr></thead>
+    <tbody>
+    <tr><td class="module chat-col">Chat L3 · Notebook</td>
+        <td>Build <em>Marketing &amp; Awards Pipeline Notebook</em>. Ask which submissions are highest-risk, which have photography ready.</td>
+        <td><span class="dataset">oda-awards-tracker.csv</span><br><span class="dataset">aia-award-narrative.pdf</span><br><span class="dataset">oda-newsletter-sample.pdf</span></td>
+        <td><span class="output-tag">Notebook</span></td></tr>
+    <tr><td class="module chat-col">Chat L4 · Page</td>
+        <td>Produce <em>Q2 Award Submission Tracker</em> page: Gantt, readiness checklist, narrative templates, photography schedule.</td>
+        <td>Marketing notebook</td>
+        <td><span class="output-tag">Page</span></td></tr>
+    <tr><td class="module chat-col">Chat L5 · Image</td>
+        <td>Generate an <em>award-ready hero composite</em> for the highest-priority submission. Deep dive with the Image Editing toolkit: Background blur, Object cutout, Color pop on the signature facade element, filters for brand tone. Add to Page as the campaign visual.</td>
+        <td>Project photo reference + brand prompt</td>
+        <td><span class="output-tag">Hero composite</span></td></tr>
+    <tr><td class="module apps-col">Apps · Word</td>
+        <td>Open <em>aia-award-narrative.pdf</em> in Word. Use Reference to pull in the case study. Live redline with the creative director. Compare v1 vs v2.</td>
+        <td><span class="dataset">aia-award-narrative.pdf</span><br><span class="dataset">case-study-harbor-view.txt</span></td>
+        <td><span class="output-tag">Narrative v2</span></td></tr>
+    <tr><td class="module apps-col">Apps · Excel</td>
+        <td><strong>Quant:</strong> engagement per campaign, cost per engagement. <strong>Qual:</strong> narrative tone themes across past winning submissions. <strong>Viz:</strong> channel performance bar + narrative sentiment timeline.</td>
+        <td><span class="dataset">oda-social-media-metrics.csv</span><br><span class="dataset">oda-awards-tracker.csv</span></td>
+        <td><span class="output-tag">Campaign dashboard</span></td></tr>
+    <tr class="email-row"><td class="module apps-col">Apps · Outlook<br><em style="font-weight:400;font-size:10px;">culminating step</em></td>
+        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Who at ODA works on award submissions, PR coordination, or newsletter production?" It surfaces a creative director peer, a marketing coordinator, and the PR agency lead. <strong>Draft an email to one of them</strong> — peer to peer, referencing the hero composite for the priority submission, the narrative v2 redlined with the creative director, and the campaign dashboard. Tone: <em>"With Q2 submissions coming up, thought I'd share how we assembled the tracker and hero composite this week — used Copilot to pull the narrative and channel data together. Not a transformation story, just a different way to work through it. Let me know if you want to see the approach before the deadline push."</em></td>
+        <td>Page + Hero composite + Narrative v2 + Campaign dashboard</td>
+        <td><span class="output-tag">Sent email</span> to an ODA marketing peer</td></tr>
+    <tr><td class="module agents-col">Agents L1 · Pre-Built</td>
+        <td><strong>Researcher:</strong> "Research top 3 competitor design firms' content strategies this quarter: channels, themes, engagement approaches."</td>
+        <td>Live web</td>
+        <td><span class="output-tag">Competitor report</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="culmination">
+    <h4>⭐ Final deliverable — 2 Custom Agents</h4>
+    <div class="agents">
+      <div class="agent">
+        <strong>Write Like Me</strong>
+        Drafts award narratives, campaign copy, and PR agency emails in ODA's brand voice.
+        <div class="source">Knowledge: Outlook email history + brand voice samples</div>
+      </div>
+      <div class="agent">
+        <strong>Newsletter Generator</strong>
+        Produces monthly project newsletters from raw project facts and an images folder, matching ODA's established voice and format.
+        <div class="source">Knowledge: oda-newsletter-sample.pdf + oda-awards-tracker.csv</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- EXECUTIVE -->
+<!-- ========================================================= -->
+<div class="dept">
+  <div class="dept-header">
+    <div class="dept-name">Executive &amp; Leadership</div>
+    <div class="dept-tag">Q1 QBR → Board AI Decision</div>
+  </div>
+  <div class="narrative">
+    <strong>The story:</strong> The Managing Principal needs to decide whether to greenlight org-wide AI adoption. The student builds an executive knowledge base from the Q1 QBR, synthesizes a decision brief page, generates a <em>board-ready QBR infographic</em>, redlines the board memo with the CEO, runs budget and leadership survey analyses, then sends a retrospective email to the leadership team. Finally, they build a voice agent and a Board Briefing Writer agent.
+  </div>
+
+  <div class="arc">
+    <div class="arc-step chat"><div class="lesson">Chat L3</div><div class="action">Notebook</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L4</div><div class="action">Page</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L5</div><div class="action">QBR<br>Infographic</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Word</div><div class="action">Memo Redline</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Excel</div><div class="action">Variance Viz</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Outlook</div><div class="action">Retro Email</div></div>
+    <div class="arc-step agents"><div class="lesson">Agents L1</div><div class="action">Research</div></div>
+    <div class="arc-step agents"><div class="lesson">Agents L2</div><div class="action">2 Agents</div></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Step</th><th>What they do</th><th>Data in</th><th>Data out</th></tr></thead>
+    <tbody>
+    <tr><td class="module chat-col">Chat L3 · Notebook</td>
+        <td>Build <em>Executive Project Overview Notebook</em>. Ask for 5-minute briefings, flag decisions needed, compare properties.</td>
+        <td><span class="dataset">oda-qbr-q1-2025.pdf</span><br><span class="dataset">property-summary-1.pdf</span><br><span class="dataset">property-summary-2.pdf</span></td>
+        <td><span class="output-tag">Notebook</span></td></tr>
+    <tr><td class="module chat-col">Chat L4 · Page</td>
+        <td>Produce <em>Weekly Project Status — Leadership Brief</em> page: active projects, top risks, staffing snapshot, pipeline update.</td>
+        <td>Exec notebook</td>
+        <td><span class="output-tag">Page</span></td></tr>
+    <tr><td class="module chat-col">Chat L5 · Image</td>
+        <td>Generate a <em>board-ready Q1 QBR infographic</em> — one-page visual with revenue/margin headline, top 3 risks, staffing health indicator. Navy + white + single gold accent. Add to Page.</td>
+        <td>Page + QBR data</td>
+        <td><span class="output-tag">Infographic</span></td></tr>
+    <tr><td class="module apps-col">Apps · Word</td>
+        <td>Produce a <em>Board Briefing Memo</em> via Word Copilot from the QBR. Live redline with the CEO using Track Changes. Voice-profile mode for executive tone.</td>
+        <td><span class="dataset">oda-qbr-q1-2025.pdf</span></td>
+        <td><span class="output-tag">Board memo v2</span></td></tr>
+    <tr><td class="module apps-col">Apps · Excel</td>
+        <td><strong>Quant:</strong> budget vs actual by department, variance flags &gt;10%. <strong>Qual:</strong> leadership pulse survey themes. <strong>Viz:</strong> variance waterfall + risk heatmap.</td>
+        <td><span class="dataset">oda-monthly-financials.csv</span><br><span class="dataset">oda-project-tracking.csv</span></td>
+        <td><span class="output-tag">Exec dashboard</span></td></tr>
+    <tr class="email-row"><td class="module apps-col">Apps · Outlook<br><em style="font-weight:400;font-size:10px;">culminating step</em></td>
+        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which other ODA principals or senior leaders work on quarterly reporting or board materials?" It surfaces a fellow principal, the CFO, and the ops lead. <strong>Draft an email to one of them</strong> — peer to peer, referencing the one-page QBR infographic, the memo with the CEO's redlines, and the variance summary. Tone: <em>"Put together the Q1 board prep this morning using Copilot — infographic, memo draft, variance summary. Sharing because I know you're heading into your own board cycle soon. Not a silver bullet, and I'm still working out the format, but curious what you think of the one-pager. Happy to show the approach if it's useful."</em></td>
+        <td>Page + Infographic + Memo v2 + Exec dashboard</td>
+        <td><span class="output-tag">Sent email</span> to an ODA leadership peer</td></tr>
+    <tr><td class="module agents-col">Agents L1 · Pre-Built</td>
+        <td><strong>Researcher:</strong> "Research industry benchmarks for AI adoption ROI in professional services firms over the past 3 years." Cite sources.</td>
+        <td>Live web</td>
+        <td><span class="output-tag">ROI benchmark report</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="culmination">
+    <h4>⭐ Final deliverable — 2 Custom Agents</h4>
+    <div class="agents">
+      <div class="agent">
+        <strong>Write Like Me</strong>
+        Drafts board memos, investor notes, and leadership emails in the Principal's executive voice.
+        <div class="source">Knowledge: Outlook email history</div>
+      </div>
+      <div class="agent">
+        <strong>Board Briefing Writer</strong>
+        Generates future QBRs from raw data. Asks for the reporting period, then pulls from financials and resource data to produce a full briefing in the established format.
+        <div class="source">Knowledge: oda-qbr-q1-2025.pdf (as template) + property-summary-*.pdf</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- OPERATIONS -->
+<!-- ========================================================= -->
+<div class="dept">
+  <div class="dept-header">
+    <div class="dept-name">Operations</div>
+    <div class="dept-tag">Resource Allocation Optimization</div>
+  </div>
+  <div class="narrative">
+    <strong>The story:</strong> The Operations lead has been chasing utilization gaps manually. The student builds a resource-planning knowledge base, synthesizes a weekly overview page, generates a <em>studio-by-week utilization heatmap</em>, redlines the resource-planning SOP, runs utilization and bottleneck analyses, then emails the project managers and studio leads a retrospective. Finally, they build a voice agent and a Resource Alert Agent.
+  </div>
+
+  <div class="arc">
+    <div class="arc-step chat"><div class="lesson">Chat L3</div><div class="action">Notebook</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L4</div><div class="action">Page</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L5</div><div class="action">Utilization<br>Heatmap</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Word</div><div class="action">SOP Redline</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Excel</div><div class="action">Utilization Viz</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Outlook</div><div class="action">Retro Email</div></div>
+    <div class="arc-step agents"><div class="lesson">Agents L1</div><div class="action">Analyst</div></div>
+    <div class="arc-step agents"><div class="lesson">Agents L2</div><div class="action">2 Agents</div></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Step</th><th>What they do</th><th>Data in</th><th>Data out</th></tr></thead>
+    <tbody>
+    <tr><td class="module chat-col">Chat L3 · Notebook</td>
+        <td>Build <em>Operations &amp; Resource Planning Notebook</em>. Ask for overallocated team members, upcoming project starts, utilization patterns.</td>
+        <td><span class="dataset">oda-resource-allocation.csv</span><br><span class="dataset">oda-project-tracking.csv</span><br><span class="dataset">oda-monthly-financials.csv</span></td>
+        <td><span class="output-tag">Notebook</span></td></tr>
+    <tr><td class="module chat-col">Chat L4 · Page</td>
+        <td>Produce <em>Weekly Resource Overview</em> page: team table, reallocation opportunities, contractor staffing, upcoming project starts.</td>
+        <td>Ops notebook</td>
+        <td><span class="output-tag">Page</span></td></tr>
+    <tr><td class="module chat-col">Chat L5 · Image</td>
+        <td>Generate a <em>studio-by-week utilization heatmap</em> — studios on the Y-axis, weeks on the X-axis, color-coded by load (red &gt;100%, green 70–95%, gray &lt;60%). Edit with Color pop to emphasize the hotspots. Add to Page.</td>
+        <td>Resource data summary</td>
+        <td><span class="output-tag">Heatmap</span></td></tr>
+    <tr><td class="module apps-col">Apps · Word</td>
+        <td>Open the Resource Planning SOP in Word. Add a reallocation workflow section. Live co-edit with studio leads (Track Changes + comments).</td>
+        <td>SOP doc + ops page</td>
+        <td><span class="output-tag">Updated SOP</span></td></tr>
+    <tr><td class="module apps-col">Apps · Excel</td>
+        <td><strong>Quant:</strong> utilization by person + project (billable / capacity). <strong>Qual:</strong> bottleneck themes from PM comments. <strong>Viz:</strong> Pareto of top vendor costs + utilization trend.</td>
+        <td><span class="dataset">oda-resource-allocation.csv</span><br><span class="dataset">oda-construction-costs.csv</span></td>
+        <td><span class="output-tag">Ops dashboard</span></td></tr>
+    <tr class="email-row"><td class="module apps-col">Apps · Outlook<br><em style="font-weight:400;font-size:10px;">culminating step</em></td>
+        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which ODA PMs or studio leads deal with resource allocation across projects?" It surfaces a studio lead in the hospitality group and two senior PMs. <strong>Draft an email to one of them</strong> — peer to peer, referencing the studio utilization heatmap, the new reallocation workflow in the SOP, and the utilization trend charts. Tone: <em>"Been working through resource planning with Copilot this week — put together a studio-by-week heatmap and a reallocation workflow for the SOP. Not a silver bullet, and I'm not sure yet which parts will stick. But if you want to compare notes on how we're sizing capacity, happy to share what we tried."</em></td>
+        <td>Page + Heatmap + Updated SOP + Ops dashboard</td>
+        <td><span class="output-tag">Sent email</span> to an ODA PM or studio lead peer</td></tr>
+    <tr><td class="module agents-col">Agents L1 · Pre-Built</td>
+        <td><strong>Analyst:</strong> Upload the resource allocation CSV. "Analyze utilization across the last 6 months. Flag anyone consistently over 100% or under 60%. Create a weekly trend chart."</td>
+        <td><span class="dataset">oda-resource-allocation.csv</span></td>
+        <td><span class="output-tag">Utilization report</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="culmination">
+    <h4>⭐ Final deliverable — 2 Custom Agents</h4>
+    <div class="agents">
+      <div class="agent">
+        <strong>Write Like Me</strong>
+        Drafts reallocation emails, PM updates, and weekly ops summaries in the ops lead's voice.
+        <div class="source">Knowledge: Outlook email history</div>
+      </div>
+      <div class="agent">
+        <strong>Resource Alert Agent</strong>
+        Weekly: scans resource allocation data, flags team members over 100% or under 60%, proposes reallocation options, drafts a notification for studio leads.
+        <div class="source">Knowledge: oda-resource-allocation.csv + oda-project-tracking.csv</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- SUMMARY -->
+<!-- ========================================================= -->
+<div class="dept" style="background:linear-gradient(135deg,#f8f6f1 0%,#fff 100%); border:2px solid #c5973e;">
+  <div class="dept-header" style="border-bottom-color:#c5973e;">
+    <div class="dept-name">The Pattern</div>
+    <div class="dept-tag" style="background:#c5973e; color:#fff;">Common Arc</div>
+  </div>
+  <p style="font-size:15px; color:#5a5a6e; margin-bottom:20px;">
+    Every department walks the same 8-step journey. What changes is the dataset, the narrative, the image type, and the final custom agent that codifies the department's unique process. The email in Outlook is the <em>culminating Apps step</em> — a friendly retrospective before agents, referencing what was <strong>produced</strong> (not the original datasets), with a warm recommendation.
+  </p>
+  <table>
+    <thead><tr><th>Step</th><th>What it always does</th><th>What it changes per dept</th></tr></thead>
+    <tbody>
+    <tr><td class="module chat-col">Chat L3 · Notebook</td><td>Ground on 3 PDFs + persistent chat</td><td>Source documents</td></tr>
+    <tr><td class="module chat-col">Chat L4 · Page</td><td>Synthesize into shareable doc</td><td>Output structure</td></tr>
+    <tr><td class="module chat-col">Chat L5 · Image</td><td>Produce a <strong>narrative-specific</strong> visual</td><td>Diagram, journey map, hero composite, infographic, heatmap</td></tr>
+    <tr><td class="module apps-col">Apps · Word</td><td>Live edit + Track Changes + multi-file reference</td><td>Document type being edited</td></tr>
+    <tr><td class="module apps-col">Apps · Excel</td><td>Quant + Qual + Viz together</td><td>Metrics + themes + chart type</td></tr>
+    <tr class="email-row"><td class="module apps-col">Apps · Outlook</td><td><strong>Find an ODA colleague who'd be interested, draft a peer-to-peer share referencing produced outputs, no overstating</strong></td><td>ODA peer recipient + outputs referenced</td></tr>
+    <tr><td class="module agents-col">Agents L1 · Researcher/Analyst</td><td>Deepen one aspect of narrative</td><td>Question or dataset</td></tr>
+    <tr><td class="module agents-col">Agents L2 · 2 Custom Agents</td><td><strong>Write Like Me</strong> + <strong>Dept-specific agent</strong></td><td>Department process codified</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:28px; padding:18px 22px; background:#fffdf4; border-left:3px solid #c5973e; border-radius:0 8px 8px 0;">
+    <strong style="font-family:'Cormorant Garamond',serif; font-size:18px; color:#0c1f3f;">The peer-to-peer email pattern</strong>
+    <p style="font-size:14px; color:#5a5a6e; margin-top:8px; line-height:1.7;">
+      In every department, the Outlook lesson is the <em>culminating Apps step</em>. Copilot is used in an integrated, practical way to: (1) surface an ODA colleague who'd be interested in seeing AI applied to their own work practice, (2) reference the actual outputs produced in prior lessons (Page, Image, Word v2, Excel dashboard), (3) tell the story in a peer-to-peer tone without overstating — no claims about time saved, efficiency gains, or transformation, (4) close with an open invitation to compare notes, not a pitch. The student experiences their workshop progress as a concrete thing they can share with a colleague, in their own tentative, grounded voice.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
