@@ -176,6 +176,13 @@ function markComplete(index) {
   if (btn) { btn.innerHTML = '&#10003; Completed'; btn.classList.add('completed'); }
   scheduleFlush();
   dispatchChange();
+  // Auto-advance to the next lesson after a brief pause so the "completed"
+  // state is visible. No-op on the last lesson.
+  if (index + 1 < state.lessons.length && index === state.currentLesson) {
+    setTimeout(() => {
+      if (state && state.currentLesson === index) gotoLesson(index + 1);
+    }, 700);
+  }
 }
 
 function repaintNav() {

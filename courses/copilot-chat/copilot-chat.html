@@ -598,8 +598,8 @@ fetch('/api/me').then(function(r) {
 
 /* ── Progress bar update ── */
 function updateProgress(completedIndices, lessons) {
-  var coreCompleted = completedIndices.filter(function(i) { return i < CORE_COUNT; }).length;
-  var corePoints = completedIndices.filter(function(i) { return i < CORE_COUNT; }).reduce(function(s, i) { return s + (lessons[i] ? lessons[i].points : 0); }, 0);
+  var coreCompleted = completedIndices.filter(function(i) { return lessons[i] && !lessons[i].bonus; }).length;
+  var corePoints = completedIndices.filter(function(i) { return lessons[i] && !lessons[i].bonus; }).reduce(function(s, i) { return s + lessons[i].points; }, 0);
   var totalPoints = completedIndices.reduce(function(s, i) { return s + (lessons[i] ? lessons[i].points : 0); }, 0);
   var bonusPoints = totalPoints - corePoints;
   var labelEl = document.getElementById('progress-label');
