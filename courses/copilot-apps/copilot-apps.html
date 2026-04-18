@@ -192,44 +192,40 @@ const LESSONS = [
 
 <h3>Copilot in Outlook</h3>
 <p>Let's start with Outlook, where most of your day begins.</p>
-<p>Think of Copilot in Outlook as having a smart assistant who reads your email before you do and hands you a summary. You walk in, and your briefing is ready.</p>
-<p>Here are the three features you will use most:</p>
+<p>Think of Copilot in Outlook as an assistant who reads your email before you do and hands you a briefing. You walk in, and your day is already organized.</p>
 
-<h4>Summarize Threads</h4>
-<p>Open any long email thread and look for the <strong>"Summary by Copilot"</strong> banner at the top. Click it, and Copilot condenses the entire conversation into key decisions, requests, and open questions. No more re-reading 20 replies to find the one action item buried at the bottom.</p>
+<h4>Summarize threads</h4>
+<p>Open any long email thread and look for the <strong>"Summarize by Copilot"</strong> banner at the top. Click it, and Copilot condenses the entire conversation into the key decisions, requests, and open questions. No more re-reading 20 replies to find the one action item buried at the bottom. <a href="https://support.microsoft.com/office/summarize-an-email-thread-with-copilot-in-outlook-a79873f2-396b-46dc-b852-7fe5947ab640" target="_blank">Microsoft's guide →</a></p>
 
-<h4>Draft Replies</h4>
-<p>In any compose window, click the <strong>Copilot icon</strong>. Tell it what you want to say&mdash;for example, "Accept the meeting but suggest Thursday instead"&mdash;and Copilot writes a full reply you can review and send.</p>
+<h4>Draft replies with tone and length control</h4>
+<p>In any compose window, click the <strong>Copilot icon → Draft with Copilot</strong>. Tell it what you want to say — <em>"Accept the meeting but suggest Thursday instead"</em> — and Copilot writes a full reply. The draft panel has built-in controls to <strong>make it shorter / longer / more formal / more casual</strong>, so you can iterate without retyping. <a href="https://support.microsoft.com/office/draft-an-email-message-with-copilot-in-outlook-3eb1d053-89b8-491c-8a6e-746015238d9b" target="_blank">Microsoft's guide →</a></p>
 
-<h4>Inbox Triage</h4>
-<p>Open Copilot Chat in the Outlook sidebar and ask: <span class="inline-code">What needs my attention?</span> Copilot surfaces time-sensitive messages, action items assigned to you, and emails from key stakeholders.</p>
+<h4>Summarize attachments</h4>
+<p>Rolled out in August 2025: when a thread has a <strong>PDF, Word, or PowerPoint attachment</strong>, Copilot can summarize the attached document without you opening it. Ask <em>"Give me a one-paragraph summary of the permit PDF attached to this thread"</em> and Copilot handles it inline. Works in Outlook web and the new Outlook for Windows. <a href="https://learn.microsoft.com/microsoft-365/copilot/release-notes#august-19,-2025" target="_blank">Release note →</a></p>
 
-<h4>What's New</h4>
-<p><strong>Voice triage on mobile:</strong> The Outlook mobile app now reads your unread emails aloud and lets you reply, archive, or flag by voice&mdash;great for commutes. <strong>Email actions via Chat:</strong> You can now say things like <span class="inline-code">Flag emails from my manager I haven't replied to</span> and Copilot executes the action.</p>
+<h4>Inbox triage — let Copilot run your morning</h4>
+<p>Open Copilot Chat in the Outlook sidebar and ask:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What emails need my attention today? Prioritize by urgency and flag anything with a deadline this week or a direct ask from my manager.</code></div>
+<p>Copilot surfaces time-sensitive messages, action items assigned to you, and emails from key stakeholders. Then you can chain follow-ups: <em>"Flag the two most urgent and archive anything older than a week I haven't replied to."</em> Copilot executes the action — not just describes it.</p>
+
+<h4>Smart time insights when scheduling</h4>
+<p>When you compose a meeting invite inside Outlook, Copilot now suggests <strong>optimal meeting times</strong> based on attendee availability and your existing calendar — the Scheduling Assistant surfaced right in the compose flow. <a href="https://support.microsoft.com/office/how-do-i-use-the-the-scheduling-assistant-to-find-meeting-times-bdd6c165-4186-45f1-ad9e-5af067ac69a3" target="_blank">Scheduling Assistant →</a></p>
+
+<h4>Meeting Recap in Calendar</h4>
+<p>After a Teams meeting ends, open the event from your <strong>Outlook Calendar</strong> — Copilot has already filled in the <em>meeting summary</em>, <em>mentions</em>, <em>tasks</em>, and recap notes. Useful if you missed the meeting, joined late, or need to catch up async. Bridges the Outlook and Teams modules.</p>
 
 <div class="tip-box">
-  <div class="tip-title">Building on the Chat Module</div>
-  <p>You learned prompting techniques and the "You Ask Me" approach in the Chat module. Those same skills apply here — but now Copilot can see your actual emails, documents, and calendar. Specific prompts with context still beat vague requests.</p>
+  <div class="tip-title">Building on the Chat module</div>
+  <p>You learned prompting, Custom Instructions, and the "Talk to Your Data" approach in the Chat module. Those same skills apply here — but now Copilot runs <em>inside</em> Outlook, so it can see the open email, the compose draft, and the thread you're replying to. Specific prompts with context still beat vague requests.</p>
 </div>
 `,
   implement: `
 <h3>Exercise: Summarize and Draft in Outlook</h3>
 
-<div class="note-box">
-  <div class="note-title">Practice Email Threads</div>
-  <p>If you do not have a real email thread with 3+ replies handy, open one of these ODA sample threads and paste it into a new email to yourself, then use Copilot on that thread:</p>
-  <ul>
-    <li><a href="/mock-data/emails/consultant-coordination.txt" download>Consultant Coordination</a> — facade waterproofing review with structural engineer</li>
-    <li><a href="/mock-data/emails/contract-redlines.txt" download>Contract Red-Lines</a> — legal counsel contract negotiation with fee and insurance terms</li>
-    <li><a href="/mock-data/emails/client-scheduling.txt" download>Client Scheduling</a> — design presentation reschedule with stakeholder back-and-forth</li>
-    <li><a href="/mock-data/emails/permit-timeline.txt" download>Permit Timeline</a> — Shore Club permit submission coordination across departments</li>
-    <li><a href="/mock-data/emails/pr-award-submission.txt" download>PR &amp; Awards</a> — award submission deadlines and photography coordination</li>
-    <li><a href="/mock-data/emails/executive-travel.txt" download>Executive Travel</a> — Dubai trip planning with flights, meetings, and itinerary</li>
-  </ul>
-</div>
+<p><em>Use a real thread from your inbox. If your mail is empty or you'd rather not touch live mail, scroll to the bottom of this page for six pre-made ODA sample threads you can paste into a test email.</em></p>
 
 <ol>
-<li>Open <strong>Outlook</strong>. Find an email thread with at least 3 replies (or use one of the sample threads above).</li>
+<li>Open <strong>Outlook</strong>. Find an email thread with at least 3 replies.</li>
 <li>Click the <strong>Copilot icon</strong> at the top of the reading pane.</li>
 <li>Click "Summarize" (or type the prompt below):
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize this email thread. List the key decisions, any action items assigned to me, and any deadlines or deliverables mentioned.</code></div></li>
@@ -240,6 +236,9 @@ const LESSONS = [
 <li>Review the draft. Click <strong>Regenerate</strong> to see an alternative version. Compare the two and pick the better one.</li>
 <li>When you are happy with the draft, click <strong>Edit</strong> to place it into the email body. You can now make final tweaks manually.</li>
 <li>Click <strong>Send</strong> when ready — or close without sending if this was just practice.</li>
+<li><strong>Attachments:</strong> pick a thread (or sample thread below) that has a PDF, Word, or PowerPoint attached. Click the <strong>Copilot icon</strong> in the reading pane and send:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize the attachment on this email. Flag anything that's a decision point for me or has a deadline in the next two weeks.</code></div>
+You now have the key takeaways without opening the file.</li>
 </ol>
 
 <p><strong>Iterate:</strong> Read the output. Then send one of these refinement prompts:</p>
@@ -250,7 +249,20 @@ const LESSONS = [
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  Does the summary capture the key decisions — or did it miss something important? Did you use Edit to place the draft into the email body? Is it ready to send, or does it need another pass?
+  Does the summary capture the key decisions — or did it miss something important? Did you use Edit to place the draft into the email body? Did you get an attachment summary back? Is the reply ready to send, or does it need another pass?
+</div>
+
+<div class="note-box" style="margin-top:24px;">
+  <div class="note-title">Sample email threads (fallback)</div>
+  <p>Use these if your email connection isn't working, or if you'd rather practice on canned content than a real thread. Open one, paste it into a new email to yourself, then run Copilot against that thread:</p>
+  <ul>
+    <li><a href="/mock-data/emails/consultant-coordination.txt" download>Consultant Coordination</a> — facade waterproofing review with structural engineer</li>
+    <li><a href="/mock-data/emails/contract-redlines.txt" download>Contract Red-Lines</a> — legal counsel contract negotiation with fee and insurance terms</li>
+    <li><a href="/mock-data/emails/client-scheduling.txt" download>Client Scheduling</a> — design presentation reschedule with stakeholder back-and-forth</li>
+    <li><a href="/mock-data/emails/permit-timeline.txt" download>Permit Timeline</a> — Shore Club permit submission coordination across departments</li>
+    <li><a href="/mock-data/emails/pr-award-submission.txt" download>PR &amp; Awards</a> — award submission deadlines and photography coordination</li>
+    <li><a href="/mock-data/emails/executive-travel.txt" download>Executive Travel</a> — Dubai trip planning with flights, meetings, and itinerary</li>
+  </ul>
 </div>
 `,
   advanced: `
@@ -272,16 +284,9 @@ const LESSONS = [
 <h4>Voice Triage (Mobile)</h4>
 <p>On Outlook mobile, Copilot can read your unread emails aloud and let you reply, archive, or flag by voice — hands-free inbox management on your commute.</p>
 
-<h4>Scheduled Prompts for Email Reports</h4>
-<p>Go to the <strong>three-dot menu</strong> in Copilot Chat and click <strong>Scheduled prompts</strong>. Set up a recurring email digest that runs automatically:</p>
-
-<p><strong>Daily morning briefing:</strong></p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize my unread emails from since yesterday. Flag anything urgent or time-sensitive. List any meetings I have today with a one-line prep note for each.</code></div>
-
-<p><strong>Weekly project summary:</strong></p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Review all my emails from the past week related to active projects. For each project, summarize: key updates, decisions made, open action items, and anything overdue. Format as a table.</code></div>
-
-<p>Schedule the daily briefing for every weekday at 8:30 AM and the weekly summary for Friday at 4 PM. Results will be waiting in Copilot when you open it.</p>
+<div class="note-box">
+  <strong>Want these on autopilot?</strong> The Copilot Chat module's <em>Talk to Your Data</em> lesson (L3) walks through setting these up as <strong>scheduled prompts</strong> — a daily briefing that runs every morning, a Friday project pulse that runs itself.
+</div>
 `
 },
 

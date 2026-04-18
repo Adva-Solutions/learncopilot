@@ -843,124 +843,137 @@ When the interview is complete, output the results formatted as a Copilot Custom
 `
 },
 
-// ── 2: Copilot Search ──
+// ── 2: Talk to Your Data ──
 {
-  id: 'copilot-search',
-  title: 'Copilot Search',
+  id: 'talk-to-your-data',
+  title: 'Talk to Your Data',
   points: 10,
   learn: `
-<h3>Find Anything in Your Organization</h3>
-<p><em>You configured Copilot to know you. Now learn how to find anything across your organization — files, emails, meetings, people. You will rely on Search in almost every lesson that follows, so it earns its place here, before you start building notebooks and pages on top of it.</em></p>
+<h3>Your Copilot Is Wired Into Your Work</h3>
+<p><em>Copilot is not just a chat window. It is connected to your Outlook, your calendar, your colleagues' free/busy, and the files across your whole organization. In this lesson you stop talking to a chatbot and start talking to <strong>your data</strong>.</em></p>
 
-<p>Copilot gives you two distinct search surfaces, and they work differently. Using the wrong one is the most common reason people think "Copilot can't find my file."</p>
+<p>Five capabilities you will use every single day. Same box, plain English:</p>
 
-<h4>1. The <span style="font-family:monospace;">/</span> (Slash) Reference in Chat — Exact Match Only</h4>
-<p>Typing <strong>/</strong> in the message box opens a picker for <strong>pulling a specific file, person, or email into your prompt as context</strong>. It is <strong>not</strong> natural language. You need to type the actual filename, the person's name, or the exact subject line — just like @-mentioning someone in Outlook.</p>
-<ul>
-  <li><span class="inline-code">/Shore Club Spec v3.docx</span> — pulls that exact file into your prompt as a reference.</li>
-  <li><span class="inline-code">/Sarah Chen</span> — pulls that person's profile into context.</li>
-  <li><span class="inline-code">/Re: Permit submission timeline</span> — pulls that email thread.</li>
-</ul>
-<p>If you do not know the exact name, the slash picker will not help you. Use the Search tab or a natural-language Work-mode prompt instead.</p>
-
-<h4>2. The Search tab in the sidebar — for files, not conversations</h4>
-<p>Click <strong>Search</strong> in the left sidebar. This searches <strong>your Microsoft 365 content</strong> — documents, emails, meeting content — across OneDrive, SharePoint, Outlook, and Teams. It is not a search over your past Copilot conversations; it is a search over your work.</p>
-
-<h4>3. Natural-language search from the chat</h4>
-<p>Within a regular chat (Work mode on), you can just ask. Copilot Search understands what you <strong>mean</strong>:</p>
-<ul>
-  <li><span class="inline-code">Where is the spreadsheet that breaks down project costs by phase?</span></li>
-  <li><span class="inline-code">Show me everything related to the Fort Lauderdale project from the last 2 months</span></li>
-  <li><span class="inline-code">What was decided in last Tuesday's design review about the facade materials?</span></li>
-  <li><span class="inline-code">Who has experience with waterproofing specifications?</span></li>
-</ul>
-
-<h4>What Copilot Search Covers</h4>
-<ul>
-  <li><strong>Files:</strong> OneDrive, SharePoint, Teams files — even if you do not remember the filename</li>
-  <li><strong>Emails:</strong> Any email in your mailbox, searchable by content, sender, date, or topic</li>
-  <li><strong>Meetings:</strong> Transcripts, recaps, and notes from Teams meetings</li>
-  <li><strong>People:</strong> Find colleagues by expertise, project involvement, or document authorship</li>
-  <li><strong>Messages:</strong> Teams chats and channel conversations</li>
-</ul>
-
-<h4>Scheduling and "connect the dots" queries live in the chat</h4>
-<p>More complex, multi-tool requests — scheduling, finding a person + a file + a meeting all at once — happen in the regular chat, not in the Search tab. Example: "Schedule a 30-min meeting with Sarah and Keith next Tuesday to discuss the facade review" — Copilot pulls from your calendar and theirs, finds a time, drafts the invite. That kind of cross-tool chaining cannot happen inside the Search tab.</p>
+<ol>
+  <li><strong>Query your email</strong> — "Which emails need my attention today?"</li>
+  <li><strong>Deep-dive a specific email or thread</strong> — "Find the Shore Club permit thread. What was decided, what's open, what do I owe?"</li>
+  <li><strong>Ask about your calendar</strong> — "What does my day look like?" "Any conflicts Thursday?"</li>
+  <li><strong>Schedule with colleagues</strong> — "Find 30 minutes next week with /Sarah and /Keith to discuss the facade review."</li>
+  <li><strong>Copilot Search</strong> — natural-language queries across your entire company's documentation: "Find everything about the Fort Lauderdale project from the last two months."</li>
+</ol>
 
 <div class="tip-box">
-  <div class="tip-title">Rule of thumb</div>
-  <p><strong>Know the exact name?</strong> Use <span style="font-family:monospace;">/</span> in chat. <strong>Looking up a file by content / topic?</strong> Use the Search tab or a natural-language chat prompt. <strong>Doing anything multi-step (schedule, cross-reference, find-a-person-then-their-docs)?</strong> Stay in chat.</p>
+  <div class="tip-title">The slash <span style="font-family:monospace;">/</span> trick — pull in specific people, files, or emails</div>
+  <p>Typing <strong>/</strong> in the message box opens a picker. Start typing a name, a filename, or an email subject and Copilot adds it to your prompt as a live reference. It is the fastest way to tell Copilot <em>exactly</em> which person or document you mean.</p>
+  <ul>
+    <li><span class="inline-code">/Sarah Chen</span> — references that person in your prompt (used constantly for scheduling).</li>
+    <li><span class="inline-code">/Shore Club Spec v3.docx</span> — pulls that file into context.</li>
+    <li><span class="inline-code">/Re: Permit submission timeline</span> — pulls that specific email thread.</li>
+  </ul>
+  <p>Whenever you type a colleague's name, a filename, or an email subject in a prompt, use <strong>/</strong> instead — Copilot binds to the exact entity rather than guessing.</p>
+</div>
+
+<h4>What Copilot Search covers</h4>
+<p>Files (OneDrive, SharePoint, Teams), emails, Teams meeting transcripts, people, and Teams messages. All searchable by <em>content</em> — you don't need to know the filename. This is the big one: <strong>plain-English search across your organization's documentation</strong>.</p>
+
+<div class="note-box">
+  <strong>Rule of thumb</strong> — know the exact name of a person/file/email? Use <strong>/</strong>. Asking about <em>your</em> data (email, calendar, meetings)? Natural-language prompt. Searching across the company's documentation? Copilot Search — in the Search tab or just ask in chat.
 </div>
 
 <button class="continue-btn" onclick="switchTab(2,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Search Your Organization's Data</h3>
+<h3>Talk to Your Data — Five Hands-On Prompts</h3>
+<p>Make sure you are in <strong>Work mode</strong> (not Web) throughout. Each card has a prompt to try.</p>
 
-<p>The exercises are split into two buckets because the tools are different. Make sure you are in <strong>Work mode</strong> (not Web) throughout.</p>
-
-<h3>Bucket A — Search tab (exact-match lookups)</h3>
-<p>These go in the <strong>Search</strong> tab in the left sidebar. Expect exact matches on file name, person, or email subject.</p>
-
-<h4>Exercise A1: Find a document by exact name</h4>
-<p><strong>1.</strong> Open the <strong>Search</strong> tab. Type the exact filename (or part of it) of a Shore Club document you know exists in your org — e.g., <em>Shore Club Spec</em>. Pick the right result from the list.</p>
-
-<h4>Exercise A2: Find a specific person</h4>
-<p><strong>2.</strong> In Search, type a colleague's name. Open their profile and notice what appears — recent files they authored, meetings you share, email threads. This is where <strong>/</strong> in chat draws from when you reference them.</p>
-
-<h4>Exercise A3: Find a specific email</h4>
-<p><strong>3.</strong> In Search, paste the exact subject line of a recent email ("Re: Permit submission timeline" or similar). Confirm the thread opens.</p>
-
-<div class="note-box">
-  <strong>Reminder:</strong> The Search tab is not natural language. If you do not know the exact name, do not waste your time here — jump to Bucket B.
+<div class="exercise-card">
+  <div class="exercise-card-num">1</div>
+  <div class="exercise-card-body">
+    <h4>Query your email</h4>
+    <p><strong>Do:</strong> In a fresh chat, send this prompt. Copilot scans your inbox and surfaces what actually matters.</p>
+    <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Which emails need my attention today? Prioritize by urgency and flag anything with a deadline this week or a direct ask from my manager. List sender, subject, and the specific action I need to take.</code></div>
+    <p><strong>Why:</strong> This is the fastest inbox triage you can do. Instead of reading every thread, you get the filtered list of what's important — right now.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
 </div>
 
-<h3>Bucket B — Chat (natural language + multi-step workflows)</h3>
-<p>These go in a regular <strong>Work-mode chat</strong>. Copilot chains tools — calendar, email, files, meetings — in a single response.</p>
+<div class="exercise-card">
+  <div class="exercise-card-num">2</div>
+  <div class="exercise-card-body">
+    <h4>Deep-dive a specific email or thread</h4>
+    <p><strong>Do:</strong> Now pick one of the threads Copilot surfaced (or use <strong>/</strong> to reference an email subject you know) and drill in:</p>
+    <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find the email thread about the Shore Club permit timeline. Summarize what was decided, who owns each next step, and list anything still unresolved. Quote the specific sentences that back up each point.</code></div>
+    <p><strong>Why:</strong> Good for threads with 20+ replies where the decision is buried in the middle. Copilot reads everything and gives you the decision + owners in one pass.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
+</div>
 
-<h4>Exercise B1: Find documents by content (not filename)</h4>
-<p><strong>4.</strong> Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find all documents related to the Shore Club Fort Lauderdale project that were modified in the last 30 days. Include permit submissions, consultant correspondence, and design review notes.</code></div>
-<p><strong>5.</strong> Did Copilot return real files? Click one to confirm it opens. Narrow the results:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>From those results, show me only files related to the Shore Club or Riverside Tower projects.</code></div>
+<div class="exercise-card">
+  <div class="exercise-card-num">3</div>
+  <div class="exercise-card-body">
+    <h4>Ask about your calendar</h4>
+    <p><strong>Do:</strong> Send this:</p>
+    <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What does my calendar look like tomorrow? Flag any back-to-back meetings or conflicts, and give me a one-line prep note for each meeting — based on the invite description and any recent emails with the attendees.</code></div>
+    <p><strong>Why:</strong> This is your morning briefing. Copilot cross-references invites with recent email to build context — so you walk into each meeting knowing why it exists and what's likely to come up.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
+</div>
 
-<h4>Exercise B2: People discovery by expertise</h4>
-<p><strong>6.</strong> Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Who in my organization has worked on documents about consultant coordination, permit submissions, or construction administration? List their names and the specific files they edited.</code></div>
+<div class="exercise-card">
+  <div class="exercise-card-num">4</div>
+  <div class="exercise-card-body">
+    <h4>Schedule with colleagues — use <span style="font-family:monospace;">/</span> to pick people</h4>
+    <p><strong>Do:</strong> Type the prompt below. When you hit each <strong>/</strong>, Copilot opens a picker — start typing a colleague's name and pick them from the list. That binds Copilot to their actual calendar:</p>
+    <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find 30 minutes next week for /[colleague 1] and /[colleague 2] and me to discuss the Shore Club facade material review. Check everyone's availability, suggest the best slot, and draft the invite with an agenda.</code></div>
+    <p><strong>Why:</strong> Using <strong>/</strong> instead of typing a name prevents Copilot from guessing the wrong person (two Sarahs in your org) and pulls the actual free/busy for the real invitees. Copilot uses the <em>Scheduling Assistant</em> behind the scenes.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
+</div>
 
-<h4>Exercise B3: Search Teams meetings</h4>
-<p><strong>7.</strong> Send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Search my recent Teams meetings for any discussion about Shore Club deadlines, permit timelines, or CD submission dates. What was decided and who has outstanding action items?</code></div>
-
-<h4>Exercise B4: Schedule a meeting with real people</h4>
-<p><strong>8.</strong> Replace the names with real colleagues and send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Schedule a 30-minute meeting with [name 1] and [name 2] sometime next week to discuss the Shore Club facade material review and permit submission timeline. Check everyone's availability and suggest the best time.</code></div>
-<p><strong>9.</strong> Copilot proposes a time. Confirm and it creates the calendar invite with an agenda.</p>
-
-<h4>Exercise B5: Connect the dots (multi-step)</h4>
-<p><strong>10.</strong> The payoff query — find a file, identify who made it, then search meetings where the topic came up:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Connect the dots: find the latest Shore Club permit submission document, tell me who submitted it, and search for any meetings in the last month where the Shore Club permit timeline was discussed.</code></div>
-
-<p class="personalization-note">[PERSONALIZED: swap search queries with organization-specific project names, document types, and colleague names from Listen Labs interviews]</p>
+<div class="exercise-card">
+  <div class="exercise-card-num">5</div>
+  <div class="exercise-card-body">
+    <h4>Copilot Search — plain-English search across the company</h4>
+    <p><strong>Do:</strong> Send this natural-language query. No filenames, no keywords — just describe what you need:</p>
+    <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find everything related to the Fort Lauderdale Shore Club project from the last two months. Include permit submissions, consultant correspondence, design review notes, and any meetings where it was discussed. Group by type.</code></div>
+    <p><strong>Why:</strong> This is the superpower — you can now search your entire organization's documentation in plain English. No more hunting through SharePoint folders. If it exists in your tenant and you have access, Copilot can find it.</p>
+    <label class="exercise-check"><input type="checkbox"> Done</label>
+  </div>
+</div>
 
 <div class="note-box">
-  <strong>Success check:</strong> You have done both — exact-match lookups in the Search tab, and natural-language + multi-tool workflows in chat. The split is the whole point of this lesson: use the right surface for the right kind of question.
+  <strong>Success check:</strong> You've triaged email, deep-dived a thread, read your calendar, scheduled a meeting using <strong>/</strong> to reference real colleagues, and searched across your whole org in natural language. You're no longer "using a chatbot" — you're querying your work.
 </div>
+
+<p class="personalization-note">[PERSONALIZED: swap prompt examples with organization-specific project names, colleague names, and email subjects from Listen Labs interviews]</p>
 
 <button class="mark-complete-btn" id="complete-btn-2" onclick="markComplete(2)">Mark Complete</button>
 `,
   advanced: `
-<h3>Search Tips</h3>
-<p>Copilot Search works best when you:</p>
-<ul>
-  <li><strong>Describe what you're looking for</strong>, not the filename: "the proposal we sent to the client in March" beats "proposal_v3_final.docx"</li>
-  <li><strong>Add time constraints:</strong> "from the last 2 weeks" or "before our December deadline"</li>
-  <li><strong>Name people:</strong> "files Sarah shared" or "emails from the structural engineer"</li>
-  <li><strong>Chain searches:</strong> Start broad, then narrow with follow-up prompts</li>
-</ul>
+<h3>Scheduled Prompts — put these queries on autopilot</h3>
+<p>Every prompt you just ran can run <strong>automatically</strong> on a schedule, with the results waiting for you when you open Copilot. Open the <strong>three-dot menu (top right) → Scheduled prompts</strong> and set one up.</p>
 
-<h3>Organizational Search Tips</h3>
-<p>The quality of Copilot Search depends on your organization's data hygiene. Descriptive filenames, consistent folder structures, and storing files in SharePoint (not personal OneDrive) all improve search accuracy. If you're responsible for a team's files, invest 30 minutes in organizing shared folders — it pays off every time someone searches.</p>
+<h4>Daily morning briefing (every weekday at 8:30 AM)</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize any emails from overnight and this morning that need my attention. Flag anything urgent or time-sensitive. Then list my meetings today with a one-line prep note for each, pulling context from the invite description and any recent email threads with the attendees.</code></div>
+
+<h4>Weekly project pulse (Friday 4 PM)</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Review all my emails from the past week related to active projects. For each project, summarize: key updates, decisions made, open action items, and anything overdue. Format as a table.</code></div>
+
+<h4>Monday catch-up (Monday 8 AM)</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize my unread emails from the weekend. Flag anything urgent. List meetings I have this week that need prep, grouped by day.</code></div>
+
+<p>Scheduled prompts are Copilot's version of automation — no one has to remember to run them, and the digest is waiting when you land in Copilot each morning.</p>
+
+<h3>Delegate calendar search</h3>
+<p>If you manage someone else's calendar (executive assistant, chief of staff), you can now search their meetings directly in Copilot Chat — no more jumping to Outlook. Ask: <em>"What planning meetings does [manager name] have next week? Any conflicts with his travel days?"</em> Copilot respects delegate permissions and returns their calendar alongside yours. <a href="https://support.microsoft.com/topic/use-copilot-search-in-calendar-items-as-a-delegate-2227730b-4d67-4156-8a1c-dccac8fe6577" target="_blank">Microsoft's full guide →</a></p>
+
+<h3>Search hygiene that pays off</h3>
+<ul>
+  <li><strong>Describe what you're looking for</strong>, not the filename: "the proposal we sent to the client in March" beats "proposal_v3_final.docx".</li>
+  <li><strong>Add time constraints:</strong> "from the last 2 weeks" or "before our December deadline."</li>
+  <li><strong>Chain searches:</strong> start broad, then narrow with follow-up prompts.</li>
+  <li><strong>Org-level:</strong> descriptive filenames, consistent folder structures, and storing files in SharePoint (not personal OneDrive) make every Copilot Search across your company better.</li>
+</ul>
 `
 },
 
@@ -1581,29 +1594,26 @@ When the interview is complete, output the results formatted as a Copilot Custom
 `
 },
 
-// ── 8: Bonus: Voice & Scheduled Prompts ──
+// ── 8: Bonus: Voice ──
 {
-  id: 'voice-scheduled',
-  title: 'Bonus: Voice & Scheduling',
+  id: 'voice',
+  title: 'Bonus: Voice',
   points: 10,
   learn: `
-<h3>Two Features You Should Try Before You Leave</h3>
+<h3>Talk to Copilot, Literally</h3>
 
-<h4>1. Voice Conversation</h4>
-<p>Copilot has two voice features:</p>
-<ul>
-  <li><strong>Microphone icon (dictation):</strong> Click the microphone in the chat box to dictate text. Copilot transcribes your speech into the message box. Good for typing prompts hands-free.</li>
-  <li><strong>Voice mode icon (sound waves):</strong> Click the sound waves icon to start a full voice conversation. You speak, Copilot speaks back. It is like a phone call with an AI — no typing at all. Try it for brainstorming, thinking through a problem, or when you are away from your keyboard.</li>
-</ul>
+<p>Copilot has two voice features — and they are surprisingly different from typing. Try both before you leave the workshop.</p>
 
-<h4>2. Scheduled Prompts</h4>
-<p>Click the <strong>three-dot menu</strong> (top right) and select <strong>Scheduled prompts</strong>. This lets you set up recurring AI tasks that run automatically:</p>
-<ul>
-  <li>"Every Monday at 9 AM, summarize my unread emails and flag anything urgent"</li>
-  <li>"Every Friday, compile my completed tasks from Teams into a weekly summary"</li>
-  <li>"Every morning, check my calendar and prepare a briefing of today's meetings"</li>
-</ul>
-<p>Scheduled prompts are Copilot's version of automation — they run in the background and have results waiting for you when you open Copilot.</p>
+<h4>1. Microphone icon (dictation)</h4>
+<p>Click the <strong>microphone</strong> in the chat box to dictate text. Copilot transcribes your speech straight into the message box. Good for typing prompts hands-free — you still review before sending.</p>
+
+<h4>2. Voice mode icon (full conversation)</h4>
+<p>Click the <strong>sound-waves icon</strong> next to the message box to start a full voice conversation. You speak, Copilot speaks back. It is like a phone call with an AI — no typing at all. Try it for brainstorming, thinking through a problem, or when you are away from your keyboard.</p>
+
+<div class="tip-box">
+  <div class="tip-title">Why voice changes the conversation</div>
+  <p>Typing biases you toward well-formed requests. Voice lets you think out loud — half-formed ideas, "actually, what if…", trailing off mid-sentence. Copilot keeps up. For brainstorming and early-stage thinking, it is noticeably better than typing.</p>
+</div>
 
 <button class="continue-btn" onclick="switchTab(6,'implement')">Continue to Exercises &rarr;</button>
 `,
@@ -1624,14 +1634,8 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 [your dictated text is already above — just add this instruction before it]</code></div>
 
-<h4>Exercise 3: Set Up a Scheduled Prompt</h4>
-<p><strong>7.</strong> Click the <strong>three-dot menu</strong> (top right). Click <strong>Scheduled prompts</strong>.</p>
-<p><strong>8.</strong> Create a new scheduled prompt. Set it to run every Monday morning with this text:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize my unread emails from the weekend and this morning. Flag anything urgent or time-sensitive. List any meetings I have today with a one-line prep note for each.</code></div>
-<p><strong>9.</strong> Save the scheduled prompt. Next Monday, Copilot will run this automatically and have results waiting for you.</p>
-
 <div class="note-box">
-  <strong>Success check:</strong> You had a voice conversation (not just dictation) and set up a scheduled prompt for next week.
+  <strong>Success check:</strong> You had a full voice conversation (not just dictation) and you polished a dictated draft into a finished email.
 </div>
 
 <button class="mark-complete-btn" id="complete-btn-6" onclick="markComplete(6)">Mark Complete</button>
@@ -1646,6 +1650,10 @@ When the interview is complete, output the results formatted as a Copilot Custom
   <li>Microsoft Learn (learn.microsoft.com) — official training modules for Copilot</li>
   <li>Your organization's IT team — for questions about permissions, licensing, and data access</li>
 </ul>
+
+<div class="note-box">
+  <strong>Looking for scheduled prompts?</strong> They live in Lesson 3 (<em>Talk to Your Data</em>) where recurring email / calendar digests fit naturally.
+</div>
 `
 }
 ];
