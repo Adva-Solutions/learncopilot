@@ -239,7 +239,7 @@ function updateProgress(completedIndices, lessons) {
    Each <li> becomes a <label>-wrapped checkbox. Inline children (code
    blocks, <div>, nested lists) are preserved. */
 function transformExerciseLists() {
-  const scope = document.querySelector('#lesson-content .tab-content');
+  const scope = document.querySelector('#lesson-content .content');
   if (!scope) return;
   scope.querySelectorAll('ol').forEach(ol => {
     if (ol.closest('.exercise-check')) return; // already converted / nested
@@ -302,7 +302,7 @@ async function renderMapCallout(courseId, lessonIdx) {
   const callout = document.createElement('div');
   callout.className = 'map-callout';
   callout.innerHTML = `<strong>Relevant to your opportunity map:</strong> ${links}`;
-  const content = document.querySelector('#lesson-content .tab-content') || document.getElementById('lesson-content');
+  const content = document.querySelector('#lesson-content .content') || document.getElementById('lesson-content');
   if (content) {
     const existing = content.querySelector('.map-callout');
     if (existing) existing.remove();
@@ -331,6 +331,7 @@ async function renderMapCallout(courseId, lessonIdx) {
     courseId: 'copilot-apps',
     progressCategory: 'apps',
     lessons: window.LESSONS,
+    coreCount: CORE_COUNT,
   });
 </script>
 </body>
