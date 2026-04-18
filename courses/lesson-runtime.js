@@ -59,6 +59,12 @@ let state = null; // { courseId, progressCategory, lessons, currentLesson, curre
 
 function qs(id) { return document.getElementById(id); }
 
+const LOCAL_STORAGE_KEYS = {
+  'copilot-apps':    'apps-completed',
+  'copilot-chat':    'chat-completed-v2',
+  'building-agents': 'agents-completed',
+};
+
 function renderLesson(index) {
   if (!state) return;
   const L = state.lessons[index];
@@ -143,6 +149,7 @@ async function flush() {
     const r = await fetch('/api/progress', {
       method: 'POST',
       credentials: 'include',
+      keepalive: true,
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(body),
     });
@@ -166,23 +173,13 @@ async function loadServerProgress() {
 }
 
 function readLocalCompleted(courseId) {
-  const keyByCourse = {
-    'copilot-apps':    'apps-completed',
-    'copilot-chat':    'chat-completed-v2',
-    'building-agents': 'agents-completed',
-  };
-  const key = keyByCourse[courseId];
+  const key = LOCAL_STORAGE_KEYS[courseId];
   if (!key) return [];
   try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch (_) { return []; }
 }
 
 function clearLocalCompleted(courseId) {
-  const keyByCourse = {
-    'copilot-apps':    'apps-completed',
-    'copilot-chat':    'chat-completed-v2',
-    'building-agents': 'agents-completed',
-  };
-  const key = keyByCourse[courseId];
+  const key = LOCAL_STORAGE_KEYS[courseId];
   if (key) try { localStorage.removeItem(key); } catch (_) {}
 }
 
@@ -200,6 +197,9 @@ function installKeybinds() {
 }
 
 async function initCourse({ courseId, progressCategory, lessons }) {
+  // IMPORTANT 6: guard against empty lessons array
+  if (!lessons || lessons.length === 0) return;
+
   state = {
     courseId, progressCategory, lessons,
     currentLesson: 0,
@@ -210,26 +210,30 @@ async function initCourse({ courseId, progressCategory, lessons }) {
     flushTimer: null,
   };
 
-  const server = await loadServerProgress();
-  const local  = readLocalCompleted(courseId);
-  const mig    = window.LessonRuntime.computeLocalStorageMigration({
-    localCompleted: local, serverCompleted: server.completed, lessons,
-  });
+  // IMPORTANT 5: fast path — paint immediately with local data so users
+  // see content right away, even on slow networks.
+  const local = readLocalCompleted(courseId);
+  for (const i of local) state.completed.add(i);
 
-  for (const i of server.completed) state.completed.add(i);
-  if (mig.shouldWrite) {
-    for (const i of mig.mergedCompleted) state.completed.add(i);
-    scheduleFlush();
-  }
-  if (mig.shouldClearLocal) clearLocalCompleted(courseId);
-
-  // Deep-link from #lesson-<n> if present.
   const m = /^#lesson-(\d+)$/.exec(location.hash);
   const startIdx = m ? Math.min(Math.max(parseInt(m[1],10),0), lessons.length-1) : 0;
   state.currentLesson = startIdx;
 
   installKeybinds();
   renderLesson(state.currentLesson);
+
+  // Slow path — reconcile with server progress and repaint nav if needed.
+  const server = await loadServerProgress();
+  const mig = window.LessonRuntime.computeLocalStorageMigration({
+    localCompleted: local, serverCompleted: server.completed, lessons,
+  });
+  for (const i of server.completed) state.completed.add(i);
+  if (mig.shouldWrite) {
+    for (const i of mig.mergedCompleted) state.completed.add(i);
+    scheduleFlush();
+  }
+  if (mig.shouldClearLocal) clearLocalCompleted(courseId);
+  repaintNav();
 }
 
 function escapeHtml(s) {
