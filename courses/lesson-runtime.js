@@ -55,7 +55,7 @@ if (typeof window !== 'undefined') {
 // --- DOM layer (browser only) ---
 if (typeof window !== 'undefined') {
 
-let state = null; // { courseId, progressCategory, lessons, currentLesson, currentTab, completed: Set, pendingWrite: Promise|null, flushTimer: number|null }
+let state = null; // { courseId, progressCategory, lessons, coreCount, currentLesson, currentTab, completed: Set, pendingWrite: Promise|null, flushTimer: number|null }
 
 function qs(id) { return document.getElementById(id); }
 
@@ -89,23 +89,44 @@ function renderLesson(index) {
   state.currentLesson = index;
   const main = qs('lesson-content');
   if (!main) return;
+
   const tab = state.currentTab;
-  main.innerHTML = `
-    <div class="lesson-header">
-      <h1>${escapeHtml(L.title)} <span class="pts-badge">${L.points} pts</span></h1>
-    </div>
-    <div class="tabs">
-      <button class="tab-btn${tab==='learn'?' active':''}"     onclick="LessonRuntime.switchTab(${index},'learn')">Learn</button>
-      <button class="tab-btn${tab==='implement'?' active':''}" onclick="LessonRuntime.switchTab(${index},'implement')">Exercises</button>
-      <button class="tab-btn${tab==='advanced'?' active':''}"  onclick="LessonRuntime.switchTab(${index},'advanced')">Advanced</button>
-    </div>
-    <div class="tab-content content-animate">${L[tab] || ''}</div>
-    <div class="lesson-footer">
-      <button class="mark-complete-btn${state.completed.has(index)?' completed':''}"
-              onclick="LessonRuntime.markComplete(${index})">
-        ${state.completed.has(index) ? '✓ Completed' : 'Mark Complete'}
-      </button>
-    </div>`;
+  const coreCount = state.coreCount;
+  const done = state.completed.has(index);
+
+  // Header label: "Lesson N — " for core lessons, "Bonus — " for bonus lessons.
+  const headerLabel = index < coreCount ? 'Lesson ' + (index + 1) + ' \u2014 ' : 'Bonus \u2014 ';
+
+  // Bonus badge (shown when lesson has bonus === true).
+  const bonusBadge = L.bonus
+    ? ' <span style="background:#fff3e0;color:#e65100;font-size:0.75rem;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle;">BONUS</span>'
+    : '';
+
+  // Tab button at the bottom of .content.
+  let tabButton = '';
+  if (tab === 'learn') {
+    tabButton = '<button class="continue-btn" onclick="switchTab(\'implement\')">Continue to Exercises &rarr;</button>';
+  } else if (tab === 'implement') {
+    tabButton = '<button class="mark-complete-btn' + (done ? ' completed' : '') + '" onclick="markComplete(' + index + ')">' + (done ? '&#10003; Completed' : 'Mark Complete') + '</button>';
+  }
+
+  // Tab body (raw HTML from lesson content).
+  const tabBody = L[tab] || '';
+
+  main.innerHTML =
+    '<div class="step-header">' +
+      '<h2>' + headerLabel + escapeHtml(L.title) + ' <span class="pts">' + L.points + ' pts</span>' + bonusBadge + '</h2>' +
+    '</div>' +
+    '<div class="tabs">' +
+      '<div class="tab' + (tab === 'learn'     ? ' active' : '') + '" onclick="switchTab(\'learn\')">Learn</div>' +
+      '<div class="tab' + (tab === 'implement' ? ' active' : '') + '" onclick="switchTab(\'implement\')">Exercises</div>' +
+      '<div class="tab' + (tab === 'advanced'  ? ' active' : '') + '" onclick="switchTab(\'advanced\')">Advanced</div>' +
+    '</div>' +
+    '<div class="content">' +
+      tabBody +
+      tabButton +
+    '</div>';
+
   repaintNav();
   if (location.hash !== '#lesson-' + index) {
     history.replaceState(null, '', '#lesson-' + index);
@@ -115,6 +136,11 @@ function renderLesson(index) {
 
 function switchTab(index, tabName) {
   if (!state) return;
+  // Support switchTab(tabName) — single-arg form used in legacy content onclick handlers.
+  if (typeof index === 'string' && tabName === undefined) {
+    tabName = index;
+    index = state.currentLesson;
+  }
   if (!['learn','implement','advanced'].includes(tabName)) return;
   state.currentTab = tabName;
   try { sessionStorage.setItem('tab:' + state.courseId, tabName); } catch (_) {}
@@ -127,7 +153,7 @@ function markComplete(index) {
   state.completed.add(index);
   repaintNav();
   const btn = document.querySelector('.mark-complete-btn');
-  if (btn) { btn.textContent = '✓ Completed'; btn.classList.add('completed'); }
+  if (btn) { btn.innerHTML = '&#10003; Completed'; btn.classList.add('completed'); }
   scheduleFlush();
   dispatchChange();
 }
@@ -136,15 +162,36 @@ function repaintNav() {
   if (!state) return;
   const nav = qs('lesson-nav');
   if (!nav) return;
-  const items = window.LessonRuntime.buildNav(state.lessons, state.completed, state.currentLesson);
-  nav.innerHTML = items.map(it => `
-    <a class="lesson-nav-item${it.active?' active':''}${it.completed?' completed':''}"
-       href="#lesson-${it.index}"
-       onclick="event.preventDefault(); LessonRuntime.gotoLesson(${it.index})">
-      <span class="check">${it.completed ? '✓' : ''}</span>
-      <span class="title">${escapeHtml(it.title)}</span>
-      <span class="pts">${it.points} pts</span>
-    </a>`).join('');
+
+  const coreCount = state.coreCount;
+  const useSections = (coreCount < state.lessons.length);
+
+  let html = '';
+
+  // If we have a mix of core and bonus lessons, open with a section label.
+  if (useSections) {
+    html += '<div class="nav-section-label">Core Lessons</div>';
+  }
+
+  state.lessons.forEach((l, i) => {
+    // Insert bonus section label at the boundary.
+    if (useSections && i === coreCount) {
+      html += '<div class="nav-section-label">Bonus Challenges</div>';
+    }
+
+    const done   = state.completed.has(i);
+    const active = i === state.currentLesson;
+    const numLabel = i < coreCount ? 'L' + (i + 1) : 'Bonus';
+
+    html +=
+      '<div class="nav-item' + (active ? ' active' : '') + '" onclick="loadLesson(' + i + ')">' +
+        '<span class="check' + (done ? ' done' : '') + '">' + (done ? '&#10003;' : '') + '</span>' +
+        '<span class="label"><strong style="color:#217346;margin-right:6px;font-weight:700;">' + numLabel + '</strong>' + escapeHtml(l.title) + '</span>' +
+        '<span class="points">' + l.points + ' pts</span>' +
+      '</div>';
+  });
+
+  nav.innerHTML = html;
 }
 
 function gotoLesson(index) {
@@ -215,12 +262,14 @@ function installKeybinds() {
   window.addEventListener('beforeunload', () => { if (state && state.flushTimer) flush(); });
 }
 
-async function initCourse({ courseId, progressCategory, lessons }) {
+async function initCourse({ courseId, progressCategory, lessons, coreCount }) {
   // IMPORTANT 6: guard against empty lessons array
   if (!lessons || lessons.length === 0) return;
 
   state = {
     courseId, progressCategory, lessons,
+    // If coreCount not supplied, treat all lessons as core (no bonus section).
+    coreCount: (typeof coreCount === 'number' && coreCount >= 0) ? coreCount : lessons.length,
     currentLesson: 0,
     currentTab: (function(){
       try { return sessionStorage.getItem('tab:' + courseId) || 'learn'; } catch(_) { return 'learn'; }
@@ -264,5 +313,29 @@ function escapeHtml(s) {
 window.LessonRuntime = Object.assign(window.LessonRuntime || {}, {
   initCourse, renderLesson, switchTab, markComplete, gotoLesson,
 });
+
+// Global aliases for lesson content onclick handlers (legacy compat).
+// Lesson HTML strings call `switchTab('implement')` or `switchTab(N, 'implement')`
+// and `markComplete(N)` and `loadLesson(N)` / `goToLesson(N)` directly (no namespace).
+if (!window.switchTab) {
+  window.switchTab = function (a, b) {
+    if (!state) return;
+    if (typeof b === 'string') {
+      // switchTab(index, tabName)
+      return LessonRuntime.switchTab(a, b);
+    }
+    // switchTab(tabName) — use current lesson
+    return LessonRuntime.switchTab(state.currentLesson, a);
+  };
+}
+if (!window.markComplete) {
+  window.markComplete = function (index) { return LessonRuntime.markComplete(index); };
+}
+if (!window.loadLesson) {
+  window.loadLesson = function (index) { return LessonRuntime.gotoLesson(index); };
+}
+if (!window.goToLesson) {
+  window.goToLesson = function (index) { return LessonRuntime.gotoLesson(index); };
+}
 
 } // end if (typeof window !== 'undefined')
