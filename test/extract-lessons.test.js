@@ -38,3 +38,33 @@ test('extractLessons throws when multiple LESSONS blocks present', () => {
     /multiple LESSONS blocks/
   );
 });
+
+// Regression test for BLOCKING 1: escape-sequence handling
+// A string ending in a literal backslash (e.g. "C:\\") must not trick the parser
+// into thinking the next character is escaped.
+test('extractLessons handles strings ending in a backslash', () => {
+  const html = `<script>
+let completed = [];
+const LESSONS = [
+  { id: 0, title: "Path C:\\\\", points: 5, learn: \`a\`, implement: \`b\`, advanced: \`c\` }
+];
+</script>`;
+  const out = extractLessons(html);
+  assert.ok(out.includes('C:\\\\'));
+  assert.ok(out.trim().endsWith('];'));
+});
+
+// Regression test for BLOCKING 2: nested template literals with brackets inside ${}
+// The parser must not treat a ']' inside ${...} as the end of the LESSONS array.
+test('extractLessons handles nested template literals with brackets inside ${}', () => {
+  const html = `<script>
+const LESSONS = [
+  { id: 0, title: "Nested", points: 5,
+    learn: \`outer \${[1,2].map(x => \`\${x}]\`).join("")} end\`,
+    implement: \`b\`, advanced: \`c\` }
+];
+</script>`;
+  const out = extractLessons(html);
+  assert.ok(out.includes('"Nested"'));
+  assert.ok(out.trim().endsWith('];'));
+});
