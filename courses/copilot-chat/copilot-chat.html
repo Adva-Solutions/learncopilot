@@ -1755,6 +1755,7 @@ function renderLesson() {
   }
 
   restoreExerciseChecks();
+  renderMapCallout('chat', currentLesson);
 }
 
 /* ── Exercise checkbox persistence ─────────────────────────────
@@ -1853,10 +1854,54 @@ fetch('/api/me').then(function(r) {
   if (r.status === 401) window.location.href = '/login.html';
 }).catch(function() { /* network offline — leave the page alone */ });
 
+/* ── Opportunity Map callouts ── */
+const MAP_FEATURE_TAGS = {
+  'chat:0': ['Chat'],
+  'chat:1': ['Custom Instructions'],
+  'chat:2': ['Notebooks'],
+  'chat:3': ['Pages'],
+  'chat:4': ['Web Search'],
+  'chat:5': ['Chat', 'Voice'],
+};
+let _mapCache = null;
+async function loadMapDoc() {
+  if (_mapCache !== null) return _mapCache;
+  try {
+    const meRes = await fetch('/api/me', { credentials: 'include' });
+    if (!meRes.ok) { _mapCache = false; return false; }
+    const me = await meRes.json();
+    const slug = me?.slug || me?.clientId;
+    if (!slug) { _mapCache = false; return false; }
+    const mapRes = await fetch(`/api/map?slug=${slug}`, { credentials: 'include' });
+    if (!mapRes.ok) { _mapCache = false; return false; }
+    const data = await mapRes.json();
+    _mapCache = data.map || false;
+    return _mapCache;
+  } catch { _mapCache = false; return false; }
+}
+async function renderMapCallout(courseId, lessonIdx) {
+  const key = `${courseId}:${lessonIdx}`;
+  const tags = MAP_FEATURE_TAGS[key];
+  if (!tags) return;
+  const map = await loadMapDoc();
+  if (!map || !map.opportunities) return;
+  const matches = map.opportunities.filter(o =>
+    (o.copilotFeatures || []).some(f => tags.includes(f))
+  ).slice(0, 3);
+  if (!matches.length) return;
+  const links = matches.map(o => `<a href="/map/${map.clientId}" target="_blank">${o.title}</a>`).join(' &middot; ');
+  const callout = document.createElement('div');
+  callout.className = 'map-callout';
+  callout.innerHTML = `<strong>Relevant to your opportunity map:</strong> ${links}`;
+  const content = document.querySelector('.tab-content.active .content') || document.querySelector('.tab-content.active');
+  if (content) content.prepend(callout);
+}
+
 // Initialize
 buildNav();
 loadLesson(0);
 updateProgress();
 </script>
+<style>.map-callout{background:#fffaea;border:1px solid #e8c46a;padding:8px 12px;margin-bottom:12px;font-size:13px;border-radius:4px}.map-callout a{text-decoration:none;border-bottom:1px dashed #1a2230;color:#1a2230}.map-callout a:hover{border-bottom-style:solid}</style>
 </body>
 </html>

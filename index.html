@@ -268,6 +268,7 @@
     <a href="/courses/building-agents/building-agents.html" class="course-pill">Agents</a>
   </div>
   <div class="global-nav-links">
+    <a href="#" class="nav-link" id="nav-map-link" style="display:none; background:rgba(0,120,212,0.15); color:#6db3f2;" onclick="openMap()">Your Map</a>
     <a href="/progress.html" class="global-nav-link">Leaderboard</a>
     <a href="/admin.html" class="global-nav-link">Admin</a>
     <div class="nav-user" id="nav-user"></div>
@@ -437,9 +438,32 @@ updateDashboardProgress();
 /* Auth check — redirect to login only on explicit 401.
    Other non-ok statuses (500 on config errors, 404 on static dev servers,
    network failures) must NOT bounce the student to login. */
-fetch('/api/me').then(r => {
-  if (r.status === 401) window.location.href = '/login.html';
+fetch('/api/me').then(async r => {
+  if (r.status === 401) { window.location.href = '/login.html'; return; }
+  if (r.ok) {
+    // Check if an opportunity map exists for this workshop
+    try {
+      const me = await r.json();
+      const slug = me?.slug || me?.clientId;
+      if (slug) {
+        const mapRes = await fetch(`/api/map?slug=${slug}`, { credentials: 'include' });
+        if (mapRes.ok) {
+          const mapData = await mapRes.json();
+          if (mapData.map) {
+            const btn = document.getElementById('nav-map-link');
+            if (btn) { btn.style.display = ''; btn.dataset.slug = slug; }
+          }
+        }
+      }
+    } catch (e) { /* map check is non-critical */ }
+  }
 }).catch(() => { /* network offline — leave the page alone */ });
+
+function openMap() {
+  const btn = document.getElementById('nav-map-link');
+  const slug = btn?.dataset?.slug;
+  if (slug) window.open(`/map/${slug}`, '_blank');
+}
 </script>
 </body>
 </html>

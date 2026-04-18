@@ -287,6 +287,19 @@ tr:hover td { background: var(--accent-light); }
   .form-row { grid-template-columns: 1fr; }
   .page-header { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
+
+/* Opportunity Map */
+.opp-section { margin-top: 24px; padding: 24px; background: var(--white, #fff); border: 1px solid #ddd8ce; border-radius: 12px; }
+.opp-section h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.opp-status { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; margin-bottom: 16px; }
+.opp-status .dot { width: 10px; height: 10px; border-radius: 50%; }
+.opp-status .dot.green { background: #217346; }
+.opp-status .dot.grey { background: #ccc; }
+.opp-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.opp-log { background: #1e1e1e; color: #a0a0a0; font-family: 'Consolas', monospace; font-size: 12px; padding: 16px; border-radius: 8px; max-height: 300px; overflow-y: auto; white-space: pre-wrap; word-break: break-word; display: none; }
+.opp-log.visible { display: block; }
+.granola-textarea { width: 100%; min-height: 120px; padding: 12px; border: 1px solid #ddd8ce; border-radius: 8px; font-family: 'Source Sans 3', sans-serif; font-size: 14px; resize: vertical; margin-bottom: 12px; }
+.granola-textarea::placeholder { color: #999; }
 </style>
 </head>
 <body>
@@ -1065,8 +1078,10 @@ function renderWorkshopEditor(app, workshop) {
   const participants = w.participants || [];
   const personalization = w.personalization || w.lessonOverrides || null;
 
+  const studyId = w.studyId || w.listenLabsStudyId || '';
+
   app.innerHTML = `
-    <div class="page-header">
+    <div class="page-header" data-client-name="${esc(w.name)}" data-study-id="${esc(studyId)}">
       <div>
         <a href="#dashboard" style="font-size:13px;color:var(--text-light);text-decoration:none;">&larr; Back to Workshops</a>
         <h1 style="margin-top:4px;">${esc(w.name)}</h1>
@@ -1141,6 +1156,28 @@ function renderWorkshopEditor(app, workshop) {
       <div style="display:flex;justify-content:flex-end;">
         <button class="btn btn-primary btn-sm" id="save-personalization">Save Personalization</button>
       </div>
+    </div>
+
+    <!-- Opportunity Map -->
+    <div class="opp-section" id="opp-map-section" style="display:none;">
+      <h3>\u{1F5FA}\uFE0F Copilot Opportunity Map</h3>
+
+      <div class="opp-status" id="opp-status">
+        <span class="dot grey"></span>
+        <span>No map generated yet</span>
+      </div>
+
+      <h4 style="font-size:14px; margin-bottom:8px;">Granola Meeting Transcript (optional)</h4>
+      <textarea class="granola-textarea" id="granola-transcript" placeholder="Paste a Granola meeting transcript here. This is optional — the map can be generated from Listen Labs data alone."></textarea>
+
+      <div class="opp-actions">
+        <button class="btn btn-primary" id="opp-generate-btn" onclick="generateOppMap()">Generate Map</button>
+        <button class="btn btn-outline" id="opp-preview-btn" onclick="previewOppMap()" style="display:none;">Preview</button>
+        <button class="btn btn-outline" id="opp-copy-btn" onclick="copyOppMapLink()" style="display:none;">Copy Link</button>
+        <button class="btn btn-outline" id="opp-download-btn" onclick="downloadOppMap()" style="display:none;">Download JSON</button>
+      </div>
+
+      <div class="opp-log" id="opp-log"></div>
     </div>`;
 
   // Participants table
@@ -1242,6 +1279,9 @@ function renderWorkshopEditor(app, workshop) {
       true
     );
   };
+
+  // Initialize Opportunity Map section
+  initOppMapSection(slug);
 }
 
 /* ============================
@@ -1325,6 +1365,153 @@ function renderTemplateEditor(app, templateData) {
       toast('Save failed: ' + err.message, true);
     }
   };
+}
+
+/* ============================
+   OPPORTUNITY MAP
+   ============================ */
+
+function initOppMapSection(slug) {
+  const section = document.getElementById('opp-map-section');
+  if (!section) return;
+  section.style.display = 'block';
+  section.dataset.slug = slug;
+
+  // Load existing Granola transcript from Redis if stored
+  refreshOppMapStatus(slug);
+}
+
+async function refreshOppMapStatus(slug) {
+  try {
+    const data = await apiFetch(`/api/admin/opportunity-map?slug=${slug}`);
+    const status = document.getElementById('opp-status');
+    const previewBtn = document.getElementById('opp-preview-btn');
+    const copyBtn = document.getElementById('opp-copy-btn');
+    const downloadBtn = document.getElementById('opp-download-btn');
+
+    if (data.map) {
+      const oppCount = data.map.opportunities?.length || 0;
+      const date = new Date(data.map.generatedAt).toLocaleDateString();
+      status.innerHTML = `<span class="dot green"></span><span>${oppCount} opportunities \u00b7 Generated ${date}</span>`;
+      previewBtn.style.display = '';
+      copyBtn.style.display = '';
+      downloadBtn.style.display = '';
+    } else {
+      status.innerHTML = '<span class="dot grey"></span><span>No map generated yet</span>';
+      previewBtn.style.display = 'none';
+      copyBtn.style.display = 'none';
+      downloadBtn.style.display = 'none';
+    }
+  } catch (e) {
+    console.error('Failed to check map status:', e);
+  }
+}
+
+async function generateOppMap() {
+  const section = document.getElementById('opp-map-section');
+  const slug = section?.dataset.slug;
+  if (!slug) return;
+
+  const log = document.getElementById('opp-log');
+  const btn = document.getElementById('opp-generate-btn');
+  log.classList.add('visible');
+  log.textContent = '';
+  btn.disabled = true;
+  btn.textContent = 'Generating...';
+
+  const appendLog = (msg) => { log.textContent += msg + '\n'; log.scrollTop = log.scrollHeight; };
+
+  appendLog('Starting opportunity map generation...');
+
+  // Get the current workshop's studyId and client name
+  // These should be available from the workshop detail context
+  const clientName = document.querySelector('[data-client-name]')?.dataset.clientName || slug;
+  const studyId = document.querySelector('[data-study-id]')?.dataset.studyId;
+  const granolaTranscript = document.getElementById('granola-transcript')?.value?.trim() || null;
+
+  const body = { clientName, studyIds: studyId ? [studyId] : [], granolaTranscript };
+
+  appendLog(`Client: ${clientName}`);
+  if (studyId) appendLog(`Listen Labs study: ${studyId}`);
+  if (granolaTranscript) appendLog(`Granola transcript: ${granolaTranscript.length} chars`);
+  if (!studyId && !granolaTranscript) {
+    appendLog('ERROR: Need at least a Listen Labs study or a Granola transcript.');
+    btn.disabled = false;
+    btn.textContent = 'Generate Map';
+    return;
+  }
+
+  appendLog('Calling generator (this may take 30-60 seconds)...');
+
+  try {
+    const res = await fetch(`/api/admin/opportunity-map?slug=${slug}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(body),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      appendLog(`ERROR ${res.status}: ${data.error || 'Generation failed'}`);
+      if (data.drops) appendLog(`Drops: ${JSON.stringify(data.drops, null, 2)}`);
+      btn.disabled = false;
+      btn.textContent = 'Generate Map';
+      return;
+    }
+
+    const oppCount = data.map?.opportunities?.length || 0;
+    appendLog(`\u2713 Generated ${oppCount} opportunities`);
+    if (data.drops?.length) appendLog(`Validator drops: ${data.drops.length} items cleaned`);
+    if (data.searchOut?.length) {
+      const withResults = data.searchOut.filter(s => s.results?.length > 0).length;
+      appendLog(`Tavily searches: ${data.searchOut.length} queries, ${withResults} with results`);
+    }
+    appendLog('Map saved to Redis. Refreshing status...');
+
+    await refreshOppMapStatus(slug);
+
+  } catch (e) {
+    appendLog(`ERROR: ${e.message}`);
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Generate Map';
+}
+
+function previewOppMap() {
+  const slug = document.getElementById('opp-map-section')?.dataset.slug;
+  if (slug) window.open(`/map/${slug}`, '_blank');
+}
+
+function copyOppMapLink() {
+  const slug = document.getElementById('opp-map-section')?.dataset.slug;
+  if (!slug) return;
+  const url = `${window.location.origin}/map/${slug}`;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('opp-copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
+  });
+}
+
+async function downloadOppMap() {
+  const slug = document.getElementById('opp-map-section')?.dataset.slug;
+  if (!slug) return;
+  try {
+    const data = await apiFetch(`/api/admin/opportunity-map?slug=${slug}`);
+    if (data.map) {
+      const blob = new Blob([JSON.stringify(data.map, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${slug}-opportunity-map.json`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+  } catch (e) {
+    console.error('Download failed:', e);
+  }
 }
 
 /* ============================
