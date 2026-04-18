@@ -235,6 +235,57 @@ function updateProgress(completedIndices, lessons) {
   if (fillEl) fillEl.style.width = pct + '%';
 }
 
+/* Convert <ol> blocks in the Exercises tab into interactive checklists.
+   Each <li> becomes a <label>-wrapped checkbox. Inline children (code
+   blocks, <div>, nested lists) are preserved. */
+function transformExerciseLists() {
+  const scope = document.querySelector('#lesson-content .tab-content');
+  if (!scope) return;
+  scope.querySelectorAll('ol').forEach(ol => {
+    if (ol.closest('.exercise-check')) return; // already converted / nested
+    const ul = document.createElement('ul');
+    ul.className = 'exercise-check';
+    [...ol.children].forEach(li => {
+      if (li.tagName !== 'LI') return;
+      const newLi = document.createElement('li');
+      const label = document.createElement('label');
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      label.appendChild(cb);
+      const span = document.createElement('span');
+      while (li.firstChild) span.appendChild(li.firstChild);
+      label.appendChild(span);
+      newLi.appendChild(label);
+      ul.appendChild(newLi);
+    });
+    ol.replaceWith(ul);
+  });
+}
+
+/* Persistence for exercise checkboxes, keyed by lesson index. */
+function loadExerciseChecks() {
+  try { return JSON.parse(localStorage.getItem('apps-exercise-checks') || '{}'); }
+  catch { return {}; }
+}
+function saveExerciseChecks(all) {
+  localStorage.setItem('apps-exercise-checks', JSON.stringify(all));
+}
+function restoreExerciseChecks(currentLesson) {
+  const all = loadExerciseChecks();
+  const mine = all[currentLesson] || [];
+  const boxes = document.querySelectorAll('.exercise-check input[type="checkbox"]');
+  boxes.forEach((cb, i) => {
+    cb.checked = !!mine[i];
+    cb.addEventListener('change', () => {
+      const state = loadExerciseChecks();
+      const arr = state[currentLesson] || [];
+      arr[i] = cb.checked;
+      state[currentLesson] = arr;
+      saveExerciseChecks(state);
+    });
+  });
+}
+
 async function renderMapCallout(courseId, lessonIdx) {
   const key = `${courseId}:${lessonIdx}`;
   const tags = MAP_FEATURE_TAGS[key];
@@ -264,6 +315,11 @@ async function renderMapCallout(courseId, lessonIdx) {
     }
     if (typeof renderMapCallout === 'function') {
       renderMapCallout(d.courseId, d.currentLesson);
+    }
+    const activeTab = document.querySelector('.tab-btn.active');
+    if (activeTab && activeTab.textContent.trim() === 'Exercises') {
+      if (typeof transformExerciseLists === 'function') transformExerciseLists();
+      if (typeof restoreExerciseChecks === 'function') restoreExerciseChecks(d.currentLesson);
     }
   });
   window.LessonRuntime.initCourse({
