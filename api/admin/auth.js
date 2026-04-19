@@ -8,8 +8,20 @@ function getSecret() {
   return s;
 }
 
+function fullSig(data) {
+  return crypto.createHmac('sha256', getSecret()).update(data).digest('hex');
+}
+
 function sign(data) {
-  return crypto.createHmac('sha256', getSecret()).update(data).digest('hex').slice(0, 16);
+  return fullSig(data).slice(0, 32);
+}
+
+function verifySig(data, sig) {
+  if (typeof sig !== 'string') return false;
+  const full = fullSig(data);
+  if (sig.length === 32) return sig === full.slice(0, 32);
+  if (sig.length === 16) return sig === full.slice(0, 16);  // legacy cookies minted pre-2026-04
+  return false;
 }
 
 function createAdminToken() {
@@ -26,8 +38,7 @@ export function verifyAdmin(req) {
   if (!b64 || !sig) return false;
   const payload = Buffer.from(b64, 'base64').toString('utf-8');
   if (!payload.startsWith('admin|')) return false;
-  const expected = sign(payload);
-  return sig === expected;
+  return verifySig(payload, sig);
 }
 
 export default async function handler(req, res) {
