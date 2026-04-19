@@ -632,7 +632,7 @@ window.LESSONS = [
 </div>
 <div class="note-box">
   <div class="note-title">Reference material</div>
-  <p>Download the <a href="/mock-data/executive/oda-design-philosophy.pdf" download>ODA Design Philosophy</a> doc, the <a href="/mock-data/executive/oda-peer-firms.xlsx" download>Peer Firms</a> list, and the <a href="/mock-data/executive/oda-media-sources.csv" download>Media Sources</a> list. The philosophy doc is the <em>lens</em>; the two lists are the <em>input surface</em> the agent scans.</p>
+  <p>Download the <a href="/mock-data/executive/oda-design-philosophy.pdf" download>ODA Design Philosophy</a> doc, the <a href="/mock-data/executive/oda-peer-firms.xlsx" download>Peer Firms</a> list, and the <a href="/mock-data/executive/oda-media-sources.pdf" download>Media Sources</a> list. The philosophy doc is the <em>lens</em>; the two lists are the <em>input surface</em> the agent scans.</p>
 </div>
 
 <p><strong>Step 1: Benchmark.</strong> Before building the agent, try the task in plain Copilot Chat: "Scan the web for architecture news from the past 7 days that aligns with ODA's philosophy (attached). Email me a short brief of the top 3 items." Screenshot the result. You'll compare against this to measure whether the agent actually improves it.</p>
@@ -654,7 +654,7 @@ window.LESSONS = [
   <li><strong>Name:</strong> "Philosophy Radar"</li>
   <li><strong>Description:</strong> "Daily scan of architecture media, competitions, and peer-firm activity — emails only items that align with ODA's three core ideas."</li>
   <li><strong>Instructions:</strong> Paste the system prompt from Step 2</li>
-  <li><strong>Knowledge:</strong> Upload <span class="inline-code">oda-design-philosophy.pdf</span> (the lens), <span class="inline-code">oda-peer-firms.xlsx</span>, <span class="inline-code">oda-media-sources.csv</span>. Add 3–4 URLs for publications the agent should check (Dezeen, ArchDaily, Architectural Record).</li>
+  <li><strong>Knowledge:</strong> Upload <span class="inline-code">oda-design-philosophy.pdf</span> (the lens), <span class="inline-code">oda-peer-firms.xlsx</span>, <span class="inline-code">oda-media-sources.pdf</span>. Add 3–4 URLs for publications the agent should check (Dezeen, ArchDaily, Architectural Record).</li>
   <li><strong>Capabilities:</strong> turn on <em>Web search</em>, <em>Create documents</em>, and if available <em>Scheduled prompts</em> and <em>Email</em> so the agent can both run daily and send you the memo.</li>
   <li><strong>Suggested prompts:</strong> "Run today's scan" / "What did you find this week that ties to 'porosity for prosperity'?" / "Update the alignment threshold"</li>
 </ul>
