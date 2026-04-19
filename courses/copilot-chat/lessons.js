@@ -7,11 +7,11 @@ window.LESSONS = [
   points: 5,
   learn: `
 <h3>The 10% Problem</h3>
-<p>Most people use AI the same way: open a chat, type a question, read the answer. That is about 10% of what M365 Copilot can do. This course teaches the other 90%.</p>
+<p>Most people use AI the same way: open a chat, type a question, read the answer. That is about 10% of what M365 Copilot can do. This workshop teaches the other 90%.</p>
 
 <div class="tip-box">
   <div class="tip-title">New to AI?</div>
-  <p>If you have never used an AI tool beyond a quick Google-style search, you are in the right place. This course starts from zero. By the end of today, you will have used AI for real work — not just experiments.</p>
+  <p>If you have never used an AI tool beyond a quick Google-style search, you are in the right place. This workshop starts from zero. By the end of today, you will have used AI for real work — not just experiments.</p>
 </div>
 
 <div class="note-box">
@@ -175,7 +175,7 @@ window.LESSONS = [
     <div class="eq-op">=</div>
     <div class="eq-block" style="background:var(--accent)">Useful AI<br><span style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.7)">Output you can act on</span></div>
   </div>
-  You cannot change the model. But you control <strong>context</strong> (what you tell it about you, your work, and your files) and <strong>tools</strong> (what it is allowed to reach). Better context + more tools = better results. This lesson is about context; the rest of the course is about tools.
+  You cannot change the model. But you control <strong>context</strong> (what you tell it about you, your work, and your files) and <strong>tools</strong> (what it is allowed to reach). Better context + more tools = better results. This lesson is about context; the rest of the workshop is about tools.
 </div>
 
 <h3>Where Context Lives: the Personalization Panel</h3>
@@ -299,46 +299,48 @@ When the interview is complete, output the results formatted as a Copilot Custom
   points: 10,
   learn: `
 <h3>Your Copilot Is Wired Into Your Work</h3>
-<p><em>Copilot is not just a chat window. It is connected to your Outlook, your calendar, your colleagues' free/busy, and the files across your whole organization. In this lesson you stop talking to a chatbot and start talking to <strong>your data</strong>.</em></p>
+<p><em>Copilot is not just a chat window. It is connected to your Outlook, your calendar, your colleagues' free/busy, and the files across your whole organization. In this lesson start talking to <strong>your company's data</strong>.</em></p>
 
-<p>Five capabilities you will use every single day. Same box, plain English:</p>
+<h4>What Copilot Can See</h4>
+<p>A public chatbot can only answer from the open web. Your Copilot is different — inside Microsoft 365, it is <em>your</em> Copilot. It has read access (scoped to your permissions) to:</p>
 
-<ol>
-  <li><strong>Query your email</strong> — "Which emails need my attention today?"</li>
-  <li><strong>Deep-dive a specific email or thread</strong> — "Find the Shore Club permit thread. What was decided, what's open, what do I owe?"</li>
-  <li><strong>Ask about your calendar</strong> — "What does my day look like?" "Any conflicts Thursday?"</li>
-  <li><strong>Schedule with colleagues</strong> — "Find 30 minutes next week with /Sarah and /Keith to discuss the facade review."</li>
-  <li><strong>Copilot Search</strong> — natural-language queries across your entire company's documentation: "Find everything about the Fort Lauderdale project from the last two months."</li>
-</ol>
+<ul>
+  <li><strong>Your Outlook mailbox</strong> — every email, every thread, every attachment you can open yourself.</li>
+  <li><strong>Your calendar, and your colleagues' free/busy</strong> — enough to plan meetings without jumping to Scheduling Assistant.</li>
+  <li><strong>Your OneDrive and any SharePoint / Teams library you have access to</strong> — so "that doc about the Q3 budget" is actually reachable.</li>
+  <li><strong>Teams chats and meeting transcripts</strong> you were part of.</li>
+  <li><strong>People</strong> — names, titles, managers, teams — the same directory Outlook uses.</li>
+</ul>
 
-<div class="tip-box">
-  <div class="tip-title">The slash <span style="font-family:monospace;">/</span> trick — pull in specific people, files, or emails</div>
-  <p>Typing <strong>/</strong> in the message box opens a picker. Start typing a name, a filename, or an email subject and Copilot adds it to your prompt as a live reference. It is the fastest way to tell Copilot <em>exactly</em> which person or document you mean.</p>
-  <ul>
-    <li><span class="inline-code">/Sarah Chen</span> — references that person in your prompt (used constantly for scheduling).</li>
-    <li><span class="inline-code">/Shore Club Spec v3.docx</span> — pulls that file into context.</li>
-    <li><span class="inline-code">/Re: Permit submission timeline</span> — pulls that specific email thread.</li>
-  </ul>
-  <p>Whenever you type a colleague's name, a filename, or an email subject in a prompt, use <strong>/</strong> instead — Copilot binds to the exact entity rather than guessing.</p>
-</div>
+<p>That's the mental shift: every question you'd otherwise answer by opening Outlook, Teams, or SharePoint can now be a single prompt.</p>
 
-<h4>What Copilot Search covers</h4>
-<p>Files (OneDrive, SharePoint, Teams), emails, Teams meeting transcripts, people, and Teams messages. All searchable by <em>content</em> — you don't need to know the filename. This is the big one: <strong>plain-English search across your organization's documentation</strong>.</p>
+<h4>Work Mode vs Web Mode</h4>
+<p>At the top of the Copilot chat there is a toggle. <strong>Work</strong> mode answers from your tenant — email, files, calendar. <strong>Web</strong> mode answers from the public internet only. If you ask about your data, stay in <strong>Work</strong>. Most of this lesson assumes Work mode.</p>
 
 <div class="note-box">
-  <strong>Rule of thumb</strong> — know the exact name of a person/file/email? Use <strong>/</strong>. Asking about <em>your</em> data (email, calendar, meetings)? Natural-language prompt. Searching across the company's documentation? Copilot Search — in the Search tab or just ask in chat.
+  <strong>Permission-aware.</strong> Copilot can only surface things <em>you</em> can already access. It never leaks a file your account can't open, and it never shows someone else's private email to you. Security is the same as Outlook or SharePoint — Copilot is just a new front door.
 </div>
+
+<h4>Four Moves You'll Use Every Day</h4>
+<p>All four happen in the same chat box, in plain English. The exercises on the next tab walk through each one:</p>
+
+<ol>
+  <li><strong>Triage your email</strong> — "Which emails need my attention today?"</li>
+  <li><strong>Deep-dive a specific thread</strong> — "Summarize the permit thread. What was decided, what's open, what do I owe?"</li>
+  <li><strong>Read your calendar</strong> — "What does tomorrow look like? Any conflicts?"</li>
+  <li><strong>Schedule with colleagues</strong> — "Find 30 minutes next week with [colleagues] to discuss [topic]."</li>
+</ol>
 
 <button class="continue-btn" onclick="switchTab(2,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Talk to Your Data — Five Hands-On Prompts</h3>
-<p>Make sure you are in <strong>Work mode</strong> (not Web) throughout. Each card has a prompt to try.</p>
+<h3>Talk to Your Data — Four Hands-On Prompts</h3>
+<p>Make sure you are in <strong>Work</strong> mode (not Web) throughout. Each card has a prompt to try. Swap the bracketed bits for a real project, colleague, or topic from your own work.</p>
 
 <div class="exercise-card">
   <div class="exercise-card-num">1</div>
   <div class="exercise-card-body">
-    <h4>Query your email</h4>
+    <h4>Triage your inbox</h4>
     <p><strong>Do:</strong> In a fresh chat, send this prompt. Copilot scans your inbox and surfaces what actually matters.</p>
     <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Which emails need my attention today? Prioritize by urgency and flag anything with a deadline this week or a direct ask from my manager. List sender, subject, and the specific action I need to take.</code></div>
     <p><strong>Why:</strong> This is the fastest inbox triage you can do. Instead of reading every thread, you get the filtered list of what's important — right now.</p>
@@ -349,10 +351,10 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <div class="exercise-card">
   <div class="exercise-card-num">2</div>
   <div class="exercise-card-body">
-    <h4>Deep-dive a specific email or thread</h4>
-    <p><strong>Do:</strong> Now pick one of the threads Copilot surfaced (or use <strong>/</strong> to reference an email subject you know) and drill in:</p>
-    <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find the email thread about the Shore Club permit timeline. Summarize what was decided, who owns each next step, and list anything still unresolved. Quote the specific sentences that back up each point.</code></div>
-    <p><strong>Why:</strong> Good for threads with 20+ replies where the decision is buried in the middle. Copilot reads everything and gives you the decision + owners in one pass.</p>
+    <h4>Deep-dive a specific thread</h4>
+    <p><strong>Do:</strong> Pick a thread that matters right now — a decision, a handoff, a timeline — and drill in:</p>
+    <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find the email thread about [project / topic]. Summarize what was decided, who owns each next step, and list anything still unresolved. Quote the specific sentences that back up each point.</code></div>
+    <p><strong>Why:</strong> Perfect for threads with 20+ replies where the decision is buried in the middle. Copilot reads everything and gives you the decision + owners in one pass — with quotes, so you can verify.</p>
     <label class="exercise-check"><input type="checkbox"> Done</label>
   </div>
 </div>
@@ -360,10 +362,11 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <div class="exercise-card">
   <div class="exercise-card-num">3</div>
   <div class="exercise-card-body">
-    <h4>Ask about your calendar</h4>
-    <p><strong>Do:</strong> Send this:</p>
+    <h4>Read your calendar</h4>
+    <p><strong>Do:</strong> Send this prompt:</p>
     <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What does my calendar look like tomorrow? Flag any back-to-back meetings or conflicts, and give me a one-line prep note for each meeting — based on the invite description and any recent emails with the attendees.</code></div>
     <p><strong>Why:</strong> This is your morning briefing. Copilot cross-references invites with recent email to build context — so you walk into each meeting knowing why it exists and what's likely to come up.</p>
+    <p class="tip-box-inline"><strong>Pro tip:</strong> Once this works for you, it is a perfect candidate for a <em>Scheduled prompt</em> (see the Advanced tab) — Copilot runs it every morning automatically.</p>
     <label class="exercise-check"><input type="checkbox"> Done</label>
   </div>
 </div>
@@ -371,30 +374,16 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <div class="exercise-card">
   <div class="exercise-card-num">4</div>
   <div class="exercise-card-body">
-    <h4>Schedule with colleagues — use <span style="font-family:monospace;">/</span> to pick people</h4>
-    <p><strong>Do:</strong> Type the prompt below. When you hit each <strong>/</strong>, Copilot opens a picker — start typing a colleague's name and pick them from the list. That binds Copilot to their actual calendar:</p>
-    <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find 30 minutes next week for /[colleague 1] and /[colleague 2] and me to discuss the Shore Club facade material review. Check everyone's availability, suggest the best slot, and draft the invite with an agenda.</code></div>
-    <p><strong>Why:</strong> Using <strong>/</strong> instead of typing a name prevents Copilot from guessing the wrong person (two Sarahs in your org) and pulls the actual free/busy for the real invitees. Copilot uses the <em>Scheduling Assistant</em> behind the scenes.</p>
+    <h4>Schedule with colleagues — using the <span style="font-family:monospace;">/</span> picker</h4>
+    <p><strong>New idea to learn here:</strong> typing <strong>/</strong> in the Copilot message box opens a picker. Start typing a name, a filename, or an email subject and Copilot attaches it as a <em>live reference</em> — binding your prompt to the exact person or document rather than guessing.</p>
+
+    <p><strong>Do:</strong> Type the prompt below. At each <strong>/</strong>, Copilot opens the picker — start typing a colleague's name and select them from the list. That binds Copilot to their actual calendar.</p>
+    <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find 30 minutes next week for /[colleague 1] and /[colleague 2] and me to discuss [topic]. Check everyone's availability, suggest the best slot, and draft the invite with an agenda.</code></div>
+    <p><strong>Why it matters:</strong> Using <strong>/</strong> instead of typing a name prevents Copilot from guessing the wrong person (two Sarahs in your org) and pulls the actual free/busy for the real invitees. Behind the scenes Copilot is using the same Scheduling Assistant you already know.</p>
+    <p><strong>Try <span style="font-family:monospace;">/</span> with files and emails too:</strong> <span class="inline-code">/[filename].docx</span> pulls that file into context; <span class="inline-code">/[email subject]</span> pulls the thread. Use <strong>/</strong> whenever you know the exact thing you're pointing at.</p>
     <label class="exercise-check"><input type="checkbox"> Done</label>
   </div>
 </div>
-
-<div class="exercise-card">
-  <div class="exercise-card-num">5</div>
-  <div class="exercise-card-body">
-    <h4>Copilot Search — plain-English search across the company</h4>
-    <p><strong>Do:</strong> Send this natural-language query. No filenames, no keywords — just describe what you need:</p>
-    <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find everything related to the Fort Lauderdale Shore Club project from the last two months. Include permit submissions, consultant correspondence, design review notes, and any meetings where it was discussed. Group by type.</code></div>
-    <p><strong>Why:</strong> This is the superpower — you can now search your entire organization's documentation in plain English. No more hunting through SharePoint folders. If it exists in your tenant and you have access, Copilot can find it.</p>
-    <label class="exercise-check"><input type="checkbox"> Done</label>
-  </div>
-</div>
-
-<div class="note-box">
-  <strong>Success check:</strong> You've triaged email, deep-dived a thread, read your calendar, scheduled a meeting using <strong>/</strong> to reference real colleagues, and searched across your whole org in natural language. You're no longer "using a chatbot" — you're querying your work.
-</div>
-
-<p class="personalization-note">[PERSONALIZED: swap prompt examples with organization-specific project names, colleague names, and email subjects from Listen Labs interviews]</p>
 
 <button class="mark-complete-btn" id="complete-btn-2" onclick="markComplete(2)">Mark Complete</button>
 `,
@@ -430,8 +419,15 @@ When the interview is complete, output the results formatted as a Copilot Custom
 {
   id: 'knowledge-notebook',
   title: "Build Your Knowledge Notebook",
-  points: 20,
+  points: 30,
   learn: `
+<div class="tip-box">
+  <div class="tip-title">Primer — what a notebook is for</div>
+  <p>A <strong>notebook</strong> is a dedicated workspace you build around a single project, topic, or function. You give it a handful of reference documents, you set instructions for how Copilot should behave inside it, and from then on every conversation you have in that notebook is <em>grounded</em> in those documents — not the open web, not your entire inbox.</p>
+  <p>Use one notebook per <strong>ongoing thing</strong> you care about: a live project, a product line, an onboarding program, a quarterly review pack, a compliance library. Pop in, ask a question, get an answer citing the exact document and section. Team members you add see the same references and get the same grounded answers.</p>
+  <p>If chat is a smart colleague you bump into in the hallway, a notebook is that same colleague sitting at your desk with your project folder open — already briefed.</p>
+</div>
+
 <h3>Give Copilot a Knowledge Base</h3>
 <p><em>You configured Copilot to know who you are. Now give it a knowledge base — the documents, references, and context it needs to do your actual work.</em></p>
 
@@ -443,8 +439,6 @@ When the interview is complete, output the results formatted as a Copilot Custom
   <li>Write <strong>Copilot instructions</strong> specific to that notebook (not your global ones — these are project-level)</li>
   <li>Chat with Copilot <strong>grounded on those references</strong> — every response draws from your uploaded context</li>
 </ul>
-
-<p>Think of it this way: a regular chat is asking a smart colleague a question in the hallway. A Notebook is sitting them down at your desk, handing them your project folder, and saying "Read this first, then help me."</p>
 
 <h3>When to Use a Notebook vs. a Chat</h3>
 <table style="width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;">
@@ -628,18 +622,20 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <p>Same pattern as before: the analysis in Prompt #1 becomes the evidence layer for the structured brief in Prompt #2 — a document you'll later promote into a shareable Page in Lesson 4.</p>
 </div>
 
-<h4>Step 6: Try Quick Create</h4>
-<p>At the top of the notebook, next to <strong>+ New page</strong>, you will see <strong>Quick create</strong>. Click it. Pick <strong>Audio overview</strong> (the production-ready option). A <strong>Customize</strong> dialog opens — leave the defaults, set Duration to <em>Shorter</em>, and click <strong>Generate audio</strong>. While it produces, scan the other Quick Create options (study guide, mind map, document, presentation, worksheet) and notice what else you could spin out of the same notebook. This is the "notebook as source of truth" moment — the same references, repackaged however you need.</p>
-<p>The <strong>Advanced</strong> tab has the full breakdown of every Quick Create option — check it out when you want to go deeper.</p>
-
-<h4>Step 7 (optional): Invite collaborators</h4>
-<p>If this is a team resource, click the <strong>people icon</strong> at the top of the notebook → <strong>Invite / manage members</strong>. Teams get the most out of Notebooks when they build <strong>one notebook per function or process</strong> — for example: a "Permit Submissions" notebook for project managers, an "Onboarding" notebook for HR, a "Brand Voice" notebook for marketing. Each becomes a shared source of truth that compounds over time.</p>
-
-<p class="personalization-note">[PERSONALIZED: swap notebook topics and reference file suggestions with actual client project types from Listen Labs interviews]</p>
-
 <div class="note-box">
-  <strong>Success check:</strong> You should have a Notebook with a name, custom instructions, at least one reference file, two prompts that produced outputs grounded in YOUR documents, and a Quick Create artifact (audio overview or similar). The difference between a regular chat and a Notebook is the difference between "an AI that gives good generic answers" and "an AI that knows your project."
+  <strong>Success check:</strong> You should have a Notebook with a name, custom instructions, at least one reference file, and two prompts that produced outputs grounded in YOUR documents — with citations that let you click through to the exact source passage. The difference between a regular chat and a Notebook is the difference between "an AI that gives good generic answers" and "an AI that knows your project."
 </div>
+
+<div class="tip-box">
+  <div class="tip-title">Want more? Two power moves live in the Advanced tab</div>
+  <ul>
+    <li><strong>Quick Create</strong> — turn your notebook into an audio overview, study guide, mind map, document, presentation, or worksheet. Same references, repackaged.</li>
+    <li><strong>Invite collaborators</strong> — make the notebook a shared team resource. One notebook per function/process is the sweet spot.</li>
+  </ul>
+  <p>Both are covered in full detail on the <strong>Advanced</strong> tab — open it after you mark this lesson complete.</p>
+</div>
+
+<p class="personalization-note">[PERSONALIZED: swap notebook topics and reference file suggestions with actual client project types from the interviews]</p>
 
 <button class="mark-complete-btn" id="complete-btn-3" onclick="markComplete(3)">Mark Complete</button>
 `,
@@ -682,6 +678,27 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <div class="tip-box">
   <strong>Try it now:</strong> Go back to the notebook you just built. Click <strong>Quick create → Audio overview</strong>, set Format = Dialog, Style = Casual, Duration = Shorter, and add a custom prompt: "Frame this as a kickoff briefing for a colleague who is joining the project on Monday." Listen to what comes out. This single exercise shows why notebooks are more than a chat with attachments — they are a source-of-truth Copilot can repackage into any format.
 </div>
+
+<h3>Make it a shared team resource — Invite collaborators</h3>
+<p>Notebooks really pay off when they stop being personal scratchpads and become <strong>shared sources of truth</strong>. To add teammates, click the <strong>people icon</strong> at the top of the notebook → <strong>Invite / manage members</strong>. Pick individuals or a group, set their role (edit / view), and send.</p>
+
+<p>Once invited, collaborators share:</p>
+<ul>
+  <li>the same <strong>references</strong> — no more emailing spec PDFs back and forth,</li>
+  <li>the same <strong>Copilot instructions</strong> — so everyone's prompts come back in the same voice and format,</li>
+  <li>the same <strong>Pages</strong> created inside the notebook (you'll build those in Lesson 4).</li>
+</ul>
+
+<h4>Pattern: one notebook per function or process</h4>
+<p>The teams getting the most value build notebooks narrowly, not broadly. Some that have worked:</p>
+<ul>
+  <li><strong>"Permit Submissions"</strong> — for the project-management team; references are the code books and submission templates.</li>
+  <li><strong>"Onboarding"</strong> — for HR; references are the handbook, onboarding checklist, and role-specific first-week schedules.</li>
+  <li><strong>"Brand Voice"</strong> — for marketing; references are the style guide, three sample write-ups, and the do/don't list.</li>
+  <li><strong>"Weekly Staffing"</strong> — for operations; references are the resource allocation and project tracking spreadsheets.</li>
+</ul>
+
+<p>Each one compounds: every new document added, every good prompt saved, every Page created inside the notebook makes the next question faster to answer.</p>
 `
 },
 
@@ -692,31 +709,28 @@ When the interview is complete, output the results formatted as a Copilot Custom
   points: 20,
   learn: `
 <h3>From Scratchpad to Shared Artifact</h3>
-<p>You just built a Notebook grounded in your project documents. Now turn the conversations inside it into shareable artifacts.</p>
+<p><em>Chat is your scratchpad. A Page is the document you share with your team.</em></p>
 
-<p>Chat is your scratchpad. A Page is the finished artifact you share with your team.</p>
+<h3>What is a Copilot Page?</h3>
+<p>A Page is a <strong>live document built around a Copilot conversation</strong>. On the left you have the document; on the right you have a dedicated side chat with Copilot, already open. You write, Copilot writes, you both keep editing — and when it reads right, you share it via a link.</p>
 
-<h3>What Are Copilot Pages?</h3>
-<p>Every time Copilot gives you a great response, it lives in that chat — and only that chat. Pages change that. A Page is a <strong>shareable, editable document</strong> you can create from any Copilot response and collaborate on live.</p>
+<p>That is the shift: instead of copying great Copilot answers out of a chat window into Word or email, the document <em>is</em> the chat, and the chat <em>is</em> the document.</p>
 
 <h3>Where Pages Come From</h3>
-<p>Pages can be created from three places — but the one we will use in this course is <strong>inside the notebook you just built</strong>, so the Page stays grounded in the same references. The other entry points exist and are useful to know about:</p>
+<p>A Page can be created from three places. In this workshop we always create one <strong>inside the notebook you just built in Lesson 4</strong>, so the Page inherits the notebook's references and instructions. The other two entry points are useful to know about:</p>
 <ul>
-  <li><strong>From within a Notebook</strong> (what we will do): the Page inherits the notebook's references and instructions, so follow-ups stay grounded in your sources.</li>
+  <li><strong>From within a Notebook</strong> (what we will do): the Page inherits the notebook's references and instructions — follow-ups stay grounded in your sources.</li>
   <li><strong>From the Library:</strong> create a blank Page directly from the artifacts list.</li>
-  <li><strong>From general chat:</strong> any response has an <strong>Edit in Pages</strong> action — great for quick one-offs, but without the notebook's grounding.</li>
+  <li><strong>From general chat:</strong> any Copilot response has an <strong>Edit in Pages</strong> action — great for quick one-offs, but without the notebook's grounding.</li>
 </ul>
+
+<h3>A New Page Gets Its Own Chat</h3>
+<p>When you open a new Page, the side Copilot chat on that Page is a <strong>fresh conversation</strong> — it does not inherit the chat thread you were having inside the notebook, and it does not bleed into other chats. The Page's chat history stays attached to the Page, so you can close it, come back tomorrow, and pick up where you left off.</p>
+
+<p>Inside a notebook, this gives you a clean split: keep <strong>exploratory questions</strong> in the notebook's main chat, and open a <strong>Page</strong> the moment the conversation turns into something you want to keep, edit, and share.</p>
 
 <h3>Pages &amp; Notebooks, Back and Forth</h3>
-<p>A Page you create can be <strong>added back to a notebook</strong> as one of that notebook's sources. And regardless of where it was created, a Page can be <strong>shared with people inside or outside the notebook</strong> — the notebook's member list does not gate who can see the Page. Link sharing controls that separately (we cover it in the exercises).</p>
-
-<h3>What You Can Do with Pages</h3>
-<ul>
-  <li><strong>Edit directly:</strong> Add your own text, headings, and bullets. Note: Pages do <strong>not</strong> render Markdown in the body — type plain text and use <strong>right-click</strong> to get the usual Word-like formatting options (bold, headings, lists, link, insert table).</li>
-  <li><strong>Ask Copilot to add more:</strong> The side Copilot chat is already open on any Page — just type your follow-up there.</li>
-  <li><strong>Share via link with scoped access:</strong> Anyone in the org, existing access only, or specific people you choose — plus Can edit vs. view, plus optional expiration date.</li>
-  <li><strong>Collaborate live:</strong> Multiple people can edit the same Page simultaneously.</li>
-</ul>
+<p>A Page you create can be <strong>added back to a notebook</strong> as one of its sources. And regardless of where it was created, a Page can be <strong>shared with people inside or outside the notebook</strong> — the notebook's member list does not gate who can see the Page. Link sharing controls that separately (we cover it in the exercises).</p>
 
 <button class="continue-btn" onclick="switchTab(4,'implement')">Continue to Exercises &rarr;</button>
 `,
@@ -726,7 +740,12 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <p>You will work inside the notebook you built in Lesson 3 so the Page inherits your references and stays grounded in the same sources. Pick your department below.</p>
 
 <div class="note-box">
-  <strong>The sequence for every Page:</strong> (1) decide a title + which documents inform it → (2) click <strong>Create</strong> to spin up the Page → (3) confirm the notebook's Copilot instructions carry over (they do) → (4) run the power prompts → (5) iterate → (6) set link access → (7) share to Teams. Do NOT use Markdown in the Page body; use plain text and right-click for Word-style formatting (bold, headings, lists, link, table).
+  <strong>The flow for every Page:</strong> (1) New page inside your notebook → (2) prompt Copilot in the side chat → (3) edit by hand where needed → (4) prompt again to enrich → (5) set link access and share.
+</div>
+
+<div class="tip-box">
+  <div class="tip-title">Formatting: right-click, don't type Markdown</div>
+  <p>Page bodies do not render Markdown. Type plain text, then <strong>right-click</strong> for the Word-style menu — bold, headings, lists, links, insert table. That is the one formatting trick worth remembering.</p>
 </div>
 
 <div class="tip-box">
@@ -753,7 +772,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <p><strong>2.</strong> No need to re-enter instructions — the <strong>Copilot instructions are set on the notebook</strong>, not the page, and they automatically apply to every page created inside it. Your tone, format, and citation rules from Lesson 3 carry over.</p>
 <p><strong>3. Power Prompt #1</strong> — in the side Copilot chat (already open on the Page), send:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a meeting summary for the Shore Club Fort Lauderdale facade material review. Include: decisions made (selected terracotta rainscreen over aluminum curtain wall — cite cost: terracotta $85/SF vs aluminum $62/SF), action items organized by consultant (structural load capacity, envelope details, cost estimator revisions), and next milestones (CD submission in 3 weeks, permit filing in 6 weeks). Cite the specific section of our spec document wherever a material decision is referenced.</code></div>
-<p><strong>4. Edit manually</strong> — right-click in the Page to add a heading "Open Questions" (plain text, use right-click for formatting — not Markdown). List 2-3 unresolved items (color sample approval, mock-up schedule).</p>
+<p><strong>4. Edit manually</strong> — right-click in the Page to add a heading "Open Questions", then list 2-3 unresolved items (color sample approval, mock-up schedule).</p>
 <p><strong>5. Power Prompt #2 — enrich the page</strong> — in the side Copilot chat, send:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Consultant Responsibility Matrix" section with a table of each consultant, action items, deadlines, and status.</code></div>
 <p><strong>6. Iterate</strong> in the side chat until the Page reads the way you want:</p>
@@ -846,9 +865,6 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <h3>Pages as Team Knowledge Hubs</h3>
 <p>Some teams use Copilot Pages as living project documents — updated weekly with new Copilot-generated content and team edits. Unlike a static Word doc, a Page stays connected to Copilot so you can always ask it to update, summarize, or expand sections.</p>
-
-<h3>Pages vs. Word</h3>
-<p><strong>Pages:</strong> Quick, collaborative, AI-connected. Best for meeting notes, brainstorm results, project plans you are iterating on. <strong>Word:</strong> Formal, formatted, printable. Best for polished documents that need templates or official formatting.</p>
 
 <h3>Connecting Pages back to Notebooks</h3>
 <p>A Page can be <strong>added back into a notebook</strong> as one of its references — the loop closes. So the workflow is not linear but circular: build the notebook, spin off a Page, add the Page back as a source, ask the notebook a new question that now cites both the original docs and your synthesized Page. This is how institutional knowledge compounds inside Copilot.</p>
@@ -1098,7 +1114,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 // ── 8: Bonus: Voice ──
 {
   id: 'voice',
-  title: 'Bonus: Voice',
+  title: 'Voice',
   points: 10,
   learn: `
 <h3>Talk to Copilot, Literally</h3>
@@ -1142,14 +1158,28 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <button class="mark-complete-btn" id="complete-btn-6" onclick="markComplete(6)">Mark Complete</button>
 `,
   advanced: `
-<h3>Accessibility</h3>
-<p>Voice input is not just convenience — it is accessibility. Users with mobility limitations, repetitive strain injuries, or visual impairments can interact with Copilot entirely through voice. The combination of voice input + AI processing + voice output creates a fully accessible AI workflow.</p>
-
-<h3>Continuous Learning Resources</h3>
+<h3>When voice beats typing</h3>
+<p>Voice is not a gimmick — it is a different mode of thinking. A few situations where it consistently wins:</p>
 <ul>
-  <li>Microsoft Copilot Lab (copilot.cloud.microsoft/prompts) — a library of prompt templates</li>
-  <li>Microsoft Learn (learn.microsoft.com) — official training modules for Copilot</li>
-  <li>Your organization's IT team — for questions about permissions, licensing, and data access</li>
+  <li><strong>Pre-reading a long thread or document.</strong> Paste the link into chat, then switch to voice and say <em>"Walk me through this like I'm driving."</em> You get the summary spoken back while you stay hands-free.</li>
+  <li><strong>Rubber-ducking a decision.</strong> Out loud, you interrupt yourself, change direction, restart — the way real thinking works. Typing forces premature commitment to a sentence.</li>
+  <li><strong>Drafting when you are stuck.</strong> Talk at Copilot for a minute about what you want the email / brief / proposal to say. Then ask it to turn the ramble into a draft. Much faster than starting from a blinking cursor.</li>
+  <li><strong>On the phone / in the car / walking between meetings.</strong> The screen-free moments are where voice earns its keep.</li>
+</ul>
+
+<h3>Dictation versus voice mode — when to pick which</h3>
+<p>They look similar but the difference matters:</p>
+<ul>
+  <li><strong>Microphone (dictation)</strong> = speech-to-text. You speak, Copilot transcribes into the message box. You still hit send. Best when you know exactly what you want to prompt but don't want to type it.</li>
+  <li><strong>Sound waves (voice mode)</strong> = full spoken conversation. Copilot speaks back. No message box involved. Best when you don't yet know what you want — you're exploring.</li>
+</ul>
+<p>One quick heuristic: if the next thing you would do is read Copilot's answer, use voice mode. If the next thing you would do is send the transcribed message, use dictation.</p>
+
+<h3>Voice prompt patterns that work</h3>
+<ul>
+  <li><strong>Start with "Ask me a few questions first."</strong> Flips the interview — Copilot draws the context out of you instead of you front-loading it.</li>
+  <li><strong>Say "stop, back up" any time.</strong> Voice mode handles interruptions; use them.</li>
+  <li><strong>End with "send me a summary of what we just decided."</strong> The summary lands in the chat in text — ready to paste into an email, a Page, or a ticket.</li>
 </ul>
 
 <div class="note-box">

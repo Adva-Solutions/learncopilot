@@ -779,7 +779,7 @@ async function renderMapCallout(courseId, lessonIdx) {
       }
       var isDone = completed.includes(i);
       var isActive = i === currentLesson;
-      var numLabel = i < coreCount ? 'L' + (i + 1) : 'Bonus';
+      var numLabel = i < coreCount ? 'L' + (i + 1) : '★';
       html += '<div class="nav-item' + (isActive ? ' active' : '') + '" onclick="loadLesson(' + i + ')">';
       html += '<div class="check' + (isDone ? ' done' : '') + '">' + (isDone ? '&#10003;' : '') + '</div>';
       html += '<span><strong style="color:#0078d4;margin-right:6px;font-weight:700;">' + numLabel + '</strong>' + lesson.title + '</span>';
