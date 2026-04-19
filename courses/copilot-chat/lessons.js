@@ -575,7 +575,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <h4>Step 2: Upload References (do this first)</h4>
 <ul>
   <li><a href="/mock-data/executive/oda-design-philosophy.pdf" download>ODA Design Philosophy</a> — articulates the three core ideas (<em>form follows experience</em>, <em>porosity for prosperity</em>, <em>architecture as a social technology</em>) with project examples</li>
-  <li><a href="/mock-data/executive/oda-peer-firms.csv" download>ODA Peer Firms</a> — 15–25 firms the Principal watches, with notable recent projects and known positioning</li>
+  <li><a href="/mock-data/executive/oda-peer-firms.xlsx" download>ODA Peer Firms</a> — 15–25 firms the Principal watches, with notable recent projects and known positioning</li>
   <li><a href="/mock-data/executive/oda-media-sources.csv" download>ODA Media Sources</a> — publications and feeds to monitor (Dezeen, ArchDaily, Metropolis, etc.)</li>
 </ul>
 

@@ -432,7 +432,7 @@ pre.prompt-text { font-family:'IBM Plex Mono',monospace; font-size:11.5px; line-
             <pre class="prompt-text">Now cross-reference the peer-firms list with the three core ideas. For each firm, identify which of the three ideas (if any) their recent work most strongly exemplifies — and why, citing specific projects from the "Notable recent projects" column. Rank the top 5 firms whose public body of work is most philosophically aligned with ODA overall. Flag any firm where alignment is unclear and note what additional information would decide it.</pre>
           </details>
         </td>
-        <td><span class="dataset">oda-design-philosophy.pdf</span><br><span class="dataset">oda-peer-firms.csv</span><br><span class="dataset">oda-media-sources.csv</span></td>
+        <td><span class="dataset">oda-design-philosophy.pdf</span><br><span class="dataset">oda-peer-firms.xlsx</span><br><span class="dataset">oda-media-sources.csv</span></td>
         <td><span class="output-tag">Notebook</span></td></tr>
     <tr><td class="module chat-col">Chat L4 · Page</td>
         <td>Produce <em>Design Radar — Weekly Scan Plan</em> page: sources to monitor (media, competitions, peer firms), keywords and signals per core idea, alignment criteria (strong vs weak match), notification threshold, and recent aligned examples.
@@ -461,7 +461,7 @@ pre.prompt-text { font-family:'IBM Plex Mono',monospace; font-size:11.5px; line-
         <td><strong>Quant:</strong> peer-firm activity scoring — competitions entered, awards won, project announcements per month per firm. <strong>Qual:</strong> themes from recent media coverage evaluated through the three philosophical lenses. <strong>Viz:</strong> peer activity Pareto + monthly alignment-score trend line.
           <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">What trends do you see in this peer-firm activity data? Which firms have been most active, and in which categories (competitions, awards, project announcements)? Add a calculated column for a simple "alignment score" based on keyword hits from the three core ideas across the firm's recent projects. Create a Pareto chart ranking peer firms by total activity, and a monthly line chart of average alignment score over the past 6 months. Flag any firm whose alignment score has climbed meaningfully in the last quarter — those are the ones to watch most closely.</pre></details>
         </td>
-        <td><span class="dataset">oda-peer-firms.csv</span><br><span class="dataset">oda-media-sources.csv</span></td>
+        <td><span class="dataset">oda-peer-firms.xlsx</span><br><span class="dataset">oda-media-sources.csv</span></td>
         <td><span class="output-tag">Radar dashboard</span></td></tr>
     <tr class="email-row"><td class="module apps-col">Apps · Outlook<br><em style="font-weight:400;font-size:10px;">culminating step</em></td>
         <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which ODA principals, the marketing director, or the business-development lead work on strategic positioning or competition pursuits?" It surfaces a fellow principal, the creative director, and the BD lead. <strong>Draft an email to one of them</strong> — peer to peer, referencing the philosophy triptych, the positioning v2 redline, and the peer-activity radar dashboard. Tone: <em>"Been experimenting with a research agent that monitors industry work through our three-idea lens — put together a triptych, a positioning redraft, and a peer-activity view this week. Not a silver bullet, still figuring out the alignment threshold. Curious what you think before I start piping findings into a weekly digest. Happy to walk through the approach if you want to compare notes."</em>
@@ -489,7 +489,7 @@ pre.prompt-text { font-family:'IBM Plex Mono',monospace; font-size:11.5px; line-
       <div class="agent">
         <strong>Philosophy Radar Agent</strong>
         Runs on a daily schedule. Scans configured media sources, competition calendars, and peer-firm announcements for new work that aligns with ODA's three core ideas. When alignment clears the threshold, emails a concise brief — item, why it aligns, which idea(s), and a link — so the Principal sees only what matters through the firm's philosophical lens.
-        <div class="source">Knowledge: oda-design-philosophy.pdf + oda-peer-firms.csv + oda-media-sources.csv · Capabilities: web search, scheduled prompts, email</div>
+        <div class="source">Knowledge: oda-design-philosophy.pdf + oda-peer-firms.xlsx + oda-media-sources.csv · Capabilities: web search, scheduled prompts, email</div>
       </div>
     </div>
   </div>
