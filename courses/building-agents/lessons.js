@@ -204,16 +204,16 @@ window.LESSONS = [
 </div>
 
 <div class="option-content" id="researcher-option-3">
-<h4>Executive: Philanthropic Giving Trends</h4>
+<h4>Executive: Form Follows Experience &mdash; Deep Dive</h4>
 <p><strong>Step 1:</strong> Open the <strong>Researcher</strong> agent from your sidebar.</p>
 <p><strong>Step 2:</strong> Paste this prompt:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Researcher</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Research trends in philanthropic giving for [your sector] over the past 3 years. Include data sources, key statistics, donor demographic shifts, and emerging funding models.</pre>
+  <pre>Research recent architecture projects globally (past 12 months) that exemplify the idea of "form follows experience" — where building form is shaped by how humans move through, inhabit, or perceive the space. Include at least 5 projects from different firms. For each, describe the specific spatial or programmatic decision that expresses the idea, and cite the publication or source where the project was covered. Flag any project that would also fit "porosity for prosperity" or "architecture as a social technology."</pre>
 </div>
-<p><strong>Step 3:</strong> Watch the research plan unfold. Note the data sources it identifies &mdash; foundation databases, sector reports, and academic studies.</p>
-<p><strong>Step 4:</strong> Review the findings and verify that statistics are properly cited with dates and sources.</p>
-<p><strong>Step 5 (optional):</strong> When the Researcher is done, you can copy the output into a Word doc for editing, or save it as a <strong>Page</strong> (<em>Save to Page</em> in the response menu). No "Export to Word" button to hunt for &mdash; either prompt the Researcher to <em>export to Word</em>, or just copy-paste.</p>
+<p><strong>Step 3:</strong> Watch the research plan unfold. Note how the Researcher decomposes the question &mdash; it will likely search for "experiential architecture," "spatial narrative," and specific firms known for this approach.</p>
+<p><strong>Step 4:</strong> Review the findings. For each project, verify that the cited spatial decision actually ties to <em>experience</em> rather than generic good design. Click through at least 2 of the source citations to confirm accuracy.</p>
+<p><strong>Step 5 (optional):</strong> Copy the output into a Word doc for editing, or save it as a <strong>Page</strong> (<em>Save to Page</em> in the response menu) so you can feed these finds into the Philosophy Radar Agent's knowledge base later.</p>
 </div>
 
 <div class="option-content" id="researcher-option-4">
@@ -309,23 +309,23 @@ window.LESSONS = [
 </div>
 
 <div class="option-content" id="analyst-option-3">
-<h4>Executive: Budget vs. Actual Analysis</h4>
+<h4>Executive: Peer Firm Activity Analysis</h4>
 <div class="note-box">
   <div class="note-title">Sample Data</div>
-  <p>Download the <a href="/mock-data/financials/oda-monthly-financials.xlsx" download>Monthly Financials</a> to use for this exercise. Or use your own budget summary if you have one.</p>
+  <p>Download the <a href="/mock-data/executive/oda-peer-firms.csv" download>ODA Peer Firms</a> list for this exercise. Or use your own peer-firm tracking spreadsheet if you have one.</p>
 </div>
 <p><strong>Step 1:</strong> Open the <strong>Analyst</strong> agent from your sidebar.</p>
-<p><strong>Step 2:</strong> Upload the financial summary file.</p>
+<p><strong>Step 2:</strong> Upload the peer-firms file.</p>
 <p><strong>Step 3:</strong> Send this prompt:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Analyst</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze budget vs. actual spending by department. Flag any variances over 10%. Create a dashboard view with key metrics and trend lines.</pre>
+  <pre>Analyze recent activity across the peer firms in this file. Rank firms by total activity (competitions entered, awards won, project announcements) over the past 6 months. Add a column estimating philosophical alignment with ODA's three core ideas — "form follows experience," "porosity for prosperity," "architecture as a social technology" — based on keyword hits in the "Notable recent projects" column. Create a Pareto chart of peer activity and a monthly trend line of average alignment score.</pre>
 </div>
-<p><strong>Step 4:</strong> Review the variance flags and dashboard. Check whether the flagged departments match your own concerns.</p>
-<p><strong>Step 5 &mdash; Iterate:</strong> Request executive-ready views:</p>
+<p><strong>Step 4:</strong> Review the rankings and the alignment scores. Do the firms at the top match the ones the Principal actually watches? Are there any surprises — firms rising in alignment that weren't on the radar before?</p>
+<p><strong>Step 5 &mdash; Iterate:</strong> Request radar-ready views:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Analyst</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Create 2 additional visualizations: (1) a month-over-month spending trend line with budget targets overlaid, and (2) a waterfall chart showing where the largest budget overruns occurred.</pre>
+  <pre>Create 2 additional visualizations: (1) a scatter plot of peer activity (x) vs. alignment score (y), with firms labeled, so we can see who's active AND aligned vs. active-but-off-lens; (2) a small multiples chart showing each of the top 5 firms' alignment trend over time. Highlight any firm whose alignment has climbed meaningfully.</pre>
 </div>
 </div>
 
@@ -625,39 +625,44 @@ window.LESSONS = [
 </div>
 
 <div class="option-content" id="reportGroup-option-3">
-<h4>Executive: Board Briefing Memo</h4>
+<h4>Executive: Philosophy Radar Agent</h4>
 <div class="note-box">
-  <div class="note-title">Need a sample report?</div>
-  <p>Download the <a href="/mock-data/executive/oda-qbr-q1-2025.txt" download>Quarterly Business Review</a> to use as the report template for extraction. You can also reference the <a href="/mock-data/executive/property-summary-1.txt" download>Property Summary</a> for supplementary context.</p>
+  <div class="note-title">What you're building</div>
+  <p>An agent that runs on a daily schedule, scans configured sources (media, competitions, peer-firm announcements), and emails the Principal a concise brief whenever it finds new work that aligns with ODA's three core ideas — <em>form follows experience</em>, <em>porosity for prosperity</em>, <em>architecture as a social technology</em>. The "report" the agent writes is the alignment memo it emails; Report Writer is the pattern we use to build it.</p>
+</div>
+<div class="note-box">
+  <div class="note-title">Reference material</div>
+  <p>Download the <a href="/mock-data/executive/oda-design-philosophy.pdf" download>ODA Design Philosophy</a> doc, the <a href="/mock-data/executive/oda-peer-firms.csv" download>Peer Firms</a> list, and the <a href="/mock-data/executive/oda-media-sources.csv" download>Media Sources</a> list. The philosophy doc is the <em>lens</em>; the two lists are the <em>input surface</em> the agent scans.</p>
 </div>
 
-<p><strong>Step 1: Benchmark.</strong> Upload an existing Board Briefing Memo to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>
+<p><strong>Step 1: Benchmark.</strong> Before building the agent, try the task in plain Copilot Chat: "Scan the web for architecture news from the past 7 days that aligns with ODA's philosophy (attached). Email me a short brief of the top 3 items." Screenshot the result. You'll compare against this to measure whether the agent actually improves it.</p>
 
-<p><strong>Step 2: Extract your template.</strong> Paste your best existing Board Briefing Memo into Copilot Chat and run this prompt:</p>
+<p><strong>Step 2: Extract your alignment-memo template.</strong> Draft one example alignment memo manually — 3–5 items, each with Title, Source + link, Why it aligns (which of the three ideas), Notification tier (flag / log / skip). Then paste that example into Copilot Chat and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Extract the document structure, chapters, section headings, and writing style of this report. Create a detailed system prompt for an AI agent that will generate new Board Briefing Memos following this exact structure, tone, and formatting. Include instructions to:
-- Follow the extracted section structure exactly
-- Ask for the recipient name and time period before generating
-- Use active voice and focus on impact
-- Write from the organization's perspective
-- Leave sections blank rather than fabricate content when no source material is provided
-- Always ask for source materials (meeting notes, program updates, etc.) before writing</pre>
+  <pre>Extract the structure, section headings, and writing style of this example alignment memo. Create a detailed system prompt for an AI agent that will:
+- Scan configured sources (media feeds, competition calendars, peer-firm announcements) on a daily schedule
+- Evaluate each candidate item against ODA's three core ideas ("form follows experience," "porosity for prosperity," "architecture as a social technology") using the philosophy doc as ground truth
+- Only surface items where alignment is strong enough to clear the notification threshold
+- Produce a memo in the exact structure of this example: item title, source + link, why it aligns (which of the three ideas, with direct reference to the philosophy doc's language), notification tier
+- Skip anything generic; when alignment is ambiguous, log it silently with a [NEEDS REVIEW] flag rather than emailing it
+- Ask me before the first run whether I want a daily digest or immediate alerts, and let me update the cadence later</pre>
 </div>
 
 <p><strong>Step 3: Create the agent.</strong> New Agent &rarr; Configure:</p>
 <ul>
-  <li><strong>Name:</strong> "Executive Report Writer"</li>
-  <li><strong>Description:</strong> "Generates Board Briefing Memos from raw materials using a consistent template"</li>
+  <li><strong>Name:</strong> "Philosophy Radar"</li>
+  <li><strong>Description:</strong> "Daily scan of architecture media, competitions, and peer-firm activity — emails only items that align with ODA's three core ideas."</li>
   <li><strong>Instructions:</strong> Paste the system prompt from Step 2</li>
-  <li><strong>Knowledge:</strong> Add relevant executive resource URLs (3-4 pages about your strategic priorities). Do NOT pre-upload source materials &mdash; those come at runtime.</li>
-  <li><strong>Suggested prompts:</strong> "I need to write a Board Briefing Memo" / "Here are my raw materials for this quarter's briefing"</li>
+  <li><strong>Knowledge:</strong> Upload <span class="inline-code">oda-design-philosophy.pdf</span> (the lens), <span class="inline-code">oda-peer-firms.csv</span>, <span class="inline-code">oda-media-sources.csv</span>. Add 3–4 URLs for publications the agent should check (Dezeen, ArchDaily, Architectural Record).</li>
+  <li><strong>Capabilities:</strong> turn on <em>Web search</em>, <em>Create documents</em>, and if available <em>Scheduled prompts</em> and <em>Email</em> so the agent can both run daily and send you the memo.</li>
+  <li><strong>Suggested prompts:</strong> "Run today's scan" / "What did you find this week that ties to 'porosity for prosperity'?" / "Update the alignment threshold"</li>
 </ul>
 
-<p><strong>Step 4: Use it.</strong> Upload raw materials (revenue data, pipeline updates, strategic notes) &rarr; type "Produce the report" &rarr; the agent asks clarifying questions &rarr; generates the full document.</p>
+<p><strong>Step 4: Schedule it.</strong> In the agent's settings, set a daily run (e.g. 7am). On each run the agent scans its configured sources, filters through the philosophy lens, and emails the alignment memo only when something clears the threshold. No alignment = no email.</p>
 
-<p><strong>Iteration:</strong> Run the agent 3 times with different input materials. Update the Instructions each time something is off &mdash; missing sections, wrong tone, too long or too short.</p>
-<p class="personalization-note">[PERSONALIZED: Replace revenue categories and strategic priorities with your actual business structure.]</p>
+<p><strong>Iteration:</strong> Run manually for 3 days first. Each day, review what the agent flagged and what it logged as [NEEDS REVIEW]. If it's flagging generic stuff, tighten the alignment criteria in the Instructions. If it's missing things you'd have wanted, loosen the threshold or add the missing keywords. The point is to calibrate the lens until the inbox stays quiet except when something genuinely lands.</p>
+<p class="personalization-note">[PERSONALIZED: Swap in your firm's actual core philosophical ideas, peer firm list, and preferred publications. The three-idea structure is a scaffold — use whatever your firm's positioning actually centers on.]</p>
 </div>
 
 <div class="option-content" id="reportGroup-option-4">

@@ -403,18 +403,18 @@ pre.prompt-text { font-family:'IBM Plex Mono',monospace; font-size:11.5px; line-
 <div class="dept">
   <div class="dept-header">
     <div class="dept-name">Executive &amp; Leadership</div>
-    <div class="dept-tag">Q1 QBR → Board AI Decision</div>
+    <div class="dept-tag">Design Philosophy Radar</div>
   </div>
   <div class="narrative">
-    <strong>The story:</strong> The Managing Principal needs to decide whether to greenlight org-wide AI adoption. The student builds an executive knowledge base from the Q1 QBR, synthesizes a decision brief page, generates a <em>board-ready QBR infographic</em>, redlines the board memo with the CEO, runs budget and leadership survey analyses, then sends a retrospective email to the leadership team. Finally, they build a voice agent and a Board Briefing Writer agent.
+    <strong>The story:</strong> The Managing Principal wants an AI analyst that continuously scans media, industry developments, competitions, and peer-firm projects — filtering by genuine alignment with ODA's three core ideas: <em>form follows experience</em>, <em>porosity for prosperity</em>, and <em>architecture as a social technology</em> — and notifies him when something meaningful surfaces. The student builds a philosophy + peer-landscape knowledge base, synthesizes a weekly scan plan into a page, generates a <em>three-panel philosophy triptych</em>, redlines the firm's design-philosophy positioning statement, analyzes peer-firm activity through the philosophical lens, then sends a peer retrospective. Final deliverable: a voice agent and a <strong>Philosophy Radar Agent</strong> that runs daily and pings when something aligned surfaces.
   </div>
 
   <div class="arc">
-    <div class="arc-step chat"><div class="lesson">Chat L3</div><div class="action">Notebook</div></div>
-    <div class="arc-step chat"><div class="lesson">Chat L4</div><div class="action">Page</div></div>
-    <div class="arc-step chat"><div class="lesson">Chat L5</div><div class="action">QBR<br>Infographic</div></div>
-    <div class="arc-step apps"><div class="lesson">Apps · Word</div><div class="action">Memo Redline</div></div>
-    <div class="arc-step apps"><div class="lesson">Apps · Excel</div><div class="action">Variance Viz</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L3</div><div class="action">Philosophy<br>Notebook</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L4</div><div class="action">Radar<br>Plan</div></div>
+    <div class="arc-step chat"><div class="lesson">Chat L5</div><div class="action">Philosophy<br>Triptych</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Word</div><div class="action">Positioning Redline</div></div>
+    <div class="arc-step apps"><div class="lesson">Apps · Excel</div><div class="action">Peer Activity Viz</div></div>
     <div class="arc-step apps"><div class="lesson">Apps · Outlook</div><div class="action">Retro Email</div></div>
     <div class="arc-step agents"><div class="lesson">Agents L1</div><div class="action">Research</div></div>
     <div class="arc-step agents"><div class="lesson">Agents L2</div><div class="action">2 Agents</div></div>
@@ -424,57 +424,57 @@ pre.prompt-text { font-family:'IBM Plex Mono',monospace; font-size:11.5px; line-
     <thead><tr><th>Step</th><th>What they do</th><th>Data in</th><th>Data out</th></tr></thead>
     <tbody>
     <tr><td class="module chat-col">Chat L3 · Notebook</td>
-        <td>Build <em>Executive Project Overview Notebook</em>. Ask for 5-minute briefings, flag decisions needed, compare properties.
+        <td>Build <em>Design Philosophy &amp; Peer Landscape Notebook</em>. Upload ODA's philosophy doc, the peer-firm list, and the media-sources list. Ask which peer firms' recent work aligns with each of the three core ideas, and which publications cover that kind of work most consistently.
           <details class="prompt"><summary>Student prompts</summary>
-            <div class="prompt-label">Power Prompt #1 — strategic fit</div>
-            <pre class="prompt-text">Cross-reference every document in this notebook. Using the Q1 QBR as the strategic lens, evaluate both property summaries against it. For each property, produce: (1) which Q1 strategic priorities it advances and which it puts at risk — cite the specific QBR section for each; (2) how it squares against the firm's current financial posture and utilization from the QBR; (3) open questions the QBR raises that the property summary does not yet answer. End with a Strategic Fit ranking — property 1 vs property 2 — and the single QBR passage that tips the decision.</pre>
-            <div class="prompt-label">Power Prompt #2 — compare &amp; recommend</div>
-            <pre class="prompt-text">Now go deep on the property comparison. Build a side-by-side table covering: price, square footage, price per SF, location, amenities, and any red flags from each summary. Then add a column for each row mapping the row to the strategic-fit ranking you produced above — so every line item ties back to the QBR. End with a one-paragraph recommendation.</pre>
+            <div class="prompt-label">Power Prompt #1 — define the lens</div>
+            <pre class="prompt-text">Using the ODA Design Philosophy document in this notebook, define each of the three core ideas — "form follows experience," "porosity for prosperity," and "architecture as a social technology" — in one sentence each, grounded in the exact language used in the doc. For each idea, cite the section or page where it's articulated, and list the ODA project examples the doc uses to illustrate it.</pre>
+            <div class="prompt-label">Power Prompt #2 — map peers to the lens</div>
+            <pre class="prompt-text">Now cross-reference the peer-firms list with the three core ideas. For each firm, identify which of the three ideas (if any) their recent work most strongly exemplifies — and why, citing specific projects from the "Notable recent projects" column. Rank the top 5 firms whose public body of work is most philosophically aligned with ODA overall. Flag any firm where alignment is unclear and note what additional information would decide it.</pre>
           </details>
         </td>
-        <td><span class="dataset">oda-qbr-q1-2025.pdf</span><br><span class="dataset">property-summary-1.pdf</span><br><span class="dataset">property-summary-2.pdf</span></td>
+        <td><span class="dataset">oda-design-philosophy.pdf</span><br><span class="dataset">oda-peer-firms.csv</span><br><span class="dataset">oda-media-sources.csv</span></td>
         <td><span class="output-tag">Notebook</span></td></tr>
     <tr><td class="module chat-col">Chat L4 · Page</td>
-        <td>Produce <em>Weekly Project Status — Leadership Brief</em> page: active projects, top risks, staffing snapshot, pipeline update.
+        <td>Produce <em>Design Radar — Weekly Scan Plan</em> page: sources to monitor (media, competitions, peer firms), keywords and signals per core idea, alignment criteria (strong vs weak match), notification threshold, and recent aligned examples.
           <details class="prompt"><summary>Student prompts</summary>
-            <div class="prompt-label">Power Prompt #1 — synthesize the page</div>
-            <pre class="prompt-text">Using the QBR, build an Active Projects Table: Project, Phase (SD/DD/CD/CA), Status (On Track/At Risk/Behind), Budget Status (On/Over/Under), Timeline, Project Lead. Populate from the QBR with Shore Club, Mayflower, Jersey City Waterfront, The Mira Hotel Dubai, Harbor View, Riverside Tower. Follow with "Decisions Needed This Week" and "Top Risks" sections, pulling specifics from the QBR.</pre>
-            <div class="prompt-label">Power Prompt #2 — enrich the page</div>
-            <pre class="prompt-text">Add a "Staffing Snapshot" summarizing utilization — fully-allocated vs. available, with hiring needs.</pre>
+            <div class="prompt-label">Power Prompt #1 — synthesize the scan plan</div>
+            <pre class="prompt-text">Using the philosophy doc, the peer-firms list, and the media-sources list in this notebook, draft a Design Radar Weekly Scan Plan. Include these sections: (1) Sources to monitor — broken into Media, Competitions, Peer Firms, with specific names pulled from the lists; (2) Keywords and signals per core idea — concrete phrases and project-type patterns that indicate each of the three ideas; (3) Alignment criteria — what distinguishes a strong match from a weak match; (4) Notification threshold — when something deserves to be flagged to the principal vs. quietly logged.</pre>
+            <div class="prompt-label">Power Prompt #2 — enrich with recent examples</div>
+            <pre class="prompt-text">Add a "Recent aligned examples" section with 3 real projects or announcements from the past 12 months — one per core idea — showing the reasoning for why each is aligned, the source it was covered in, and which notification tier it would trigger. Keep each example to 3–4 sentences.</pre>
           </details>
         </td>
-        <td>Exec notebook</td>
+        <td>Philosophy notebook</td>
         <td><span class="output-tag">Page</span></td></tr>
     <tr><td class="module chat-col">Chat L5 · Image</td>
-        <td>Generate a <em>Leadership Brief cover image</em> — a stylized cinematic dusk skyline composite of ODA's active projects (Harbor View tower, Shore Club facade, Riverside). Navy + warm gold, editorial quality, McKinsey-restrained. Add to Page.
-          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Create a sophisticated cover image for ODA's weekly Leadership Brief. A stylized cinematic skyline at dusk showing a composite of our active projects — a waterfront residential tower (Harbor View), a hotel facade with terracotta rainscreen (Shore Club), and a mixed-use tower (Riverside). Restrained navy and warm gold palette, editorial quality, McKinsey-like. Wide 16:9 format. Leave the top third clean for a title overlay.</pre></details>
+        <td>Generate a <em>Philosophy Triptych</em> — a three-panel editorial illustration, one panel per core idea. Editorial, restrained, suitable for the cover of the Design Radar Page.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Create a three-panel editorial illustration embodying ODA's core design philosophy. Panel 1 — "form follows experience" — a subtle spatial diagram showing how human movement and sight-lines carve the building's form. Panel 2 — "porosity for prosperity" — a facade dissolving into public realm at the ground plane, people flowing through. Panel 3 — "architecture as a social technology" — a building's roof terrace teeming with civic life at dusk. Navy + white + warm gold palette, restrained, editorial quality, McKinsey-like not advertising. Wide 16:9, each panel clearly delineated. Leave space under each panel for a short caption.</pre></details>
         </td>
-        <td>Page + QBR data</td>
-        <td><span class="output-tag">Infographic</span></td></tr>
+        <td>Page + philosophy doc</td>
+        <td><span class="output-tag">Triptych</span></td></tr>
     <tr><td class="module apps-col">Apps · Word</td>
-        <td>Produce a <em>Board Briefing Memo</em> via Word Copilot from the QBR. Live redline with the CEO using Track Changes. Voice-profile mode for executive tone.
-          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Draft a board briefing memo for ODA's quarterly meeting. Include these sections: Executive Summary (2-3 sentences on overall firm health), Project Pipeline Status (10 active projects including Shore Club, Mayflower, and Jersey City Waterfront — summarize in a table), Revenue Update (Q1 revenue at $1.435M vs. $1.33M prior year, net margin 12.2%), Strategic Decision Needed (whether to expand the Fort Lauderdale office — present pros, cons, estimated cost, and a recommendation), and Next Quarter Priorities (3 items). Use a concise executive tone — no fluff.</pre></details>
+        <td>Produce a <em>Design Philosophy Positioning Statement</em> (2-page firm-voice document) via Word Copilot from the philosophy doc. Live redline with the Principal using Track Changes. Voice-profile mode for firm tone.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Draft a two-page ODA Design Philosophy Positioning Statement for use in client proposals, competition submissions, and award narratives. Include these sections: Who we are (2 sentences on firm identity), Our three core ideas (each with a 2-sentence articulation grounded in the language of the philosophy doc, plus one current ODA project example that embodies it), How these ideas shape our work (3 project-level examples across residential, hospitality, and mixed-use), and Where we're going (1 short paragraph on the firm's trajectory). Tone: confident, philosophical, editorial — restrained not promotional.</pre></details>
         </td>
-        <td><span class="dataset">oda-qbr-q1-2025.pdf</span></td>
-        <td><span class="output-tag">Board memo v2</span></td></tr>
+        <td><span class="dataset">oda-design-philosophy.pdf</span></td>
+        <td><span class="output-tag">Positioning v2</span></td></tr>
     <tr><td class="module apps-col">Apps · Excel</td>
-        <td><strong>Quant:</strong> budget vs actual by department, variance flags &gt;10%. <strong>Qual:</strong> leadership pulse survey themes. <strong>Viz:</strong> variance waterfall + risk heatmap.
-          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">What trends do you see in this data? Compare budget vs. actual by department for Q1, and flag any variance over 10%. Add a calculated column for variance %. Create a variance waterfall chart and a risk heatmap summarizing the leadership pulse-survey themes. Call out any department where the variance has worsened for 2+ consecutive quarters.</pre></details>
+        <td><strong>Quant:</strong> peer-firm activity scoring — competitions entered, awards won, project announcements per month per firm. <strong>Qual:</strong> themes from recent media coverage evaluated through the three philosophical lenses. <strong>Viz:</strong> peer activity Pareto + monthly alignment-score trend line.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">What trends do you see in this peer-firm activity data? Which firms have been most active, and in which categories (competitions, awards, project announcements)? Add a calculated column for a simple "alignment score" based on keyword hits from the three core ideas across the firm's recent projects. Create a Pareto chart ranking peer firms by total activity, and a monthly line chart of average alignment score over the past 6 months. Flag any firm whose alignment score has climbed meaningfully in the last quarter — those are the ones to watch most closely.</pre></details>
         </td>
-        <td><span class="dataset">oda-monthly-financials.xlsx</span><br><span class="dataset">oda-project-tracking.xlsx</span></td>
-        <td><span class="output-tag">Exec dashboard</span></td></tr>
+        <td><span class="dataset">oda-peer-firms.csv</span><br><span class="dataset">oda-media-sources.csv</span></td>
+        <td><span class="output-tag">Radar dashboard</span></td></tr>
     <tr class="email-row"><td class="module apps-col">Apps · Outlook<br><em style="font-weight:400;font-size:10px;">culminating step</em></td>
-        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which other ODA principals or senior leaders work on quarterly reporting or board materials?" It surfaces a fellow principal, the CFO, and the ops lead. <strong>Draft an email to one of them</strong> — peer to peer, referencing the one-page QBR infographic, the memo with the CEO's redlines, and the variance summary. Tone: <em>"Put together the Q1 board prep this morning using Copilot — infographic, memo draft, variance summary. Sharing because I know you're heading into your own board cycle soon. Not a silver bullet, and I'm still working out the format, but curious what you think of the one-pager. Happy to show the approach if it's useful."</em>
-          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Find other ODA principals or senior leaders who work on quarterly reporting or board materials — a fellow principal, the CFO, or the ops lead. Draft a short peer-to-peer email from me to one of them. Reference the one-page QBR infographic, the memo with the CEO's redlines, and the variance summary. Tone: grounded, exploratory — "put together the Q1 prep this morning using Copilot, not a silver bullet and still working out the format." Close with an open invitation to walk through the approach if they're heading into their own board cycle.</pre></details>
+        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which ODA principals, the marketing director, or the business-development lead work on strategic positioning or competition pursuits?" It surfaces a fellow principal, the creative director, and the BD lead. <strong>Draft an email to one of them</strong> — peer to peer, referencing the philosophy triptych, the positioning v2 redline, and the peer-activity radar dashboard. Tone: <em>"Been experimenting with a research agent that monitors industry work through our three-idea lens — put together a triptych, a positioning redraft, and a peer-activity view this week. Not a silver bullet, still figuring out the alignment threshold. Curious what you think before I start piping findings into a weekly digest. Happy to walk through the approach if you want to compare notes."</em>
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Find ODA principals, the creative director, the marketing director, or the business-development lead — anyone who works on strategic positioning, competition pursuits, or client-facing brand narrative. Draft a short peer-to-peer email from me to one of them. Reference the Philosophy Triptych, the Positioning Statement v2 (redlined this week), and the peer-activity radar dashboard. Tone: tentative, exploratory — "been experimenting with a research agent that monitors industry work through our three-idea lens… not a silver bullet, still figuring out the alignment threshold." Close with an open invitation to compare notes before the approach gets rolled out more broadly.</pre></details>
         </td>
-        <td>Page + Infographic + Memo v2 + Exec dashboard</td>
+        <td>Page + Triptych + Positioning v2 + Radar dashboard</td>
         <td><span class="output-tag">Sent email</span> to an ODA leadership peer</td></tr>
     <tr><td class="module agents-col">Agents L1 · Pre-Built</td>
-        <td><strong>Researcher:</strong> "Research trends in philanthropic giving over the past 3 years — data sources, key statistics, donor demographic shifts, emerging funding models."
-          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Research trends in philanthropic giving for [your sector] over the past 3 years. Include data sources, key statistics, donor demographic shifts, and emerging funding models.</pre></details>
+        <td><strong>Researcher:</strong> "Research recent architecture projects globally (past 12 months) that exemplify 'form follows experience' — focus on how spatial decisions respond to human experience and behavior."
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Research recent architecture projects globally (past 12 months) that exemplify the idea of "form follows experience" — where building form is shaped by how humans move through, inhabit, or perceive the space. Include at least 5 projects from different firms. For each, describe the specific spatial or programmatic decision that expresses the idea, and cite the publication or source where the project was covered. Flag any project that would also fit "porosity for prosperity" or "architecture as a social technology."</pre></details>
         </td>
         <td>Live web</td>
-        <td><span class="output-tag">ROI benchmark report</span></td></tr>
+        <td><span class="output-tag">Research report</span></td></tr>
     </tbody>
   </table>
 
@@ -483,13 +483,13 @@ pre.prompt-text { font-family:'IBM Plex Mono',monospace; font-size:11.5px; line-
     <div class="agents">
       <div class="agent">
         <strong>Write Like Me</strong>
-        Drafts board memos, investor notes, and leadership emails in the Principal's executive voice.
+        Drafts leadership emails, investor notes, and short comms in the Principal's executive voice — for the day-to-day cadence.
         <div class="source">Knowledge: Outlook email history</div>
       </div>
       <div class="agent">
-        <strong>Board Briefing Writer</strong>
-        Generates future QBRs from raw data. Asks for the reporting period, then pulls from financials and resource data to produce a full briefing in the established format.
-        <div class="source">Knowledge: oda-qbr-q1-2025.pdf (as template) + property-summary-*.pdf</div>
+        <strong>Philosophy Radar Agent</strong>
+        Runs on a daily schedule. Scans configured media sources, competition calendars, and peer-firm announcements for new work that aligns with ODA's three core ideas. When alignment clears the threshold, emails a concise brief — item, why it aligns, which idea(s), and a link — so the Principal sees only what matters through the firm's philosophical lens.
+        <div class="source">Knowledge: oda-design-philosophy.pdf + oda-peer-firms.csv + oda-media-sources.csv · Capabilities: web search, scheduled prompts, email</div>
       </div>
     </div>
   </div>

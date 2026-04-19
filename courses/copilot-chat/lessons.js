@@ -570,29 +570,30 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <div class="option-content" id="option-3-exec">
 <h4>Step 1: Create &amp; name the Notebook</h4>
-<p>Click <strong>Notebooks</strong> → <strong>New Notebook</strong>. Name it: <strong>Executive Project Overview</strong>.</p>
+<p>Click <strong>Notebooks</strong> → <strong>New Notebook</strong>. Name it: <strong>Design Philosophy &amp; Peer Landscape</strong>.</p>
 
 <h4>Step 2: Upload References (do this first)</h4>
 <ul>
-  <li><a href="/mock-data/executive/oda-qbr-q1-2025.pdf" download>Q1 2025 Quarterly Business Review</a></li>
-  <li><a href="/mock-data/executive/property-summary-1.pdf" download>Property Summary 1</a> | <a href="/mock-data/executive/property-summary-2.pdf" download>Property Summary 2</a></li>
+  <li><a href="/mock-data/executive/oda-design-philosophy.pdf" download>ODA Design Philosophy</a> — articulates the three core ideas (<em>form follows experience</em>, <em>porosity for prosperity</em>, <em>architecture as a social technology</em>) with project examples</li>
+  <li><a href="/mock-data/executive/oda-peer-firms.csv" download>ODA Peer Firms</a> — 15–25 firms the Principal watches, with notable recent projects and known positioning</li>
+  <li><a href="/mock-data/executive/oda-media-sources.csv" download>ODA Media Sources</a> — publications and feeds to monitor (Dezeen, ArchDaily, Metropolis, etc.)</li>
 </ul>
 
 <h4>Step 3: Open Copilot instructions</h4>
 <p>Click the notebook title dropdown → <strong>Copilot instructions</strong>. Paste:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are an executive briefing assistant for ODA. When answering:
-- Lead with the bottom line — decisions needed, risks, and financial impact
-- Use bullet points, not paragraphs
-- When summarizing multiple projects, use a comparison table
-- Flag anything that needs immediate attention with [ACTION REQUIRED]</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>You are a design-intelligence analyst for ODA. When answering:
+- Always ground claims in the ODA Design Philosophy doc — quote the language from the doc when defining the three core ideas
+- Treat "form follows experience," "porosity for prosperity," and "architecture as a social technology" as the filter for every judgment of alignment
+- When ranking peer firms or projects, use a table and always cite the source document or the project name
+- Flag items where alignment is ambiguous with [NEEDS REVIEW]</code></div>
 
-<h4>Step 4: Power Prompt #1 — Strategic Fit</h4>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Cross-reference every document in this notebook. Using the Q1 QBR as the strategic lens, evaluate both property summaries against it. For each property, produce: (1) which Q1 strategic priorities it advances and which it puts at risk — cite the specific QBR section for each; (2) how it squares against the firm's current financial posture and utilization from the QBR; (3) open questions the QBR raises that the property summary does not yet answer. End with a Strategic Fit ranking — property 1 vs property 2 — and the single QBR passage that tips the decision.</code></div>
-<p>The power move: instead of re-summarizing the QBR (which is already a summary), you are forcing Copilot to hold the QBR <em>and</em> the property summaries in one lens — the kind of synthesis a principal would ask for before a go/no-go investment call.</p>
+<h4>Step 4: Power Prompt #1 — Define the Lens</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the ODA Design Philosophy document in this notebook, define each of the three core ideas — "form follows experience," "porosity for prosperity," and "architecture as a social technology" — in one sentence each, grounded in the exact language used in the doc. For each idea, cite the section or page where it's articulated, and list the ODA project examples the doc uses to illustrate it.</code></div>
+<p>The power move: you're forcing Copilot to stay in the doc's own language rather than substituting generic architectural concepts. These three definitions become the lens for everything that follows.</p>
 
-<h4>Step 5: Power Prompt #2</h4>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Now go deep on the property comparison. Build a side-by-side table covering: price, square footage, price per SF, location, amenities, and any red flags from each summary. Then add a column for each row mapping the row to the strategic-fit ranking you produced above — so every line item ties back to the QBR. End with a one-paragraph recommendation.</code></div>
-<p>P#1 did the synthesis; P#2 does the detail — and now the detail stays anchored to the strategic logic instead of floating on its own.</p>
+<h4>Step 5: Power Prompt #2 — Map Peers to the Lens</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Now cross-reference the peer-firms list with the three core ideas. For each firm, identify which of the three ideas (if any) their recent work most strongly exemplifies — and why, citing specific projects from the "Notable recent projects" column. Rank the top 5 firms whose public body of work is most philosophically aligned with ODA overall. Flag any firm where alignment is unclear and note what additional information would decide it.</code></div>
+<p>P#1 defined the lens; P#2 applies it. The output is a ranked peer map that directly feeds the Radar you'll design in Lesson 4.</p>
 </div>
 
 <div class="option-content" id="option-3-ops">
@@ -806,16 +807,16 @@ When the interview is complete, output the results formatted as a Copilot Custom
 </div>
 
 <div class="option-content" id="option-4-exec" style="display:none">
-<h4>Executive: Weekly Project Status Dashboard Page</h4>
-<p><strong>1. Inside your Executive Project Overview notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Weekly Project Status — Leadership Brief</strong>. QBR + property summaries carry over. Click <strong>Create</strong>.</p>
-<p><strong>2.</strong> Instructions live on the notebook, not the page — your L3 exec instructions already apply here. Nothing to re-enter.</p>
-<p><strong>3. Power Prompt #1</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the QBR, build an Active Projects Table: Project, Phase (SD/DD/CD/CA), Status (On Track/At Risk/Behind), Budget Status (On/Over/Under), Timeline, Project Lead. Populate from the QBR with Shore Club, Mayflower, Jersey City Waterfront, The Mira Hotel Dubai, Harbor View, Riverside Tower. Follow with "Decisions Needed This Week" and "Top Risks" sections, pulling specifics from the QBR.</code></div>
-<p><strong>4. Edit manually</strong> — right-click to add a heading "Pipeline Update" and note new proposals or RFPs in flight.</p>
-<p><strong>5. Power Prompt #2 — enrich the page</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Staffing Snapshot" summarizing utilization — fully-allocated vs. available, with hiring needs.</code></div>
+<h4>Executive: Design Radar — Weekly Scan Plan Page</h4>
+<p><strong>1. Inside your Design Philosophy &amp; Peer Landscape notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Design Radar — Weekly Scan Plan</strong>. The philosophy doc + peer firms + media sources carry over as references. Click <strong>Create</strong>.</p>
+<p><strong>2.</strong> Instructions live on the notebook, not the page — your L3 philosophy-analyst instructions already apply here. Nothing to re-enter.</p>
+<p><strong>3. Power Prompt #1 — synthesize the scan plan</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the philosophy doc, the peer-firms list, and the media-sources list in this notebook, draft a Design Radar Weekly Scan Plan. Include these sections: (1) Sources to monitor — broken into Media, Competitions, Peer Firms, with specific names pulled from the lists; (2) Keywords and signals per core idea — concrete phrases and project-type patterns that indicate each of the three ideas; (3) Alignment criteria — what distinguishes a strong match from a weak match; (4) Notification threshold — when something deserves to be flagged to the principal vs. quietly logged.</code></div>
+<p><strong>4. Edit manually</strong> — right-click to add a heading "Cadence" and note how often each category is scanned (daily for media, weekly for competitions, monthly for peer-firm retrospective).</p>
+<p><strong>5. Power Prompt #2 — enrich with recent examples</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Recent aligned examples" section with 3 real projects or announcements from the past 12 months — one per core idea — showing the reasoning for why each is aligned, the source it was covered in, and which notification tier it would trigger. Keep each example to 3–4 sentences.</code></div>
 <p><strong>6. Iterate</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Move the three most urgent decisions to the very top of the Page above the project table.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Tighten the alignment criteria — I should be able to hand this page to someone else and have them classify a new item the same way I would. Add 2–3 concrete examples of "strong match" vs "weak match" for each core idea.</code></div>
 </div>
 
 <div class="option-content" id="option-4-ops" style="display:none">
@@ -1017,21 +1018,21 @@ When the interview is complete, output the results formatted as a Copilot Custom
 </div>
 
 <div class="option-content" id="option-5-exec" style="display:none">
-<h4>Executive &rarr; Image: Leadership Brief Cover Visual</h4>
-<p><strong>Narrative fit:</strong> your Weekly Leadership Brief Page is the working document; the cover visual is what lands when the brief gets shared to the board. A cinematic composite of the active portfolio sets the tone before anyone reads a number.</p>
+<h4>Executive &rarr; Image: Philosophy Triptych</h4>
+<p><strong>Narrative fit:</strong> your Design Radar Page articulates the three core ideas as a scan filter. The triptych turns those ideas into something you can show — a single editorial image that lives at the top of the Page (and on the cover of the alignment memo).</p>
 <p><strong>1.</strong> In Create, click <strong>Create an image</strong>.</p>
 <p><strong>2. Generation prompt</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a sophisticated cover image for ODA's weekly Leadership Brief. A stylized cinematic skyline at dusk showing a composite of our active projects — a waterfront residential tower (Harbor View), a hotel facade with terracotta rainscreen (Shore Club), and a mixed-use tower (Riverside). Restrained navy and warm gold palette, editorial quality, McKinsey-like. Wide 16:9 format. Leave the top third clean for a title overlay.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a three-panel editorial illustration embodying ODA's core design philosophy. Panel 1 — "form follows experience" — a subtle spatial diagram showing how human movement and sight-lines carve the building's form. Panel 2 — "porosity for prosperity" — a facade dissolving into public realm at the ground plane, people flowing through. Panel 3 — "architecture as a social technology" — a building's roof terrace teeming with civic life at dusk. Navy + white + warm gold palette, restrained, editorial quality, McKinsey-like not advertising. Wide 16:9, each panel clearly delineated. Leave space under each panel for a short caption.</code></div>
 <p><strong>3. Work the Image Editing panel</strong>:</p>
 <ul>
-  <li><strong>Background &rarr; Color</strong> — swap the sky to a deeper navy if the golden-hour version feels too warm for a board audience.</li>
-  <li><strong>Enhancements &rarr; Color pop</strong> — keep one accent color live; desaturate the rest.</li>
-  <li><strong>Filters &amp; Effects</strong> — try <strong>Punch</strong> once; revert if it reads like advertising.</li>
-  <li><strong>Crop &amp; rotate</strong> — confirm the 16:9 with clean header space.</li>
+  <li><strong>Background &rarr; Color</strong> — try a deeper navy if the panels feel too warm for a firm-voice piece.</li>
+  <li><strong>Enhancements &rarr; Color pop</strong> — keep the warm gold accent alive; desaturate the rest.</li>
+  <li><strong>Object transform &rarr; Erase</strong> — remove any stray element that reads as decorative (flourishes, glow, extra figures).</li>
+  <li><strong>Crop &amp; rotate</strong> — confirm the 16:9 with equal panel widths.</li>
 </ul>
-<p><strong>4. Iterate</strong> — push it toward something you'd actually present:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Regenerate with the towers rendered more minimal — less detail, more silhouette — and push the sky darker. Navy + white + one gold accent only.</code></div>
-<p><strong>5. Link the cover into your Executive notebook.</strong> Open your L4 "Weekly Project Status — Leadership Brief" Page inside the notebook, then copy/paste the image (or paste its share link) at the top of the Page as the cover. Save to Library so the board version and the working version stay linked.</p>
+<p><strong>4. Iterate</strong> — push it toward something you'd actually publish:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Regenerate with the three panels rendered more minimal — architectural line-work rather than painterly — and keep the gold accent to a single highlighted detail per panel. The goal is editorial restraint, not drama.</code></div>
+<p><strong>5. Link the triptych into your Radar Page.</strong> Open your L4 "Design Radar — Weekly Scan Plan" Page inside the notebook, then copy/paste the image (or paste its share link) at the top of the Page as the hero. Save to Library so the positioning-statement version and the Radar-Page version stay linked.</p>
 </div>
 
 <div class="option-content" id="option-5-ops" style="display:none">

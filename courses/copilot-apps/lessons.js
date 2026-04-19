@@ -2,108 +2,22 @@
 window.LESSONS = [
 /* ===== LESSON 0 ===== */
 {
-  id: 1, title: "Outlook Copilot", points: 20, bonus: false,
+  id: 1, title: "Word Copilot", points: 20, bonus: false,
   learn: `
 <h3>What is Copilot in Apps?</h3>
-<p>You have been using Copilot as a standalone chat. Now meet Copilot <em>inside</em> the Microsoft 365 apps you already use every day — Outlook, Word, Excel, PowerPoint, and Teams. Look for the <strong>Copilot icon in the ribbon</strong> of each app (usually on the Home tab, often with a sparkle / pilot-wing glyph). Click it and a side panel opens — that is Copilot, now reading the open email, document, spreadsheet, or slide in front of you, and able to write back into it.</p>
+<p>You have been using Copilot as a standalone chat. Now meet Copilot <em>inside</em> the Microsoft 365 apps you already use every day — Word, Excel, Outlook, PowerPoint, and Teams. Look for the <strong>Copilot icon in the ribbon</strong> of each app (usually on the Home tab, often with a sparkle / pilot-wing glyph). Click it and a side panel opens — that is Copilot, now reading the open document, spreadsheet, email, or slide in front of you, and able to write back into it.</p>
 <p>The Custom Instructions and Memory you set up in the Chat course follow you into every app — a single configuration shapes every draft, summary, and analysis you produce here.</p>
+
+<div class="note-box" style="background:#fffbf0;border-left:3px solid #c5973e;padding:12px 16px;margin:14px 0 18px;">
+  <strong>How the Apps flow works:</strong> You'll start in <strong>Word</strong> (draft a real deliverable), then <strong>Excel</strong> (analyze your data and produce a dashboard), then link both back into the Chat Page you built. The module ends in <strong>Outlook</strong> — where you share what you made with a colleague. Each step feeds the next.
+</div>
 
 <div class="note-box" style="background:#fffbf0;border-left:3px solid #c5973e;padding:12px 16px;margin:14px 0 18px;">
   <strong>A quick note on agents:</strong> You will see the words "Agent Mode" and "agents" appear a few times in this module. For now, think of them as Copilot taking <em>multi-step action</em> inside an app (not just answering). Full coverage of building your own agents is the next course.
 </div>
 
-<h3>Copilot in Outlook</h3>
-<p>Outlook is two things in one: email and calendar. Copilot works across both.</p>
-<p>Think of Copilot in Outlook as an assistant who reads your inbox before you do and hands you a briefing — so you walk into your day already organized.</p>
-
-<h4>Summarize a long thread</h4>
-<p>Open any long email thread. At the top of the reading pane you will see a <strong>"Summarize by Copilot"</strong> banner. Click it — Copilot condenses the whole conversation into the key decisions, requests, and open questions. No more re-reading 20 replies to find the one action item buried at the bottom.</p>
-
-<h4>Draft a reply with tone and length control</h4>
-<p>Hit Reply on any message. In the compose window, click the <strong>Copilot icon in the top-right of the reply pane</strong> and pick <strong>Draft with Copilot</strong>. Tell it what you want to say — <em>"Accept the meeting but suggest Thursday instead"</em> — and Copilot writes a full reply. The draft panel has built-in controls to make it <strong>shorter / longer / more formal / more casual</strong>, so you can iterate without retyping.</p>
-
-<h4>Summarize an attachment</h4>
-<p>When a thread has a PDF, Word, or PowerPoint attachment, Copilot can summarize it without you opening it. Open the email, click the Copilot icon in the reading pane, and ask for a summary — the key points come back in the chat without you ever leaving the inbox.</p>
-
-<h4>Triage your inbox</h4>
-<p>Open Copilot Chat from the Outlook sidebar and ask:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What emails need my attention today? Prioritize by urgency and flag anything with a deadline this week or a direct ask from my manager.</code></div>
-<p>Copilot surfaces time-sensitive messages, action items assigned to you, and emails from key stakeholders. You can chain follow-ups: <em>"Flag the two most urgent and archive anything older than a week I haven't replied to."</em> Copilot actually performs the action — not just describes it.</p>
-
-<h4>Calendar: smarter scheduling</h4>
-<p>When you compose a meeting invite, Copilot suggests <strong>optimal meeting times</strong> based on attendee availability — Scheduling Assistant surfaced right in the compose flow, no extra clicks.</p>
-
-<h4>Calendar: meeting recap already waiting for you</h4>
-<p>After a recorded Teams meeting ends, open the event from your Outlook Calendar — Copilot has already filled in the <em>summary</em>, <em>mentions</em>, <em>tasks</em>, and recap notes. Useful if you missed the meeting, joined late, or need to catch up async.</p>
-
-<div class="tip-box">
-  <div class="tip-title">Building on the Chat course</div>
-  <p>Prompting, Custom Instructions, and "Talk to Your Data" all carry over. The difference here is Copilot runs <em>inside</em> Outlook — so it sees the open email, the compose draft, and the thread you're replying to. Specific prompts with context still beat vague ones.</p>
-</div>
-`,
-  implement: `
-<h3>Exercise: Summarize and Draft in Outlook</h3>
-
-<p><em>Use a real thread from your inbox — you have plenty. Pick one with at least 3 replies so there is something to summarize.</em></p>
-
-<ol>
-<li>Open <strong>Outlook</strong> (the app or Outlook on the web — not your browser). Click into an email thread with at least 3 replies.</li>
-<li>Find the <strong>Copilot icon inside the Outlook reading pane</strong> — it sits near the top of the open email, next to the Reply / Forward buttons. (Don't confuse it with any Copilot icon in your browser toolbar — that is a different product.)</li>
-<li>Click "Summarize" — or click the Copilot icon and send:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize this email thread. List the key decisions, any action items assigned to me, and any deadlines or deliverables mentioned.</code></div></li>
-<li>Check the summary. Does it mention specific people, decisions, and deadlines? If yes, it's working.</li>
-<li>Click <strong>Reply</strong> on that same thread. In the compose pane, click the <strong>Copilot icon</strong> at the top-right of the reply box.</li>
-<li>Send this prompt:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a reply confirming I'll handle the action items mentioned above. Keep it brief and professional.</code></div></li>
-<li>Review the draft. Below the draft, Copilot offers <strong>follow-up prompts</strong> like "Make it shorter", "More formal", "Add a closing question" — click any of them to refine the reply without retyping.</li>
-<li>When the draft reads the way you want, click <strong>Keep it</strong> (or Edit) to place it into the email body. Tweak manually, then Send — or close without sending if this is just practice.</li>
-<li><strong>Attachment summary:</strong> pick any thread that has a PDF, Word, or PowerPoint attached. Click the Copilot icon in the reading pane and send:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Please provide a summary of the document attached.</code></div>
-You now have the key takeaways without opening the file.</li>
-</ol>
-
-<p><strong>Iterate:</strong> Try one of these refinement prompts on your draft reply:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make this reply more concise — cut anything that doesn't directly address the action items.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Adjust the tone to be warmer and less formal, but keep it professional.</code></div>
-
-<p class="personalization-note">[PERSONALIZED: swap with organization-specific email threads and stakeholder names from Listen Labs interviews]</p>
-
-<div class="tip-box">
-  <div class="tip-title">Success Check</div>
-  Does the summary capture the key decisions — or did it miss something important? Did you use the follow-up prompts to tighten the reply? Is it ready to send, or does it need another pass?
-</div>
-`,
-  advanced: `
-<h3>Inbox Triage with Copilot</h3>
-<p>Open Copilot Chat in the Outlook sidebar (or the Copilot app in Work mode) and try these triage commands:</p>
-
-<h4>Prioritize Your Inbox</h4>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What emails need my attention today? Prioritize by urgency.</code></div>
-
-<h4>Bulk Actions</h4>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Flag the two most urgent emails and archive anything older than a week that I haven't replied to.</code></div>
-
-<h4>Follow-Up Tracking</h4>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Show me threads I started this week that still have no response. I need to follow up.</code></div>
-
-<h4>Weekly Email Audit</h4>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize all action items assigned to me from this week's emails. Group them by project.</code></div>
-
-<h4>Voice Triage (Mobile)</h4>
-<p>On Outlook mobile, Copilot can read your unread emails aloud and let you reply, archive, or flag by voice — hands-free inbox management on your commute.</p>
-
-<div class="note-box">
-  <strong>Want these on autopilot?</strong> The Copilot Chat module's <em>Talk to Your Data</em> lesson (L3) walks through setting these up as <strong>scheduled prompts</strong> — a daily briefing that runs every morning, a Friday project pulse that runs itself.
-</div>
-`
-},
-
-/* ===== LESSON 1 ===== */
-{
-  id: 2, title: "Word Copilot", points: 20, bonus: false,
-  learn: `
 <h3>Copilot in Word</h3>
-<p>In the last step, you summarized emails and drafted replies. Now apply that same AI power to documents — where some deliverables live.</p>
+<p>Word is where the real deliverables live — memos, briefs, positioning statements, case studies, handoff docs.</p>
 <p>Think of Copilot in Word as a co-author who never gets writer's block. You describe the document you need; it writes the first draft; your job is to shape it, not start from scratch.</p>
 <p>Click the <strong>Copilot icon in the Home ribbon</strong> (far right of the Home tab, near Dictate). That opens the side panel. You can also summon it inline by typing a prompt where your cursor sits on a blank line.</p>
 
@@ -135,7 +49,12 @@ You now have the key takeaways without opening the file.</li>
 `,
   implement: `
 <h3>Exercise: Draft, Rewrite, and Agent-Edit in Word</h3>
-<p>You summarized an email thread in the last step. Now imagine turning that summary into a full memo. Pick your role below to get a tailored drafting exercise:</p>
+<p>Pick your role below to get a tailored drafting exercise. You'll produce a real first draft, refine with Copilot's tone controls, then let Agent Mode restructure it.</p>
+
+<div class="tip-box" style="margin-bottom:18px;">
+  <div class="tip-title">Link this back to your Chat Page when you're done</div>
+  <p>Once your v2 document reads the way you want, save it to OneDrive and paste the share link at the top of the <strong>L4 Page</strong> you built in the Chat course. That's how the Page becomes the single URL your teammate needs to see your work — the narrative <em>and</em> the deliverable in one place.</p>
+</div>
 
 <div class="option-tabs">
   <button class="option-tab active" onclick="switchOption(1,'a',this)">Architecture</button>
@@ -201,24 +120,24 @@ You now have the key takeaways without opening the file.</li>
 </div>
 
 <div class="option-content" data-lesson="1" data-key="d">
-<h4>Executive: Board Briefing Memo</h4>
+<h4>Executive: Design Philosophy Positioning Statement</h4>
 <div class="note-box">
   <div class="note-title">Reference Material</div>
-  <p>Download the <a href="/mock-data/executive/oda-qbr-q1-2025.txt" download>ODA Q1 2025 QBR</a> for real project and financial data to feed into this exercise.</p>
+  <p>Download the <a href="/mock-data/executive/oda-design-philosophy.pdf" download>ODA Design Philosophy</a> doc. Paste it into the Word document (or reference it with <span class="inline-code">/</span>) so Copilot grounds the positioning statement in the firm's actual language for the three core ideas.</p>
 </div>
 <ol>
 <li>Open <strong>Word</strong>. Create a new blank document.</li>
 <li>Click the <strong>Copilot icon</strong> in the Home ribbon tab.</li>
 <li>Type this prompt:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a board briefing memo for ODA's quarterly meeting. Include these sections: Executive Summary (2-3 sentences on overall firm health), Project Pipeline Status (10 active projects including Shore Club, Mayflower, and Jersey City Waterfront — summarize in a table), Revenue Update (Q1 revenue at $1.435M vs. $1.33M prior year, net margin 12.2%), Strategic Decision Needed (whether to expand the Fort Lauderdale office — present pros, cons, estimated cost, and a recommendation), and Next Quarter Priorities (3 items). Use a concise executive tone — no fluff.</code></div></li>
-<li>Read what Copilot generates. Confirm it created a decision-ready memo with clear structure.</li>
-<li>Select the <strong>Strategic Decision</strong> section. Right-click and choose <strong>Rewrite with Copilot</strong>. Choose <strong>"Make it more formal"</strong>.</li>
-<li>Compare the versions. The rewrite should sound boardroom-ready.</li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a two-page ODA Design Philosophy Positioning Statement for use in client proposals, competition submissions, and award narratives. Include these sections: Who we are (2 sentences on firm identity), Our three core ideas (each with a 2-sentence articulation grounded in the language of the philosophy doc, plus one current ODA project example that embodies it — "form follows experience," "porosity for prosperity," "architecture as a social technology"), How these ideas shape our work (3 project-level examples across residential, hospitality, and mixed-use), and Where we're going (1 short paragraph on the firm's trajectory). Tone: confident, philosophical, editorial — restrained not promotional.</code></div></li>
+<li>Read what Copilot generates. Confirm each core idea is grounded in the philosophy doc's actual language, with a specific ODA project called out.</li>
+<li>Select the <strong>"How these ideas shape our work"</strong> section. Right-click and choose <strong>Rewrite with Copilot</strong>. Choose <strong>"Make it more concise"</strong>.</li>
+<li>Compare the versions. The rewrite should read like tight editorial copy — each project example serving a single idea crisply.</li>
 </ol>
 <p><strong>Agent Mode:</strong> Click the Copilot icon and type:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Edit this document: add a financial summary table at the top comparing this quarter to last quarter, and add a risk register section at the bottom with the top 3 firm-level risks and mitigation status.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Edit this document: add a pull-quote at the top extracted from the three-ideas section (the single line that best captures the firm's voice), and add a short "For when you'd use this" sidebar on the last page listing 3 use cases (RFP response, competition narrative, award submission) with one sentence each.</code></div>
 <p><strong>Iterate:</strong> Refine the output:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Strengthen the recommendation in the Strategic Decision section — be more direct about which option you recommend and why. Add a one-sentence ROI estimate.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Tighten any sentence that feels promotional or self-congratulatory. The piece should read like a firm articulating what it believes, not selling itself. Cut superlatives.</code></div>
 </div>
 
 <div class="option-content" data-lesson="1" data-key="e">
@@ -265,9 +184,9 @@ You now have the key takeaways without opening the file.</li>
 `
 },
 
-/* ===== LESSON 2 ===== */
+/* ===== LESSON 1 ===== */
 {
-  id: 3, title: "Excel Copilot", points: 25, bonus: false,
+  id: 2, title: "Excel Copilot", points: 25, bonus: false,
   learn: `
 <h3>Copilot in Excel</h3>
 <p>Words are powerful, but sometimes you need numbers. Excel's Copilot is the most capable app integration — it can analyze data, write formulas, and build charts from plain English.</p>
@@ -296,6 +215,11 @@ You now have the key takeaways without opening the file.</li>
   <li><strong>Quantitative work</strong> — add calculated columns and formulas by describing what you want.</li>
   <li><strong>Visualization</strong> — ask for a chart and Copilot builds it in the sheet.</li>
 </ol>
+
+<div class="tip-box" style="margin-bottom:18px;">
+  <div class="tip-title">Link this back to your Chat Page when you're done</div>
+  <p>Once the chart tells a clear story, save the workbook to OneDrive and paste its share link into the <strong>L4 Page</strong> alongside your Word v2 document. The Page becomes the one URL a teammate can click to see the narrative, the deliverable, and the numbers together.</p>
+</div>
 
 <div class="note-box">
   <div class="note-title">ODA sample data</div>
@@ -349,6 +273,159 @@ You now have the key takeaways without opening the file.</li>
 
 <h4>Architecture &amp; Project Management Use Cases</h4>
 <p>Export project tracking data from whatever tool you use (Revit schedules, Bluebeam quantity takeoffs, PM spreadsheets) as CSV or Excel. Then ask Copilot to analyze trends: "Which projects are over budget?", "Show me resource utilization by month", "Compare planned vs. actual hours by team member." The key is getting data <em>into</em> Excel — once it's there, Copilot handles the rest.</p>
+`
+},
+
+/* ===== LESSON 2 ===== */
+{
+  id: 3, title: "Outlook Copilot", points: 20, bonus: false,
+  learn: `
+<h3>Copilot in Outlook</h3>
+<p>Outlook is two things in one: email and calendar. Copilot works across both.</p>
+<p>Think of Copilot in Outlook as an assistant who reads your inbox before you do and hands you a briefing — so you walk into your day already organized.</p>
+
+<h4>Summarize a long thread</h4>
+<p>Open any long email thread. At the top of the reading pane you will see a <strong>"Summarize by Copilot"</strong> banner. Click it — Copilot condenses the whole conversation into the key decisions, requests, and open questions. No more re-reading 20 replies to find the one action item buried at the bottom.</p>
+
+<h4>Draft a reply with tone and length control</h4>
+<p>Hit Reply on any message. In the compose window, click the <strong>Copilot icon in the top-right of the reply pane</strong> and pick <strong>Draft with Copilot</strong>. Tell it what you want to say — <em>"Accept the meeting but suggest Thursday instead"</em> — and Copilot writes a full reply. The draft panel has built-in controls to make it <strong>shorter / longer / more formal / more casual</strong>, so you can iterate without retyping.</p>
+
+<h4>Summarize an attachment</h4>
+<p>When a thread has a PDF, Word, or PowerPoint attachment, Copilot can summarize it without you opening it. Open the email, click the Copilot icon in the reading pane, and ask for a summary — the key points come back in the chat without you ever leaving the inbox.</p>
+
+<h4>Triage your inbox</h4>
+<p>Open Copilot Chat from the Outlook sidebar and ask:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What emails need my attention today? Prioritize by urgency and flag anything with a deadline this week or a direct ask from my manager.</code></div>
+<p>Copilot surfaces time-sensitive messages, action items assigned to you, and emails from key stakeholders. You can chain follow-ups: <em>"Flag the two most urgent and archive anything older than a week I haven't replied to."</em> Copilot actually performs the action — not just describes it.</p>
+
+<h4>Calendar: smarter scheduling</h4>
+<p>When you compose a meeting invite, Copilot suggests <strong>optimal meeting times</strong> based on attendee availability — Scheduling Assistant surfaced right in the compose flow, no extra clicks.</p>
+
+<h4>Calendar: meeting recap already waiting for you</h4>
+<p>After a recorded Teams meeting ends, open the event from your Outlook Calendar — Copilot has already filled in the <em>summary</em>, <em>mentions</em>, <em>tasks</em>, and recap notes. Useful if you missed the meeting, joined late, or need to catch up async.</p>
+
+<div class="tip-box">
+  <div class="tip-title">Building on the Chat course</div>
+  <p>Prompting, Custom Instructions, and "Talk to Your Data" all carry over. The difference here is Copilot runs <em>inside</em> Outlook — so it sees the open email, the compose draft, and the thread you're replying to. Specific prompts with context still beat vague ones.</p>
+</div>
+`,
+  implement: `
+<h3>Exercise: Share What You Made</h3>
+<p>This is the <strong>culminating</strong> step of the Apps module. You've drafted a real deliverable in Word, analyzed your data in Excel, and linked both into your Chat Page from the previous course. Now share it with a colleague who'd care — peer to peer, tentative, not a pitch.</p>
+
+<div class="note-box">
+  <div class="note-title">Before you start</div>
+  <p>Make sure your <strong>Word v2 document</strong> and <strong>Excel dashboard</strong> are saved and their share links are pasted into your <strong>L4 Page</strong>. The email you're about to send will reference that Page so the recipient lands in one place and can see everything.</p>
+</div>
+
+<p>Pick your role below — each option walks you through drafting the retrospective email with Copilot's help:</p>
+
+<div class="option-tabs">
+  <button class="option-tab active" onclick="switchOption('outlook','a',this)">Architecture</button>
+  <button class="option-tab" onclick="switchOption('outlook','b',this)">HR</button>
+  <button class="option-tab" onclick="switchOption('outlook','c',this)">Marketing</button>
+  <button class="option-tab" onclick="switchOption('outlook','d',this)">Executive</button>
+  <button class="option-tab" onclick="switchOption('outlook','e',this)">Operations</button>
+</div>
+
+<div class="option-content active" data-lesson="outlook" data-key="a">
+<h4>Architecture: Share the Shore Club Facade Review</h4>
+<ol>
+<li>Open <strong>Outlook</strong> and click <strong>New email</strong> (not a Reply — this is a fresh note).</li>
+<li>In the compose window, click the <strong>Copilot icon at the top-right of the message body</strong> and choose <strong>Draft with Copilot</strong>.</li>
+<li>Paste this prompt:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find ODA architects currently working on projects with curtain wall or facade transition details in CD or permitting phase. Then draft a short peer-to-peer email from me to one of them. Reference the Shore Club facade review we just completed, the waterproofing detail diagram, the consultant responsibility matrix, and the trade cost summary — all linked in my Page. Tone: informal, not a pitch — "sharing because you may be hitting similar transition-joint questions." No claims about time saved or efficiency. Close with an open invitation to compare notes.</code></div></li>
+<li>Review what Copilot drafted. Use the built-in follow-up controls — <em>"Shorter"</em>, <em>"Warmer"</em>, <em>"More formal"</em> — to tighten the tone without retyping.</li>
+<li>Click <strong>Keep it</strong> to place the draft into the email body. Paste the link to your L4 Page in the body so the recipient has one click to see everything.</li>
+<li>Send (or save as draft if this is just practice).</li>
+</ol>
+</div>
+
+<div class="option-content" data-lesson="outlook" data-key="b">
+<h4>HR: Share the Designer Onboarding Redesign</h4>
+<ol>
+<li>Open <strong>Outlook</strong> and click <strong>New email</strong>.</li>
+<li>In the compose window, click the <strong>Copilot icon at the top-right of the message body</strong> and choose <strong>Draft with Copilot</strong>.</li>
+<li>Paste this prompt:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find ODA hiring managers who have designer roles open or new hires starting in the next 60 days. Then draft a short peer-to-peer email from me to one of them. Reference the 90-day onboarding journey map and the AI policy section we just added to the handbook — both linked in my Page. Tone: tentative and peer — "sharing what we put together this week, still figuring out what's useful vs. noise." No transformation claims. Close with an open invitation if they want to walk through the approach before their new hire lands.</code></div></li>
+<li>Review the draft. Use the follow-up controls to refine tone.</li>
+<li>Click <strong>Keep it</strong>, paste the link to your L4 Page in the body.</li>
+<li>Send or save as draft.</li>
+</ol>
+</div>
+
+<div class="option-content" data-lesson="outlook" data-key="c">
+<h4>Marketing: Share the Q2 Award Submission Tracker</h4>
+<ol>
+<li>Open <strong>Outlook</strong> and click <strong>New email</strong>.</li>
+<li>In the compose window, click the <strong>Copilot icon at the top-right of the message body</strong> and choose <strong>Draft with Copilot</strong>.</li>
+<li>Paste this prompt:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find ODA colleagues who work on award submissions, PR coordination, or the newsletter — a creative director peer, a marketing coordinator, or the PR agency lead. Draft a short peer-to-peer email from me to one of them. Reference the hero composite for our priority submission, the narrative v2 redlined with the creative director, and the campaign dashboard — all linked in my Page. Tone: tentative, no transformation story — "sharing how we assembled the tracker and hero this week, not a silver bullet, just a different way to pull it together." Close inviting them to take a look before their own deadline push.</code></div></li>
+<li>Review the draft. Use the follow-up controls to refine tone.</li>
+<li>Click <strong>Keep it</strong>, paste the link to your L4 Page in the body.</li>
+<li>Send or save as draft.</li>
+</ol>
+</div>
+
+<div class="option-content" data-lesson="outlook" data-key="d">
+<h4>Executive: Share the Design Philosophy Radar</h4>
+<ol>
+<li>Open <strong>Outlook</strong> and click <strong>New email</strong>.</li>
+<li>In the compose window, click the <strong>Copilot icon at the top-right of the message body</strong> and choose <strong>Draft with Copilot</strong>.</li>
+<li>Paste this prompt:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find ODA principals, the creative director, the marketing director, or the business-development lead — anyone who works on strategic positioning, competition pursuits, or client-facing brand narrative. Draft a short peer-to-peer email from me to one of them. Reference the Philosophy Triptych, the Positioning Statement v2 (redlined this week), and the peer-activity radar dashboard — all linked in my Page. Tone: tentative, exploratory — "been experimenting with a research agent that monitors industry work through our three-idea lens… not a silver bullet, still figuring out the alignment threshold." Close with an open invitation to compare notes before the approach gets rolled out more broadly.</code></div></li>
+<li>Review the draft. Use the follow-up controls to refine tone.</li>
+<li>Click <strong>Keep it</strong>, paste the link to your L4 Page in the body.</li>
+<li>Send or save as draft.</li>
+</ol>
+</div>
+
+<div class="option-content" data-lesson="outlook" data-key="e">
+<h4>Operations: Share the Resource Allocation Overview</h4>
+<ol>
+<li>Open <strong>Outlook</strong> and click <strong>New email</strong>.</li>
+<li>In the compose window, click the <strong>Copilot icon at the top-right of the message body</strong> and choose <strong>Draft with Copilot</strong>.</li>
+<li>Paste this prompt:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find ODA PMs or studio leads who deal with resource allocation across projects — a studio lead in the hospitality group and two senior PMs. Draft a short peer-to-peer email from me to one of them. Reference the studio-by-week utilization heatmap, the new reallocation workflow we added to the SOP, and the utilization trend charts — all linked in my Page. Tone: tentative — "been working through resource planning this week, not a silver bullet and not sure yet which parts stick." Close with an open invitation to compare notes on how we're sizing capacity.</code></div></li>
+<li>Review the draft. Use the follow-up controls to refine tone.</li>
+<li>Click <strong>Keep it</strong>, paste the link to your L4 Page in the body.</li>
+<li>Send or save as draft.</li>
+</ol>
+</div>
+
+<p><strong>Iterate:</strong> Try one of these refinements on the draft before sending:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make this more concise — cut any sentence that sounds self-congratulatory or over-explains the AI part.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Adjust the tone to be warmer, less formal — but keep the tentative, exploratory framing.</code></div>
+
+<p class="personalization-note">[PERSONALIZED: swap with organization-specific peer roles and output names from Listen Labs interviews]</p>
+
+<div class="tip-box">
+  <div class="tip-title">Success Check</div>
+  Does the email read like something a peer would actually welcome — curious and tentative, not a sales pitch? Did you include the Page link so the recipient can see the full body of work in one click? Would you press Send, or does it need one more pass?
+</div>
+`,
+  advanced: `
+<h3>Inbox Triage with Copilot</h3>
+<p>Open Copilot Chat in the Outlook sidebar (or the Copilot app in Work mode) and try these triage commands:</p>
+
+<h4>Prioritize Your Inbox</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>What emails need my attention today? Prioritize by urgency.</code></div>
+
+<h4>Bulk Actions</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Flag the two most urgent emails and archive anything older than a week that I haven't replied to.</code></div>
+
+<h4>Follow-Up Tracking</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Show me threads I started this week that still have no response. I need to follow up.</code></div>
+
+<h4>Weekly Email Audit</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Summarize all action items assigned to me from this week's emails. Group them by project.</code></div>
+
+<h4>Voice Triage (Mobile)</h4>
+<p>On Outlook mobile, Copilot can read your unread emails aloud and let you reply, archive, or flag by voice — hands-free inbox management on your commute.</p>
+
+<div class="note-box">
+  <strong>Want these on autopilot?</strong> The Copilot Chat module's <em>Talk to Your Data</em> lesson (L3) walks through setting these up as <strong>scheduled prompts</strong> — a daily briefing that runs every morning, a Friday project pulse that runs itself.
+</div>
 `
 },
 
