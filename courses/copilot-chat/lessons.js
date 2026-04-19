@@ -729,6 +729,16 @@ When the interview is complete, output the results formatted as a Copilot Custom
   <strong>The sequence for every Page:</strong> (1) decide a title + which documents inform it → (2) click <strong>Create</strong> to spin up the Page → (3) confirm the notebook's Copilot instructions carry over (they do) → (4) run the power prompts → (5) iterate → (6) set link access → (7) share to Teams. Do NOT use Markdown in the Page body; use plain text and right-click for Word-style formatting (bold, headings, lists, link, table).
 </div>
 
+<div class="tip-box">
+  <div class="tip-title">If Copilot replies in chat instead of writing to the Page</div>
+  <p>Sometimes the side chat renders its answer inline in the conversation rather than inserting it into the Page body. When that happens you have two easy fixes:</p>
+  <ol style="margin:8px 0 0 20px;">
+    <li><strong>Click the <em>Add to page</em> button</strong> that appears on the Copilot response — this is the fastest path, it drops the answer straight into the Page.</li>
+    <li><strong>Re-prompt</strong> with something like <em>"Add that response into the Page I have open."</em> and Copilot will insert it.</li>
+  </ol>
+  <p style="margin-top:8px;">Once the content lands on the Page, continue with manual editing (right-click for formatting, reorder, add headings).</p>
+</div>
+
 <div class="option-tabs" id="options-4">
   <button class="option-btn active" onclick="switchOption(4,'arch',this)">Architecture</button>
   <button class="option-btn" onclick="switchOption(4,'hr',this)">HR</button>
@@ -744,8 +754,8 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <p><strong>3. Power Prompt #1</strong> — in the side Copilot chat (already open on the Page), send:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a meeting summary for the Shore Club Fort Lauderdale facade material review. Include: decisions made (selected terracotta rainscreen over aluminum curtain wall — cite cost: terracotta $85/SF vs aluminum $62/SF), action items organized by consultant (structural load capacity, envelope details, cost estimator revisions), and next milestones (CD submission in 3 weeks, permit filing in 6 weeks). Cite the specific section of our spec document wherever a material decision is referenced.</code></div>
 <p><strong>4. Edit manually</strong> — right-click in the Page to add a heading "Open Questions" (plain text, use right-click for formatting — not Markdown). List 2-3 unresolved items (color sample approval, mock-up schedule).</p>
-<p><strong>5. Power Prompt #2 — with visualizations</strong> — in the side Copilot chat, send:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Consultant Responsibility Matrix" section with a table of each consultant, action items, deadlines, and status. Then add two visualizations inline on the Page: (1) a horizontal bar chart comparing terracotta vs aluminum cost per SF from the decision above; (2) a timeline graphic showing CD submission, permit filing, and mock-up review milestones over the next 8 weeks.</code></div>
+<p><strong>5. Power Prompt #2 — enrich the page</strong> — in the side Copilot chat, send:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Consultant Responsibility Matrix" section with a table of each consultant, action items, deadlines, and status.</code></div>
 <p><strong>6. Iterate</strong> in the side chat until the Page reads the way you want:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Reorganize with the most actionable items at the top and reference material at the bottom.</code></div>
 </div>
@@ -757,8 +767,8 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <p><strong>3. Power Prompt #1</strong> — in the side Copilot chat:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using our onboarding checklist and handbook, create an onboarding plan for a Designer joining the Residential Studio. Include: Role Details (title, dept, start date, manager), Software Access (6 tools — Revit, Rhino, Bluebeam, Adobe CS, Microsoft 365, project management), First-Week Meetings (5 — team lead, HR orientation, IT, studio tour, mentor intro), Mentor Assignment (weekly check-ins, 30-60-90 day goals). Cite handbook sections where relevant.</code></div>
 <p><strong>4. Edit manually</strong> — right-click for formatting. Add a heading "HR Notes" and note benefits enrollment deadline + parking pass request.</p>
-<p><strong>5. Power Prompt #2 — with visualizations</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Pre-Start Checklist" section at the top (offer letter signed, background check cleared, workstation ordered, email account, building access card). Then add two visualizations on the Page: (1) a horizontal timeline of the first 90 days with milestones at days 1, 7, 30, 60, 90; (2) a stacked bar chart showing time allocation across orientation / software training / shadowing / independent work across the first 4 weeks.</code></div>
+<p><strong>5. Power Prompt #2 — enrich the page</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Pre-Start Checklist" section at the top (offer letter signed, background check cleared, workstation ordered, email account, building access card).</code></div>
 <p><strong>6. Iterate</strong>:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Surface everything the hiring manager owns vs. everything HR owns — add an owner column and group the checklist accordingly.</code></div>
 </div>
@@ -770,8 +780,8 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <p><strong>3. Power Prompt #1</strong>:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the awards tracker in this notebook, build an award submission tracker as a table: Project Name, Award (AIA Design, Architizer A+, CTBUH, SARA NY), Submission Deadline, Status, Materials Needed, Assigned To. Populate with Harbor View (AIA), Wynwood Arts (Architizer A+), Shore Club (CTBUH), Riverside Tower (SARA NY). Pull real submission deadlines from the tracker.</code></div>
 <p><strong>4. Edit manually</strong> — right-click to add a heading "Photography Schedule" and list 2-3 projects needing pro shoots before submission.</p>
-<p><strong>5. Power Prompt #2 — with visualizations</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Narrative Templates" section outlining what a typical submission covers (project overview in 2 sentences, design challenge, design solution, community impact, sustainability). Then add two visualizations: (1) a horizontal Gantt-style chart of all four submissions against their deadlines across Q2; (2) a bar chart showing how many materials (photos/drawings/narrative/project data) are ready vs. outstanding per submission.</code></div>
+<p><strong>5. Power Prompt #2 — enrich the page</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Narrative Templates" section outlining what a typical submission covers (project overview in 2 sentences, design challenge, design solution, community impact, sustainability).</code></div>
 <p><strong>6. Iterate</strong>:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Flag the highest-risk submission (shortest time-to-deadline with most missing materials) at the top.</code></div>
 </div>
@@ -783,8 +793,8 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <p><strong>3. Power Prompt #1</strong>:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the QBR, build an Active Projects Table: Project, Phase (SD/DD/CD/CA), Status (On Track/At Risk/Behind), Budget Status (On/Over/Under), Timeline, Project Lead. Populate from the QBR with Shore Club, Mayflower, Jersey City Waterfront, The Mira Hotel Dubai, Harbor View, Riverside Tower. Follow with "Decisions Needed This Week" and "Top Risks" sections, pulling specifics from the QBR.</code></div>
 <p><strong>4. Edit manually</strong> — right-click to add a heading "Pipeline Update" and note new proposals or RFPs in flight.</p>
-<p><strong>5. Power Prompt #2 — with visualizations</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Staffing Snapshot" summarizing utilization — fully-allocated vs. available, with hiring needs. Then add two visualizations: (1) a stacked bar chart of project count by status (On Track / At Risk / Behind); (2) a bar chart of budget variance (%) by project with a zero line, so over-budget projects sit above and under-budget below.</code></div>
+<p><strong>5. Power Prompt #2 — enrich the page</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Staffing Snapshot" summarizing utilization — fully-allocated vs. available, with hiring needs.</code></div>
 <p><strong>6. Iterate</strong>:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Move the three most urgent decisions to the very top of the Page above the project table.</code></div>
 </div>
@@ -796,8 +806,8 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <p><strong>3. Power Prompt #1</strong>:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the resource allocation spreadsheet, build a Team Members table: Name, Role, Current Project Assignment(s), Utilization Rate, Upcoming Availability. Sort by utilization descending. Below the table, add a "Reallocation Opportunities" section identifying team members who could shift to understaffed projects — cite specific projects from the project tracking spreadsheet.</code></div>
 <p><strong>4. Edit manually</strong> — right-click to add a heading "Upcoming Project Starts" and list 2-3 projects kicking off in the next month that will need staffing.</p>
-<p><strong>5. Power Prompt #2 — with visualizations</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Contractor &amp; Temp Staffing" section (utilization thresholds, preferred vendors, approval process). Then add two visualizations: (1) a horizontal bar chart of utilization % per team member, with a 90% overallocation line; (2) a monthly line chart of total utilization for the studio over the last 6 months from the monthly financials spreadsheet, so we can see the summer dip.</code></div>
+<p><strong>5. Power Prompt #2 — enrich the page</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Contractor &amp; Temp Staffing" section (utilization thresholds, preferred vendors, approval process).</code></div>
 <p><strong>6. Iterate</strong>:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Reorganize so anyone over 100% is flagged at the very top with the specific project they should reduce hours on.</code></div>
 </div>

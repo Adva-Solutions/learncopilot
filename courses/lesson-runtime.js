@@ -99,6 +99,7 @@ function renderLesson(index) {
   if (!state) return;
   if (index < 0 || index >= state.lessons.length) return;
   state.currentLesson = index;
+  repaintNav();
 
   if (state.customRenderLesson) {
     state.customRenderLesson();  // course owns the innerHTML of #lesson-content
