@@ -1,5 +1,6 @@
 import { getRedis } from './lib/redis.js';
 import { getUser } from './me.js';
+import { verifyAdmin } from './admin/auth.js';
 import { checkOrigin } from './lib/csrf.js';
 
 export default async function handler(req, res) {
@@ -7,7 +8,8 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     const user = getUser(req);
-    if (!user) return res.status(401).json({ error: 'Authentication required' });
+    const isAdmin = verifyAdmin(req);
+    if (!user && !isAdmin) return res.status(401).json({ error: 'Authentication required' });
     const slug = req.query.slug || (user && user.slug) || '';
     const prefix = slug ? `client:${slug}:` : 'workshop:';
 

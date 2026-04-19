@@ -792,10 +792,12 @@ function renderWorkshopList(app) {
           <a class="btn btn-primary" href="#new-workshop">+ New Workshop</a>
         </div>
       </div>
+      <div id="default-workshop-slot"></div>
       <div class="empty-state">
         <h3>No workshops yet</h3>
         <p>Create your first workshop to get started.</p>
       </div>`;
+    renderDefaultWorkshopCard();
     return;
   }
 
@@ -806,6 +808,7 @@ function renderWorkshopList(app) {
         <a class="btn btn-primary" href="#new-workshop">+ New Workshop</a>
       </div>
     </div>
+    <div id="default-workshop-slot"></div>
     <div class="card" style="padding:0;overflow:hidden;">
       <div class="table-wrap">
         <table>
@@ -816,6 +819,7 @@ function renderWorkshopList(app) {
         </table>
       </div>
     </div>`;
+  renderDefaultWorkshopCard();
 
   const tbody = $('#workshop-tbody');
   ws.forEach(w => {
