@@ -827,7 +827,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 </div>
 
 <div class="note-box">
-  <strong>Success check:</strong> Your Page has AI-generated content, your manual edits, at least one visualization, and a share link with a deliberate access scope. It lives inside the notebook so Copilot can still answer follow-ups grounded in the same sources. A teammate should open the link and know what is happening without asking a single question.
+  <strong>Success check:</strong> Your Page has AI-generated content from two power prompts, your manual edits, and a share link with a deliberate access scope. It lives inside the notebook so Copilot can still answer follow-ups grounded in the same sources. A teammate should open the link and know what is happening without asking a single question. <em>(Visuals — hero images, diagrams, infographics — come in the next lesson, Copilot Create, where they belong.)</em>
 </div>
 
 <p class="personalization-note">[PERSONALIZED: swap the Page creation topic with organization-specific deliverable types from Listen Labs interviews]</p>
@@ -918,12 +918,23 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <button class="continue-btn" onclick="switchTab(5,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Publish an Artifact That Pulls from Your Notebook &amp; Page</h3>
+<h3>Generate an Image Tied to Your Department's Narrative</h3>
 
-<p>Click <strong>Create</strong> in the left sidebar. Every department below gets a <em>different</em> artifact type — PowerPoint, Word, Image, Infographic, Excel — so you can feel where each one shines. The source material is whatever you already built in Lesson 3 (notebook) and Lesson 4 (Page). Pick your role.</p>
+<p>This exercise is all about <strong>image generation</strong> — the artifact type that is hardest to approximate with a Page or a document, and the one Create makes feel like magic. Every department generates an image grounded in the same project arc you have been building: your L3 notebook and your L4 Page set the context, Create produces the visual. Pick your role.</p>
 
 <div class="note-box">
-  <strong>Pattern for every exercise:</strong> (1) Open <strong>Create</strong> and pick the artifact type → (2) Reference the L3 notebook or L4 Page so Copilot pulls from the right source → (3) Run the generation prompt → (4) Iterate with a second prompt → (5) Save to Library and (where noted) add back to your Page.
+  <strong>Pattern for every exercise:</strong> (1) Open <strong>Create</strong> → <strong>Create an image</strong> → (2) Run the generation prompt — it must tie to your department's narrative so the visual belongs inside your project, not floating on its own → (3) Work the <strong>Image Editing panel</strong> (Background, Object transform, Enhancements, Filters, Crop) → (4) Iterate with a second prompt if composition is off → (5) Save to <strong>Library</strong> → (6) Link the image into your notebook (see the tip below).
+</div>
+
+<div class="tip-box">
+  <div class="tip-title">How to link an image into your notebook</div>
+  <p>A notebook does not store images directly — it stores <em>pages</em>, and pages hold images. So to land an image inside the notebook you built in L3:</p>
+  <ol style="margin:8px 0 0 20px;">
+    <li><strong>Open the Page inside the notebook</strong> (the one you created in L4).</li>
+    <li><strong>Copy the image from Library</strong> and <strong>paste it into the Page</strong> — or copy the image's <strong>share link</strong> and paste that link into the Page body. Either way the image is now part of the Page.</li>
+    <li>The Page lives inside the notebook, so the image is now reachable the next time you ask the notebook's Copilot anything about the project.</li>
+  </ol>
+  <p style="margin-top:8px;">If the image's share/save menu offers <strong>Add to Page</strong> directly, use that — it is the fastest path and picks the Page for you.</p>
 </div>
 
 <div class="option-tabs" id="options-5">
@@ -935,28 +946,42 @@ When the interview is complete, output the results formatted as a Copilot Custom
 </div>
 
 <div class="option-content active" id="option-5-arch">
-<h4>Architecture &rarr; PowerPoint: Shore Club Client Pitch Deck</h4>
-<p><strong>1.</strong> In Create, click the <strong>PowerPoint</strong> pill. You will see "Create a presentation about…" with options for <em>From a prompt</em>, <em>From a document</em>, <em>From a topic</em>.</p>
-<p><strong>2. Generation prompt</strong> — reference the Shore Club Page you built in L4 and the building code / spec references in your L3 notebook:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Build a 10-slide client pitch deck for Shore Club Fort Lauderdale. Pull facts from my "Shore Club — Facade Material Review Summary" Page and the spec + building code references in the Building Code &amp; Project Standards notebook. Slide outline: (1) Title + hero image placeholder, (2) Project vision, (3) Site + context, (4) Massing concept, (5) Facade material decision (terracotta rainscreen with cost rationale $85/SF vs alum $62/SF), (6) Envelope performance + code compliance highlights, (7) Consultant team + responsibility matrix, (8) Timeline (CD in 3 weeks, permit in 6 weeks), (9) Open questions, (10) Next milestones. Use a clean, design-firm aesthetic.</code></div>
-<p><strong>3. Iterate</strong> — tighten the deck:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Tighten the facade material slide into two columns: terracotta pros on the left, aluminum pros on the right, with the cost line as a callout. Replace the timeline slide with a horizontal bar across the next 8 weeks. Add speaker notes to every slide.</code></div>
-<p><strong>4.</strong> Save the deck to your Library. From the deck's share menu, you can drop the link into the Shore Club Page you built in L4 so the Page and the deck stay connected.</p>
+<h4>Architecture &rarr; Image: Curtain Wall Waterproofing Detail Diagram</h4>
+<p><strong>Narrative fit:</strong> the Shore Club facade review hinges on a waterproofing failure at the curtain wall transition. The diagram you generate here becomes <em>Figure 1</em> on your L4 "Facade Material Review Summary" Page — so consultants reading the Page see exactly what the review is about.</p>
+<p><strong>1.</strong> In Create, click <strong>Create an image</strong>.</p>
+<p><strong>2. Generation prompt</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a technical cross-section diagram of a curtain wall waterproofing detail at a transition joint. Show: the curtain wall system, the flashing membrane, the drainage / weep path, the backup wall, and an arrow indicating where water infiltration is occurring. Line-drawing style with clean labels, navy stroke on white background, suitable for inclusion in a design review document. Leave space at the bottom for a figure caption.</code></div>
+<p><strong>3. Work the Image Editing panel</strong> — clean it up so it reads on the Page:</p>
+<ul>
+  <li><strong>Crop &amp; rotate</strong> — tighten to the detail, drop any empty margins.</li>
+  <li><strong>Enhancements &rarr; Upscale</strong> — crisp lines for anyone zooming in.</li>
+  <li><strong>Object transform &rarr; Erase</strong> — remove any stray label or artifact Copilot added.</li>
+</ul>
+<p><strong>4. Iterate</strong> if the labels or the infiltration arrow are unclear:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Regenerate with larger, clearer labels and a single bold red arrow at the failure point. Keep everything else the same.</code></div>
+<p><strong>5. Link the diagram into your Shore Club notebook.</strong> Open your L4 Page ("Shore Club — Facade Material Review Summary") inside the notebook, then copy/paste the image (or paste its share link) into the Page as Figure 1 right above the Consultant Responsibility Matrix. Save to Library so the structural and envelope consultants can reuse it.</p>
 </div>
 
 <div class="option-content" id="option-5-hr" style="display:none">
-<h4>HR &rarr; Word Document: Formal Onboarding Packet</h4>
-<p><strong>1.</strong> In Create, click the <strong>Word</strong> pill. "Create a document about…" opens.</p>
-<p><strong>2. Generation prompt</strong> — grounded in your HR Policies &amp; Onboarding notebook and the "Designer Onboarding — Residential Studio" Page you built in L4:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a formal onboarding packet (Word document) for a new Designer in the Residential Studio. Source the content from my "Designer Onboarding — Residential Studio" Page and the handbook / onboarding checklist references in the HR Policies &amp; Onboarding notebook. Sections: Welcome letter, Role &amp; reporting structure, First-week schedule (5 meetings with owners and times), Software access (6 tools + request process), Benefits enrollment (deadline + link), Mentor program (30-60-90 day goals), Building &amp; IT access, Expectations for the first 90 days, Signatures page. Professional tone, printable layout.</code></div>
-<p><strong>3. Iterate</strong> — polish for distribution:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a Table of Contents, make every section heading Heading 2 style, and insert a two-column table for the software access row (Tool | Access owner). Keep total length to 4-5 pages.</code></div>
-<p><strong>4.</strong> Save to the Library. The Word doc becomes the handoff-ready version of the Page — the Page is for collaboration, the Word doc is for signatures and HR files.</p>
+<h4>HR &rarr; Image: 90-Day Onboarding Journey Map</h4>
+<p><strong>Narrative fit:</strong> the Designer onboarding plan you drafted on the L4 Page is a list. A journey map turns it into something a new hire can actually <em>see</em> — and sits as the hero visual at the top of that same Page.</p>
+<p><strong>1.</strong> In Create, click <strong>Create an image</strong>.</p>
+<p><strong>2. Generation prompt</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a visual 90-day onboarding journey map for a new Designer joining ODA's Residential Studio. Horizontal timeline with week-by-week milestones: Week 1 — IT setup + building access; Week 2 — software training (Revit, Rhino, Bluebeam); Week 3 — studio tour + mentor pairing; Week 4 — first project shadowing; Weeks 5-8 — independent contribution; Week 12 — 90-day review. Clean infographic-illustration style, warm and welcoming, ODA navy + gold accent palette. Leave clean space for a title across the top.</code></div>
+<p><strong>3. Work the Image Editing panel</strong>:</p>
+<ul>
+  <li><strong>Enhancements &rarr; Color pop</strong> — emphasize the checkpoint weeks (30 / 60 / 90).</li>
+  <li><strong>Object transform &rarr; Erase</strong> — remove any milestone that doesn't match our process.</li>
+  <li><strong>Crop &amp; rotate</strong> — format to a wide banner that sits cleanly above the Pre-Start Checklist.</li>
+</ul>
+<p><strong>4. Iterate</strong> if milestones are off:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Regenerate with exactly six milestones on the timeline (Week 1, 2, 4, 8, 12, 90-day review) and move the mentor check-ins as small recurring icons below the line.</code></div>
+<p><strong>5. Link the journey map into your HR notebook.</strong> Open your L4 Page ("Designer Onboarding — Residential Studio") inside the notebook, then copy/paste the image (or paste its share link) into the Page as the banner above the Pre-Start Checklist. Save to Library so other hiring managers in the studio can reuse it.</p>
 </div>
 
 <div class="option-content" id="option-5-mktg" style="display:none">
 <h4>Marketing &rarr; Image (deep dive): Award Announcement Hero</h4>
-<p>This is the department that goes deepest on <strong>image editing</strong> — you will generate, edit with the full toolkit, then <em>add the image directly to the Page</em> from L3.</p>
+<p><strong>Narrative fit:</strong> the highest-priority item on your Q2 Award Submission Tracker is the AIA Design Award for Harbor View Residences. This hero image is the campaign visual announcing the win — and it sits as the headline image on your L4 tracker Page. This is also the department that goes <strong>deepest on image editing</strong> — you will work the full toolkit, then link the finished image into the notebook.</p>
 <p><strong>1.</strong> In Create, click <strong>Create an image</strong>.</p>
 <p><strong>2. Generation prompt</strong>:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a square social-media-ready hero image announcing ODA's AIA Design Award win for Harbor View Residences. Show a modern waterfront residential tower at golden hour, viewed from a low angle. Sophisticated, cinematic, award-worthy. Leave the top third clean for text overlay.</code></div>
@@ -972,38 +997,52 @@ When the interview is complete, output the results formatted as a Copilot Custom
 </ul>
 <p><strong>4. Iterate</strong> with a second prompt if the composition is wrong:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Same tower, but from a further distance with more sky above it for text overlay. Keep the golden-hour mood.</code></div>
-<p><strong>5. Add the image directly to your L4 Page.</strong> From the image's share/save menu, choose <strong>Add to Page</strong> and pick the <em>Q2 Award Submission Tracker</em> Page. The image now lives inside the Page so the announcement visual and the submission tracker are one artifact.</p>
-<p><strong>6.</strong> Save the final image to your Library so the social team can reuse it.</p>
+<p><strong>5. Link the hero into your Marketing notebook.</strong> Open your L4 "Q2 Award Submission Tracker" Page inside the notebook, then copy/paste the image (or paste its share link) as the campaign visual at the top of the Page. If the image's share/save menu offers <strong>Add to Page</strong>, use that directly and pick the tracker Page. Save the final image to your Library so the social team can reuse it.</p>
 </div>
 
 <div class="option-content" id="option-5-exec" style="display:none">
-<h4>Executive &rarr; Infographic: Board-Ready QBR Visual</h4>
-<p><strong>1.</strong> In Create, click <strong>Design an infographic</strong>. If it is not on the first row, expand <strong>More…</strong>.</p>
-<p><strong>2. Generation prompt</strong> — pulling from the QBR in your Executive Project Overview notebook and the Leadership Brief Page:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Design a single-page infographic summarizing this quarter for the board. Source: my "Weekly Project Status — Leadership Brief" Page and the QBR + property summaries in the Executive Project Overview notebook. Must include: portfolio at a glance (project count, revenue, win rate), status distribution (On Track / At Risk / Behind as a donut), top 3 risks (short icons + 1-line each), staffing headline number, pipeline highlights. Sophisticated, restrained — think McKinsey, not advertising.</code></div>
-<p><strong>3. Iterate</strong> — push it toward something you'd actually present:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Move the donut to the top-right, make the top 3 risks the visual center, and add a small bar chart along the bottom showing revenue by project. Navy + white + one accent color only.</code></div>
-<p><strong>4.</strong> Save to Library and drop the infographic into the top of your Leadership Brief Page so the board version and the working version stay linked.</p>
+<h4>Executive &rarr; Image: Leadership Brief Cover Visual</h4>
+<p><strong>Narrative fit:</strong> your Weekly Leadership Brief Page is the working document; the cover visual is what lands when the brief gets shared to the board. A cinematic composite of the active portfolio sets the tone before anyone reads a number.</p>
+<p><strong>1.</strong> In Create, click <strong>Create an image</strong>.</p>
+<p><strong>2. Generation prompt</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a sophisticated cover image for ODA's weekly Leadership Brief. A stylized cinematic skyline at dusk showing a composite of our active projects — a waterfront residential tower (Harbor View), a hotel facade with terracotta rainscreen (Shore Club), and a mixed-use tower (Riverside). Restrained navy and warm gold palette, editorial quality, McKinsey-like. Wide 16:9 format. Leave the top third clean for a title overlay.</code></div>
+<p><strong>3. Work the Image Editing panel</strong>:</p>
+<ul>
+  <li><strong>Background &rarr; Color</strong> — swap the sky to a deeper navy if the golden-hour version feels too warm for a board audience.</li>
+  <li><strong>Enhancements &rarr; Color pop</strong> — keep one accent color live; desaturate the rest.</li>
+  <li><strong>Filters &amp; Effects</strong> — try <strong>Punch</strong> once; revert if it reads like advertising.</li>
+  <li><strong>Crop &amp; rotate</strong> — confirm the 16:9 with clean header space.</li>
+</ul>
+<p><strong>4. Iterate</strong> — push it toward something you'd actually present:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Regenerate with the towers rendered more minimal — less detail, more silhouette — and push the sky darker. Navy + white + one gold accent only.</code></div>
+<p><strong>5. Link the cover into your Executive notebook.</strong> Open your L4 "Weekly Project Status — Leadership Brief" Page inside the notebook, then copy/paste the image (or paste its share link) at the top of the Page as the cover. Save to Library so the board version and the working version stay linked.</p>
 </div>
 
 <div class="option-content" id="option-5-ops" style="display:none">
-<h4>Operations &rarr; Excel Workbook: Resource Allocation Model</h4>
-<p><strong>1.</strong> In Create, click the <strong>Excel</strong> pill. "Create a spreadsheet about…" opens.</p>
-<p><strong>2. Generation prompt</strong> — sourced from your Operations &amp; Resource Planning notebook (resource allocation + project tracking spreadsheets) and the Weekly Resource Overview Page:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Build a resource allocation workbook. Source: the resource allocation spreadsheet + project tracking spreadsheet in my Operations &amp; Resource Planning notebook, plus the "Weekly Resource Overview" Page. Sheets: (1) People — Name, Role, Utilization %, Current Project(s), Available Date, with conditional formatting flagging &gt;90%; (2) Projects — Project, Phase, Start/End, FTEs needed, FTEs assigned, Gap; (3) Summary — SUMIF-driven totals per project and per person, plus a pivot of utilization by role. Add a chart on the Summary sheet: horizontal bar of utilization % with a 90% threshold line.</code></div>
-<p><strong>3. Iterate</strong> — make it usable:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Reallocation Opportunities" sheet that flags every person &gt;90% and pairs them with understaffed projects using XLOOKUP against the Projects sheet. Also add named ranges so the formulas read cleanly.</code></div>
-<p><strong>4.</strong> Save to Library. Link the workbook from your Weekly Resource Overview Page so the narrative Page and the model live side-by-side — one for reading, one for running numbers.</p>
+<h4>Operations &rarr; Image: Studio Utilization Heatmap Visual</h4>
+<p><strong>Narrative fit:</strong> the Weekly Resource Overview Page reads like a list of numbers. A heatmap turns the staffing picture into something a principal can absorb in two seconds — and sits as the hero visual right above the team roster on the Page.</p>
+<p><strong>1.</strong> In Create, click <strong>Create an image</strong>.</p>
+<p><strong>2. Generation prompt</strong>:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a studio-by-week utilization heatmap as a clean infographic-style image. Y-axis: four studios (Residential, Hospitality, Mixed-Use, Interiors). X-axis: the next 12 weeks. Color-code each cell by average utilization — red for &gt;100%, amber for 95–100%, green for 70–95%, gray for &lt;60%. Label axes clearly, include a legend in the top-right, sophisticated navy + warm gold palette with red and amber as the only alert colors. Add a short title "Studio Utilization — Next 12 Weeks".</code></div>
+<p><strong>3. Work the Image Editing panel</strong>:</p>
+<ul>
+  <li><strong>Enhancements &rarr; Color pop</strong> — emphasize the red hotspots so they catch the eye first.</li>
+  <li><strong>Object transform &rarr; Erase</strong> — clean up any cells Copilot mislabeled.</li>
+  <li><strong>Crop &amp; rotate</strong> — format to a wide banner so it sits above the team roster without crowding.</li>
+</ul>
+<p><strong>4. Iterate</strong> if the palette or labeling is off:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Regenerate with the legend moved to the bottom, axis labels larger, and the week numbers staggered so they don't overlap on narrower screens.</code></div>
+<p><strong>5. Link the heatmap into your Operations notebook.</strong> Open your L4 "Weekly Resource Overview" Page inside the notebook, then copy/paste the image (or paste its share link) at the top of the Page as the hero visual above the Team Members table. Save to Library so the studio leads can reuse it each week.</p>
 </div>
 
 <h4>Last step — save and close the loop</h4>
-<p>Everything you publish lands in <strong>Library</strong> (left sidebar). Open it after finishing and confirm the artifact is there. Whenever possible (Marketing image, Executive infographic), add the final output <strong>back to your L4 Page</strong> so the Page becomes the one URL a teammate needs.</p>
+<p>Every image you generate lands in the <strong>Library</strong> (left sidebar) automatically. Open it to confirm the image is there. Then make sure the final version is <strong>linked into your notebook</strong> — copy/paste the image (or its share link) inside your L4 Page, which lives inside the notebook. That is how a visual stops being a one-off asset and becomes part of the project's living knowledge base.</p>
 
 <div class="note-box">
-  <strong>Success check:</strong> You published one artifact in an output format that matches your department (deck / doc / image / infographic / workbook), it references content from your L3 notebook and L4 Page, you iterated at least once, and it is saved in Library. For Marketing: the edited image is inserted into the Page.
+  <strong>Success check:</strong> You generated an image that ties directly to your department's narrative, worked the Image Editing toolkit on it, iterated at least once, and linked it into your notebook by pasting it (or its link) inside your L4 Page. The image is also saved in your Library. A teammate opening the Page now sees the visual alongside the text — the narrative and the visual are one artifact.
 </div>
 
-<p class="personalization-note">[PERSONALIZED: swap the artifact type per department with the publishing format that team actually ships in — e.g. Ops may prefer Word runbooks over Excel; Marketing may need Poster instead of Image.]</p>
+<p class="personalization-note">[PERSONALIZED: swap the image type per department for the visual each team actually needs — e.g. Architecture may want a material mood board, Marketing may want a carousel set, Operations may want a studio floor map.]</p>
 
 <button class="mark-complete-btn" id="complete-btn-5" onclick="markComplete(5)">Mark Complete</button>
 `,
