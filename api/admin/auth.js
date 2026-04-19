@@ -1,4 +1,6 @@
 import crypto from 'crypto';
+import { checkRateLimit, getClientIp } from '../lib/rate-limit.js';
+import { checkOrigin } from '../lib/csrf.js';
 
 function getSecret() {
   const s = process.env.SESSION_SECRET;
@@ -35,6 +37,17 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'POST') {
+    if (!checkOrigin(req)) {
+      return res.status(403).json({ error: 'Invalid origin' });
+    }
+
+    const ip = getClientIp(req);
+    const rl = await checkRateLimit(`ratelimit:admin-auth:${ip}`, 5, 60);
+    if (!rl.allowed) {
+      res.setHeader('Retry-After', String(rl.retryAfter));
+      return res.status(429).json({ error: 'Too many login attempts. Try again shortly.' });
+    }
+
     const { password } = req.body || {};
     const expected = process.env.ADMIN_PASSWORD;
     if (!expected) {
@@ -50,6 +63,9 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'DELETE') {
+    if (!checkOrigin(req)) {
+      return res.status(403).json({ error: 'Invalid origin' });
+    }
     // Logout
     res.setHeader('Set-Cookie', 'admin_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0');
     return res.status(200).json({ ok: true });
