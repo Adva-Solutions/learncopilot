@@ -1,11 +1,13 @@
 import { getRedis } from './lib/redis.js';
 import { getUser } from './me.js';
+import { checkOrigin } from './lib/csrf.js';
 
 export default async function handler(req, res) {
   const r = getRedis();
 
   if (req.method === 'GET') {
     const user = getUser(req);
+    if (!user) return res.status(401).json({ error: 'Authentication required' });
     const slug = req.query.slug || (user && user.slug) || '';
     const prefix = slug ? `client:${slug}:` : 'workshop:';
 
@@ -26,6 +28,9 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'POST') {
+    if (!checkOrigin(req)) {
+      return res.status(403).json({ error: 'Invalid origin' });
+    }
     const user = getUser(req);
     if (!user) return res.status(401).json({ error: 'Not logged in' });
 

@@ -1,5 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { verifyAdmin } from './auth.js';
+import { checkOrigin } from '../lib/csrf.js';
 
 const LESSON_META = {
   chat: [
@@ -81,6 +82,10 @@ function scanToolReferences(personalization, compressedBrief) {
 }
 
 export default async function handler(req, res) {
+  if (!checkOrigin(req)) {
+    return res.status(403).json({ error: 'Invalid origin' });
+  }
+
   if (!verifyAdmin(req)) return res.status(401).json({ error: 'Unauthorized' });
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 

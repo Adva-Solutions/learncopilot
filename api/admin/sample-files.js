@@ -1,5 +1,6 @@
 import { verifyAdmin } from './auth.js';
 import { getRedis } from '../lib/redis.js';
+import { checkOrigin } from '../lib/csrf.js';
 import {
   isAllowedMime,
   isAllowedCategory,
@@ -10,6 +11,10 @@ import {
 } from '../lib/sample-files-util.js';
 
 export default async function handler(req, res) {
+  if (!checkOrigin(req)) {
+    return res.status(403).json({ error: 'Invalid origin' });
+  }
+
   if (!verifyAdmin(req)) {
     return res.status(401).json({ error: 'Admin authentication required' });
   }

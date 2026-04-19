@@ -1,9 +1,14 @@
 import { getRedis } from '../lib/redis.js';
 import { verifyAdmin } from './auth.js';
+import { checkOrigin } from '../lib/csrf.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  if (!checkOrigin(req)) {
+    return res.status(403).json({ error: 'Invalid origin' });
   }
 
   if (!verifyAdmin(req)) {
