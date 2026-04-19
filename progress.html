@@ -48,7 +48,7 @@
   }
   .page-header h1 {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 32px; font-weight: 600;
+    font-size: 42px; font-weight: 700;
     margin-bottom: 8px;
     color: #1a1a2e;
   }
@@ -93,7 +93,10 @@
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 36px; font-weight: 700;
     line-height: 1.1;
-    color: #1a1a2e;
+    background: linear-gradient(135deg, #1a1a2e 0%, #3d3d5a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .stat-label {
     font-size: 13px; color: #999;
@@ -112,7 +115,7 @@
     gap: 20px;
     transition: box-shadow 0.2s;
   }
-  .participant-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+  .participant-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
   .participant-card.is-you { border-color: #c5973e; border-width: 2px; }
 
   .participant-avatar {
@@ -156,7 +159,7 @@
   }
   .course-progress .bar-fill {
     height: 100%; border-radius: 3px;
-    transition: width 0.4s ease;
+    transition: width 600ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   .bar-chat { background: #0078d4; }
   .bar-apps { background: #217346; }
@@ -189,6 +192,34 @@
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 20px; margin-bottom: 8px;
     color: #1a1a2e;
+  }
+
+  .completion-pill {
+    display: inline-block;
+    background: #faf9f6;
+    border: 1px solid #ddd8ce;
+    color: #666;
+    font-size: 0.78rem;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+  .participant-card.is-you .completion-pill {
+    background: rgba(197,151,62,0.08);
+    border-color: rgba(197,151,62,0.35);
+    color: #8a6a2b;
+  }
+  .completion-gem {
+    font-size: 0.85em;
+    margin-left: 4px;
+    display: inline-block;
+    animation: gemFloat 2400ms ease-in-out infinite;
+  }
+  @keyframes gemFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-2px); }
   }
 
   @media (max-width: 640px) {
@@ -277,6 +308,8 @@ function render(participants) {
   }
   statsRow.style.display = '';
 
+  const sorted = participants.slice().sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
+
   const totalSteps = participants.reduce((s, p) =>
     s + (p.chat?.completed?.length || 0) + (p.apps?.completed?.length || 0) + (p.agents?.completed?.length || 0), 0);
   const totalPts = participants.reduce((s, p) => s + (p.totalPoints || 0), 0);
@@ -285,7 +318,7 @@ function render(participants) {
   document.getElementById('stat-steps').textContent = totalSteps;
   document.getElementById('stat-points').textContent = totalPts;
 
-  container.innerHTML = '<div class="participants">' + participants.map(p => {
+  container.innerHTML = '<div class="participants">' + sorted.map((p, rank) => {
     const isYou = p.name === currentUser;
     const initials = p.name.split(' ').map(w => w[0]).join('').slice(0, 2);
     const coreDone = (arr, core) => (arr || []).filter(i => i < core).length;
@@ -296,30 +329,32 @@ function render(participants) {
     const appsPct = Math.min(100, Math.round((appsDone / APPS_STEPS) * 100));
     const agentsPct = Math.min(100, Math.round((agentsDone / AGENTS_STEPS) * 100));
     const lessonLabel = (done, total) => done >= total ? '✓' : `L${done + 1}`;
+    const rankMarker = rank === 0 ? '🥇 ' : rank === 1 ? '🥈 ' : rank === 2 ? '🥉 ' : '';
 
     return `
       <div class="participant-card ${isYou ? 'is-you' : ''}">
         <div class="participant-avatar">${initials}</div>
         <div class="participant-info">
           <div class="participant-name">
-            ${p.name}
+            ${rankMarker}${p.name}
             ${isYou ? '<span class="you-badge">You</span>' : ''}
           </div>
+          <div class="completion-pill">${chatDone + appsDone + agentsDone} / ${CHAT_STEPS + APPS_STEPS + AGENTS_STEPS} total core steps</div>
           <div class="progress-courses">
             <div class="course-progress">
-              Chat · ${lessonLabel(chatDone, CHAT_STEPS)}
+              <span>Chat · ${lessonLabel(chatDone, CHAT_STEPS)}${chatPct === 100 ? ' <span class="completion-gem">💎</span>' : ''}</span>
               <div class="bar-bg"><div class="bar-fill bar-chat" style="width:${chatPct}%"></div></div>
-              ${chatPct}%
+              <span>${chatPct}%</span>
             </div>
             <div class="course-progress">
-              Apps · ${lessonLabel(appsDone, APPS_STEPS)}
+              <span>Apps · ${lessonLabel(appsDone, APPS_STEPS)}${appsPct === 100 ? ' <span class="completion-gem">💎</span>' : ''}</span>
               <div class="bar-bg"><div class="bar-fill bar-apps" style="width:${appsPct}%"></div></div>
-              ${appsPct}%
+              <span>${appsPct}%</span>
             </div>
             <div class="course-progress">
-              Agents · ${lessonLabel(agentsDone, AGENTS_STEPS)}
+              <span>Agents · ${lessonLabel(agentsDone, AGENTS_STEPS)}${agentsPct === 100 ? ' <span class="completion-gem">💎</span>' : ''}</span>
               <div class="bar-bg"><div class="bar-fill bar-agents" style="width:${agentsPct}%"></div></div>
-              ${agentsPct}%
+              <span>${agentsPct}%</span>
             </div>
           </div>
         </div>
