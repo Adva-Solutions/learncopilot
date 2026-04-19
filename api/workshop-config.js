@@ -83,5 +83,6 @@ export default async function handler(req, res) {
     personalization,
     clientName: client.name || null,
     logoUrl: client.logoUrl || null,
+    sampleFileIds: Array.isArray(client.sampleFileIds) ? client.sampleFileIds : [],
   });
 }
