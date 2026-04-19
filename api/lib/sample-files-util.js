@@ -2,7 +2,7 @@
 
 const crypto = require('node:crypto');
 
-const MAX_SAMPLE_FILE_BYTES = 4 * 1024 * 1024;
+const MAX_SAMPLE_FILE_BYTES = 3 * 1024 * 1024;  // 3 MiB raw → ~4 MiB base64, under Vercel's 4.5 MiB default
 
 const ALLOWED_CATEGORIES = [
   'finance',

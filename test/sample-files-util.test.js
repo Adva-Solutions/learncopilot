@@ -12,8 +12,8 @@ const {
   ALLOWED_MIMES,
 } = require('../api/lib/sample-files-util.js');
 
-test('MAX_SAMPLE_FILE_BYTES is exactly 4 MiB', () => {
-  assert.strictEqual(MAX_SAMPLE_FILE_BYTES, 4 * 1024 * 1024);
+test('MAX_SAMPLE_FILE_BYTES is exactly 3 MiB', () => {
+  assert.strictEqual(MAX_SAMPLE_FILE_BYTES, 3 * 1024 * 1024);
 });
 
 test('ALLOWED_CATEGORIES matches spec', () => {

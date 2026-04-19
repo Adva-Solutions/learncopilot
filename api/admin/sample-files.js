@@ -47,7 +47,7 @@ async function handleCreate(req, res) {
   catch (e) { return res.status(400).json({ error: e.message }); }
 
   if (size > MAX_SAMPLE_FILE_BYTES) {
-    return res.status(413).json({ error: 'Sample file exceeds 4 MiB' });
+    return res.status(413).json({ error: 'Sample file exceeds 3 MiB' });
   }
 
   const id = newSampleFileId();
