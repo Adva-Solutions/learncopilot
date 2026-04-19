@@ -520,7 +520,7 @@ window.LESSONS = [
 <h4>Architecture: Project Status Report</h4>
 <div class="note-box">
   <div class="note-title">Need a sample report?</div>
-  <p>If you don't have an existing report to extract from, download the <a href="/mock-data/proposals/oda-rfp-template.txt" download>RFP Response Template</a> or the <a href="/mock-data/executive/oda-qbr-q1-2025.txt" download>Quarterly Business Review</a> as a starting point.</p>
+  <p>If you don't have an existing report to extract from, download the <a href="/mock-data/proposals/oda-rfp-template.pdf" download>RFP Response Template</a> or the <a href="/mock-data/executive/oda-qbr-q1-2025.pdf" download>Quarterly Business Review</a> as a starting point.</p>
 </div>
 
 <p><strong>Step 1: Benchmark.</strong> Upload an existing Project Status Report to plain Copilot Chat. Ask it to write a new version for a different project. Screenshot the result. This is your "before."</p>
@@ -556,7 +556,7 @@ window.LESSONS = [
 <h4>HR: Monthly People Report</h4>
 <div class="note-box">
   <div class="note-title">Need a sample report?</div>
-  <p>If you don't have an existing report, download the <a href="/mock-data/hr/employee-handbook-excerpt.txt" download>Employee Handbook Excerpt</a> and the <a href="/mock-data/hr/recruiting-pipeline.xlsx" download>Recruiting Pipeline</a> as reference materials.</p>
+  <p>If you don't have an existing report, download the <a href="/mock-data/hr/employee-handbook-excerpt.pdf" download>Employee Handbook Excerpt</a> and the <a href="/mock-data/hr/recruiting-pipeline.xlsx" download>Recruiting Pipeline</a> as reference materials.</p>
 </div>
 
 <p><strong>Step 1: Benchmark.</strong> Upload an existing Monthly People Report to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>
@@ -592,7 +592,7 @@ window.LESSONS = [
 <h4>Marketing: Campaign Performance Report</h4>
 <div class="note-box">
   <div class="note-title">Need a sample report?</div>
-  <p>If you don't have an existing report, download the <a href="/mock-data/marketing/oda-awards-tracker.xlsx" download>Awards Tracker</a> and the <a href="/mock-data/marketing/oda-newsletter-sample.txt" download>Newsletter Sample</a> as reference materials.</p>
+  <p>If you don't have an existing report, download the <a href="/mock-data/marketing/oda-awards-tracker.xlsx" download>Awards Tracker</a> and the <a href="/mock-data/marketing/oda-newsletter-sample.pdf" download>Newsletter Sample</a> as reference materials.</p>
 </div>
 
 <p><strong>Step 1: Benchmark.</strong> Upload an existing Campaign Performance Report to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>

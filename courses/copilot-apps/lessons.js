@@ -102,7 +102,7 @@ window.LESSONS = [
 <h4>Marketing: Project Case Study Narrative</h4>
 <div class="note-box">
   <div class="note-title">Reference Material</div>
-  <p>Download a completed case study for reference: <a href="/mock-data/proposals/case-study-harbor-view.txt" download>Harbor View case study</a> or <a href="/mock-data/proposals/case-study-wynwood.txt" download>Wynwood Arts case study</a>. You can upload one to Word and ask Copilot to draft a new case study in the same style.</p>
+  <p>Download a completed case study for reference: <a href="/mock-data/proposals/case-study-harbor-view.pdf" download>Harbor View case study</a> or <a href="/mock-data/proposals/case-study-wynwood.pdf" download>Wynwood Arts case study</a>. You can upload one to Word and ask Copilot to draft a new case study in the same style.</p>
 </div>
 <ol>
 <li>Open <strong>Word</strong>. Create a new blank document.</li>
