@@ -152,7 +152,60 @@ function renderLesson(index) {
   if (location.hash !== '#lesson-' + index) {
     history.replaceState(null, '', '#lesson-' + index);
   }
+  decorateSteps();
   dispatchChange();
+}
+
+// Add a clickable progress checkbox to each step inside the current tab's content.
+// Targets: <h4> elements whose text begins with "Step N" AND direct <li> children of
+// any <ol> inside .content. State is keyed by course + lesson + step index and
+// persists in localStorage so students can see what they've completed in this lesson.
+function decorateSteps() {
+  if (!state) return;
+  const container = document.getElementById('lesson-content');
+  if (!container) return;
+  const scope = container.querySelector('.content') || container;
+  const courseId = state.courseId || 'unknown';
+  const lessonIdx = state.currentLesson ?? 0;
+  const tab = state.currentTab || 'learn';
+  const keyRoot = 'stepcheck:' + courseId + ':L' + lessonIdx + ':' + tab;
+
+  const stepH4s = Array.from(scope.querySelectorAll('h4')).filter(h => /^\s*Step\s+\d+/i.test(h.textContent));
+  const stepLis = Array.from(scope.querySelectorAll('ol > li'));
+  const allSteps = [...stepH4s, ...stepLis];
+
+  allSteps.forEach((el, i) => {
+    if (el.querySelector(':scope > .step-check')) return; // already decorated
+    const key = keyRoot + ':s' + i;
+    const initiallyChecked = safeReadLS(key) === '1';
+    el.classList.add('has-step-check');
+    const check = document.createElement('span');
+    check.className = 'step-check';
+    check.setAttribute('role', 'checkbox');
+    check.setAttribute('tabindex', '0');
+    check.setAttribute('aria-checked', initiallyChecked ? 'true' : 'false');
+    check.setAttribute('aria-label', 'Mark this step done');
+    check.onclick = function (e) {
+      e.stopPropagation();
+      const nowChecked = check.getAttribute('aria-checked') !== 'true';
+      check.setAttribute('aria-checked', nowChecked ? 'true' : 'false');
+      safeWriteLS(key, nowChecked ? '1' : '0');
+    };
+    check.onkeydown = function (e) {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        check.click();
+      }
+    };
+    el.insertBefore(check, el.firstChild);
+  });
+}
+
+function safeReadLS(key) {
+  try { return localStorage.getItem(key); } catch (_) { return null; }
+}
+function safeWriteLS(key, value) {
+  try { localStorage.setItem(key, value); } catch (_) {}
 }
 
 function switchTab(index, tabName) {

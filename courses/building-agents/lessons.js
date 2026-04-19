@@ -46,44 +46,35 @@ window.LESSONS = [
 <p>Every agent can be shared at three levels: <strong>Only you</strong> (personal), <strong>Specific users</strong> (selected colleagues), or <strong>Anyone in your organization</strong> (full org gallery). You will pick the right level for each agent you build later in the course.</p>
 
 <div class="tip-box">
-  <div class="tip-title">Tip</div>
-  <p>Before building any agent, try the same task in plain Copilot Chat first. Screenshot the result. That is your benchmark &mdash; the baseline you are trying to beat.</p>
+  <div class="tip-title">Rule of thumb: when is something worth making into an agent?</div>
+  <p>If you find yourself building <strong>the same prompt and content more than 3 times</strong>, it is probably worth setting up a quick agent. Before building, try the same task in plain Copilot Chat first and screenshot the result &mdash; that screenshot is your baseline, the thing the agent has to beat.</p>
 </div>
+
+<h3>Why agents matter &mdash; for you and for your organization</h3>
+<p>For you personally, agents remove the setup cost from every repeated task. For your organization, agents do something bigger: <strong>they make output consistent</strong>. An agent that writes status reports the same way every time, cites the same sources, and follows the same format means your team produces uniform work. That is repeatable, shareable, and scalable &mdash; and it's the real reason agents matter beyond a single user.</p>
+
 <p class="personalization-note">[PERSONALIZED: Think about the tasks you do every week that involve multiple tools or steps. Those are your best agent candidates.]</p>
     `,
     implement: `
-<h3>Try It: Explore the Agent Gallery</h3>
+<h3>Try It: Find an Agent, Summon It, Dismiss It</h3>
+<p><em>This lesson is a short tour &mdash; you are just getting eyes on what agents look like inside Copilot. You'll actually use them in Lesson 2, and build your own in Lesson 3.</em></p>
 
-<h4>Step 1: Open Copilot</h4>
-<p>Navigate to <strong>m365.cloud.microsoft</strong> and open <strong>Copilot</strong> from the left sidebar or app launcher.</p>
+<h4>Step 1: Open the Agents gallery</h4>
+<p>Navigate to <strong>m365.cloud.microsoft</strong>, open <strong>Copilot</strong> from the left sidebar, and click <strong>Agents</strong> (or <strong>All agents</strong>). Scroll the gallery &mdash; you'll see <strong>Researcher</strong>, <strong>Analyst</strong>, and any org-specific agents your team has shared. Read a few descriptions so you get a feel for the range.</p>
 
-<h4>Step 2: Find All Agents</h4>
-<p>In the left sidebar, look for <strong>"Agents"</strong> (or <strong>"All agents"</strong>). Click it to open the gallery.</p>
+<h4>Step 2: Pin one to your sidebar</h4>
+<p>Pick one agent that looks most relevant to your role (Researcher and Analyst are safe first picks) and pin it so it lives in your left sidebar next to Chat.</p>
 
-<h4>Step 3: Browse the Gallery</h4>
-<p>Scroll through the gallery. You will see agents like <strong>Researcher</strong>, <strong>Analyst</strong>, and any organization-specific agents your team has shared. Read the descriptions &mdash; each agent is built for a different type of task.</p>
+<h4>Step 3: Summon it in a chat</h4>
+<p>Start a new chat. Type <strong>@</strong> and the agent's name &mdash; e.g. <span class="inline-code">@Researcher</span>. Notice the agent's name appears as a chip in the compose box. Now send any short question. See how the response includes the agent's branded panel, and in Researcher's case, a research plan.</p>
 
-<h4>Step 4: Add 3 Agents to Your Sidebar</h4>
-<p>Pin or add at least 3 agents to your sidebar. Good starting picks:</p>
-<ul>
-  <li><strong>Researcher</strong> &mdash; for deep web research tasks</li>
-  <li><strong>Analyst</strong> &mdash; for data and spreadsheet analysis</li>
-  <li>One org-specific or template-based agent relevant to your role</li>
-</ul>
+<h4>Step 4: Dismiss it</h4>
+<p>Before sending the next message, remove the agent chip (click the x on it or press Backspace). Now you are back in plain Copilot Chat. Dismissing an agent is just as important as summoning one &mdash; it's how you stop its behavior and return to normal chat. Send a follow-up to confirm the response comes back without the agent's panel.</p>
 
-<h4>Step 5: Open One and Test It</h4>
-<p>Open one of the agents you added and ask it something relevant to your work:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Agent Chat</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Give me a quick overview of what you can do. Then help me with a task: summarize the key considerations for [a topic relevant to your role].</pre>
+<div class="tip-box">
+  <div class="tip-title">Success Check</div>
+  You found the gallery, pinned at least one agent, summoned it with <strong>@</strong>, and dismissed it. That's the mechanical loop you'll use for the rest of this module.
 </div>
-<p>Evaluate: Was it useful? Did it cite sources? Did it take any actions beyond generating text?</p>
-
-<h4>Step 6: @Mention the Agent Elsewhere</h4>
-<p>Open a different M365 app &mdash; for example, <strong>Teams</strong> chat or the <strong>Word</strong> sidebar. Type <strong>@</strong> followed by the agent name to invoke it directly within that app. This is how agents become part of your daily workflow without context-switching.</p>
-
-<h4>Step 7: Reflect</h4>
-<p>Compare what the agent did to what regular Copilot Chat would have done. Which of the 3 agents you picked is most relevant to your daily work &mdash; and why?</p>
     `,
     advanced: `
 <h3>The Agent Spectrum</h3>
@@ -109,8 +100,6 @@ window.LESSONS = [
   <li><strong>Action reliability</strong> &mdash; when it takes actions (sending emails, creating files), does it do so correctly?</li>
 </ul>
 
-<h3>Why Agents Matter for Organizations</h3>
-<p>The real power of agents is not personal productivity &mdash; it is <strong>organizational consistency</strong>. An agent that writes status reports the same way every time, cites the same sources, and follows the same format means your entire team produces uniform output. That is repeatable, shareable, and scalable.</p>
     `
   },
 
@@ -159,6 +148,12 @@ window.LESSONS = [
 
 <div class="option-content active" id="agentType-option-0">
 <h3>Researcher Exercise</h3>
+
+<div class="tip-box">
+  <div class="tip-title">Heads up &mdash; the Researcher can take several minutes</div>
+  <p>After you send the prompt in Step 2, the Researcher may run for 3&ndash;10 minutes while it reads and synthesizes sources. <strong>You can move on to Lesson 2 and come back later</strong> to review the output &mdash; the run continues in the background and your chat history keeps the result.</p>
+</div>
+
 <p>Pick your department:</p>
 
 <div class="option-tabs" id="researcher-options">
@@ -179,12 +174,7 @@ window.LESSONS = [
 </div>
 <p><strong>Step 3:</strong> Watch the research plan unfold. The Researcher will show you its plan before executing &mdash; note how it breaks your question into sub-topics.</p>
 <p><strong>Step 4:</strong> Review the results. Check the citations &mdash; click through to at least 2 sources to verify accuracy.</p>
-<p><strong>Step 5:</strong> Click <strong>Export to Word</strong> to save the report as an editable document.</p>
-<p><strong>Step 6 &mdash; Iterate:</strong> Ask the Researcher to go deeper on the most important finding:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Researcher</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Go deeper on the accessibility requirement that has the biggest impact on residential design. What are the specific dimensional requirements, and how do they compare to ADA standards?</pre>
-</div>
+<p><strong>Step 5 (optional):</strong> When the Researcher is done, you can copy the output into a Word doc for editing, or save it as a <strong>Page</strong> (<em>Save to Page</em> in the response menu). No "Export to Word" button to hunt for &mdash; either prompt the Researcher to <em>export to Word</em>, or just copy-paste.</p>
 </div>
 
 <div class="option-content" id="researcher-option-1">
@@ -197,12 +187,7 @@ window.LESSONS = [
 </div>
 <p><strong>Step 3:</strong> Watch the research plan unfold. Note how it identifies specific organizations and data sources to query.</p>
 <p><strong>Step 4:</strong> Review the results and citations. Check whether the peer organizations cited are genuinely comparable to yours.</p>
-<p><strong>Step 5:</strong> Click <strong>Export to Word</strong> to save the report.</p>
-<p><strong>Step 6 &mdash; Iterate:</strong> Refine the research:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Researcher</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Focus on the organization with the best retention outcomes. What specific policies did they implement, and what was their timeline from announcement to full adoption?</pre>
-</div>
+<p><strong>Step 5 (optional):</strong> When the Researcher is done, you can copy the output into a Word doc for editing, or save it as a <strong>Page</strong> (<em>Save to Page</em> in the response menu). No "Export to Word" button to hunt for &mdash; either prompt the Researcher to <em>export to Word</em>, or just copy-paste.</p>
 </div>
 
 <div class="option-content" id="researcher-option-2">
@@ -215,12 +200,7 @@ window.LESSONS = [
 </div>
 <p><strong>Step 3:</strong> Watch the research plan. The Researcher will identify competitors based on context &mdash; if it asks for clarification, provide your actual competitor names.</p>
 <p><strong>Step 4:</strong> Review the competitive analysis and verify the sources cited.</p>
-<p><strong>Step 5:</strong> Click <strong>Export to Word</strong> to save the report.</p>
-<p><strong>Step 6 &mdash; Iterate:</strong> Go deeper on content strategy:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Researcher</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Which competitor has the strongest content strategy and why? Identify 3 tactics we could adapt for our own communications. Be specific about format, frequency, and channel.</pre>
-</div>
+<p><strong>Step 5 (optional):</strong> When the Researcher is done, you can copy the output into a Word doc for editing, or save it as a <strong>Page</strong> (<em>Save to Page</em> in the response menu). No "Export to Word" button to hunt for &mdash; either prompt the Researcher to <em>export to Word</em>, or just copy-paste.</p>
 </div>
 
 <div class="option-content" id="researcher-option-3">
@@ -233,12 +213,7 @@ window.LESSONS = [
 </div>
 <p><strong>Step 3:</strong> Watch the research plan unfold. Note the data sources it identifies &mdash; foundation databases, sector reports, and academic studies.</p>
 <p><strong>Step 4:</strong> Review the findings and verify that statistics are properly cited with dates and sources.</p>
-<p><strong>Step 5:</strong> Click <strong>Export to Word</strong> to save the report.</p>
-<p><strong>Step 6 &mdash; Iterate:</strong> Dig into the most actionable finding:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Researcher</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Which emerging funding model has the highest growth rate? Research 3 organizations that have successfully adopted it, including their implementation approach and results.</pre>
-</div>
+<p><strong>Step 5 (optional):</strong> When the Researcher is done, you can copy the output into a Word doc for editing, or save it as a <strong>Page</strong> (<em>Save to Page</em> in the response menu). No "Export to Word" button to hunt for &mdash; either prompt the Researcher to <em>export to Word</em>, or just copy-paste.</p>
 </div>
 
 <div class="option-content" id="researcher-option-4">
@@ -251,12 +226,7 @@ window.LESSONS = [
 </div>
 <p><strong>Step 3:</strong> Watch the research plan. The Researcher should identify specific vendors and comparison criteria.</p>
 <p><strong>Step 4:</strong> Review the comparison table and check whether listed features and pricing are current.</p>
-<p><strong>Step 5:</strong> Click <strong>Export to Word</strong> to save the report.</p>
-<p><strong>Step 6 &mdash; Iterate:</strong> Narrow to the top contender:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Researcher</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Focus on the top-rated vendor from the comparison. Research their implementation process, typical timeline, customer support quality, and any known issues from user reviews in the past 12 months.</pre>
-</div>
+<p><strong>Step 5 (optional):</strong> When the Researcher is done, you can copy the output into a Word doc for editing, or save it as a <strong>Page</strong> (<em>Save to Page</em> in the response menu). No "Export to Word" button to hunt for &mdash; either prompt the Researcher to <em>export to Word</em>, or just copy-paste.</p>
 </div>
 
 <h4>Reflective Check</h4>
@@ -432,47 +402,43 @@ window.LESSONS = [
     points: 40,
     bonus: false,
     learn: `
-<p><em>You've used pre-built agents. Now you'll build your own. This lesson shows two patterns: a <strong>Write Like Me</strong> agent (extracts your voice from sent emails) and a <strong>Report Writer</strong> agent (extracts a document template). Pick the one most useful for your work &mdash; or build both.</em></p>
+<p><em>You've used pre-built agents. Now you'll build your own. This lesson shows two starter patterns &mdash; pick the one that matches your work, then build it in the Exercise.</em></p>
 
 <h3>The Agent Builder Interface</h3>
-<p>When you create a new agent, you will see two modes at the top: <strong>"Describe"</strong> and <strong>"Configure."</strong> Always use <strong>Configure</strong> for full control. Here is what you will find:</p>
+<p>When you create a new agent, you will see two modes at the top: <strong>"Describe"</strong> and <strong>"Configure."</strong> Always use <strong>Configure</strong> &mdash; it gives you full control over the fields that matter.</p>
+<p>The main fields you'll work with:</p>
 <ul>
-  <li><strong>Name</strong> and <strong>Description</strong> fields at the top &mdash; give your agent a clear, specific name</li>
-  <li><strong>Instructions</strong> field &mdash; the system prompt. This is the most important part of any agent. It tells the agent who it is, how it should behave, and what rules to follow.</li>
-  <li><strong>Knowledge</strong> section &mdash; four source icons (SharePoint, People, Outlook, Web) plus a file upload area and a URL input. This is where you connect data the agent can reference.</li>
-  <li><strong>Capabilities</strong> &mdash; toggles for "Create documents, charts, and code" (enables Word/Excel/PPT output) and "Create images"</li>
-  <li><strong>Suggested prompts</strong> &mdash; Title + Message pairs that appear when users first open the agent, guiding them on what to ask</li>
-  <li><strong>Template</strong> dropdown &mdash; optional starting points like Text Translator, Writing Coach, etc.</li>
-  <li><strong>Share</strong> button &mdash; the sharing levels you learned in Lesson 1</li>
+  <li><strong>Instructions</strong> &mdash; the system prompt. This is where 90% of an agent's quality comes from.</li>
+  <li><strong>Knowledge</strong> &mdash; file uploads, URLs, or M365 sources (SharePoint, Outlook, People) the agent can reference.</li>
+  <li><strong>Capabilities</strong> &mdash; toggles for creating documents/charts/images.</li>
+  <li><strong>Suggested prompts</strong> &mdash; the starter chips users see when they first open the agent.</li>
+  <li><strong>Share</strong> &mdash; the scope: only you, specific people, or the whole org.</li>
 </ul>
 
+<h3>Two starter patterns</h3>
+<p><strong>Write Like Me</strong> &mdash; extracts your personal writing voice from sent emails and uses it as the agent's system prompt. Best if you write a lot of email / comms and want first drafts that already sound like you.</p>
+<p><strong>Report Writer</strong> &mdash; extracts the structure of a report you already produce (QBR, status update, case study) and turns it into a reusable template. Best if you deal with a lot of recurring reporting.</p>
+<p>These are examples, not the only options &mdash; both patterns adapt to your real use cases.</p>
+
 <div class="tip-box">
-  <div class="tip-title">Tip</div>
-  <p>The Instructions field is where 90% of your agent's quality comes from. A great system prompt is built through iteration, not written perfectly the first time.</p>
+  <div class="tip-title">One agent per workflow, not per task</div>
+  <p>Build one agent per recurring workflow or document type &mdash; not a new agent for every single report instance. The agent knows the structure; you pass the specifics at runtime (this month's data, this week's updates, this quarter's numbers). One well-configured agent can produce dozens of variations as long as they follow the same template.</p>
 </div>
-
-<h3>Pattern 1: Write Like Me</h3>
-<p>You have probably seen it: you ask AI to draft an email and the result sounds like it was written by a corporate manual. The greeting is wrong. The sign-off is wrong. The sentence rhythm is off. The problem is that the AI has no idea how <strong>you</strong> write.</p>
-<p>The idea is simple: extract your writing voice from your real sent emails, feed that voice profile as instructions to an agent, and the agent learns to mimic you. The result is a first draft that already sounds like something you wrote &mdash; not something you need to rewrite.</p>
-<ol>
-  <li><strong>Extract your writing voice</strong> &mdash; Copilot reads your sent emails and produces a detailed voice profile</li>
-  <li><strong>Feed it as instructions</strong> &mdash; paste that profile into a custom agent's system prompt</li>
-  <li><strong>The agent learns to mimic you</strong> &mdash; every draft it produces now matches your style</li>
-</ol>
-
-<h3>Pattern 2: Report Writer</h3>
-<p>Every report agent follows the same flow: <strong>raw data or notes in &rarr; structured document out.</strong> You give it meeting notes, data exports, or bullet points. It gives you a polished, consistently formatted report.</p>
-<p>A good report agent does not start writing immediately. It asks questions first: Who is this report for? What time period does it cover? What is the primary focus? This "interview first, draft second" pattern produces dramatically better output because the agent understands context before it writes.</p>
-<p>Instead of writing a template from scratch, feed an <em>existing</em> report you are happy with to AI. Ask it to extract the structure as a system prompt. The AI reverse-engineers your headings, section order, tone, formatting patterns, and level of detail &mdash; then uses that as a blueprint for generating new reports.</p>
-
-<h3>One Agent per Program, Not per Task</h3>
-<p>Build your report agent by program or initiative, not by individual report instance. The agent knows the structure and the context. You pass the specifics at runtime &mdash; this month's data, this week's updates, this quarter's numbers. One well-configured agent can generate dozens of different reports as long as they follow the same template.</p>
 
 <p class="personalization-note">[PERSONALIZED: Think about the emails or reports you write most often. Whichever takes the most time is the one to automate first.]</p>
     `,
     implement: `
 <h3>Build Your Own Agent</h3>
-<p>Pick the pattern most useful for your work.</p>
+
+<div class="note-box">
+  <div class="note-title">Which pattern fits you?</div>
+  <p>Pick based on what you actually spend time on:</p>
+  <ul style="margin-top:6px;">
+    <li><strong>Write Like Me</strong> &mdash; if you write a lot of email, comms, or short updates, and want first drafts that sound like you.</li>
+    <li><strong>Report Writer</strong> &mdash; if you produce recurring reports (status, QBR, case study, dashboard), and want a repeatable template.</li>
+  </ul>
+  <p style="margin-top:6px;">These are starting points &mdash; both patterns adapt to your real use cases once you get the mechanics down.</p>
+</div>
 
 <div class="option-tabs" id="buildType-options">
   <button class="option-tab active" onclick="switchOption('buildType', 0)">Write Like Me</button>
@@ -481,6 +447,7 @@ window.LESSONS = [
 
 <div class="option-content active" id="buildType-option-0">
 <h3>Build Your Write Like Me Agent</h3>
+<p><em>Why this works: AI drafts usually read like a corporate manual because the model has no idea how <strong>you</strong> write. You extract your writing voice from real sent emails, paste that voice profile as the agent's system prompt, and every draft it produces now sounds like you &mdash; first draft, not rewrite.</em></p>
 
 <h4>Step 0: Benchmark</h4>
 <p>Go to plain Copilot Chat. Ask it to write a professional email about a topic of your choice &mdash; a project update, a meeting follow-up, or a request to a colleague. Screenshot or copy the result. This is your "before." You will compare against it later to see how much better a voice-trained agent performs.</p>
@@ -539,7 +506,7 @@ window.LESSONS = [
 
 <div class="option-content" id="buildType-option-1">
 <h3>Build a Report Writer Agent</h3>
-<p>Pick the report type most relevant to your role. Each tab walks you through the same 4-step process customized for a specific department.</p>
+<p><em>Why this works: instead of writing a template from scratch, you feed an <strong>existing</strong> report you are happy with to AI and ask it to extract the structure as a system prompt. The AI reverse-engineers your headings, section order, tone, and formatting. A good report agent also asks questions before writing &mdash; who is this for, what period does it cover &mdash; so the output is grounded before it starts. Pick the report type most relevant to your role.</em></p>
 
 <div class="option-tabs" id="reportGroup-options">
   <button class="option-tab active" onclick="switchOption('reportGroup', 0)">Architecture</button>
@@ -744,7 +711,7 @@ window.LESSONS = [
 <p>This three-step chain (Agent &rarr; Word &rarr; PowerPoint) takes a process that used to require hours and compresses it to minutes.</p>
 
 <h3>Sharing and Team Use</h3>
-<p>Build one well-configured agent per program or department. Share it with your entire team so everyone generates consistent output. When someone new joins, they do not need to learn the template &mdash; the agent already knows it.</p>
+<p>Build one well-configured agent per recurring workflow or team. Share it with the people who'd use it so everyone generates consistent output. When someone new joins, they do not need to learn the template &mdash; the agent already knows it.</p>
 
 <h3>Privacy Note</h3>
 <p>Writing samples and email access stay within your organization's compliance boundaries. Your voice profile and the agent's Instructions are visible only to people you share the agent with. No data leaves your M365 tenant.</p>
@@ -770,8 +737,8 @@ window.LESSONS = [
   <li><strong>Major template changes</strong> (new sections, different audience, different report type) &rarr; create a new agent</li>
 </ul>
 
-<h3>The "One Agent per Program" Principle</h3>
-<p>Resist the urge to build a new agent for every single report or email type. Instead, build one agent per program or initiative. The agent knows the structure and context. You pass the specifics at runtime &mdash; this month's data, this week's updates, this quarter's numbers. One well-configured agent can handle dozens of variations.</p>
+<h3>One Agent per Workflow, Not per Task</h3>
+<p>Resist the urge to build a new agent for every single report or email instance. Instead, build one agent per recurring workflow or document type. The agent knows the structure and context; you pass the specifics at runtime &mdash; this month's data, this week's updates, this quarter's numbers. One well-configured agent can handle dozens of variations.</p>
     `
   },
 
@@ -825,39 +792,19 @@ window.LESSONS = [
     `,
     implement: `
 <h3>Test and Refine Your Agent</h3>
+<p><em>Take the agent you built in Lesson 2 and put it through a quick iteration loop. Two real tests is enough to surface most issues &mdash; the goal is to notice what's off and tighten the system prompt, not fill out a spreadsheet.</em></p>
 
-<h4>Step 1: Choose Your Agent</h4>
-<p>Take the agent you built in Lesson 2 &mdash; either the <strong>Write Like Me</strong> or the <strong>Report Writer</strong>. You will put it through a structured testing process.</p>
+<h4>Step 1: Run 2 real tests</h4>
+<p>Use genuinely different inputs &mdash; not two variations of the same thing. For a Write Like Me agent, try one easy email (a quick follow-up) and one harder one (a difficult conversation or a delicate decline). For a Report Writer, try two different datasets or time periods.</p>
 
-<h4>Step 2: Run 5 Test Conversations</h4>
-<p>Use varied, realistic inputs &mdash; not the same test every time. For a Write Like Me agent, try different email types: a follow-up, a cold outreach, a meeting request, a project update, and a difficult conversation. For a Report Writer, try different data sets and time periods.</p>
+<h4>Step 2: Note what's off</h4>
+<p>Read the outputs. Don't grade everything &mdash; just notice anything that would make you reject the draft. Common issues: wrong tone, missing sections, overused filler phrases, too long, too short.</p>
 
-<h4>Step 3: Log Your Results</h4>
-<p>For each test, record what happened using this format:</p>
+<h4>Step 3: Update the system prompt</h4>
+<p>For each issue, add a specific rule to the agent's Instructions. Be concrete: instead of <em>"be more casual"</em>, write <em>"Use contractions. Start with 'Hi' instead of 'Dear.' Keep sentences under 20 words."</em> Instead of <em>"better structure"</em>, write <em>"Every report must have these 4 sections in this order: Summary, Progress, Risks, Next Steps."</em></p>
 
-<table class="comparison-table">
-<tr><th>Test #</th><th>Input</th><th>Issue Found</th><th>Rule Added</th></tr>
-<tr><td>1</td><td>"Draft reply to Anna about budget"</td><td>Too formal</td><td>"Use conversational tone"</td></tr>
-<tr><td>2</td><td>"Follow-up on Monday's meeting"</td><td>Missing action items</td><td>"Always include next steps as bullet points"</td></tr>
-<tr><td>3</td><td>"Decline invitation politely"</td><td>Used "I hope this finds you well"</td><td>"Never use the phrase 'I hope this finds you well'"</td></tr>
-<tr><td>4</td><td>"Project update to client"</td><td>Too long</td><td>"Keep emails under 150 words unless asked for detail"</td></tr>
-<tr><td>5</td><td>"Request for deadline extension"</td><td>Tone too apologetic</td><td>"Frame delays as schedule adjustments, not apologies"</td></tr>
-</table>
-
-<h4>Step 4: Update the Instructions</h4>
-<p>For each issue found, add a specific rule to the agent's Instructions. Be concrete. Instead of "be more casual," write "Use contractions. Start with 'Hey' or 'Hi' instead of 'Dear.' Keep sentences under 20 words."</p>
-
-<h4>Step 5: Re-Test</h4>
-<p>Run the same 5 inputs again after updating the Instructions. Compare before and after. The improvements should be visible. If an issue persists, the rule was not specific enough &mdash; rewrite it.</p>
-
-<h4>Step 6: Get External Feedback</h4>
-<p>Share your agent with one colleague. Ask them to run 3 tests with their own real inputs. Collect their feedback: what worked, what was off, what they would change. External testers always find blind spots you missed.</p>
-
-<h4>Step 7: Final Iteration</h4>
-<p>Incorporate your colleague's feedback into the Instructions. Run one final round of tests to confirm the changes improved the output without breaking what was already working.</p>
-
-<h4>Reflective Check</h4>
-<p>Compare your agent's current output to the benchmark you captured in Lesson 2, Step 0. The difference should be clear. If it is not, you need more iteration rounds.</p>
+<h4>Step 4: Re-test and compare</h4>
+<p>Run the same 2 inputs again. The improvements should be visible. If an issue persists, the rule wasn't specific enough &mdash; rewrite it and try once more. Repeat until you'd actually send the draft with minor edits.</p>
     `,
     advanced: `
 <h3>Advanced: Production Operations</h3>
