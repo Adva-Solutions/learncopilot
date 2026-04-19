@@ -52,6 +52,7 @@ export default async function handler(req, res) {
       personalization: hasContent ? templateOverrides : null,
       clientName: null,
       logoUrl: null,
+      sampleFileIds: [],
     });
   }
 
