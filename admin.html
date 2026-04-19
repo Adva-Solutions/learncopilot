@@ -1217,14 +1217,16 @@ async function renderWorkshopDetail(app, slug) {
 
   try {
     const data = await apiFetch(`${API.client}?slug=${encodeURIComponent(slug)}`);
-    renderWorkshopEditor(app, data);
+    const libData = await apiFetch(API.sampleFiles).catch(() => ({ files: [] }));
+    const allSampleFiles = libData.files || [];
+    renderWorkshopEditor(app, data, allSampleFiles);
   } catch (err) {
     app.innerHTML = `<div class="card"><p style="color:var(--red);">Failed to load workshop: ${esc(err.message)}</p>
       <a class="btn btn-outline btn-sm" href="#dashboard" style="margin-top:12px;">Back to Dashboard</a></div>`;
   }
 }
 
-function renderWorkshopEditor(app, workshop) {
+function renderWorkshopEditor(app, workshop, allSampleFiles = []) {
   const w = workshop.client || workshop;
   const slug = w.slug;
   const participants = w.participants || [];
@@ -1281,6 +1283,16 @@ function renderWorkshopEditor(app, workshop) {
             <option value="inactive" ${w.status === 'inactive' ? 'selected' : ''}>Inactive</option>
           </select>
         </div>
+      </div>
+      <div class="form-group" style="margin-top:16px;">
+        <label>Sample files assigned to this workshop</label>
+        <select id="wd-sample-files" multiple size="6" style="min-height:140px;">
+          ${allSampleFiles.map(f => `
+            <option value="${esc(f.id)}" ${(w.sampleFileIds || []).includes(f.id) ? 'selected' : ''}>
+              ${esc(f.name)} — ${esc(f.category)} (${(f.size / 1024).toFixed(1)} KB)
+            </option>`).join('')}
+        </select>
+        <div class="hint">Cmd/Ctrl-click to select multiple. Learners see a download button for the first assigned file in matching lesson spots.</div>
       </div>
       <div style="display:flex;justify-content:flex-end;margin-top:16px;">
         <button class="btn btn-primary btn-sm" id="save-settings">Save Changes</button>
@@ -1360,6 +1372,7 @@ function renderWorkshopEditor(app, workshop) {
   // Save settings
   $('#save-settings').onclick = async () => {
     try {
+      const selectedIds = Array.from(document.getElementById('wd-sample-files').selectedOptions).map(o => o.value);
       await apiFetch(`${API.client}?slug=${encodeURIComponent(slug)}`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -1368,6 +1381,7 @@ function renderWorkshopEditor(app, workshop) {
           industry: $('#ed-industry').value.trim(),
           departments: $('#ed-depts').value.split(',').map(s => s.trim()).filter(Boolean),
           status: $('#ed-status').value,
+          sampleFileIds: selectedIds,
         }),
       });
       toast('Settings saved');
