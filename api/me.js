@@ -6,8 +6,23 @@ function getSecret() {
   return s;
 }
 
+// Full HMAC-SHA256 as hex (64 chars). Signing uses the first 32 hex chars.
+// Verification accepts 16 hex (legacy) or 32 hex (current) for backward
+// compatibility with any sessions minted before the 2026-04 widening.
+function fullSig(data) {
+  return crypto.createHmac('sha256', getSecret()).update(data).digest('hex');
+}
+
 function sign(data) {
-  return crypto.createHmac('sha256', getSecret()).update(data).digest('hex').slice(0, 16);
+  return fullSig(data).slice(0, 32);
+}
+
+function verifySig(data, sig) {
+  if (typeof sig !== 'string') return false;
+  const full = fullSig(data);
+  if (sig.length === 32) return sig === full.slice(0, 32);
+  if (sig.length === 16) return sig === full.slice(0, 16);
+  return false;
 }
 
 export function createToken(name, slug, uid) {
@@ -20,8 +35,7 @@ function verify(token) {
   const [b64, sig] = token.split('.');
   if (!b64 || !sig) return null;
   const payload = Buffer.from(b64, 'base64').toString('utf-8');
-  const expected = sign(payload);
-  if (sig !== expected) return null;
+  if (!verifySig(payload, sig)) return null;
   try {
     const data = JSON.parse(payload);
     return { name: data.n, slug: data.s || null, uid: data.u || null };
