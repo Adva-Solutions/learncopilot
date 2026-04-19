@@ -47,6 +47,12 @@ export default async function handler(req, res) {
           existing[key] = updates[key];
         }
       }
+
+      if (Array.isArray(updates.sampleFileIds)) {
+        const valid = updates.sampleFileIds.filter(s => typeof s === 'string' && /^[0-9a-f]{16}$/.test(s));
+        existing.sampleFileIds = valid;
+      }
+
       existing.updatedAt = Date.now();
 
       await r.set(`client:${slug}`, JSON.stringify(existing));
