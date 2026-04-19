@@ -252,7 +252,7 @@ You now have the key takeaways without opening the file.</li>
 <h4>Operations: Project Handoff Document</h4>
 <div class="note-box">
   <div class="note-title">Reference Material</div>
-  <p>Download the <a href="/mock-data/staffing/oda-resource-allocation.csv" download>ODA resource allocation spreadsheet</a> for team assignments and utilization data to make this handoff more realistic.</p>
+  <p>Download the <a href="/mock-data/staffing/oda-resource-allocation.xlsx" download>ODA resource allocation spreadsheet</a> for team assignments and utilization data to make this handoff more realistic.</p>
 </div>
 <ol>
 <li>Open <strong>Word</strong>. Create a new blank document.</li>
@@ -320,12 +320,12 @@ You now have the key takeaways without opening the file.</li>
 
 <div class="note-box">
   <div class="note-title">ODA Sample Data</div>
-  <p>Download one of the ODA financial datasets, or use your own spreadsheet. <strong>.xlsx</strong> opens directly in Excel; <strong>.csv</strong> imports into any spreadsheet tool.</p>
+  <p>Download one of the ODA financial datasets, or use your own spreadsheet. All downloads are <strong>.xlsx</strong> — they open directly in Excel.</p>
   <ul>
-    <li>Monthly Financials — 15 months of revenue, expenses, active projects, new commissions, staffing, and utilization. <a href="/mock-data/financials/oda-monthly-financials.xlsx" download>.xlsx</a> · <a href="/mock-data/financials/oda-monthly-financials.csv" download>.csv</a></li>
-    <li>Project Tracking — 10 active projects with phases, fees, hours, and budget status. <a href="/mock-data/financials/oda-project-tracking.xlsx" download>.xlsx</a> · <a href="/mock-data/financials/oda-project-tracking.csv" download>.csv</a></li>
-    <li>Construction Costs — cost breakdowns by trade across completed buildings. <a href="/mock-data/financials/oda-construction-costs.csv" download>.csv</a></li>
-    <li>Consolidated Dashboard — all-in-one ODA financial snapshot across sheets. <a href="/mock-data/financials/oda-consolidated-data.xlsx" download>.xlsx</a></li>
+    <li><a href="/mock-data/financials/oda-monthly-financials.xlsx" download>Monthly Financials</a> — 15 months of revenue, expenses, active projects, new commissions, staffing, and utilization.</li>
+    <li><a href="/mock-data/financials/oda-project-tracking.xlsx" download>Project Tracking</a> — 10 active projects with phases, fees, hours, and budget status.</li>
+    <li><a href="/mock-data/financials/oda-construction-costs.xlsx" download>Construction Costs</a> — cost breakdowns by trade across completed buildings.</li>
+    <li><a href="/mock-data/financials/oda-consolidated-data.xlsx" download>Consolidated Dashboard</a> — all-in-one ODA financial snapshot across sheets.</li>
   </ul>
 </div>
 

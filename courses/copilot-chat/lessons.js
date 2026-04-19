@@ -518,8 +518,8 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <p>This prompt forces Copilot to cross-reference YOUR documents against the code — something that would take you hours manually.</p>
 
 <h4>Step 5: Power Prompt #2 — Generate a Deliverable</h4>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the references in this notebook, draft a consultant coordination email summarizing the open items that need resolution before our next permit submission. Organize by consultant (structural, MEP, facade) and include the specific document references for each item.</code></div>
-<p>Notice how Copilot pulls from your uploaded files to create a real deliverable — not generic advice, but specific references from your actual project documents.</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the references in this notebook and the risk analysis above, draft a Permit Submission Readiness Brief. Structure it as a document with: (1) Executive summary — are we ready to file, and if not what blocks us; (2) Open items table grouped by consultant (structural, MEP, facade) with owner, due date, and the specific code section / spec page each item ties back to; (3) Risk register summarizing the compliance concerns flagged in Prompt #1 with resolution path; (4) Decisions needed from the project lead before filing. Cite the reference document and section for every item.</code></div>
+<p>Notice how Copilot turns your uploaded files into a structured briefing document — the kind of artifact you'd actually save inside this notebook as a living project page. In Lesson 4 you'll turn this same content into a shareable Page.</p>
 </div>
 
 <div class="option-content" id="option-3-hr">
@@ -530,7 +530,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <ul>
   <li><a href="/mock-data/hr/employee-handbook-excerpt.pdf" download>Employee Handbook Excerpt</a> (PTO, remote work, benefits)</li>
   <li><a href="/mock-data/hr/onboarding-checklist.pdf" download>New-Hire Onboarding Checklist</a></li>
-  <li><a href="/mock-data/hr/recruiting-pipeline.csv" download>Recruiting Pipeline Tracker</a></li>
+  <li><a href="/mock-data/hr/recruiting-pipeline.xlsx" download>Recruiting Pipeline Tracker</a></li>
 </ul>
 
 <h4>Step 3: Open Copilot instructions</h4>
@@ -554,7 +554,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <h4>Step 2: Upload References (do this first)</h4>
 <ul>
-  <li><a href="/mock-data/marketing/oda-awards-tracker.csv" download>Awards Tracker</a> (AIA, Architizer, CTBUH submissions)</li>
+  <li><a href="/mock-data/marketing/oda-awards-tracker.xlsx" download>Awards Tracker</a> (AIA, Architizer, CTBUH submissions)</li>
   <li><a href="/mock-data/proposals/aia-award-narrative.pdf" download>AIA Award Narrative Draft</a></li>
   <li><a href="/mock-data/marketing/oda-newsletter-sample.pdf" download>ODA Newsletter Sample</a></li>
 </ul>
@@ -592,11 +592,13 @@ When the interview is complete, output the results formatted as a Copilot Custom
 - When summarizing multiple projects, use a comparison table
 - Flag anything that needs immediate attention with [ACTION REQUIRED]</code></div>
 
-<h4>Step 4: Power Prompt #1</h4>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the QBR document, give me a 5-minute executive briefing: what is the status of each active project, which projects are at risk, and what decisions need to be made this quarter?</code></div>
+<h4>Step 4: Power Prompt #1 — Strategic Fit</h4>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Cross-reference every document in this notebook. Using the Q1 QBR as the strategic lens, evaluate both property summaries against it. For each property, produce: (1) which Q1 strategic priorities it advances and which it puts at risk — cite the specific QBR section for each; (2) how it squares against the firm's current financial posture and utilization from the QBR; (3) open questions the QBR raises that the property summary does not yet answer. End with a Strategic Fit ranking — property 1 vs property 2 — and the single QBR passage that tips the decision.</code></div>
+<p>The power move: instead of re-summarizing the QBR (which is already a summary), you are forcing Copilot to hold the QBR <em>and</em> the property summaries in one lens — the kind of synthesis a principal would ask for before a go/no-go investment call.</p>
 
 <h4>Step 5: Power Prompt #2</h4>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Compare the two property summaries in this notebook. Create a side-by-side comparison table covering: price, square footage, price per SF, location, amenities, and any red flags. End with a recommendation.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Now go deep on the property comparison. Build a side-by-side table covering: price, square footage, price per SF, location, amenities, and any red flags from each summary. Then add a column for each row mapping the row to the strategic-fit ranking you produced above — so every line item ties back to the QBR. End with a one-paragraph recommendation.</code></div>
+<p>P#1 did the synthesis; P#2 does the detail — and now the detail stays anchored to the strategic logic instead of floating on its own.</p>
 </div>
 
 <div class="option-content" id="option-3-ops">
@@ -605,9 +607,9 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <h4>Step 2: Upload References (do this first)</h4>
 <ul>
-  <li><a href="/mock-data/staffing/oda-resource-allocation.csv" download>Resource Allocation Spreadsheet</a> (team assignments, utilization, skills)</li>
-  <li><a href="/mock-data/financials/oda-project-tracking.csv" download>Project Tracking Data</a> (phases, fees, hours, budget status)</li>
-  <li><a href="/mock-data/financials/oda-monthly-financials.csv" download>Monthly Financials</a></li>
+  <li><a href="/mock-data/staffing/oda-resource-allocation.xlsx" download>Resource Allocation Spreadsheet</a> (team assignments, utilization, skills)</li>
+  <li><a href="/mock-data/financials/oda-project-tracking.xlsx" download>Project Tracking Data</a> (phases, fees, hours, budget status)</li>
+  <li><a href="/mock-data/financials/oda-monthly-financials.xlsx" download>Monthly Financials</a></li>
 </ul>
 
 <h4>Step 3: Open Copilot instructions</h4>
@@ -622,7 +624,8 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on the resource allocation data, which team members are overallocated (above 100% total)? Show me a table of each person, their current project assignments, allocation percentage, and utilization. Flag anyone above 90%.</code></div>
 
 <h4>Step 5: Power Prompt #2</h4>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the project tracking and resource data, draft a weekly resource planning email for ODA leadership. Highlight any projects at risk of missing milestones, flag the summer utilization dip, and recommend specific staffing adjustments with justification from the data.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the project tracking, resource allocation, and monthly financials spreadsheets in this notebook, draft a Weekly Staffing Status Brief. Structure as a document with: (1) Headline — total studio utilization this week vs. the 6-month trend, including the summer dip if visible; (2) Overallocation register — names flagged in Prompt #1 with their projects, hours, and recommended shift; (3) Projects at risk — from the tracking data, any project missing milestones or under-staffed relative to FTEs needed; (4) Reallocation recommendations — specific name → project moves with justification from the data; (5) Decisions needed from leadership this week. Cite the specific spreadsheet and row for every claim.</code></div>
+<p>Same pattern as before: the analysis in Prompt #1 becomes the evidence layer for the structured brief in Prompt #2 — a document you'll later promote into a shareable Page in Lesson 4.</p>
 </div>
 
 <h4>Step 6: Try Quick Create</h4>
@@ -788,13 +791,13 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <div class="option-content" id="option-4-ops" style="display:none">
 <h4>Operations: Resource Allocation Overview Page</h4>
-<p><strong>1. Inside your Operations &amp; Resource Planning notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Weekly Resource Overview</strong>. Resource allocation + project tracking CSVs carry over. Click <strong>Create</strong>.</p>
+<p><strong>1. Inside your Operations &amp; Resource Planning notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Weekly Resource Overview</strong>. Resource allocation + project tracking spreadsheets carry over. Click <strong>Create</strong>.</p>
 <p><strong>2.</strong> Instructions live on the notebook, not the page — your L3 ops instructions already apply here. Nothing to re-enter.</p>
 <p><strong>3. Power Prompt #1</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the resource allocation CSV, build a Team Members table: Name, Role, Current Project Assignment(s), Utilization Rate, Upcoming Availability. Sort by utilization descending. Below the table, add a "Reallocation Opportunities" section identifying team members who could shift to understaffed projects — cite specific projects from the tracking CSV.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the resource allocation spreadsheet, build a Team Members table: Name, Role, Current Project Assignment(s), Utilization Rate, Upcoming Availability. Sort by utilization descending. Below the table, add a "Reallocation Opportunities" section identifying team members who could shift to understaffed projects — cite specific projects from the project tracking spreadsheet.</code></div>
 <p><strong>4. Edit manually</strong> — right-click to add a heading "Upcoming Project Starts" and list 2-3 projects kicking off in the next month that will need staffing.</p>
 <p><strong>5. Power Prompt #2 — with visualizations</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Contractor &amp; Temp Staffing" section (utilization thresholds, preferred vendors, approval process). Then add two visualizations: (1) a horizontal bar chart of utilization % per team member, with a 90% overallocation line; (2) a monthly line chart of total utilization for the studio over the last 6 months from the financials CSV, so we can see the summer dip.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Contractor &amp; Temp Staffing" section (utilization thresholds, preferred vendors, approval process). Then add two visualizations: (1) a horizontal bar chart of utilization % per team member, with a 90% overallocation line; (2) a monthly line chart of total utilization for the studio over the last 6 months from the monthly financials spreadsheet, so we can see the summer dip.</code></div>
 <p><strong>6. Iterate</strong>:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Reorganize so anyone over 100% is flagged at the very top with the specific project they should reduce hours on.</code></div>
 </div>
@@ -976,8 +979,8 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <div class="option-content" id="option-5-ops" style="display:none">
 <h4>Operations &rarr; Excel Workbook: Resource Allocation Model</h4>
 <p><strong>1.</strong> In Create, click the <strong>Excel</strong> pill. "Create a spreadsheet about…" opens.</p>
-<p><strong>2. Generation prompt</strong> — sourced from your Operations &amp; Resource Planning notebook (resource allocation + tracking CSVs) and the Weekly Resource Overview Page:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Build a resource allocation workbook. Source: the resource allocation CSV + project tracking CSV in my Operations &amp; Resource Planning notebook, plus the "Weekly Resource Overview" Page. Sheets: (1) People — Name, Role, Utilization %, Current Project(s), Available Date, with conditional formatting flagging &gt;90%; (2) Projects — Project, Phase, Start/End, FTEs needed, FTEs assigned, Gap; (3) Summary — SUMIF-driven totals per project and per person, plus a pivot of utilization by role. Add a chart on the Summary sheet: horizontal bar of utilization % with a 90% threshold line.</code></div>
+<p><strong>2. Generation prompt</strong> — sourced from your Operations &amp; Resource Planning notebook (resource allocation + project tracking spreadsheets) and the Weekly Resource Overview Page:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Build a resource allocation workbook. Source: the resource allocation spreadsheet + project tracking spreadsheet in my Operations &amp; Resource Planning notebook, plus the "Weekly Resource Overview" Page. Sheets: (1) People — Name, Role, Utilization %, Current Project(s), Available Date, with conditional formatting flagging &gt;90%; (2) Projects — Project, Phase, Start/End, FTEs needed, FTEs assigned, Gap; (3) Summary — SUMIF-driven totals per project and per person, plus a pivot of utilization by role. Add a chart on the Summary sheet: horizontal bar of utilization % with a 90% threshold line.</code></div>
 <p><strong>3. Iterate</strong> — make it usable:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "Reallocation Opportunities" sheet that flags every person &gt;90% and pairs them with understaffed projects using XLOOKUP against the Projects sheet. Also add named ranges so the formulas read cleanly.</code></div>
 <p><strong>4.</strong> Save to Library. Link the workbook from your Weekly Resource Overview Page so the narrative Page and the model live side-by-side — one for reading, one for running numbers.</p>

@@ -279,7 +279,7 @@ window.LESSONS = [
 <h4>Architecture: Project Tracker Analysis</h4>
 <div class="note-box">
   <div class="note-title">Sample Data</div>
-  <p>Download the <a href="/mock-data/financials/oda-project-tracking.csv" download>Project Tracking Data</a> to use for this exercise. Or use your own project tracker if you have one.</p>
+  <p>Download the <a href="/mock-data/financials/oda-project-tracking.xlsx" download>Project Tracking Data</a> to use for this exercise. Or use your own project tracker if you have one.</p>
 </div>
 <p><strong>Step 1:</strong> Open the <strong>Analyst</strong> agent from your sidebar (or find it in the Agents gallery).</p>
 <p><strong>Step 2:</strong> Upload the project tracking file by dragging it into the chat or clicking the attachment icon.</p>
@@ -300,7 +300,7 @@ window.LESSONS = [
 <h4>HR: Team Composition Analysis</h4>
 <div class="note-box">
   <div class="note-title">Sample Data</div>
-  <p>Download the <a href="/mock-data/staffing/oda-resource-allocation.csv" download>Resource Allocation Data</a> or the <a href="/mock-data/oda-team-directory.csv" download>Team Directory</a> to use for this exercise. Or use your own team data if you have it.</p>
+  <p>Download the <a href="/mock-data/staffing/oda-resource-allocation.xlsx" download>Resource Allocation Data</a> or the <a href="/mock-data/oda-team-directory.xlsx" download>Team Directory</a> to use for this exercise. Or use your own team data if you have it.</p>
 </div>
 <p><strong>Step 1:</strong> Open the <strong>Analyst</strong> agent from your sidebar.</p>
 <p><strong>Step 2:</strong> Upload the resource allocation file.</p>
@@ -321,7 +321,7 @@ window.LESSONS = [
 <h4>Marketing: Campaign Performance Analysis</h4>
 <div class="note-box">
   <div class="note-title">Sample Data</div>
-  <p>Download the <a href="/mock-data/marketing/oda-social-media-metrics.csv" download>Social Media Metrics</a> to use for this exercise. Or use your own campaign data if you have it.</p>
+  <p>Download the <a href="/mock-data/marketing/oda-social-media-metrics.xlsx" download>Social Media Metrics</a> to use for this exercise. Or use your own campaign data if you have it.</p>
 </div>
 <p><strong>Step 1:</strong> Open the <strong>Analyst</strong> agent from your sidebar.</p>
 <p><strong>Step 2:</strong> Upload the campaign metrics file.</p>
@@ -342,7 +342,7 @@ window.LESSONS = [
 <h4>Executive: Budget vs. Actual Analysis</h4>
 <div class="note-box">
   <div class="note-title">Sample Data</div>
-  <p>Download the <a href="/mock-data/financials/oda-monthly-financials.csv" download>Monthly Financials</a> to use for this exercise. Or use your own budget summary if you have one.</p>
+  <p>Download the <a href="/mock-data/financials/oda-monthly-financials.xlsx" download>Monthly Financials</a> to use for this exercise. Or use your own budget summary if you have one.</p>
 </div>
 <p><strong>Step 1:</strong> Open the <strong>Analyst</strong> agent from your sidebar.</p>
 <p><strong>Step 2:</strong> Upload the financial summary file.</p>
@@ -363,7 +363,7 @@ window.LESSONS = [
 <h4>Operations: Construction Cost Benchmarking</h4>
 <div class="note-box">
   <div class="note-title">Sample Data</div>
-  <p>Download the <a href="/mock-data/financials/oda-construction-costs.csv" download>Construction Cost Breakdown Data</a> to use for this exercise. Or use your own cost data if you have it.</p>
+  <p>Download the <a href="/mock-data/financials/oda-construction-costs.xlsx" download>Construction Cost Breakdown Data</a> to use for this exercise. Or use your own cost data if you have it.</p>
 </div>
 <p><strong>Step 1:</strong> Open the <strong>Analyst</strong> agent from your sidebar.</p>
 <p><strong>Step 2:</strong> Upload the construction cost data file.</p>
@@ -589,7 +589,7 @@ window.LESSONS = [
 <h4>HR: Monthly People Report</h4>
 <div class="note-box">
   <div class="note-title">Need a sample report?</div>
-  <p>If you don't have an existing report, download the <a href="/mock-data/hr/employee-handbook-excerpt.txt" download>Employee Handbook Excerpt</a> and the <a href="/mock-data/hr/recruiting-pipeline.csv" download>Recruiting Pipeline</a> as reference materials.</p>
+  <p>If you don't have an existing report, download the <a href="/mock-data/hr/employee-handbook-excerpt.txt" download>Employee Handbook Excerpt</a> and the <a href="/mock-data/hr/recruiting-pipeline.xlsx" download>Recruiting Pipeline</a> as reference materials.</p>
 </div>
 
 <p><strong>Step 1: Benchmark.</strong> Upload an existing Monthly People Report to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>
@@ -625,7 +625,7 @@ window.LESSONS = [
 <h4>Marketing: Campaign Performance Report</h4>
 <div class="note-box">
   <div class="note-title">Need a sample report?</div>
-  <p>If you don't have an existing report, download the <a href="/mock-data/marketing/oda-awards-tracker.csv" download>Awards Tracker</a> and the <a href="/mock-data/marketing/oda-newsletter-sample.txt" download>Newsletter Sample</a> as reference materials.</p>
+  <p>If you don't have an existing report, download the <a href="/mock-data/marketing/oda-awards-tracker.xlsx" download>Awards Tracker</a> and the <a href="/mock-data/marketing/oda-newsletter-sample.txt" download>Newsletter Sample</a> as reference materials.</p>
 </div>
 
 <p><strong>Step 1: Benchmark.</strong> Upload an existing Campaign Performance Report to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>
@@ -697,7 +697,7 @@ window.LESSONS = [
 <h4>Operations: Operations Dashboard</h4>
 <div class="note-box">
   <div class="note-title">Need a sample report?</div>
-  <p>Download the <a href="/mock-data/financials/oda-project-tracking.csv" download>Project Tracking Data</a> and the <a href="/mock-data/staffing/oda-resource-allocation.csv" download>Resource Allocation Data</a> to generate an operations dashboard report.</p>
+  <p>Download the <a href="/mock-data/financials/oda-project-tracking.xlsx" download>Project Tracking Data</a> and the <a href="/mock-data/staffing/oda-resource-allocation.xlsx" download>Resource Allocation Data</a> to generate an operations dashboard report.</p>
 </div>
 
 <p><strong>Step 1: Benchmark.</strong> Upload an existing Operations Dashboard report to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>

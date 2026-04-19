@@ -77,6 +77,16 @@ td.chat-col { color:#0078d4; } td.apps-col { color:#217346; } td.agents-col { co
 .meta { display:flex; gap:24px; margin-top:20px; padding-top:16px; border-top:1px solid #e8e4dc; font-size:12px; color:#999; }
 .meta strong { color:#1a1a2e; }
 
+details.prompt { margin-top:10px; }
+details.prompt summary { cursor:pointer; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#8a6a2e; list-style:none; display:inline-block; padding:2px 0; user-select:none; }
+details.prompt summary::-webkit-details-marker { display:none; }
+details.prompt summary::before { content:'▸ '; font-size:9px; color:#c5973e; margin-right:2px; }
+details.prompt[open] summary::before { content:'▾ '; }
+details.prompt summary:hover { color:#c5973e; }
+pre.prompt-text { font-family:'IBM Plex Mono',monospace; font-size:11.5px; line-height:1.55; background:#fffdf4; color:#1a1a2e; border-left:3px solid #c5973e; border-radius:0 6px 6px 0; padding:10px 12px; margin-top:6px; white-space:pre-wrap; word-wrap:break-word; }
+.prompt-label { font-size:9.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#8a6a2e; margin-top:10px; margin-bottom:-2px; }
+.prompt-label:first-of-type { margin-top:6px; }
+
 @media(max-width:1200px) { .arc { grid-template-columns:repeat(4,1fr); } }
 @media(max-width:700px) { body { padding:20px; } .arc { grid-template-columns:repeat(2,1fr); } }
 </style>
@@ -120,31 +130,55 @@ td.chat-col { color:#0078d4; } td.apps-col { color:#217346; } td.agents-col { co
     <thead><tr><th>Step</th><th>What they do</th><th>Data in</th><th>Data out</th></tr></thead>
     <tbody>
     <tr><td class="module chat-col">Chat L3 · Notebook</td>
-        <td>Build <em>Shore Club Project Knowledge Notebook</em>. Ask questions against building codes and the project spec — flag compliance risks at the facade transitions.</td>
+        <td>Build <em>Shore Club Project Knowledge Notebook</em>. Ask questions against building codes and the project spec — flag compliance risks at the facade transitions.
+          <details class="prompt"><summary>Student prompts</summary>
+            <div class="prompt-label">Power Prompt #1 — cross-reference</div>
+            <pre class="prompt-text">Based on the documents I uploaded, what are the top 3 code compliance risks for this project? For each risk, cite the specific code section and the specific page or section in our project documents where the issue exists.</pre>
+            <div class="prompt-label">Power Prompt #2 — generate a deliverable</div>
+            <pre class="prompt-text">Using the references in this notebook and the risk analysis above, draft a Permit Submission Readiness Brief. Structure it as a document with: (1) Executive summary — are we ready to file, and if not what blocks us; (2) Open items table grouped by consultant (structural, MEP, facade) with owner, due date, and the specific code section / spec page each item ties back to; (3) Risk register summarizing the compliance concerns flagged in Prompt #1 with resolution path; (4) Decisions needed from the project lead before filing. Cite the reference document and section for every item.</pre>
+          </details>
+        </td>
         <td><span class="dataset">nyc-residential-code-reference.pdf</span><br><span class="dataset">nyc-vs-florida-comparison.pdf</span><br><span class="dataset">project-spec-excerpt.pdf</span></td>
         <td><span class="output-tag">Notebook</span></td></tr>
     <tr><td class="module chat-col">Chat L4 · Page</td>
-        <td>Synthesize the review into a <em>Shore Club Facade Review Summary</em> page: decisions, action items by consultant, remediation timeline, open questions.</td>
+        <td>Synthesize the review into a <em>Shore Club Facade Review Summary</em> page: decisions, action items by consultant, remediation timeline, open questions.
+          <details class="prompt"><summary>Student prompts</summary>
+            <div class="prompt-label">Power Prompt #1 — synthesize the page</div>
+            <pre class="prompt-text">Draft a meeting summary for the Shore Club Fort Lauderdale facade material review. Include: decisions made (selected terracotta rainscreen over aluminum curtain wall — cite cost: terracotta $85/SF vs aluminum $62/SF), action items organized by consultant (structural load capacity, envelope details, cost estimator revisions), and next milestones (CD submission in 3 weeks, permit filing in 6 weeks). Cite the specific section of our spec document wherever a material decision is referenced.</pre>
+            <div class="prompt-label">Power Prompt #2 — with visualizations</div>
+            <pre class="prompt-text">Add a "Consultant Responsibility Matrix" section with a table of each consultant, action items, deadlines, and status. Then add two visualizations inline on the Page: (1) a horizontal bar chart comparing terracotta vs aluminum cost per SF from the decision above; (2) a timeline graphic showing CD submission, permit filing, and mock-up review milestones over the next 8 weeks.</pre>
+          </details>
+        </td>
         <td>Shore Club notebook</td>
         <td><span class="output-tag">Page</span></td></tr>
     <tr><td class="module chat-col">Chat L5 · Image</td>
-        <td>Generate a <em>curtain wall waterproofing detail diagram</em> — cross-section showing the transition joint, flashing, weep path, and where infiltration is occurring. Edit with Cutout + annotation overlay. Save to Library, add to the Page as figure 1.</td>
+        <td>Generate a <em>curtain wall waterproofing detail diagram</em> — cross-section showing the transition joint, flashing, weep path, and where infiltration is occurring. Edit with Cutout + annotation overlay. Save to Library, add to the Page as figure 1.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Create a technical cross-section diagram of a curtain wall waterproofing detail at a transition joint. Show: the curtain wall system, the flashing membrane, the drainage / weep path, the backup wall, and an arrow indicating where water infiltration is occurring. Line-drawing style with clean labels, navy stroke on white background, suitable for inclusion in a design review document. Leave space at the bottom for a figure caption.</pre></details>
+        </td>
         <td>Page + detail requirements</td>
         <td><span class="output-tag">Technical diagram</span></td></tr>
     <tr><td class="module apps-col">Apps · Word</td>
-        <td>Export the Page to Word. Add a <em>Building Code References</em> appendix. Live co-edit with the principal in Track Changes mode — accept/reject redlines, compare v1 vs v2.</td>
+        <td>Export the Page to Word. Add a <em>Building Code References</em> appendix. Live co-edit with the principal in Track Changes mode — accept/reject redlines, compare v1 vs v2.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Draft a consultant coordination memo regarding facade waterproofing issues on the Shore Club Fort Lauderdale project. Include these sections: Project Name and Number, Issue Description (water infiltration detected at curtain wall transitions during envelope testing), Consultant Actions Needed (envelope consultant to review detail revisions, structural engineer to confirm backup wall capacity, waterproofing sub to propose remediation), Deadline (responses needed within 10 business days), and Next Steps. Reference NYC and Florida building code differences where applicable. Use a professional but direct tone.</pre></details>
+        </td>
         <td>Page (exported) + code PDFs</td>
         <td><span class="output-tag">Word doc v2</span></td></tr>
     <tr><td class="module apps-col">Apps · Excel</td>
-        <td><strong>Quant:</strong> project hours + costs by trade; remediation cost projection. <strong>Qual:</strong> themes from consultant feedback in the review. <strong>Viz:</strong> trade cost breakdown + risk heatmap.</td>
-        <td><span class="dataset">oda-construction-costs.csv</span><br><span class="dataset">oda-project-tracking.csv</span></td>
+        <td><strong>Quant:</strong> project hours + costs by trade; remediation cost projection. <strong>Qual:</strong> themes from consultant feedback in the review. <strong>Viz:</strong> trade cost breakdown + risk heatmap.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">What trends do you see in this data? Which trades are driving cost overruns on active projects? Break down project hours and costs by trade, flag projects where remediation costs will push the budget over the original estimate, and add a calculated column for variance %. Then create a horizontal bar chart of trade cost breakdown and a risk heatmap of consultant action items by urgency.</pre></details>
+        </td>
+        <td><span class="dataset">oda-construction-costs.xlsx</span><br><span class="dataset">oda-project-tracking.xlsx</span></td>
         <td><span class="output-tag">Excel workbook</span></td></tr>
     <tr class="email-row"><td class="module apps-col">Apps · Outlook<br><em style="font-weight:400;font-size:10px;">culminating step</em></td>
-        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which ODA architects are working on projects with curtain wall or facade transition details right now?" It surfaces PMs on Harbor View, Riverside Tower, and Wynwood. <strong>Draft an email to one of them</strong> — peer to peer, referencing the waterproofing detail diagram, the consultant matrix, and the trade cost summary from the review. Tone: <em>"Saw you're wrapping CDs on Harbor View — we put together the Shore Club facade review this week using Copilot to ground everything in the project spec and code reference. Sharing because if you're hitting similar transition-joint questions, the approach might be useful. Not claiming it's faster or better — just a different way to pull the review together. Want to take a look?"</em> Edit inline, send.</td>
+        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which ODA architects are working on projects with curtain wall or facade transition details right now?" It surfaces PMs on Harbor View, Riverside Tower, and Wynwood. <strong>Draft an email to one of them</strong> — peer to peer, referencing the waterproofing detail diagram, the consultant matrix, and the trade cost summary from the review. Tone: <em>"Saw you're wrapping CDs on Harbor View — we put together the Shore Club facade review this week using Copilot to ground everything in the project spec and code reference. Sharing because if you're hitting similar transition-joint questions, the approach might be useful. Not claiming it's faster or better — just a different way to pull the review together. Want to take a look?"</em> Edit inline, send.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Find ODA architects currently working on projects with curtain wall or facade transition details in CD or permitting phase. Then draft a short peer-to-peer email from me to one of them. Reference the Shore Club facade review we just completed, the waterproofing detail diagram, the consultant responsibility matrix, and the trade cost summary. Tone: informal, not a pitch — "sharing because you may be hitting similar transition-joint questions." No claims about time saved or efficiency. Close with an open invitation to compare notes.</pre></details>
+        </td>
         <td>Page + Diagram + Word doc + Excel charts (all produced in prior lessons)</td>
         <td><span class="output-tag">Sent email</span> to an ODA architect peer</td></tr>
     <tr><td class="module agents-col">Agents L1 · Pre-Built</td>
-        <td><strong>Researcher:</strong> "Research latest NYC accessibility requirements for residential buildings above 75 ft and how they differ from Florida." Export to Word, append to the code appendix.</td>
+        <td><strong>Researcher:</strong> "Research latest NYC accessibility requirements for residential buildings above 75 ft and how they differ from Florida." Export to Word, append to the code appendix.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Research the latest NYC and Florida building code changes related to accessibility requirements for residential buildings above 75 feet. Compare new standards vs. previous requirements, include implementation timelines, cite relevant code sections, and note any differences between the two jurisdictions.</pre></details>
+        </td>
         <td>Live web</td>
         <td><span class="output-tag">Research report</span></td></tr>
     </tbody>
@@ -161,7 +195,7 @@ td.chat-col { color:#0078d4; } td.apps-col { color:#217346; } td.agents-col { co
       <div class="agent">
         <strong>Submittal QA Agent</strong>
         Reviews incoming submittals against project specifications, flags items that don't match or come from unapproved manufacturers.
-        <div class="source">Knowledge: project-spec-excerpt.pdf + submittal-log.csv</div>
+        <div class="source">Knowledge: project-spec-excerpt.pdf + submittal-log.xlsx</div>
       </div>
     </div>
   </div>
@@ -194,31 +228,55 @@ td.chat-col { color:#0078d4; } td.apps-col { color:#217346; } td.agents-col { co
     <thead><tr><th>Step</th><th>What they do</th><th>Data in</th><th>Data out</th></tr></thead>
     <tbody>
     <tr><td class="module chat-col">Chat L3 · Notebook</td>
-        <td>Build <em>HR Policies &amp; Onboarding Notebook</em>. Ask about leave policies, first-week schedules, compliance flags.</td>
-        <td><span class="dataset">employee-handbook-excerpt.pdf</span><br><span class="dataset">onboarding-checklist.pdf</span><br><span class="dataset">recruiting-pipeline.csv</span></td>
+        <td>Build <em>HR Policies &amp; Onboarding Notebook</em>. Ask about leave policies, first-week schedules, compliance flags.
+          <details class="prompt"><summary>Student prompts</summary>
+            <div class="prompt-label">Power Prompt #1 — grounded question</div>
+            <pre class="prompt-text">Based on the employee handbook, what is the process for handling a leave of absence request? Walk me through every step, citing the specific handbook sections.</pre>
+            <div class="prompt-label">Power Prompt #2 — generate a deliverable</div>
+            <pre class="prompt-text">Using the onboarding checklist in this notebook, draft a first-week schedule for a new senior architect at ODA. Include Revit and Rhino software access setup, BIM 360 training, seating assignment, and first-week meetings with the project team lead.</pre>
+          </details>
+        </td>
+        <td><span class="dataset">employee-handbook-excerpt.pdf</span><br><span class="dataset">onboarding-checklist.pdf</span><br><span class="dataset">recruiting-pipeline.xlsx</span></td>
         <td><span class="output-tag">Notebook</span></td></tr>
     <tr><td class="module chat-col">Chat L4 · Page</td>
-        <td>Produce <em>Designer Onboarding — Residential Studio</em> page: 90-day plan, pre-start checklist, mentor assignments, HR notes.</td>
+        <td>Produce <em>Designer Onboarding — Residential Studio</em> page: 90-day plan, pre-start checklist, mentor assignments, HR notes.
+          <details class="prompt"><summary>Student prompts</summary>
+            <div class="prompt-label">Power Prompt #1 — synthesize the page</div>
+            <pre class="prompt-text">Using our onboarding checklist and handbook, create an onboarding plan for a Designer joining the Residential Studio. Include: Role Details (title, dept, start date, manager), Software Access (6 tools — Revit, Rhino, Bluebeam, Adobe CS, Microsoft 365, project management), First-Week Meetings (5 — team lead, HR orientation, IT, studio tour, mentor intro), Mentor Assignment (weekly check-ins, 30-60-90 day goals). Cite handbook sections where relevant.</pre>
+            <div class="prompt-label">Power Prompt #2 — with visualizations</div>
+            <pre class="prompt-text">Add a "Pre-Start Checklist" section at the top (offer letter signed, background check cleared, workstation ordered, email account, building access card). Then add two visualizations on the Page: (1) a horizontal timeline of the first 90 days with milestones at days 1, 7, 30, 60, 90; (2) a stacked bar chart showing time allocation across orientation / software training / shadowing / independent work across the first 4 weeks.</pre>
+          </details>
+        </td>
         <td>HR notebook</td>
         <td><span class="output-tag">Page</span></td></tr>
     <tr><td class="module chat-col">Chat L5 · Image</td>
-        <td>Generate a <em>90-day onboarding journey map</em> — visual timeline showing week-by-week milestones (IT setup → Revit training → mentor check-ins → first project assignment → 90-day review). Edit with Color pop to highlight checkpoint weeks. Add to Page.</td>
+        <td>Generate a <em>90-day onboarding journey map</em> — visual timeline showing week-by-week milestones (IT setup → Revit training → mentor check-ins → first project assignment → 90-day review). Edit with Color pop to highlight checkpoint weeks. Add to Page.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Create a 90-day onboarding journey map as a horizontal visual timeline. Milestones at days 1, 7, 30, 60, 90. Show: IT setup and workstation ready (day 1), first-week meetings and mentor intro (day 7), Revit / Rhino training checkpoints (day 30), first project assignment (day 60), 90-day review and expanded ownership (day 90). Use a sophisticated navy + warm gold palette. Highlight checkpoint weeks with a deeper accent. Leave room at the top for a short title line.</pre></details>
+        </td>
         <td>Page + onboarding checklist</td>
         <td><span class="output-tag">Journey map</span></td></tr>
     <tr><td class="module apps-col">Apps · Word</td>
-        <td>Open the Employee Handbook in Word. Add an <em>AI Usage Policy</em> section. Co-edit live with the People team using Track Changes for compliance review.</td>
+        <td>Open the Employee Handbook in Word. Add an <em>AI Usage Policy</em> section. Co-edit live with the People team using Track Changes for compliance review.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Draft an employee policy update memo announcing new remote work guidelines. Include these sections: Subject Line, Effective Date (May 1, 2026), Who It Applies To (all full-time employees), Key Changes (hybrid schedule now 3 days in-office / 2 days remote, core hours 10am-3pm on in-office days, remote work from outside the state requires manager approval), How to Request Exceptions, and Contact for Questions. Keep the tone professional but approachable.</pre></details>
+        </td>
         <td><span class="dataset">employee-handbook-excerpt.pdf</span></td>
         <td><span class="output-tag">Updated handbook</span></td></tr>
     <tr><td class="module apps-col">Apps · Excel</td>
-        <td><strong>Quant:</strong> headcount by department, tenure distribution, ratio of open roles to hires. <strong>Qual:</strong> exit survey themes from recruiting pipeline notes. <strong>Viz:</strong> team composition sunburst + turnover trend.</td>
-        <td><span class="dataset">oda-resource-allocation.csv</span><br><span class="dataset">oda-team-directory.csv</span><br><span class="dataset">recruiting-pipeline.csv</span></td>
+        <td><strong>Quant:</strong> headcount by department, tenure distribution, ratio of open roles to hires. <strong>Qual:</strong> exit survey themes from recruiting pipeline notes. <strong>Viz:</strong> team composition sunburst + turnover trend.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">What trends do you see in this people data? Look at headcount distribution by department, tenure brackets, and the ratio of open roles to recent hires. Add a calculated column for turnover rate per department. Create a sunburst showing team composition (studio → role → seniority) and a line chart of hires vs. departures across the last 12 months. Flag any department where turnover exceeds 15%.</pre></details>
+        </td>
+        <td><span class="dataset">oda-resource-allocation.xlsx</span><br><span class="dataset">oda-team-directory.xlsx</span><br><span class="dataset">recruiting-pipeline.xlsx</span></td>
         <td><span class="output-tag">People dashboard</span></td></tr>
     <tr class="email-row"><td class="module apps-col">Apps · Outlook<br><em style="font-weight:400;font-size:10px;">culminating step</em></td>
-        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which hiring managers at ODA have designer roles open or new hires starting soon?" It surfaces 2–3 managers across residential and hospitality studios. <strong>Draft an email to one of them</strong> — peer to peer, referencing the 90-day onboarding journey map and the AI policy section added to the handbook. Tone: <em>"You mentioned a junior designer starting in the residential studio next month — sharing what we put together this week. We used Copilot to draft the 90-day journey map and the AI section for the handbook. Nothing groundbreaking, and we're still figuring out what's useful vs. what's noise. But if you want to see the approach before your new hire lands, happy to walk through it."</em> Edit and send.</td>
+        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which hiring managers at ODA have designer roles open or new hires starting soon?" It surfaces 2–3 managers across residential and hospitality studios. <strong>Draft an email to one of them</strong> — peer to peer, referencing the 90-day onboarding journey map and the AI policy section added to the handbook. Tone: <em>"You mentioned a junior designer starting in the residential studio next month — sharing what we put together this week. We used Copilot to draft the 90-day journey map and the AI section for the handbook. Nothing groundbreaking, and we're still figuring out what's useful vs. what's noise. But if you want to see the approach before your new hire lands, happy to walk through it."</em> Edit and send.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Find ODA hiring managers who have designer roles open or new hires starting in the next 60 days. Then draft a short peer-to-peer email from me to one of them. Reference the 90-day onboarding journey map and the AI policy section we just added to the handbook. Tone: tentative and peer — "sharing what we put together this week, still figuring out what's useful vs. noise." No transformation claims. Close with an open invitation if they want to walk through the approach before their new hire lands.</pre></details>
+        </td>
         <td>Page + Journey map + Handbook v2 + People dashboard</td>
         <td><span class="output-tag">Sent email</span> to an ODA hiring manager peer</td></tr>
     <tr><td class="module agents-col">Agents L1 · Pre-Built</td>
-        <td><strong>Researcher:</strong> "Research how design and architecture firms (100-500 employees) structure onboarding for new designers and what they include about AI tools."</td>
+        <td><strong>Researcher:</strong> "Research how design and architecture firms (100-500 employees) structure onboarding for new designers and what they include about AI tools."
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Research how design and architecture firms (100-500 employees) structure onboarding for new designers and what they include about AI tools. Include at least 5 peer firms' approaches, ramp-up / retention data where available, and any specific policies or training modules covering AI tool usage. Cite sources.</pre></details>
+        </td>
         <td>Live web</td>
         <td><span class="output-tag">Best-practices report</span></td></tr>
     </tbody>
@@ -268,31 +326,55 @@ td.chat-col { color:#0078d4; } td.apps-col { color:#217346; } td.agents-col { co
     <thead><tr><th>Step</th><th>What they do</th><th>Data in</th><th>Data out</th></tr></thead>
     <tbody>
     <tr><td class="module chat-col">Chat L3 · Notebook</td>
-        <td>Build <em>Marketing &amp; Awards Pipeline Notebook</em>. Ask which submissions are highest-risk, which have photography ready.</td>
-        <td><span class="dataset">oda-awards-tracker.csv</span><br><span class="dataset">aia-award-narrative.pdf</span><br><span class="dataset">oda-newsletter-sample.pdf</span></td>
+        <td>Build <em>Marketing &amp; Awards Pipeline Notebook</em>. Ask which submissions are highest-risk, which have photography ready.
+          <details class="prompt"><summary>Student prompts</summary>
+            <div class="prompt-label">Power Prompt #1 — grounded question</div>
+            <pre class="prompt-text">Based on the awards tracker and project details, which submissions have the best chance of winning? For each, cite the specific project data and explain what makes it a strong candidate. Flag any submissions with missing photography or incomplete narratives.</pre>
+            <div class="prompt-label">Power Prompt #2 — generate a deliverable</div>
+            <pre class="prompt-text">Using the award narrative and newsletter sample in this notebook, draft a 250-word award submission narrative for the Harbor View Residences project. Match ODA's brand voice: sophisticated, design-forward, concise.</pre>
+          </details>
+        </td>
+        <td><span class="dataset">oda-awards-tracker.xlsx</span><br><span class="dataset">aia-award-narrative.pdf</span><br><span class="dataset">oda-newsletter-sample.pdf</span></td>
         <td><span class="output-tag">Notebook</span></td></tr>
     <tr><td class="module chat-col">Chat L4 · Page</td>
-        <td>Produce <em>Q2 Award Submission Tracker</em> page: Gantt, readiness checklist, narrative templates, photography schedule.</td>
+        <td>Produce <em>Q2 Award Submission Tracker</em> page: Gantt, readiness checklist, narrative templates, photography schedule.
+          <details class="prompt"><summary>Student prompts</summary>
+            <div class="prompt-label">Power Prompt #1 — synthesize the page</div>
+            <pre class="prompt-text">Using the awards tracker in this notebook, build an award submission tracker as a table: Project Name, Award (AIA Design, Architizer A+, CTBUH, SARA NY), Submission Deadline, Status, Materials Needed, Assigned To. Populate with Harbor View (AIA), Wynwood Arts (Architizer A+), Shore Club (CTBUH), Riverside Tower (SARA NY). Pull real submission deadlines from the tracker.</pre>
+            <div class="prompt-label">Power Prompt #2 — with visualizations</div>
+            <pre class="prompt-text">Add a "Narrative Templates" section outlining what a typical submission covers (project overview in 2 sentences, design challenge, design solution, community impact, sustainability). Then add two visualizations: (1) a horizontal Gantt-style chart of all four submissions against their deadlines across Q2; (2) a bar chart showing how many materials (photos/drawings/narrative/project data) are ready vs. outstanding per submission.</pre>
+          </details>
+        </td>
         <td>Marketing notebook</td>
         <td><span class="output-tag">Page</span></td></tr>
     <tr><td class="module chat-col">Chat L5 · Image</td>
-        <td>Generate an <em>award-ready hero composite</em> for the highest-priority submission. Deep dive with the Image Editing toolkit: Background blur, Object cutout, Color pop on the signature facade element, filters for brand tone. Add to Page as the campaign visual.</td>
+        <td>Generate an <em>award-ready hero composite</em> for the highest-priority submission. Deep dive with the Image Editing toolkit: Background blur, Object cutout, Color pop on the signature facade element, filters for brand tone. Add to Page as the campaign visual.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Create a square social-media-ready hero image announcing ODA's AIA Design Award win for Harbor View Residences. Show a modern waterfront residential tower at golden hour, viewed from a low angle. Sophisticated, cinematic, award-worthy. Leave the top third clean for text overlay.</pre></details>
+        </td>
         <td>Project photo reference + brand prompt</td>
         <td><span class="output-tag">Hero composite</span></td></tr>
     <tr><td class="module apps-col">Apps · Word</td>
-        <td>Open <em>aia-award-narrative.pdf</em> in Word. Use Reference to pull in the case study. Live redline with the creative director. Compare v1 vs v2.</td>
+        <td>Open <em>aia-award-narrative.pdf</em> in Word. Use Reference to pull in the case study. Live redline with the creative director. Compare v1 vs v2.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Draft a case study narrative for a completed architecture project. The project is "Harbor View Residences," a 200-unit waterfront residential building. Include these sections: Project Overview (2 paragraphs — location, program, client), Design Challenges (tight site, flood zone requirements, community opposition to height), Design Solutions (stepped massing, elevated ground floor, public waterfront promenade), Outcomes (LEED Gold, 95% sold before completion, AIA merit award), and a placeholder for a Client Quote. Write in a polished editorial tone suitable for the firm's website.</pre></details>
+        </td>
         <td><span class="dataset">aia-award-narrative.pdf</span><br><span class="dataset">case-study-harbor-view.txt</span></td>
         <td><span class="output-tag">Narrative v2</span></td></tr>
     <tr><td class="module apps-col">Apps · Excel</td>
-        <td><strong>Quant:</strong> engagement per campaign, cost per engagement. <strong>Qual:</strong> narrative tone themes across past winning submissions. <strong>Viz:</strong> channel performance bar + narrative sentiment timeline.</td>
-        <td><span class="dataset">oda-social-media-metrics.csv</span><br><span class="dataset">oda-awards-tracker.csv</span></td>
+        <td><strong>Quant:</strong> engagement per campaign, cost per engagement. <strong>Qual:</strong> narrative tone themes across past winning submissions. <strong>Viz:</strong> channel performance bar + narrative sentiment timeline.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">What trends do you see across campaign performance? Break down engagement and cost per engagement by channel. Add a calculated column for engagement rate (%). Then create a bar chart of channel performance and a sentiment timeline from the narrative tone data across past winning submissions. Flag the top 3 highest-performing campaigns and any channel where cost per engagement has climbed more than 20% quarter-over-quarter.</pre></details>
+        </td>
+        <td><span class="dataset">oda-social-media-metrics.xlsx</span><br><span class="dataset">oda-awards-tracker.xlsx</span></td>
         <td><span class="output-tag">Campaign dashboard</span></td></tr>
     <tr class="email-row"><td class="module apps-col">Apps · Outlook<br><em style="font-weight:400;font-size:10px;">culminating step</em></td>
-        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Who at ODA works on award submissions, PR coordination, or newsletter production?" It surfaces a creative director peer, a marketing coordinator, and the PR agency lead. <strong>Draft an email to one of them</strong> — peer to peer, referencing the hero composite for the priority submission, the narrative v2 redlined with the creative director, and the campaign dashboard. Tone: <em>"With Q2 submissions coming up, thought I'd share how we assembled the tracker and hero composite this week — used Copilot to pull the narrative and channel data together. Not a transformation story, just a different way to work through it. Let me know if you want to see the approach before the deadline push."</em></td>
+        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Who at ODA works on award submissions, PR coordination, or newsletter production?" It surfaces a creative director peer, a marketing coordinator, and the PR agency lead. <strong>Draft an email to one of them</strong> — peer to peer, referencing the hero composite for the priority submission, the narrative v2 redlined with the creative director, and the campaign dashboard. Tone: <em>"With Q2 submissions coming up, thought I'd share how we assembled the tracker and hero composite this week — used Copilot to pull the narrative and channel data together. Not a transformation story, just a different way to work through it. Let me know if you want to see the approach before the deadline push."</em>
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Find ODA colleagues who work on award submissions, PR coordination, or the newsletter — a creative director peer, a marketing coordinator, or the PR agency lead. Draft a short peer-to-peer email from me to one of them. Reference the hero composite for our priority submission, the narrative v2 redlined with the creative director, and the campaign dashboard. Tone: tentative, no transformation story — "sharing how we assembled the tracker and hero this week, not a silver bullet, just a different way to pull it together." Close inviting them to take a look before their own deadline push.</pre></details>
+        </td>
         <td>Page + Hero composite + Narrative v2 + Campaign dashboard</td>
         <td><span class="output-tag">Sent email</span> to an ODA marketing peer</td></tr>
     <tr><td class="module agents-col">Agents L1 · Pre-Built</td>
-        <td><strong>Researcher:</strong> "Research top 3 competitor design firms' content strategies this quarter: channels, themes, engagement approaches."</td>
+        <td><strong>Researcher:</strong> "Research top 3 competitor design firms' content strategies this quarter: channels, themes, engagement approaches."
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Research our top 3 competitor organizations' recent public communications and content strategy over the past 6 months. Summarize their messaging themes, channels used, and audience engagement approaches.</pre></details>
+        </td>
         <td>Live web</td>
         <td><span class="output-tag">Competitor report</span></td></tr>
     </tbody>
@@ -309,7 +391,7 @@ td.chat-col { color:#0078d4; } td.apps-col { color:#217346; } td.agents-col { co
       <div class="agent">
         <strong>Newsletter Generator</strong>
         Produces monthly project newsletters from raw project facts and an images folder, matching ODA's established voice and format.
-        <div class="source">Knowledge: oda-newsletter-sample.pdf + oda-awards-tracker.csv</div>
+        <div class="source">Knowledge: oda-newsletter-sample.pdf + oda-awards-tracker.xlsx</div>
       </div>
     </div>
   </div>
@@ -342,31 +424,55 @@ td.chat-col { color:#0078d4; } td.apps-col { color:#217346; } td.agents-col { co
     <thead><tr><th>Step</th><th>What they do</th><th>Data in</th><th>Data out</th></tr></thead>
     <tbody>
     <tr><td class="module chat-col">Chat L3 · Notebook</td>
-        <td>Build <em>Executive Project Overview Notebook</em>. Ask for 5-minute briefings, flag decisions needed, compare properties.</td>
+        <td>Build <em>Executive Project Overview Notebook</em>. Ask for 5-minute briefings, flag decisions needed, compare properties.
+          <details class="prompt"><summary>Student prompts</summary>
+            <div class="prompt-label">Power Prompt #1 — strategic fit</div>
+            <pre class="prompt-text">Cross-reference every document in this notebook. Using the Q1 QBR as the strategic lens, evaluate both property summaries against it. For each property, produce: (1) which Q1 strategic priorities it advances and which it puts at risk — cite the specific QBR section for each; (2) how it squares against the firm's current financial posture and utilization from the QBR; (3) open questions the QBR raises that the property summary does not yet answer. End with a Strategic Fit ranking — property 1 vs property 2 — and the single QBR passage that tips the decision.</pre>
+            <div class="prompt-label">Power Prompt #2 — compare &amp; recommend</div>
+            <pre class="prompt-text">Now go deep on the property comparison. Build a side-by-side table covering: price, square footage, price per SF, location, amenities, and any red flags from each summary. Then add a column for each row mapping the row to the strategic-fit ranking you produced above — so every line item ties back to the QBR. End with a one-paragraph recommendation.</pre>
+          </details>
+        </td>
         <td><span class="dataset">oda-qbr-q1-2025.pdf</span><br><span class="dataset">property-summary-1.pdf</span><br><span class="dataset">property-summary-2.pdf</span></td>
         <td><span class="output-tag">Notebook</span></td></tr>
     <tr><td class="module chat-col">Chat L4 · Page</td>
-        <td>Produce <em>Weekly Project Status — Leadership Brief</em> page: active projects, top risks, staffing snapshot, pipeline update.</td>
+        <td>Produce <em>Weekly Project Status — Leadership Brief</em> page: active projects, top risks, staffing snapshot, pipeline update.
+          <details class="prompt"><summary>Student prompts</summary>
+            <div class="prompt-label">Power Prompt #1 — synthesize the page</div>
+            <pre class="prompt-text">Using the QBR, build an Active Projects Table: Project, Phase (SD/DD/CD/CA), Status (On Track/At Risk/Behind), Budget Status (On/Over/Under), Timeline, Project Lead. Populate from the QBR with Shore Club, Mayflower, Jersey City Waterfront, The Mira Hotel Dubai, Harbor View, Riverside Tower. Follow with "Decisions Needed This Week" and "Top Risks" sections, pulling specifics from the QBR.</pre>
+            <div class="prompt-label">Power Prompt #2 — with visualizations</div>
+            <pre class="prompt-text">Add a "Staffing Snapshot" summarizing utilization — fully-allocated vs. available, with hiring needs. Then add two visualizations: (1) a stacked bar chart of project count by status (On Track / At Risk / Behind); (2) a bar chart of budget variance (%) by project with a zero line, so over-budget projects sit above and under-budget below.</pre>
+          </details>
+        </td>
         <td>Exec notebook</td>
         <td><span class="output-tag">Page</span></td></tr>
     <tr><td class="module chat-col">Chat L5 · Image</td>
-        <td>Generate a <em>board-ready Q1 QBR infographic</em> — one-page visual with revenue/margin headline, top 3 risks, staffing health indicator. Navy + white + single gold accent. Add to Page.</td>
+        <td>Generate a <em>board-ready Q1 QBR infographic</em> — one-page visual with revenue/margin headline, top 3 risks, staffing health indicator. Navy + white + single gold accent. Add to Page.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Design a single-page infographic summarizing this quarter for the board. Source: my "Weekly Project Status — Leadership Brief" Page and the QBR + property summaries in the Executive Project Overview notebook. Must include: portfolio at a glance (project count, revenue, win rate), status distribution (On Track / At Risk / Behind as a donut), top 3 risks (short icons + 1-line each), staffing headline number, pipeline highlights. Sophisticated, restrained — think McKinsey, not advertising.</pre></details>
+        </td>
         <td>Page + QBR data</td>
         <td><span class="output-tag">Infographic</span></td></tr>
     <tr><td class="module apps-col">Apps · Word</td>
-        <td>Produce a <em>Board Briefing Memo</em> via Word Copilot from the QBR. Live redline with the CEO using Track Changes. Voice-profile mode for executive tone.</td>
+        <td>Produce a <em>Board Briefing Memo</em> via Word Copilot from the QBR. Live redline with the CEO using Track Changes. Voice-profile mode for executive tone.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Draft a board briefing memo for ODA's quarterly meeting. Include these sections: Executive Summary (2-3 sentences on overall firm health), Project Pipeline Status (10 active projects including Shore Club, Mayflower, and Jersey City Waterfront — summarize in a table), Revenue Update (Q1 revenue at $1.435M vs. $1.33M prior year, net margin 12.2%), Strategic Decision Needed (whether to expand the Fort Lauderdale office — present pros, cons, estimated cost, and a recommendation), and Next Quarter Priorities (3 items). Use a concise executive tone — no fluff.</pre></details>
+        </td>
         <td><span class="dataset">oda-qbr-q1-2025.pdf</span></td>
         <td><span class="output-tag">Board memo v2</span></td></tr>
     <tr><td class="module apps-col">Apps · Excel</td>
-        <td><strong>Quant:</strong> budget vs actual by department, variance flags &gt;10%. <strong>Qual:</strong> leadership pulse survey themes. <strong>Viz:</strong> variance waterfall + risk heatmap.</td>
-        <td><span class="dataset">oda-monthly-financials.csv</span><br><span class="dataset">oda-project-tracking.csv</span></td>
+        <td><strong>Quant:</strong> budget vs actual by department, variance flags &gt;10%. <strong>Qual:</strong> leadership pulse survey themes. <strong>Viz:</strong> variance waterfall + risk heatmap.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">What trends do you see in this data? Compare budget vs. actual by department for Q1, and flag any variance over 10%. Add a calculated column for variance %. Create a variance waterfall chart and a risk heatmap summarizing the leadership pulse-survey themes. Call out any department where the variance has worsened for 2+ consecutive quarters.</pre></details>
+        </td>
+        <td><span class="dataset">oda-monthly-financials.xlsx</span><br><span class="dataset">oda-project-tracking.xlsx</span></td>
         <td><span class="output-tag">Exec dashboard</span></td></tr>
     <tr class="email-row"><td class="module apps-col">Apps · Outlook<br><em style="font-weight:400;font-size:10px;">culminating step</em></td>
-        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which other ODA principals or senior leaders work on quarterly reporting or board materials?" It surfaces a fellow principal, the CFO, and the ops lead. <strong>Draft an email to one of them</strong> — peer to peer, referencing the one-page QBR infographic, the memo with the CEO's redlines, and the variance summary. Tone: <em>"Put together the Q1 board prep this morning using Copilot — infographic, memo draft, variance summary. Sharing because I know you're heading into your own board cycle soon. Not a silver bullet, and I'm still working out the format, but curious what you think of the one-pager. Happy to show the approach if it's useful."</em></td>
+        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which other ODA principals or senior leaders work on quarterly reporting or board materials?" It surfaces a fellow principal, the CFO, and the ops lead. <strong>Draft an email to one of them</strong> — peer to peer, referencing the one-page QBR infographic, the memo with the CEO's redlines, and the variance summary. Tone: <em>"Put together the Q1 board prep this morning using Copilot — infographic, memo draft, variance summary. Sharing because I know you're heading into your own board cycle soon. Not a silver bullet, and I'm still working out the format, but curious what you think of the one-pager. Happy to show the approach if it's useful."</em>
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Find other ODA principals or senior leaders who work on quarterly reporting or board materials — a fellow principal, the CFO, or the ops lead. Draft a short peer-to-peer email from me to one of them. Reference the one-page QBR infographic, the memo with the CEO's redlines, and the variance summary. Tone: grounded, exploratory — "put together the Q1 prep this morning using Copilot, not a silver bullet and still working out the format." Close with an open invitation to walk through the approach if they're heading into their own board cycle.</pre></details>
+        </td>
         <td>Page + Infographic + Memo v2 + Exec dashboard</td>
         <td><span class="output-tag">Sent email</span> to an ODA leadership peer</td></tr>
     <tr><td class="module agents-col">Agents L1 · Pre-Built</td>
-        <td><strong>Researcher:</strong> "Research industry benchmarks for AI adoption ROI in professional services firms over the past 3 years." Cite sources.</td>
+        <td><strong>Researcher:</strong> "Research industry benchmarks for AI adoption ROI in professional services firms over the past 3 years." Cite sources.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Research industry benchmarks for AI adoption ROI in professional services firms over the past 3 years. Include at least 5 reference firms with published data, productivity and revenue impact, and implementation timelines. Cite sources.</pre></details>
+        </td>
         <td>Live web</td>
         <td><span class="output-tag">ROI benchmark report</span></td></tr>
     </tbody>
@@ -416,32 +522,56 @@ td.chat-col { color:#0078d4; } td.apps-col { color:#217346; } td.agents-col { co
     <thead><tr><th>Step</th><th>What they do</th><th>Data in</th><th>Data out</th></tr></thead>
     <tbody>
     <tr><td class="module chat-col">Chat L3 · Notebook</td>
-        <td>Build <em>Operations &amp; Resource Planning Notebook</em>. Ask for overallocated team members, upcoming project starts, utilization patterns.</td>
-        <td><span class="dataset">oda-resource-allocation.csv</span><br><span class="dataset">oda-project-tracking.csv</span><br><span class="dataset">oda-monthly-financials.csv</span></td>
+        <td>Build <em>Operations &amp; Resource Planning Notebook</em>. Ask for overallocated team members, upcoming project starts, utilization patterns.
+          <details class="prompt"><summary>Student prompts</summary>
+            <div class="prompt-label">Power Prompt #1 — grounded question</div>
+            <pre class="prompt-text">Based on the resource allocation data, which team members are overallocated (above 100% total)? Show me a table of each person, their current project assignments, allocation percentage, and utilization. Flag anyone above 90%.</pre>
+            <div class="prompt-label">Power Prompt #2 — generate a deliverable</div>
+            <pre class="prompt-text">Using the project tracking, resource allocation, and monthly financials spreadsheets in this notebook, draft a Weekly Staffing Status Brief. Structure as a document with: (1) Headline — total studio utilization this week vs. the 6-month trend, including the summer dip if visible; (2) Overallocation register — names flagged in Prompt #1 with their projects, hours, and recommended shift; (3) Projects at risk — from the tracking data, any project missing milestones or under-staffed relative to FTEs needed; (4) Reallocation recommendations — specific name → project moves with justification from the data; (5) Decisions needed from leadership this week. Cite the specific spreadsheet and row for every claim.</pre>
+          </details>
+        </td>
+        <td><span class="dataset">oda-resource-allocation.xlsx</span><br><span class="dataset">oda-project-tracking.xlsx</span><br><span class="dataset">oda-monthly-financials.xlsx</span></td>
         <td><span class="output-tag">Notebook</span></td></tr>
     <tr><td class="module chat-col">Chat L4 · Page</td>
-        <td>Produce <em>Weekly Resource Overview</em> page: team table, reallocation opportunities, contractor staffing, upcoming project starts.</td>
+        <td>Produce <em>Weekly Resource Overview</em> page: team table, reallocation opportunities, contractor staffing, upcoming project starts.
+          <details class="prompt"><summary>Student prompts</summary>
+            <div class="prompt-label">Power Prompt #1 — synthesize the page</div>
+            <pre class="prompt-text">Using the resource allocation spreadsheet, build a Team Members table: Name, Role, Current Project Assignment(s), Utilization Rate, Upcoming Availability. Sort by utilization descending. Below the table, add a "Reallocation Opportunities" section identifying team members who could shift to understaffed projects — cite specific projects from the project tracking spreadsheet.</pre>
+            <div class="prompt-label">Power Prompt #2 — with visualizations</div>
+            <pre class="prompt-text">Add a "Contractor &amp; Temp Staffing" section (utilization thresholds, preferred vendors, approval process). Then add two visualizations: (1) a horizontal bar chart of utilization % per team member, with a 90% overallocation line; (2) a monthly line chart of total utilization for the studio over the last 6 months from the monthly financials spreadsheet, so we can see the summer dip.</pre>
+          </details>
+        </td>
         <td>Ops notebook</td>
         <td><span class="output-tag">Page</span></td></tr>
     <tr><td class="module chat-col">Chat L5 · Image</td>
-        <td>Generate a <em>studio-by-week utilization heatmap</em> — studios on the Y-axis, weeks on the X-axis, color-coded by load (red &gt;100%, green 70–95%, gray &lt;60%). Edit with Color pop to emphasize the hotspots. Add to Page.</td>
+        <td>Generate a <em>studio-by-week utilization heatmap</em> — studios on the Y-axis, weeks on the X-axis, color-coded by load (red &gt;100%, green 70–95%, gray &lt;60%). Edit with Color pop to emphasize the hotspots. Add to Page.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Create a studio-by-week utilization heatmap. Y-axis: each studio (Residential, Hospitality, Mixed-Use, Interiors). X-axis: the next 12 weeks. Color-code each cell by average utilization — red for &gt;100%, amber for 95–100%, green for 70–95%, gray for &lt;60%. Label axes clearly, include a legend, and use a sophisticated navy + warm gold palette. Add a short title.</pre></details>
+        </td>
         <td>Resource data summary</td>
         <td><span class="output-tag">Heatmap</span></td></tr>
     <tr><td class="module apps-col">Apps · Word</td>
-        <td>Open the Resource Planning SOP in Word. Add a reallocation workflow section. Live co-edit with studio leads (Track Changes + comments).</td>
+        <td>Open the Resource Planning SOP in Word. Add a reallocation workflow section. Live co-edit with studio leads (Track Changes + comments).
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Draft a project handoff document for transferring project lead responsibilities on "Jersey City Waterfront Tower" from the current PM to a new PM at ODA. Include these sections: Project Summary (project name, client, phase, key dates), Open Items (list 6 pending tasks — permit resubmission, consultant invoice review, client presentation prep, spec section updates, RFI responses, site visit scheduling), Key Contacts (table with client, structural engineer, MEP consultant, contractor, and their contact info placeholders), Pending Deliverables (table with deliverable name, due date, status, notes), and Transition Timeline (2-week overlap plan). Use a clear, operational tone.</pre></details>
+        </td>
         <td>SOP doc + ops page</td>
         <td><span class="output-tag">Updated SOP</span></td></tr>
     <tr><td class="module apps-col">Apps · Excel</td>
-        <td><strong>Quant:</strong> utilization by person + project (billable / capacity). <strong>Qual:</strong> bottleneck themes from PM comments. <strong>Viz:</strong> Pareto of top vendor costs + utilization trend.</td>
-        <td><span class="dataset">oda-resource-allocation.csv</span><br><span class="dataset">oda-construction-costs.csv</span></td>
+        <td><strong>Quant:</strong> utilization by person + project (billable / capacity). <strong>Qual:</strong> bottleneck themes from PM comments. <strong>Viz:</strong> Pareto of top vendor costs + utilization trend.
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">What trends do you see in this data? Which months show utilization below 70%? Is there a seasonal pattern in revenue and staffing? Add a calculated column for utilization gap (billable vs. capacity). Then create a Pareto chart of top vendor costs and a utilization trend line over the last 6 months with a 75% target line.</pre></details>
+        </td>
+        <td><span class="dataset">oda-resource-allocation.xlsx</span><br><span class="dataset">oda-construction-costs.xlsx</span></td>
         <td><span class="output-tag">Ops dashboard</span></td></tr>
     <tr class="email-row"><td class="module apps-col">Apps · Outlook<br><em style="font-weight:400;font-size:10px;">culminating step</em></td>
-        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which ODA PMs or studio leads deal with resource allocation across projects?" It surfaces a studio lead in the hospitality group and two senior PMs. <strong>Draft an email to one of them</strong> — peer to peer, referencing the studio utilization heatmap, the new reallocation workflow in the SOP, and the utilization trend charts. Tone: <em>"Been working through resource planning with Copilot this week — put together a studio-by-week heatmap and a reallocation workflow for the SOP. Not a silver bullet, and I'm not sure yet which parts will stick. But if you want to compare notes on how we're sizing capacity, happy to share what we tried."</em></td>
+        <td><strong>Find a colleague who might care.</strong> Ask Copilot: "Which ODA PMs or studio leads deal with resource allocation across projects?" It surfaces a studio lead in the hospitality group and two senior PMs. <strong>Draft an email to one of them</strong> — peer to peer, referencing the studio utilization heatmap, the new reallocation workflow in the SOP, and the utilization trend charts. Tone: <em>"Been working through resource planning with Copilot this week — put together a studio-by-week heatmap and a reallocation workflow for the SOP. Not a silver bullet, and I'm not sure yet which parts will stick. But if you want to compare notes on how we're sizing capacity, happy to share what we tried."</em>
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Find ODA PMs or studio leads who deal with resource allocation across projects — a studio lead in the hospitality group and two senior PMs. Draft a short peer-to-peer email from me to one of them. Reference the studio-by-week utilization heatmap, the new reallocation workflow we added to the SOP, and the utilization trend charts. Tone: tentative — "been working through resource planning this week, not a silver bullet and not sure yet which parts stick." Close with an open invitation to compare notes on how we're sizing capacity.</pre></details>
+        </td>
         <td>Page + Heatmap + Updated SOP + Ops dashboard</td>
         <td><span class="output-tag">Sent email</span> to an ODA PM or studio lead peer</td></tr>
     <tr><td class="module agents-col">Agents L1 · Pre-Built</td>
-        <td><strong>Analyst:</strong> Upload the resource allocation CSV. "Analyze utilization across the last 6 months. Flag anyone consistently over 100% or under 60%. Create a weekly trend chart."</td>
-        <td><span class="dataset">oda-resource-allocation.csv</span></td>
+        <td><strong>Analyst:</strong> Upload the resource allocation CSV. "Analyze utilization across the last 6 months. Flag anyone consistently over 100% or under 60%. Create a weekly trend chart."
+          <details class="prompt"><summary>Student prompt</summary><pre class="prompt-text">Analyze utilization across the last 6 months from the uploaded resource allocation CSV. Flag anyone consistently over 100% or under 60%. Create a weekly trend chart of studio utilization, and a ranked list of reallocation candidates with current vs. available projects.</pre></details>
+        </td>
+        <td><span class="dataset">oda-resource-allocation.xlsx</span></td>
         <td><span class="output-tag">Utilization report</span></td></tr>
     </tbody>
   </table>
@@ -457,7 +587,7 @@ td.chat-col { color:#0078d4; } td.apps-col { color:#217346; } td.agents-col { co
       <div class="agent">
         <strong>Resource Alert Agent</strong>
         Weekly: scans resource allocation data, flags team members over 100% or under 60%, proposes reallocation options, drafts a notification for studio leads.
-        <div class="source">Knowledge: oda-resource-allocation.csv + oda-project-tracking.csv</div>
+        <div class="source">Knowledge: oda-resource-allocation.xlsx + oda-project-tracking.xlsx</div>
       </div>
     </div>
   </div>
