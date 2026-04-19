@@ -15,9 +15,9 @@ End state: admins can upload CSV/XLSX/DOCX/PPTX/PDF/TXT files (up to 4 MB) to a 
 
 ## 2. Non-goals
 
-- Migrating the existing `/mock-data/` directory into the library (it stays as a default-workshop baseline; library is purely additive).
-- Per-lesson file mapping; admins assign files to a workshop, and lessons declare by ID where they want a sample file to appear.
-- Rich content editing at scale — only **one** insertion point in this spec, in the Copilot Apps Excel lesson, as a proof-of-concept. More insertions are follow-on content work with Microsoft Learn citations (sub-project A's B-level content-fidelity rule).
+- **Zero lesson-content changes.** `courses/*/lessons.js` are not touched. The library is an additive shell-level surface; no existing exercise instructions, download links, or mock-data references are altered.
+- Migrating the existing `/mock-data/` directory into the library — it stays as-is for default-workshop behavior.
+- Per-lesson file mapping or category-matched picks; admins simply assign files to a workshop and the shell surfaces them in one banner location in Copilot Apps.
 - Direct file streaming from storage providers; files live in Redis as base64, matching the reference app. Migrating to Vercel Blob is a later concern.
 - Versioning, access logs, or admin-side preview of file contents.
 
@@ -70,27 +70,24 @@ Two additions to `admin.html`:
 
 UI follows existing admin styles (`.card`, `.btn`, `.form-group`). No new CSS variables.
 
-### 3.4 Learner UI (one insertion)
+### 3.4 Learner UI (shell-only, zero lesson-content changes)
 
-In `courses/copilot-apps/lessons.js`, inside the Excel lesson's `implement` tab (specifically: the exercise that currently says "open the ODA financials file…"), add:
+**Hard constraint:** no modification to `courses/copilot-apps/lessons.js` or any other lesson content file. Learners whose workshops have no assigned files see exactly what they see today.
+
+Add a single empty container to the Copilot Apps shell `courses/copilot-apps/copilot-apps.html`, placed ABOVE the existing `<div id="lesson-content"></div>`:
 
 ```html
-<div class="sample-file-callout"
-     data-sample-file="workshop-custom"
-     data-fallback-file="/mock-data/financials/ODA-financials-2024.xlsx"
-     data-fallback-label="ODA sample (default)">
-  <!-- hydrated by lesson-runtime or a small shell helper -->
-</div>
+<div id="sample-file-banner" aria-live="polite"></div>
 ```
 
-A tiny helper in `courses/copilot-apps/copilot-apps.html` scans for `.sample-file-callout` after each `lessonruntime:change` event:
-1. For each callout, fetch `/api/workshop-config` (existing endpoint) once per load to get the current workshop's `sampleFileIds`.
-2. If the workshop has at least one assigned sample file, render a button `<a class="btn" href="/api/sample-files?id=<id>">Download <name>.<ext></a>` using the **first** assigned file whose mime matches the Excel family (xlsx/csv). If none match, fall back to the second criterion: any assigned file.
-3. If no files are assigned, render `<a class="btn btn-outline" href="<data-fallback-file>">Download <data-fallback-label></a>` — preserves today's behavior for the default workshop.
+A small helper in the same shell hydrates the banner once per page load by calling `GET /api/workshop-config` and reading `sampleFileIds`. Behavior:
 
-This callout is a single template. Adding more insertion points in future PRs is a content change that cites the relevant Microsoft Learn URL per the content-fidelity rule.
+- **No files assigned** → banner stays empty, no visible change, lesson content unmodified.
+- **One or more files assigned** → banner renders a `.tip-box` above the lesson area with download buttons for each assigned file, labeled generically ("Download sample file"). No lesson content changes.
 
-`data-sample-file="workshop-custom"` is a sentinel string meaning "pick whatever is assigned." Future spec may introduce category-matched IDs; out of scope here.
+The hydrator is idempotent (guarded by a `data-hydrated` attribute) and fires on `lessonruntime:change` so it's ready even if the learner navigates between lessons before the initial fetch resolves.
+
+Adding lesson-specific callouts (e.g., category-matched file picks for Excel vs. Word exercises) is future content work that would require updating `lessons.js` and citing Microsoft Learn URLs per the content-fidelity rule from sub-project A. Out of scope for D1.
 
 ## 4. Enums
 
