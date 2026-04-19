@@ -155,6 +155,7 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
   </div>
 </aside>
 
+<div id="sample-file-banner" aria-live="polite"></div>
 <main class="main" id="lesson-content"></main>
 </div>
 
@@ -325,7 +326,45 @@ async function renderMapCallout(courseId, lessonIdx) {
       if (typeof transformExerciseLists === 'function') transformExerciseLists();
       if (typeof restoreExerciseChecks === 'function') restoreExerciseChecks(d.currentLesson);
     }
+    hydrateSampleFileBanner();
   });
+  let _workshopConfigCache = null;
+  async function getWorkshopConfigOnce() {
+    if (_workshopConfigCache) return _workshopConfigCache;
+    try {
+      const r = await fetch('/api/workshop-config', { credentials: 'include' });
+      if (!r.ok) return null;
+      _workshopConfigCache = await r.json();
+      return _workshopConfigCache;
+    } catch (_) { return null; }
+  }
+
+  async function hydrateSampleFileBanner() {
+    const el = document.getElementById('sample-file-banner');
+    if (!el) return;
+    if (el.getAttribute('data-hydrated') === '1') return;
+
+    const cfg = await getWorkshopConfigOnce();
+    const assigned = (cfg && Array.isArray(cfg.sampleFileIds)) ? cfg.sampleFileIds : [];
+    if (assigned.length === 0) {
+      el.setAttribute('data-hydrated', '1');
+      return;
+    }
+
+    const links = assigned.map(id =>
+      '<a class="btn btn-primary" style="margin-right:8px;margin-bottom:8px;"' +
+      ' href="/api/sample-files?id=' + encodeURIComponent(id) + '">Download sample file</a>'
+    ).join('');
+
+    el.innerHTML =
+      '<div class="tip-box" style="margin-bottom:20px;">' +
+        '<strong>Your workshop sample files</strong>' +
+        '<p style="margin:6px 0 12px;">Your workshop admin has provided these files. Use them for the exercises below.</p>' +
+        links +
+      '</div>';
+    el.setAttribute('data-hydrated', '1');
+  }
+
   window.LessonRuntime.initCourse({
     courseId: 'copilot-apps',
     progressCategory: 'apps',

@@ -348,6 +348,7 @@ const API = {
   template:   '/api/admin/template',
   reset:      '/api/admin/reset',
   uploadLogo: '/api/admin/upload-logo',
+  sampleFiles: '/api/admin/sample-files',
 };
 
 let state = {
@@ -477,6 +478,7 @@ function renderNav() {
     <a class="nav-link ${hash === '#dashboard' ? 'active' : ''}" href="#dashboard">Workshops</a>
     <a class="nav-link ${hash === '#new-workshop' ? 'active' : ''}" href="#new-workshop">New</a>
     <a class="nav-link ${hash === '#template' ? 'active' : ''}" href="#template">Template</a>
+    <a class="nav-link ${hash === '#sample-files' ? 'active' : ''}" href="#sample-files">Sample Files</a>
     <a class="nav-link" href="/docs/department-narratives.html" target="_blank" rel="noopener">Narrative</a>
     <button class="nav-link" id="logout-btn">Logout</button>
   `;
@@ -511,6 +513,7 @@ async function route() {
   if (hash === '#dashboard') return renderDashboard(app);
   if (hash === '#new-workshop') return renderNewWorkshop(app);
   if (hash === '#template') return renderTemplate(app);
+  if (hash === '#sample-files') return renderSampleFiles(app);
   if (hash.startsWith('#workshop/')) {
     const slug = hash.replace('#workshop/', '');
     return renderWorkshopDetail(app, slug);
@@ -561,6 +564,146 @@ function renderLogin(app) {
       errEl.style.display = 'block';
     }
   };
+}
+
+/* ============================
+   SAMPLE FILES
+   ============================ */
+async function renderSampleFiles(app) {
+  app.innerHTML = `
+    <div class="page-header">
+      <h1>Sample Files</h1>
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <h3 style="margin-bottom:12px;">Upload</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="sf-name" placeholder="Q3 Financials (demo)" maxlength="200">
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="sf-category">
+            <option value="general">general</option>
+            <option value="finance">finance</option>
+            <option value="sales">sales</option>
+            <option value="operations">operations</option>
+            <option value="marketing">marketing</option>
+            <option value="hr">hr</option>
+            <option value="leadership">leadership</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>File (max 3 MB — CSV, XLSX, DOCX, PPTX, PDF, or plain text)</label>
+        <input type="file" id="sf-file" accept=".csv,.xlsx,.docx,.pptx,.pdf,.txt,text/csv,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation">
+      </div>
+      <button class="btn btn-primary" id="sf-upload">Upload</button>
+      <p id="sf-upload-msg" style="font-size:13px;margin-top:12px;display:none;"></p>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:12px;">Library</h3>
+      <div id="sf-list" class="loading-state"><div class="spinner"></div></div>
+    </div>`;
+
+  $('#sf-upload').onclick = async () => {
+    const msg = $('#sf-upload-msg');
+    msg.style.display = 'none';
+    try {
+      const name = $('#sf-name').value.trim();
+      const category = $('#sf-category').value;
+      const file = $('#sf-file').files[0];
+      if (!name) { showSfUploadMsg(msg, 'Name required', true); return; }
+      if (!file) { showSfUploadMsg(msg, 'File required', true); return; }
+      const dataBase64 = await sfReadFileAsBase64(file);
+      const meta = await apiFetch(API.sampleFiles, {
+        method: 'POST',
+        body: JSON.stringify({
+          name,
+          category,
+          mime: file.type || 'application/octet-stream',
+          dataBase64,
+        }),
+      });
+      showSfUploadMsg(msg, 'Uploaded: ' + meta.name, false);
+      $('#sf-name').value = '';
+      $('#sf-file').value = '';
+      await refreshSampleFilesList();
+    } catch (err) {
+      showSfUploadMsg(msg, err.message || 'Upload failed', true);
+    }
+  };
+
+  await refreshSampleFilesList();
+}
+
+function showSfUploadMsg(el, text, isError) {
+  el.textContent = text;
+  el.style.color = isError ? 'var(--red)' : 'var(--green, #217346)';
+  el.style.display = 'block';
+}
+
+function sfReadFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onload = () => {
+      const s = String(fr.result || '');
+      const comma = s.indexOf(',');
+      resolve(comma >= 0 ? s.slice(comma + 1) : s);
+    };
+    fr.onerror = () => reject(new Error('Failed to read file'));
+    fr.readAsDataURL(file);
+  });
+}
+
+async function refreshSampleFilesList() {
+  const list = $('#sf-list');
+  list.className = '';
+  list.innerHTML = '<div class="loading-state"><div class="spinner"></div></div>';
+  try {
+    const data = await apiFetch(API.sampleFiles);
+    const files = data.files || [];
+    if (files.length === 0) {
+      list.innerHTML = '<p style="color:var(--text-secondary);">No files uploaded yet.</p>';
+      return;
+    }
+    const rows = files.map(f => `
+      <tr>
+        <td>${esc(f.name)}</td>
+        <td>${esc(f.category)}</td>
+        <td>${(f.size / 1024).toFixed(1)} KB</td>
+        <td style="font-size:12px;color:var(--text-secondary);">${esc(f.mime)}</td>
+        <td style="font-size:12px;color:var(--text-secondary);">${formatDate(f.uploadedAt)}</td>
+        <td><button class="btn btn-sm btn-outline" data-copy-id="${esc(f.id)}">Copy ID</button></td>
+        <td><button class="btn btn-sm btn-outline" data-delete-id="${esc(f.id)}" data-delete-name="${esc(f.name)}">Delete</button></td>
+      </tr>`).join('');
+    list.innerHTML = `
+      <table class="table">
+        <thead><tr><th>Name</th><th>Category</th><th>Size</th><th>Mime</th><th>Uploaded</th><th></th><th></th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+    list.querySelectorAll('[data-copy-id]').forEach(b => {
+      b.onclick = () => { navigator.clipboard.writeText(b.getAttribute('data-copy-id')); };
+    });
+    list.querySelectorAll('[data-delete-id]').forEach(b => {
+      b.onclick = () => {
+        const id = b.getAttribute('data-delete-id');
+        const name = b.getAttribute('data-delete-name');
+        const message = `Delete "${name}"? Workshops that reference this file will show a fallback link.`;
+        if (!confirm(message)) return;
+        (async () => {
+          try {
+            await apiFetch(`${API.sampleFiles}?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+            await refreshSampleFilesList();
+          } catch (err) {
+            alert('Delete failed: ' + (err.message || 'unknown'));
+          }
+        })();
+      };
+    });
+  } catch (err) {
+    list.innerHTML = '<p style="color:var(--red);">Failed to load: ' + esc(err.message) + '</p>';
+  }
 }
 
 /* ============================
@@ -1074,14 +1217,16 @@ async function renderWorkshopDetail(app, slug) {
 
   try {
     const data = await apiFetch(`${API.client}?slug=${encodeURIComponent(slug)}`);
-    renderWorkshopEditor(app, data);
+    const libData = await apiFetch(API.sampleFiles).catch(() => ({ files: [] }));
+    const allSampleFiles = libData.files || [];
+    renderWorkshopEditor(app, data, allSampleFiles);
   } catch (err) {
     app.innerHTML = `<div class="card"><p style="color:var(--red);">Failed to load workshop: ${esc(err.message)}</p>
       <a class="btn btn-outline btn-sm" href="#dashboard" style="margin-top:12px;">Back to Dashboard</a></div>`;
   }
 }
 
-function renderWorkshopEditor(app, workshop) {
+function renderWorkshopEditor(app, workshop, allSampleFiles = []) {
   const w = workshop.client || workshop;
   const slug = w.slug;
   const participants = w.participants || [];
@@ -1138,6 +1283,16 @@ function renderWorkshopEditor(app, workshop) {
             <option value="inactive" ${w.status === 'inactive' ? 'selected' : ''}>Inactive</option>
           </select>
         </div>
+      </div>
+      <div class="form-group" style="margin-top:16px;">
+        <label>Sample files assigned to this workshop</label>
+        <select id="wd-sample-files" multiple size="6" style="min-height:140px;">
+          ${allSampleFiles.map(f => `
+            <option value="${esc(f.id)}" ${(w.sampleFileIds || []).includes(f.id) ? 'selected' : ''}>
+              ${esc(f.name)} — ${esc(f.category)} (${(f.size / 1024).toFixed(1)} KB)
+            </option>`).join('')}
+        </select>
+        <div class="hint">Cmd/Ctrl-click to select multiple. Learners see a download button for the first assigned file in matching lesson spots.</div>
       </div>
       <div style="display:flex;justify-content:flex-end;margin-top:16px;">
         <button class="btn btn-primary btn-sm" id="save-settings">Save Changes</button>
@@ -1217,6 +1372,7 @@ function renderWorkshopEditor(app, workshop) {
   // Save settings
   $('#save-settings').onclick = async () => {
     try {
+      const selectedIds = Array.from(document.getElementById('wd-sample-files').selectedOptions).map(o => o.value);
       await apiFetch(`${API.client}?slug=${encodeURIComponent(slug)}`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -1225,6 +1381,7 @@ function renderWorkshopEditor(app, workshop) {
           industry: $('#ed-industry').value.trim(),
           departments: $('#ed-depts').value.split(',').map(s => s.trim()).filter(Boolean),
           status: $('#ed-status').value,
+          sampleFileIds: selectedIds,
         }),
       });
       toast('Settings saved');
