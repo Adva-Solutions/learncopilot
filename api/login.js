@@ -1,6 +1,8 @@
 import crypto from 'crypto';
 import { getRedis } from './lib/redis.js';
 import { createToken } from './me.js';
+import { checkRateLimit, getClientIp } from './lib/rate-limit.js';
+import { checkOrigin } from './lib/csrf.js';
 
 async function findOrCreateUid(r, name, slug) {
   const prefix = slug ? `client:${slug}:` : 'workshop:';
@@ -17,6 +19,17 @@ async function findOrCreateUid(r, name, slug) {
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  if (!checkOrigin(req)) {
+    return res.status(403).json({ error: 'Invalid origin' });
+  }
+
+  const ip = getClientIp(req);
+  const rl = await checkRateLimit(`ratelimit:login:${ip}`, 10, 60);
+  if (!rl.allowed) {
+    res.setHeader('Retry-After', String(rl.retryAfter));
+    return res.status(429).json({ error: 'Too many login attempts. Try again shortly.' });
+  }
 
   const { name, password, slug } = req.body || {};
   if (!name || !password) return res.status(400).json({ error: 'Name and password required' });

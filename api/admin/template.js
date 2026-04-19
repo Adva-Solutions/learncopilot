@@ -1,7 +1,12 @@
 import { getRedis } from '../lib/redis.js';
 import { verifyAdmin } from './auth.js';
+import { checkOrigin } from '../lib/csrf.js';
 
 export default async function handler(req, res) {
+  if (!checkOrigin(req)) {
+    return res.status(403).json({ error: 'Invalid origin' });
+  }
+
   if (!verifyAdmin(req)) return res.status(401).json({ error: 'Unauthorized' });
 
   const r = getRedis();

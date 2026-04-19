@@ -5,6 +5,7 @@ import { M365_NATIVE_APPS, COPILOT_CONNECTORS, classifyTool } from '../lib/m365-
 import { isAllowed, filterSources } from '../lib/source-allowlist.js';
 import { searchTavily, batchSearchTavily } from '../lib/tavily.js';
 import { validate } from '../lib/validate-opp-map.js';
+import { checkOrigin } from '../lib/csrf.js';
 
 export const config = { maxDuration: 300 };
 
@@ -334,6 +335,10 @@ function stampMetadata(doc, slug, clientName, studyIds, granolaTranscript, searc
 /* ---------- Handler ---------- */
 
 export default async function handler(req, res) {
+  if (!checkOrigin(req)) {
+    return res.status(403).json({ error: 'Invalid origin' });
+  }
+
   if (!verifyAdmin(req)) {
     return res.status(401).json({ error: 'Admin authentication required' });
   }
