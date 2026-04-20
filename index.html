@@ -407,10 +407,20 @@ async function resetMyProgress() {
     return;
   }
   if (!confirm('Reset all your workshop progress? This cannot be undone.')) return;
+  // Wipe every client-side key that could resurrect progress on the next
+  // course visit or dashboard repaint. Previously only chat-exercise-checks
+  // was cleared; apps and agents exercise ticks + the per-course resetAt
+  // stamps lingered, so reopening a course repainted old marks.
   localStorage.removeItem('chat-completed-v2');
   localStorage.removeItem('apps-completed');
   localStorage.removeItem('agents-completed');
   localStorage.removeItem('chat-exercise-checks');
+  localStorage.removeItem('apps-exercise-checks');
+  localStorage.removeItem('agents-exercise-checks');
+  localStorage.removeItem('resetAt:dashboard');
+  localStorage.removeItem('resetAt:copilot-chat');
+  localStorage.removeItem('resetAt:copilot-apps');
+  localStorage.removeItem('resetAt:building-agents');
   try {
     await fetch('/api/progress', {
       method: 'POST',

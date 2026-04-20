@@ -65,6 +65,14 @@ export default async function handler(req, res) {
     if (!raw) return res.status(404).json({ error: 'Workshop not found' });
     let client;
     try { client = JSON.parse(raw); } catch { return res.status(500).json({ error: 'Workshop data corrupted' }); }
+    // Gate on admin-controlled status. A workshop in 'draft' or 'inactive' is
+    // closed to participants — the Status dropdown in the admin panel was
+    // purely cosmetic before this. Records without a status field default to
+    // 'active' to avoid locking out workshops created before the field existed.
+    const status = client.status || 'active';
+    if (status !== 'active') {
+      return res.status(403).json({ error: 'Workshop is not accepting logins' });
+    }
     if (password !== client.password) return res.status(401).json({ error: 'Wrong password' });
 
     const uid = await findOrCreateUid(r, trimmed, slug);
