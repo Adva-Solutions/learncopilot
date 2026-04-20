@@ -517,218 +517,221 @@ window.LESSONS = [
 </div>
 
 <div class="option-content active" id="reportGroup-option-0">
-<h4>Architecture: Project Status Report</h4>
+<h4>Architecture: CA Submittal Review Memo</h4>
 <div class="note-box">
   <div class="note-title">Your two files</div>
   <ul style="margin-top:6px;">
-    <li><strong>Template source</strong> &mdash; a polished prior-project status report. The agent studies this to learn the structure, headings, and tone. <br><a href="/mock-data/report-writer/architecture-template.pdf" download>Download: 88 Richardson &mdash; Project Status Report</a></li>
-    <li><strong>Raw material</strong> &mdash; a messy meeting transcript from this week's site walkthrough. The agent will turn this into a new status report.<br><a href="/mock-data/report-writer/architecture-source.pdf" download>Download: 412 Nostrand Site Walkthrough transcript</a></li>
+    <li><strong>Template source</strong> &mdash; a polished prior review memo. The agent studies this to learn the structure, tone, and how you cross-reference the contract documents. <br><a href="/mock-data/report-writer/architecture-template.pdf" download>Download: CA Submittal Review Memo &mdash; Exterior Glazing, 88 Richardson</a></li>
+    <li><strong>Raw material</strong> &mdash; an actual submittal package landed from a GC. The agent will turn this into a new review memo.<br><a href="/mock-data/report-writer/architecture-source.pdf" download>Download: Submittal &mdash; Structural Steel, 412 Nostrand (Falcone Ironworks)</a></li>
   </ul>
 </div>
 
 <p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">architecture-template.pdf</span> and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze the attached report and create a detailed system prompt for an AI agent that will generate new Project Status Reports in this exact format.
+  <pre>Analyze the attached memo and create a detailed system prompt for an AI agent that will generate new CA Submittal Review Memos in this exact format.
 
 The prompt should instruct the agent to:
 - Follow the same section headings, order, and tone as the example
-- Ask me for the project name and reporting period before writing
-- Work from source material I upload at runtime (usually a meeting transcript or raw notes)
-- Leave a section blank rather than invent content when the source doesn't cover it
-- Keep the voice direct and factual, matching the example</pre>
+- Ask for the project name, submittal number, and spec section before writing
+- Review each submittal item against the referenced spec section and flag deviations
+- Issue one of four dispositions per item: "No Exception Taken", "Approved as Noted", "Revise and Resubmit", or "Rejected"
+- Leave a comment blank rather than invent a spec reference when none is provided
+- Keep the voice precise, technical, and contractor-facing</pre>
 </div>
 <p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
 
 <p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
 <ul>
-  <li><strong>Name:</strong> "Project Status Report Writer"</li>
-  <li><strong>Description:</strong> "Turns raw project material (meeting notes, transcripts) into a structured Project Status Report."</li>
+  <li><strong>Name:</strong> "CA Submittal Review Writer"</li>
+  <li><strong>Description:</strong> "Turns contractor submittal packages into a structured CA Submittal Review Memo."</li>
   <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
-  <li><strong>Suggested prompts:</strong> "Draft a status report from this transcript" / "Start a new status report"</li>
+  <li><strong>Suggested prompts:</strong> "Review this submittal" / "Draft a review memo for this package"</li>
 </ul>
 
-<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">architecture-source.pdf</span> (the site-walkthrough transcript) and run:</p>
+<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">architecture-source.pdf</span> (the structural-steel submittal from Falcone) and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Turn this transcript into a Project Status Report for 412 Nostrand, April 2026. If a section isn't covered in the transcript, leave it blank &mdash; do not invent.</pre>
+  <pre>Draft a CA Submittal Review Memo for this package. Project is 412 Nostrand. Spec section 05 1200 applies. Flag the A913 Gr 65 substitution, the open RFIs (027 and 029) that this package may or may not address, and any coordination items with the rebar layout. If an item needs contractor clarification rather than a disposition, note it explicitly.</pre>
 </div>
-<p>The agent should produce a full-shape Project Status Report: executive summary, project overview, design highlights pulled from the walkthrough, consultants table, open issues (rebar clash, precast delivery, tenant change order), next steps. Compare to the template &mdash; same shape, different project.</p>
+<p>The agent should produce a memo in the same shape as the template &mdash; identification table, executive summary, per-item review comments with a disposition, a cross-reference table against the CDs, and a distribution list.</p>
 
-<p><strong>Iterate.</strong> If a section is missing, vague, or invented, add a rule to the Instructions ("Never fabricate numbers," "Always include a Schedule Impact subsection," etc.) and re-run. Usually 2&ndash;3 rounds gets you to a reliable agent.</p>
-<p class="personalization-note">[PERSONALIZED: Replace with your actual status-report sections and reporting cadence once you're back at your desk.]</p>
+<p><strong>Iterate.</strong> If the agent invents a spec reference or skips a coordination flag, add a rule to the Instructions ("Never cite a spec section unless it appears verbatim in the provided material"; "Always check every open RFI referenced in the transmittal"). Usually 2&ndash;3 rounds gets you to a reliable agent.</p>
+<p class="personalization-note">[PERSONALIZED: Swap in your firm's actual memo format, disposition language, and the specs you most often review against when you rebuild this at your desk.]</p>
 </div>
 
 <div class="option-content" id="reportGroup-option-1">
-<h4>HR: Monthly People Report</h4>
+<h4>HR: New Hire Onboarding Memo</h4>
 <div class="note-box">
   <div class="note-title">Your two files</div>
   <ul style="margin-top:6px;">
-    <li><strong>Template source</strong> &mdash; a polished prior-month People Report. The agent studies this to learn the structure, headings, and tone. <br><a href="/mock-data/report-writer/hr-template.pdf" download>Download: Monthly People Report &mdash; March 2026</a></li>
-    <li><strong>Raw material</strong> &mdash; a messy HR team sync transcript from this month. The agent will turn this into a new report.<br><a href="/mock-data/report-writer/hr-source.pdf" download>Download: April HR Team Sync transcript</a></li>
+    <li><strong>Template source</strong> &mdash; a polished prior onboarding memo for a senior architect hire. The agent studies this to learn the 30/60/90 structure and the level of detail expected. <br><a href="/mock-data/report-writer/hr-template.pdf" download>Download: Onboarding Memo &mdash; Priya Desai, Senior Project Architect</a></li>
+    <li><strong>Raw material</strong> &mdash; a hiring manager's intake form with the JD attached. The agent will turn this into a new onboarding memo.<br><a href="/mock-data/report-writer/hr-source.pdf" download>Download: Intake Form &mdash; Director of Sustainability &amp; Climate Strategy</a></li>
   </ul>
 </div>
 
 <p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">hr-template.pdf</span> and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze the attached report and create a detailed system prompt for an AI agent that will generate new Monthly People Reports in this exact format.
+  <pre>Analyze the attached onboarding memo and create a detailed system prompt for an AI agent that will generate new New Hire Onboarding Memos in this exact format.
 
 The prompt should instruct the agent to:
-- Follow the same section headings, order, and tone as the example
-- Ask me for the reporting month before writing
-- Work from source material I upload at runtime (usually a meeting transcript or raw notes)
-- Leave a section blank rather than invent content when the source doesn't cover it
-- Keep the voice direct and factual, matching the example</pre>
+- Follow the same section order: Welcome Context, Week 1, 30-Day, 60-Day, 90-Day, Risk and Adjustment Triggers, Check-in Cadence
+- Ask for the new hire's name, role, start date, team, and hiring manager before writing
+- Calibrate the plan for the specific role level (junior / senior / director) rather than boilerplate
+- Leave sections blank rather than invent projects or check-in partners the source doesn't name
+- Keep the voice warm but professional, matching the example</pre>
 </div>
 <p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
 
 <p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
 <ul>
-  <li><strong>Name:</strong> "People Report Writer"</li>
-  <li><strong>Description:</strong> "Turns raw HR material (team syncs, recruiter notes) into a structured Monthly People Report."</li>
+  <li><strong>Name:</strong> "Onboarding Memo Writer"</li>
+  <li><strong>Description:</strong> "Turns hiring-manager intake forms into a structured New Hire Onboarding Memo."</li>
   <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
-  <li><strong>Suggested prompts:</strong> "Draft this month's People Report" / "Turn this transcript into a People Report"</li>
+  <li><strong>Suggested prompts:</strong> "Draft an onboarding memo from this intake form" / "Start a new 30/60/90"</li>
 </ul>
 
-<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">hr-source.pdf</span> (the HR team sync transcript) and run:</p>
+<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">hr-source.pdf</span> (the Director of Sustainability intake form) and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Turn this transcript into a Monthly People Report for April 2026. If a section isn't covered in the transcript, leave it blank &mdash; do not invent.</pre>
+  <pre>Draft a New Hire Onboarding Memo from this intake form. The hire is a Director-level role reporting to the Managing Director. Use the hiring manager's culture notes and onboarding-specific asks to calibrate the plan. If a section isn't covered in the intake, leave it blank rather than invent it.</pre>
 </div>
-<p>The agent should produce a full-shape People Report: headline numbers (where the transcript supports them), hiring &amp; promotions, retention (including the April resignation), benefits (survey results), L&amp;D (cohort 2 progress), risks, looking ahead. Compare to the template &mdash; same shape, different month.</p>
+<p>The agent should produce a memo with a Week 1 that reflects the hiring manager's named asks (Day-1 with the Principal, site walk in the first 10 days, designer-paired buddy), 30/60/90 plans anchored on the three named deliverables (embodied-carbon baseline, Wynwood climate review, position paper), and a check-in cadence.</p>
 
-<p><strong>Iterate.</strong> If a section is missing, vague, or invented, add a rule to the Instructions ("Never fabricate metrics," "Always include an Exit-Interview Themes subsection," etc.) and re-run. Usually 2&ndash;3 rounds gets you to a reliable agent.</p>
-<p class="personalization-note">[PERSONALIZED: Swap in your real People Report sections and metric set when you rebuild this for your own workflow.]</p>
+<p><strong>Iterate.</strong> If the agent pads with generic milestones or adds a buddy the form didn't name, tighten the Instructions ("Only reference people, projects, and tools explicitly named in the intake form"). Usually 2&ndash;3 rounds gets it right.</p>
+<p class="personalization-note">[PERSONALIZED: Swap in your real onboarding cadence and the projects your new hires typically land into when you rebuild this at your desk.]</p>
 </div>
 
 <div class="option-content" id="reportGroup-option-2">
-<h4>Marketing: Campaign Performance Report</h4>
+<h4>Marketing: ODA Newsletter</h4>
 <div class="note-box">
   <div class="note-title">Your two files</div>
   <ul style="margin-top:6px;">
-    <li><strong>Template source</strong> &mdash; a polished prior-quarter campaign report. The agent studies this to learn the structure, headings, and tone. <br><a href="/mock-data/report-writer/marketing-template.pdf" download>Download: Q1 2026 &ldquo;Waterfront Wins&rdquo; Campaign Report</a></li>
-    <li><strong>Raw material</strong> &mdash; a messy weekly marketing sync transcript. The agent will turn this into a new report.<br><a href="/mock-data/report-writer/marketing-source.pdf" download>Download: Marketing Weekly Sync transcript</a></li>
+    <li><strong>Template source</strong> &mdash; a polished prior newsletter issue. The agent studies this to learn the voice, section order, and imagery-caption convention. <br><a href="/mock-data/report-writer/marketing-template.pdf" download>Download: ODA Monthly &mdash; March 2026 (The Richardson Issue)</a></li>
+    <li><strong>Raw material</strong> &mdash; a raw project-activity log for the period. The agent will turn this into a newsletter.<br><a href="/mock-data/report-writer/marketing-source.pdf" download>Download: Project Activity Log &mdash; April 2026 (31 rows)</a></li>
   </ul>
 </div>
 
 <p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">marketing-template.pdf</span> and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze the attached report and create a detailed system prompt for an AI agent that will generate new Campaign Performance Reports in this exact format.
+  <pre>Analyze the attached newsletter and create a detailed system prompt for an AI agent that will generate new monthly newsletter issues in this exact format.
 
 The prompt should instruct the agent to:
-- Follow the same section headings, order, and tone as the example
-- Ask me for the campaign name and reporting period before writing
-- Work from source material I upload at runtime (usually a meeting transcript or raw notes)
-- Leave a section blank rather than invent content when the source doesn't cover it
-- Keep the voice direct and factual, matching the example</pre>
+- Follow the same section order: Lead Story, Studio Updates, Recent Press, Upcoming, Philosophy Note, Credits
+- Ask for the issue month and the lead-story project before writing
+- Select the lead story based on the biggest narrative milestone (completion, award, or pursuit win) &mdash; not on row count
+- Cite image references by filename in captions exactly as they appear in the log
+- Leave a section blank rather than invent press placements or upcoming events
+- Match the example's voice: confident, grounded, no marketing hype</pre>
 </div>
 <p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
 
 <p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
 <ul>
-  <li><strong>Name:</strong> "Campaign Report Writer"</li>
-  <li><strong>Description:</strong> "Turns raw marketing material (team syncs, press logs) into a structured Campaign Performance Report."</li>
+  <li><strong>Name:</strong> "ODA Newsletter Writer"</li>
+  <li><strong>Description:</strong> "Turns a monthly project-activity log into a newsletter draft in ODA's voice."</li>
   <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
-  <li><strong>Suggested prompts:</strong> "Draft this period's campaign report" / "Turn this sync into a campaign report"</li>
+  <li><strong>Suggested prompts:</strong> "Draft this month's issue from the activity log" / "Pick the lead story and give me 3 options"</li>
 </ul>
 
-<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">marketing-source.pdf</span> (the marketing weekly transcript) and run:</p>
+<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">marketing-source.pdf</span> (the April activity log) and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Turn this transcript into a Campaign Performance Report for the week of April 7, 2026. If a section isn't covered in the transcript, leave it blank &mdash; do not invent.</pre>
+  <pre>Draft the April 2026 newsletter issue from this activity log. The lead story should be the partner-approved Navy Yard direct-select (Apr 22) paired with the Queens City shortlist advance. If a section has nothing in the log to support it, leave it blank.</pre>
 </div>
-<p>The agent should produce a full-shape report: summary, channel breakdown (AIA submission, Dezeen interview, photoshoot, social pivot off Reels), notable moments, what worked / what didn't, next steps. Compare to the template &mdash; same shape, different period.</p>
+<p>The agent should produce a newsletter with a lead story anchored on the named milestone, studio updates drawn only from log rows, a Recent Press table that lists real rows (not invented placements), and image references copied from the log's filename column.</p>
 
-<p><strong>Iterate.</strong> If a section is missing, vague, or invented, add a rule to the Instructions ("Never invent metrics," "Always include a Channel-Mix Changes subsection," etc.) and re-run. Usually 2&ndash;3 rounds gets you to a reliable agent.</p>
-<p class="personalization-note">[PERSONALIZED: Swap in your actual channel list, KPI set, and reporting cadence when you rebuild this for your own workflow.]</p>
+<p><strong>Iterate.</strong> If the agent writes press placements the log doesn't support, tighten the Instructions ("Never cite a press placement unless it has a row in the log with Category = Press"). Usually 2&ndash;3 rounds gets it right.</p>
+<p class="personalization-note">[PERSONALIZED: Swap in your real newsletter voice, section order, and imagery-caption convention when you rebuild this at your desk.]</p>
 </div>
 
 <div class="option-content" id="reportGroup-option-3">
-<h4>Executive: Monthly Board Briefing</h4>
+<h4>Executive: Travel Itinerary</h4>
 <div class="note-box">
   <div class="note-title">Your two files</div>
   <ul style="margin-top:6px;">
-    <li><strong>Template source</strong> &mdash; a polished prior-month Board Briefing. The agent studies this to learn the structure, headings, and tone. <br><a href="/mock-data/report-writer/executive-template.pdf" download>Download: Monthly Board Briefing &mdash; March 2026</a></li>
-    <li><strong>Raw material</strong> &mdash; a messy leadership weekly meeting transcript. The agent will turn this into a new briefing.<br><a href="/mock-data/report-writer/executive-source.pdf" download>Download: Leadership Weekly transcript</a></li>
+    <li><strong>Template source</strong> &mdash; a polished prior travel itinerary. The agent studies this to learn the day-by-day structure, contacts table, and logistics section. <br><a href="/mock-data/report-writer/executive-template.pdf" download>Download: Travel Itinerary &mdash; Tel Aviv &amp; Jerusalem, Jan 2026</a></li>
+    <li><strong>Raw material</strong> &mdash; a raw booking bundle: flight confirmations, hotel confirmation, meeting RSVPs, attendee bios, and a to-do list. The agent will turn this into a full itinerary.<br><a href="/mock-data/report-writer/executive-source.pdf" download>Download: Trip Booking Bundle &mdash; London, May 2026</a></li>
   </ul>
 </div>
 
 <p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">executive-template.pdf</span> and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze the attached report and create a detailed system prompt for an AI agent that will generate new Monthly Board Briefings in this exact format.
+  <pre>Analyze the attached itinerary and create a detailed system prompt for an AI agent that will generate new travel itineraries in this exact format.
 
 The prompt should instruct the agent to:
-- Follow the same section headings, order, and tone as the example
-- Ask me for the reporting month before writing
-- Work from source material I upload at runtime (usually a leadership meeting transcript or raw notes)
-- Leave a section blank rather than invent content when the source doesn't cover it
-- Keep the voice crisp and executive &mdash; no marketing language, no filler</pre>
+- Follow the same section order: Trip Summary, Day-by-Day, Key Contacts Briefing, Emergency and Logistics
+- Ask for the traveler, destination, and dates before writing
+- Use the exact times, flight numbers, booking references, and addresses from the source material &mdash; do not paraphrase or round
+- Include a short context line for every named contact (role, relationship, LinkedIn if provided)
+- Leave a time block blank rather than invent a meeting
+- Match the example's voice: terse, logistical, assistant-to-principal</pre>
 </div>
 <p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
 
 <p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
 <ul>
-  <li><strong>Name:</strong> "Board Briefing Writer"</li>
-  <li><strong>Description:</strong> "Turns raw leadership-meeting material into a structured Monthly Board Briefing."</li>
+  <li><strong>Name:</strong> "Travel Itinerary Writer"</li>
+  <li><strong>Description:</strong> "Turns a booking bundle (flight and hotel confirmations, meetings, contacts) into a polished travel itinerary."</li>
   <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
-  <li><strong>Suggested prompts:</strong> "Draft this month's board briefing" / "Turn this leadership transcript into a briefing"</li>
+  <li><strong>Suggested prompts:</strong> "Build the itinerary from these confirmations" / "Add a contact briefing for each meeting"</li>
 </ul>
 
-<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">executive-source.pdf</span> (the leadership weekly transcript) and run:</p>
+<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">executive-source.pdf</span> (the London bundle) and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Turn this transcript into a Monthly Board Briefing for April 2026. If a section isn't covered in the transcript, leave it blank &mdash; do not invent.</pre>
+  <pre>Build a travel itinerary for the London trip, May 18-22, 2026. Pull flight and hotel details exactly as shown in the confirmations. Include the meeting-by-meeting briefing with LinkedIn context for each named attendee. Mirror the structure of the template.</pre>
 </div>
-<p>The agent should produce a full-shape briefing: executive summary, business metrics (where the transcript supports them), major wins (88 Richardson TCO, AIA Merit, Queens shortlist), portfolio health, people (the Wynwood resignation), risks (Q2 commercial backlog), partner decisions requested (Atlanta pursuit, Navy Yard direct-select). Compare to the template &mdash; same shape, different month.</p>
+<p>The agent should produce a full itinerary: trip summary, day-by-day (Mon travel, Tue prep, Wed Soames meeting, Thu RA talk, Fri WoI interview + return), a contacts table with context lines for each named attendee, and the logistics / emergency section.</p>
 
-<p><strong>Iterate.</strong> If a section is missing, vague, or invented, add a rule to the Instructions ("Never fabricate financial numbers," "Always include a Partner Decisions Requested section," etc.) and re-run. Usually 2&ndash;3 rounds gets you to a reliable agent.</p>
-<p class="personalization-note">[PERSONALIZED: Swap in your real briefing sections, metric set, and the decisions your partners actually vote on when you rebuild this.]</p>
+<p><strong>Iterate.</strong> If the agent rounds a time, paraphrases an address, or invents a meeting from the to-do list, tighten the Instructions ("Only include confirmed meetings; items on the to-do list are NOT itinerary entries unless explicitly marked confirmed"). Usually 2&ndash;3 rounds gets it right.</p>
+<p class="personalization-note">[PERSONALIZED: Swap in your firm's itinerary template, logistics preferences, and contact-briefing style when you rebuild this at your desk.]</p>
 </div>
 
 <div class="option-content" id="reportGroup-option-4">
-<h4>Operations: Monthly Operations Dashboard</h4>
+<h4>Operations: Contract Review Memo</h4>
 <div class="note-box">
   <div class="note-title">Your two files</div>
   <ul style="margin-top:6px;">
-    <li><strong>Template source</strong> &mdash; a polished prior-month Operations Dashboard. The agent studies this to learn the structure, headings, and tone. <br><a href="/mock-data/report-writer/operations-template.pdf" download>Download: Monthly Operations Dashboard &mdash; March 2026</a></li>
-    <li><strong>Raw material</strong> &mdash; a messy weekly ops standup transcript. The agent will turn this into a new dashboard.<br><a href="/mock-data/report-writer/operations-source.pdf" download>Download: Operations Standup transcript</a></li>
+    <li><strong>Template source</strong> &mdash; a polished prior contract review memo. The agent studies this to learn how to flag scope, fee, liability, and insurance terms against ODA standard. <br><a href="/mock-data/report-writer/operations-template.pdf" download>Download: Contract Review Memo &mdash; 412 Nostrand Owner-Architect Agreement</a></li>
+    <li><strong>Raw material</strong> &mdash; a contract excerpt returned with client redlines. The agent will turn this into a review memo.<br><a href="/mock-data/report-writer/operations-source.pdf" download>Download: Wynwood Tower Fit-Out &mdash; Client Redlines (Round 1)</a></li>
   </ul>
 </div>
 
 <p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">operations-template.pdf</span> and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze the attached report and create a detailed system prompt for an AI agent that will generate new Monthly Operations Dashboards in this exact format.
+  <pre>Analyze the attached review memo and create a detailed system prompt for an AI agent that will generate new contract review memos in this exact format.
 
 The prompt should instruct the agent to:
-- Follow the same section headings, order, and tone as the example
-- Ask me for the reporting month before writing
-- Work from source material I upload at runtime (usually an ops-standup transcript or raw notes)
-- Leave a section blank rather than invent content when the source doesn't cover it
-- Keep the voice factual and metric-focused, matching the example</pre>
+- Follow the same section order: Contract Identification, Executive Summary, Scope of Services Flags, Fee Structure Flags, Termination and Assignment Flags, Liability and Indemnification Flags, Insurance Compliance, Recommendation, Distribution
+- Ask for the contract instrument, client entity, and project before writing
+- For each flagged clause: name the section, state the proposed language, compare against ODA standard, and issue one of three dispositions: "Acceptable", "Resolve via counter-redline", or "Escalate to partners"
+- Never declare a term acceptable without citing what ODA standard is
+- Keep the voice precise, legal, and recommendation-oriented</pre>
 </div>
 <p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
 
 <p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
 <ul>
-  <li><strong>Name:</strong> "Operations Report Writer"</li>
-  <li><strong>Description:</strong> "Turns raw ops material (standups, invoicing notes) into a structured Monthly Operations Dashboard."</li>
+  <li><strong>Name:</strong> "Contract Review Writer"</li>
+  <li><strong>Description:</strong> "Turns a contract redline or excerpt into a structured Contract Review Memo flagging deviations from ODA standard."</li>
   <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
-  <li><strong>Suggested prompts:</strong> "Draft this month's ops dashboard" / "Turn this standup into a dashboard"</li>
+  <li><strong>Suggested prompts:</strong> "Review this redline against our standard" / "Draft the review memo"</li>
 </ul>
 
-<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">operations-source.pdf</span> (the ops standup transcript) and run:</p>
+<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">operations-source.pdf</span> (the Wynwood client redlines) and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Turn this transcript into a Monthly Operations Dashboard for April 2026. If a section isn't covered in the transcript, leave it blank &mdash; do not invent.</pre>
+  <pre>Draft a Contract Review Memo for these redlines. This is a Round 1 return from Wynwood Tower's Restaurant and Lobby Fit-Out. Flag every deviation from ODA standard, especially the schedule compression, the liability cap reduction to $300K, the 10-day termination notice, and the broadened indemnification.</pre>
 </div>
-<p>The agent should produce a full-shape dashboard: headline metrics, utilization by studio (residential 81, competitions 83, commercial 60), budget vs. actuals (the Copilot-license variance), invoicing issues (the 412 Nostrand slip), tools update (Deltek phase 2), risks, looking ahead. Compare to the template &mdash; same shape, different month.</p>
+<p>The agent should produce a memo with a clause-by-clause flag list, each item dispositioned (Acceptable / Counter / Escalate), an insurance-compliance check, and a clear final recommendation on whether this contract is signable, counter-redline-able, or needs partner escalation.</p>
 
-<p><strong>Iterate.</strong> If a section is missing, vague, or invented, add a rule to the Instructions ("Never fabricate utilization numbers," "Always include a Time-Entry Compliance callout," etc.) and re-run. Usually 2&ndash;3 rounds gets you to a reliable agent.</p>
-<p class="personalization-note">[PERSONALIZED: Swap in your real dashboard sections, studio list, and metric set when you rebuild this for your own workflow.]</p>
+<p><strong>Iterate.</strong> If the agent declares a term "acceptable" without stating what ODA standard is, or misses a material flag, tighten the Instructions ("Every flag must include both the proposed language AND the ODA-standard language for comparison"). Usually 2&ndash;3 rounds gets it right.</p>
+<p class="personalization-note">[PERSONALIZED: Swap in your firm's standard terms, escalation thresholds, and insurance floors when you rebuild this at your desk.]</p>
 </div>
 
 <h4>Reflective Check</h4>
