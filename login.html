@@ -165,10 +165,14 @@ if (slug) {
         document.getElementById('subtitle').textContent = data.name;
         document.title = 'Sign In — ' + data.name;
       }
-      if (data.logo) {
+      // Accept either `logoUrl` (the canonical field from /api/client-info)
+      // or a legacy `logo` field. The API currently returns `logoUrl`; we
+      // read both so this block keeps working if the field is ever renamed.
+      const logoSrc = data.logoUrl || data.logo;
+      if (logoSrc) {
         const logoEl = document.getElementById('client-logo');
         const logoImg = document.getElementById('client-logo-img');
-        logoImg.src = data.logo;
+        logoImg.src = logoSrc;
         logoImg.alt = data.name || 'Client Logo';
         logoEl.style.display = 'block';
       }

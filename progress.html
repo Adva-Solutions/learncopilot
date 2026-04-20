@@ -55,6 +55,16 @@
   .page-header p {
     color: #999; font-size: 15px;
   }
+  .client-logo-banner {
+    display: none;
+    margin: 0 auto 18px;
+    text-align: center;
+  }
+  .client-logo-banner img {
+    max-height: 52px;
+    max-width: 220px;
+    object-fit: contain;
+  }
 
   .live-badge {
     display: inline-flex; align-items: center; gap: 6px;
@@ -248,6 +258,9 @@
 
 <div class="page">
   <div class="page-header">
+    <div class="client-logo-banner" id="client-logo-banner">
+      <img id="client-logo-img" alt="">
+    </div>
     <div class="live-badge"><span class="live-dot"></span> Live</div>
     <h1>Workshop Progress</h1>
     <p id="page-desc">See how everyone is progressing through the Copilot workshop</p>
@@ -281,6 +294,35 @@ const CHAT_STEPS = 6, APPS_STEPS = 3, AGENTS_STEPS = 4;
 /* Read slug from URL */
 const urlParams = new URLSearchParams(window.location.search);
 const slug = urlParams.get('slug') || '';
+
+/* Hydrate the client logo banner.
+   If ?slug= is in the URL we hit the public /api/client-info endpoint so
+   the logo shows up even for unauthenticated visitors (e.g. admins loading
+   the leaderboard without a workshop session). When there's no URL slug
+   but the user is logged in, /api/workshop-config returns the logo for
+   their own workshop. */
+(function hydrateClientLogo() {
+  const banner = document.getElementById('client-logo-banner');
+  const img = document.getElementById('client-logo-img');
+  if (!banner || !img) return;
+  const apply = (name, url) => {
+    if (!url) return;
+    img.src = url;
+    img.alt = name || 'Client Logo';
+    banner.style.display = 'block';
+  };
+  if (slug) {
+    fetch('/api/client-info?slug=' + encodeURIComponent(slug))
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) apply(d.name, d.logoUrl); })
+      .catch(() => {});
+  } else {
+    fetch('/api/workshop-config', { credentials: 'include' })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) apply(d.clientName, d.logoUrl); })
+      .catch(() => {});
+  }
+})();
 
 /* slug (if present) is preserved via data fetches; global nav points to bare routes */
 

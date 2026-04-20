@@ -125,6 +125,22 @@
     margin: 0 auto;
     position: relative; z-index: 1;
   }
+  /* Client-logo chip inside the navy hero. Light cream background so the
+     logo reads cleanly regardless of whether its own fill is dark or
+     light. Hidden until JS hydrates it from /api/workshop-config. */
+  .client-logo-hero {
+    display: none;
+    background: rgba(255, 253, 244, 0.96);
+    padding: 10px 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: fit-content;
+  }
+  .client-logo-hero img {
+    display: block;
+    max-height: 44px; max-width: 200px;
+    object-fit: contain;
+  }
   .hero h1 {
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 42px; font-weight: 400;
@@ -277,6 +293,9 @@
 
 <header class="hero">
   <div class="hero-inner">
+    <div class="client-logo-hero" id="client-logo-hero">
+      <img id="client-logo-img" alt="">
+    </div>
     <h1 id="hero-title">Your AI Playbook, <em>Built for You.</em></h1>
     <p class="hero-desc" id="hero-desc">Learn Microsoft Copilot hands-on during our live workshop. Master AI fundamentals, use Copilot across every app, and build your own agents.</p>
     <div class="hero-branding">
@@ -463,6 +482,23 @@ fetch('/api/me').then(async r => {
     } catch (e) { /* map check is non-critical */ }
   }
 }).catch(() => { /* network offline — leave the page alone */ });
+
+/* Client logo hydration. Pulls the current user's workshop logo via
+   /api/workshop-config and drops it into the cream chip above the hero
+   headline. Silent no-op if the user is in the default workshop (no
+   client slug) or the client has no logo configured. */
+fetch('/api/workshop-config', { credentials: 'include' })
+  .then(r => r.ok ? r.json() : null)
+  .then(cfg => {
+    if (!cfg || !cfg.logoUrl) return;
+    const chip = document.getElementById('client-logo-hero');
+    const img = document.getElementById('client-logo-img');
+    if (!chip || !img) return;
+    img.src = cfg.logoUrl;
+    img.alt = cfg.clientName || 'Client Logo';
+    chip.style.display = 'inline-block';
+  })
+  .catch(() => {});
 
 function openMap() {
   const btn = document.getElementById('nav-map-link');
