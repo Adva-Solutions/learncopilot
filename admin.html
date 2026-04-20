@@ -135,6 +135,37 @@ body[data-admin-view="login"] .admin-subnav { display: none; }
 .input-with-btn { display: flex; gap: 8px; }
 .input-with-btn input { flex: 1; }
 
+/* LOGO UPLOADER */
+.logo-uploader {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  text-align: center;
+  transition: border-color 120ms, background 120ms;
+  background: var(--bg);
+}
+.logo-uploader.empty { cursor: pointer; }
+.logo-uploader.empty:hover { border-color: var(--accent); }
+.logo-uploader.dragover { border-color: var(--accent); background: var(--accent-light); }
+.logo-uploader.has-logo {
+  border-style: solid;
+  display: flex; align-items: center; gap: 16px; justify-content: space-between;
+  text-align: left;
+}
+.logo-uploader.has-logo img {
+  max-height: 64px; max-width: 240px;
+  object-fit: contain;
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 6px;
+}
+.logo-uploader .logo-uploader-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.logo-uploader .logo-uploader-hint {
+  font-size: 12px; color: var(--text-light);
+  margin-top: 6px;
+}
+
 /* TABLE */
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
@@ -423,6 +454,83 @@ function showModal(title, message, onConfirm, confirmLabel = 'Confirm', danger =
   $('#modal-cancel').onclick = () => root.innerHTML = '';
   $('#modal-backdrop').onclick = (e) => { if (e.target === e.currentTarget) root.innerHTML = ''; };
   $('#modal-confirm').onclick = () => { root.innerHTML = ''; onConfirm(); };
+}
+
+/* ============================
+   LOGO UPLOADER
+   ============================ */
+// Hydrates a <div id=containerId> into a drag-and-drop logo uploader.
+// onChange(url | null) fires whenever the user picks a new file or removes
+// the logo. We store the file as a data URL client-side (FileReader) and
+// pass it straight into the client record — /api/admin/upload-logo exists
+// but does nothing but base64→data-URL concatenation, so we skip the round
+// trip and trust the admin-gated create/PUT endpoints to persist it.
+function renderLogoUpload(containerId, currentUrl, onChange) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const MAX_BYTES = 200 * 1024;
+
+  const pickFile = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/png,image/jpeg,image/jpg,image/svg+xml,image/gif,image/webp';
+    input.onchange = () => handleFile(input.files && input.files[0]);
+    input.click();
+  };
+
+  const handleFile = async (file) => {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) { toast('Please choose an image file', true); return; }
+    if (file.size > MAX_BYTES) { toast('Logo must be under 200 KB', true); return; }
+    try {
+      const url = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      onChange(url);
+      paint(url);
+    } catch {
+      toast('Could not read file', true);
+    }
+  };
+
+  const paint = (url) => {
+    if (url) {
+      el.innerHTML = `
+        <div class="logo-uploader has-logo">
+          <img src="${esc(url)}" alt="Logo preview">
+          <div class="logo-uploader-actions">
+            <button type="button" class="btn btn-outline btn-sm" data-action="change">Change</button>
+            <button type="button" class="btn btn-outline btn-sm" data-action="remove">Remove</button>
+          </div>
+        </div>`;
+      el.querySelector('[data-action="change"]').onclick = pickFile;
+      el.querySelector('[data-action="remove"]').onclick = () => { onChange(null); paint(null); };
+    } else {
+      el.innerHTML = `
+        <div class="logo-uploader empty" data-role="drop-zone">
+          <p>Drop a logo here, or <a href="#" data-action="pick" style="color:var(--accent);font-weight:600;text-decoration:none;">choose a file</a></p>
+          <p class="logo-uploader-hint">PNG, JPG, SVG · up to 200 KB</p>
+        </div>`;
+      const dz = el.querySelector('[data-role="drop-zone"]');
+      dz.ondragover = (e) => { e.preventDefault(); dz.classList.add('dragover'); };
+      dz.ondragleave = () => dz.classList.remove('dragover');
+      dz.ondrop = (e) => {
+        e.preventDefault();
+        dz.classList.remove('dragover');
+        handleFile(e.dataTransfer.files && e.dataTransfer.files[0]);
+      };
+      dz.onclick = (e) => {
+        if (e.target && e.target.getAttribute('data-action') === 'pick') { e.preventDefault(); pickFile(); return; }
+        if (e.target.closest('[data-action="pick"]')) return;
+        pickFile();
+      };
+    }
+  };
+
+  paint(currentUrl || null);
 }
 
 /* ============================
@@ -940,10 +1048,17 @@ function renderWizardStep1(el) {
         <input type="text" id="w-depts" value="${esc((d.departments || []).join(', '))}" placeholder="e.g. Marketing, Sales, Engineering">
         <div class="hint">Comma-separated list of departments</div>
       </div>
+      <div class="form-group">
+        <label>Client Logo</label>
+        <div id="w-logo-uploader"></div>
+        <div class="hint">Shown on the login page and inside every lesson. Optional — you can add or change this later from the workshop's edit page.</div>
+      </div>
       <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;">
         <button class="btn btn-primary" id="step1-next">Next: Listen Labs</button>
       </div>
     </div>`;
+
+  renderLogoUpload('w-logo-uploader', d.logoUrl, (url) => { d.logoUrl = url || null; });
 
   // Auto-slug
   $('#w-name').oninput = () => {
@@ -1342,6 +1457,11 @@ function renderWorkshopEditor(app, workshop, allSampleFiles = []) {
         </div>
       </div>
       <div class="form-group" style="margin-top:16px;">
+        <label>Client Logo</label>
+        <div id="ed-logo-uploader"></div>
+        <div class="hint">Shown on the login page and inside every lesson.</div>
+      </div>
+      <div class="form-group" style="margin-top:16px;">
         <label>Sample files assigned to this workshop</label>
         <select id="wd-sample-files" multiple size="6" style="min-height:140px;">
           ${allSampleFiles.map(f => `
@@ -1449,21 +1569,28 @@ function renderWorkshopEditor(app, workshop, allSampleFiles = []) {
     });
   }
 
+  // Logo uploader — track the edited value so Save knows whether to include it
+  // (undefined = unchanged, null = explicit remove, string = new data URL).
+  let editedLogoUrl;
+  renderLogoUpload('ed-logo-uploader', w.logoUrl || null, (url) => { editedLogoUrl = url; });
+
   // Save settings
   $('#save-settings').onclick = async () => {
     try {
       const selectedIds = Array.from(document.getElementById('wd-sample-files').selectedOptions).map(o => o.value);
+      const body = {
+        name: $('#ed-name').value.trim(),
+        password: $('#ed-password').value.trim(),
+        industry: $('#ed-industry').value.trim(),
+        departments: $('#ed-depts').value.split(',').map(s => s.trim()).filter(Boolean),
+        status: $('#ed-status').value,
+        listenLabsStudyId: $('#ed-study-id').value.trim() || null,
+        sampleFileIds: selectedIds,
+      };
+      if (editedLogoUrl !== undefined) body.logoUrl = editedLogoUrl;
       await apiFetch(`${API.client}?slug=${encodeURIComponent(slug)}`, {
         method: 'PUT',
-        body: JSON.stringify({
-          name: $('#ed-name').value.trim(),
-          password: $('#ed-password').value.trim(),
-          industry: $('#ed-industry').value.trim(),
-          departments: $('#ed-depts').value.split(',').map(s => s.trim()).filter(Boolean),
-          status: $('#ed-status').value,
-          listenLabsStudyId: $('#ed-study-id').value.trim() || null,
-          sampleFileIds: selectedIds,
-        }),
+        body: JSON.stringify(body),
       });
       toast('Settings saved');
       // Re-render so the data-study-id attribute + Opp Map section pick up the change
