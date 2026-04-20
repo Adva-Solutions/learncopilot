@@ -396,13 +396,13 @@ window.LESSONS = [
     `
   },
 
-  // ── Lesson 2: Build Your Own Agent (merge of old L4 Write Like Me + L5 Report Writer) ──
+  // ── Lesson 2: Build Your Own Agent (Write Like Me starter pattern) ──
   {
     title: "Build Your Own Agent",
     points: 40,
     bonus: false,
     learn: `
-<p><em>You've used pre-built agents. Now you'll build your own. This lesson shows two starter patterns &mdash; pick the one that matches your work, then build it in the Exercise.</em></p>
+<p><em>You've used pre-built agents. Now you'll build your own. This lesson walks you through the Write Like Me starter pattern &mdash; the fastest way to produce drafts that sound like you from day one.</em></p>
 
 <h3>The Agent Builder Interface</h3>
 <p>When you create a new agent, you will see two modes at the top: <strong>"Describe"</strong> and <strong>"Configure."</strong> Always use <strong>Configure</strong> &mdash; it gives you full control over the fields that matter.</p>
@@ -415,39 +415,19 @@ window.LESSONS = [
   <li><strong>Share</strong> &mdash; the scope: only you, specific people, or the whole org.</li>
 </ul>
 
-<h3>Two starter patterns</h3>
-<p><strong>Write Like Me</strong> &mdash; extracts your personal writing voice from sent emails and uses it as the agent's system prompt. Best if you write a lot of email / comms and want first drafts that already sound like you.</p>
-<p><strong>Report Writer</strong> &mdash; extracts the structure of a report you already produce (QBR, status update, case study) and turns it into a reusable template. Best if you deal with a lot of recurring reporting.</p>
-<p>These are examples, not the only options &mdash; both patterns adapt to your real use cases.</p>
+<h3>Why Write Like Me</h3>
+<p>AI drafts usually read like a corporate manual because the model has no idea how <strong>you</strong> write. Write Like Me extracts your writing voice from real sent emails and uses it as the agent's system prompt &mdash; so every draft the agent produces already sounds like you. First draft, not rewrite.</p>
 
 <div class="tip-box">
   <div class="tip-title">One agent per workflow, not per task</div>
-  <p>Build one agent per recurring workflow or document type &mdash; not a new agent for every single report instance. The agent knows the structure; you pass the specifics at runtime (this month's data, this week's updates, this quarter's numbers). One well-configured agent can produce dozens of variations as long as they follow the same template.</p>
+  <p>Build one agent per recurring workflow or document type &mdash; not a new agent for every single instance. The agent knows the structure; you pass the specifics at runtime. One well-configured agent can produce dozens of variations as long as they follow the same template.</p>
 </div>
 
-<p class="personalization-note">[PERSONALIZED: Think about the emails or reports you write most often. Whichever takes the most time is the one to automate first.]</p>
+<p class="personalization-note">[PERSONALIZED: Think about the emails you write most often. Whichever takes the most time is the one this agent will help most with.]</p>
     `,
     implement: `
-<h3>Build Your Own Agent</h3>
-
-<div class="note-box">
-  <div class="note-title">Which pattern fits you?</div>
-  <p>Pick based on what you actually spend time on:</p>
-  <ul style="margin-top:6px;">
-    <li><strong>Write Like Me</strong> &mdash; if you write a lot of email, comms, or short updates, and want first drafts that sound like you.</li>
-    <li><strong>Report Writer</strong> &mdash; if you produce recurring reports (status, QBR, case study, dashboard), and want a repeatable template.</li>
-  </ul>
-  <p style="margin-top:6px;">These are starting points &mdash; both patterns adapt to your real use cases once you get the mechanics down.</p>
-</div>
-
-<div class="option-tabs" id="buildType-options">
-  <button class="option-tab active" onclick="switchOption('buildType', 0)">Write Like Me</button>
-  <button class="option-tab" onclick="switchOption('buildType', 1)">Report Writer</button>
-</div>
-
-<div class="option-content active" id="buildType-option-0">
 <h3>Build Your Write Like Me Agent</h3>
-<p><em>Why this works: AI drafts usually read like a corporate manual because the model has no idea how <strong>you</strong> write. You extract your writing voice from real sent emails, paste that voice profile as the agent's system prompt, and every draft it produces now sounds like you &mdash; first draft, not rewrite.</em></p>
+<p><em>You'll extract your writing voice from real sent emails, paste that voice profile as the agent's system prompt, and every draft the agent produces now sounds like you &mdash; first draft, not rewrite.</em></p>
 
 <h4>Step 0: Benchmark</h4>
 <p>Go to plain Copilot Chat. Ask it to write a professional email about a topic of your choice &mdash; a project update, a meeting follow-up, or a request to a colleague. Screenshot or copy the result. This is your "before." You will compare against it later to see how much better a voice-trained agent performs.</p>
@@ -502,247 +482,14 @@ window.LESSONS = [
 
 <h4>Reflective Check</h4>
 <p>Compare your agent's output to the benchmark from Step 0. Does the voice-trained version sound more like you? What specific improvements do you see in greeting style, tone, and vocabulary?</p>
-</div>
 
-<div class="option-content" id="buildType-option-1">
-<h3>Build a Report Writer Agent</h3>
-<p><em>The idea is simple: instead of describing a template from scratch, hand Copilot a polished report you already like and let it reverse-engineer the structure. Then hand the agent a pile of raw material &mdash; a meeting transcript, a batch of notes &mdash; and it produces a new report in the same shape. Pick your department below; each one comes with two files you'll use in the exercise.</em></p>
 
-<div class="option-tabs" id="reportGroup-options">
-  <button class="option-tab active" onclick="switchOption('reportGroup', 0)">Architecture</button>
-  <button class="option-tab" onclick="switchOption('reportGroup', 1)">HR</button>
-  <button class="option-tab" onclick="switchOption('reportGroup', 2)">Marketing</button>
-  <button class="option-tab" onclick="switchOption('reportGroup', 3)">Executive</button>
-  <button class="option-tab" onclick="switchOption('reportGroup', 4)">Operations</button>
-</div>
-
-<div class="option-content active" id="reportGroup-option-0">
-<h4>Architecture: CA Submittal Review Memo</h4>
-<div class="note-box">
-  <div class="note-title">Your two files</div>
-  <ul style="margin-top:6px;">
-    <li><strong>Template source</strong> &mdash; a polished prior review memo. The agent studies this to learn the structure, tone, and how you cross-reference the contract documents. <br><a href="/mock-data/report-writer/architecture-template.pdf" download>Download: CA Submittal Review Memo &mdash; Exterior Glazing, 88 Richardson</a></li>
-    <li><strong>Raw material</strong> &mdash; an actual submittal package landed from a GC. The agent will turn this into a new review memo.<br><a href="/mock-data/report-writer/architecture-source.pdf" download>Download: Submittal &mdash; Structural Steel, 412 Nostrand (Falcone Ironworks)</a></li>
-  </ul>
-</div>
-
-<p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">architecture-template.pdf</span> and run:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze the attached memo and create a detailed system prompt for an AI agent that will generate new CA Submittal Review Memos in this exact format.
-
-The prompt should instruct the agent to:
-- Follow the same section headings, order, and tone as the example
-- Ask for the project name, submittal number, and spec section before writing
-- Review each submittal item against the referenced spec section and flag deviations
-- Issue one of four dispositions per item: "No Exception Taken", "Approved as Noted", "Revise and Resubmit", or "Rejected"
-- Leave a comment blank rather than invent a spec reference when none is provided
-- Keep the voice precise, technical, and contractor-facing</pre>
-</div>
-<p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
-
-<p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
-<ul>
-  <li><strong>Name:</strong> "CA Submittal Review Writer"</li>
-  <li><strong>Description:</strong> "Turns contractor submittal packages into a structured CA Submittal Review Memo."</li>
-  <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
-  <li><strong>Suggested prompts:</strong> "Review this submittal" / "Draft a review memo for this package"</li>
-</ul>
-
-<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">architecture-source.pdf</span> (the structural-steel submittal from Falcone) and run:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Draft a CA Submittal Review Memo for this package. Project is 412 Nostrand. Spec section 05 1200 applies. Flag the A913 Gr 65 substitution, the open RFIs (027 and 029) that this package may or may not address, and any coordination items with the rebar layout. If an item needs contractor clarification rather than a disposition, note it explicitly.</pre>
-</div>
-<p>The agent should produce a memo in the same shape as the template &mdash; identification table, executive summary, per-item review comments with a disposition, a cross-reference table against the CDs, and a distribution list.</p>
-
-<p><strong>Iterate.</strong> If the agent invents a spec reference or skips a coordination flag, add a rule to the Instructions ("Never cite a spec section unless it appears verbatim in the provided material"; "Always check every open RFI referenced in the transmittal"). Usually 2&ndash;3 rounds gets you to a reliable agent.</p>
-<p class="personalization-note">[PERSONALIZED: Swap in your firm's actual memo format, disposition language, and the specs you most often review against when you rebuild this at your desk.]</p>
-</div>
-
-<div class="option-content" id="reportGroup-option-1">
-<h4>HR: New Hire Onboarding Memo</h4>
-<div class="note-box">
-  <div class="note-title">Your two files</div>
-  <ul style="margin-top:6px;">
-    <li><strong>Template source</strong> &mdash; a polished prior onboarding memo for a senior architect hire. The agent studies this to learn the 30/60/90 structure and the level of detail expected. <br><a href="/mock-data/report-writer/hr-template.pdf" download>Download: Onboarding Memo &mdash; Priya Desai, Senior Project Architect</a></li>
-    <li><strong>Raw material</strong> &mdash; a hiring manager's intake form with the JD attached. The agent will turn this into a new onboarding memo.<br><a href="/mock-data/report-writer/hr-source.pdf" download>Download: Intake Form &mdash; Director of Sustainability &amp; Climate Strategy</a></li>
-  </ul>
-</div>
-
-<p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">hr-template.pdf</span> and run:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze the attached onboarding memo and create a detailed system prompt for an AI agent that will generate new New Hire Onboarding Memos in this exact format.
-
-The prompt should instruct the agent to:
-- Follow the same section order: Welcome Context, Week 1, 30-Day, 60-Day, 90-Day, Risk and Adjustment Triggers, Check-in Cadence
-- Ask for the new hire's name, role, start date, team, and hiring manager before writing
-- Calibrate the plan for the specific role level (junior / senior / director) rather than boilerplate
-- Leave sections blank rather than invent projects or check-in partners the source doesn't name
-- Keep the voice warm but professional, matching the example</pre>
-</div>
-<p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
-
-<p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
-<ul>
-  <li><strong>Name:</strong> "Onboarding Memo Writer"</li>
-  <li><strong>Description:</strong> "Turns hiring-manager intake forms into a structured New Hire Onboarding Memo."</li>
-  <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
-  <li><strong>Suggested prompts:</strong> "Draft an onboarding memo from this intake form" / "Start a new 30/60/90"</li>
-</ul>
-
-<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">hr-source.pdf</span> (the Director of Sustainability intake form) and run:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Draft a New Hire Onboarding Memo from this intake form. The hire is a Director-level role reporting to the Managing Director. Use the hiring manager's culture notes and onboarding-specific asks to calibrate the plan. If a section isn't covered in the intake, leave it blank rather than invent it.</pre>
-</div>
-<p>The agent should produce a memo with a Week 1 that reflects the hiring manager's named asks (Day-1 with the Principal, site walk in the first 10 days, designer-paired buddy), 30/60/90 plans anchored on the three named deliverables (embodied-carbon baseline, Wynwood climate review, position paper), and a check-in cadence.</p>
-
-<p><strong>Iterate.</strong> If the agent pads with generic milestones or adds a buddy the form didn't name, tighten the Instructions ("Only reference people, projects, and tools explicitly named in the intake form"). Usually 2&ndash;3 rounds gets it right.</p>
-<p class="personalization-note">[PERSONALIZED: Swap in your real onboarding cadence and the projects your new hires typically land into when you rebuild this at your desk.]</p>
-</div>
-
-<div class="option-content" id="reportGroup-option-2">
-<h4>Marketing: ODA Newsletter</h4>
-<div class="note-box">
-  <div class="note-title">Your two files</div>
-  <ul style="margin-top:6px;">
-    <li><strong>Template source</strong> &mdash; a polished prior newsletter issue. The agent studies this to learn the voice, section order, and imagery-caption convention. <br><a href="/mock-data/report-writer/marketing-template.pdf" download>Download: ODA Monthly &mdash; March 2026 (The Richardson Issue)</a></li>
-    <li><strong>Raw material</strong> &mdash; a raw project-activity log for the period. The agent will turn this into a newsletter.<br><a href="/mock-data/report-writer/marketing-source.pdf" download>Download: Project Activity Log &mdash; April 2026 (31 rows)</a></li>
-  </ul>
-</div>
-
-<p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">marketing-template.pdf</span> and run:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze the attached newsletter and create a detailed system prompt for an AI agent that will generate new monthly newsletter issues in this exact format.
-
-The prompt should instruct the agent to:
-- Follow the same section order: Lead Story, Studio Updates, Recent Press, Upcoming, Philosophy Note, Credits
-- Ask for the issue month and the lead-story project before writing
-- Select the lead story based on the biggest narrative milestone (completion, award, or pursuit win) &mdash; not on row count
-- Cite image references by filename in captions exactly as they appear in the log
-- Leave a section blank rather than invent press placements or upcoming events
-- Match the example's voice: confident, grounded, no marketing hype</pre>
-</div>
-<p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
-
-<p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
-<ul>
-  <li><strong>Name:</strong> "ODA Newsletter Writer"</li>
-  <li><strong>Description:</strong> "Turns a monthly project-activity log into a newsletter draft in ODA's voice."</li>
-  <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
-  <li><strong>Suggested prompts:</strong> "Draft this month's issue from the activity log" / "Pick the lead story and give me 3 options"</li>
-</ul>
-
-<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">marketing-source.pdf</span> (the April activity log) and run:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Draft the April 2026 newsletter issue from this activity log. The lead story should be the partner-approved Navy Yard direct-select (Apr 22) paired with the Queens City shortlist advance. If a section has nothing in the log to support it, leave it blank.</pre>
-</div>
-<p>The agent should produce a newsletter with a lead story anchored on the named milestone, studio updates drawn only from log rows, a Recent Press table that lists real rows (not invented placements), and image references copied from the log's filename column.</p>
-
-<p><strong>Iterate.</strong> If the agent writes press placements the log doesn't support, tighten the Instructions ("Never cite a press placement unless it has a row in the log with Category = Press"). Usually 2&ndash;3 rounds gets it right.</p>
-<p class="personalization-note">[PERSONALIZED: Swap in your real newsletter voice, section order, and imagery-caption convention when you rebuild this at your desk.]</p>
-</div>
-
-<div class="option-content" id="reportGroup-option-3">
-<h4>Executive: Travel Itinerary</h4>
-<div class="note-box">
-  <div class="note-title">Your two files</div>
-  <ul style="margin-top:6px;">
-    <li><strong>Template source</strong> &mdash; a polished prior travel itinerary. The agent studies this to learn the day-by-day structure, contacts table, and logistics section. <br><a href="/mock-data/report-writer/executive-template.pdf" download>Download: Travel Itinerary &mdash; Tel Aviv &amp; Jerusalem, Jan 2026</a></li>
-    <li><strong>Raw material</strong> &mdash; a raw booking bundle: flight confirmations, hotel confirmation, meeting RSVPs, attendee bios, and a to-do list. The agent will turn this into a full itinerary.<br><a href="/mock-data/report-writer/executive-source.pdf" download>Download: Trip Booking Bundle &mdash; London, May 2026</a></li>
-  </ul>
-</div>
-
-<p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">executive-template.pdf</span> and run:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze the attached itinerary and create a detailed system prompt for an AI agent that will generate new travel itineraries in this exact format.
-
-The prompt should instruct the agent to:
-- Follow the same section order: Trip Summary, Day-by-Day, Key Contacts Briefing, Emergency and Logistics
-- Ask for the traveler, destination, and dates before writing
-- Use the exact times, flight numbers, booking references, and addresses from the source material &mdash; do not paraphrase or round
-- Include a short context line for every named contact (role, relationship, LinkedIn if provided)
-- Leave a time block blank rather than invent a meeting
-- Match the example's voice: terse, logistical, assistant-to-principal</pre>
-</div>
-<p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
-
-<p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
-<ul>
-  <li><strong>Name:</strong> "Travel Itinerary Writer"</li>
-  <li><strong>Description:</strong> "Turns a booking bundle (flight and hotel confirmations, meetings, contacts) into a polished travel itinerary."</li>
-  <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
-  <li><strong>Suggested prompts:</strong> "Build the itinerary from these confirmations" / "Add a contact briefing for each meeting"</li>
-</ul>
-
-<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">executive-source.pdf</span> (the London bundle) and run:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Build a travel itinerary for the London trip, May 18-22, 2026. Pull flight and hotel details exactly as shown in the confirmations. Include the meeting-by-meeting briefing with LinkedIn context for each named attendee. Mirror the structure of the template.</pre>
-</div>
-<p>The agent should produce a full itinerary: trip summary, day-by-day (Mon travel, Tue prep, Wed Soames meeting, Thu RA talk, Fri WoI interview + return), a contacts table with context lines for each named attendee, and the logistics / emergency section.</p>
-
-<p><strong>Iterate.</strong> If the agent rounds a time, paraphrases an address, or invents a meeting from the to-do list, tighten the Instructions ("Only include confirmed meetings; items on the to-do list are NOT itinerary entries unless explicitly marked confirmed"). Usually 2&ndash;3 rounds gets it right.</p>
-<p class="personalization-note">[PERSONALIZED: Swap in your firm's itinerary template, logistics preferences, and contact-briefing style when you rebuild this at your desk.]</p>
-</div>
-
-<div class="option-content" id="reportGroup-option-4">
-<h4>Operations: Contract Review Memo</h4>
-<div class="note-box">
-  <div class="note-title">Your two files</div>
-  <ul style="margin-top:6px;">
-    <li><strong>Template source</strong> &mdash; a polished prior contract review memo. The agent studies this to learn how to flag scope, fee, liability, and insurance terms against ODA standard. <br><a href="/mock-data/report-writer/operations-template.pdf" download>Download: Contract Review Memo &mdash; 412 Nostrand Owner-Architect Agreement</a></li>
-    <li><strong>Raw material</strong> &mdash; a contract excerpt returned with client redlines. The agent will turn this into a review memo.<br><a href="/mock-data/report-writer/operations-source.pdf" download>Download: Wynwood Tower Fit-Out &mdash; Client Redlines (Round 1)</a></li>
-  </ul>
-</div>
-
-<p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">operations-template.pdf</span> and run:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Analyze the attached review memo and create a detailed system prompt for an AI agent that will generate new contract review memos in this exact format.
-
-The prompt should instruct the agent to:
-- Follow the same section order: Contract Identification, Executive Summary, Scope of Services Flags, Fee Structure Flags, Termination and Assignment Flags, Liability and Indemnification Flags, Insurance Compliance, Recommendation, Distribution
-- Ask for the contract instrument, client entity, and project before writing
-- For each flagged clause: name the section, state the proposed language, compare against ODA standard, and issue one of three dispositions: "Acceptable", "Resolve via counter-redline", or "Escalate to partners"
-- Never declare a term acceptable without citing what ODA standard is
-- Keep the voice precise, legal, and recommendation-oriented</pre>
-</div>
-<p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
-
-<p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
-<ul>
-  <li><strong>Name:</strong> "Contract Review Writer"</li>
-  <li><strong>Description:</strong> "Turns a contract redline or excerpt into a structured Contract Review Memo flagging deviations from ODA standard."</li>
-  <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
-  <li><strong>Suggested prompts:</strong> "Review this redline against our standard" / "Draft the review memo"</li>
-</ul>
-
-<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">operations-source.pdf</span> (the Wynwood client redlines) and run:</p>
-<div class="code-block">
-  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Draft a Contract Review Memo for these redlines. This is a Round 1 return from Wynwood Tower's Restaurant and Lobby Fit-Out. Flag every deviation from ODA standard, especially the schedule compression, the liability cap reduction to $300K, the 10-day termination notice, and the broadened indemnification.</pre>
-</div>
-<p>The agent should produce a memo with a clause-by-clause flag list, each item dispositioned (Acceptable / Counter / Escalate), an insurance-compliance check, and a clear final recommendation on whether this contract is signable, counter-redline-able, or needs partner escalation.</p>
-
-<p><strong>Iterate.</strong> If the agent declares a term "acceptable" without stating what ODA standard is, or misses a material flag, tighten the Instructions ("Every flag must include both the proposed language AND the ODA-standard language for comparison"). Usually 2&ndash;3 rounds gets it right.</p>
-<p class="personalization-note">[PERSONALIZED: Swap in your firm's standard terms, escalation thresholds, and insurance floors when you rebuild this at your desk.]</p>
-</div>
-
-<h4>Reflective Check</h4>
-<p>Look at the agent's output next to the template. Same structure? Same tone? Are there sections where the agent invented numbers, or sections where it correctly left gaps? Every invented number is a rule to add to the Instructions. Every correctly-left gap is a win.</p>
-</div>
     `,
     advanced: `
 <h3>Agent Chaining Workflow</h3>
 <p>Your agent generates content, but you can chain it with other tools for a full workflow:</p>
 <ol>
-  <li><strong>Your agent</strong> (Write Like Me or Report Writer) generates the raw content</li>
+  <li>Your <strong>Write Like Me</strong> agent generates the raw content</li>
   <li>Open the output in <strong>Word</strong> &rarr; use "Edit with Copilot" to format it into your branded template</li>
   <li>Open <strong>PowerPoint</strong> &rarr; use Copilot to create a presentation deck from the Word document</li>
 </ol>
@@ -833,7 +580,7 @@ The prompt should instruct the agent to:
 <p><em>Take the agent you built in Lesson 2 and put it through a quick iteration loop. Two real tests is enough to surface most issues &mdash; the goal is to notice what's off and tighten the system prompt, not fill out a spreadsheet.</em></p>
 
 <h4>Step 1: Run 2 real tests</h4>
-<p>Use genuinely different inputs &mdash; not two variations of the same thing. For a Write Like Me agent, try one easy email (a quick follow-up) and one harder one (a difficult conversation or a delicate decline). For a Report Writer, try two different datasets or time periods.</p>
+<p>Use genuinely different inputs &mdash; not two variations of the same thing. Try one easy email (a quick follow-up) and one harder one (a difficult conversation or a delicate decline). The easy one shows whether the voice is right; the harder one shows whether the agent knows when to break its own pattern.</p>
 
 <h4>Step 2: Note what's off</h4>
 <p>Read the outputs. Don't grade everything &mdash; just notice anything that would make you reject the draft. Common issues: wrong tone, missing sections, overused filler phrases, too long, too short.</p>
