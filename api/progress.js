@@ -11,6 +11,31 @@ export default async function handler(req, res) {
     const isAdmin = verifyAdmin(req);
     if (!user && !isAdmin) return res.status(401).json({ error: 'Authentication required' });
 
+    // Per-user mode: `?me=true` returns the logged-in user's own progress
+    // record plus the workshop's current `resetAt` timestamp (if any).
+    // Clients use this to decide whether their localStorage is stale --
+    // if server.resetAt is newer than the client's last-sync timestamp,
+    // the client clears local cache instead of re-uploading it.
+    const wantMe = req.query.me === 'true' || req.query.me === '1';
+    if (wantMe) {
+      if (!user) return res.status(200).json({ myProgress: null, resetAt: null });
+      const slug = user.slug || '';
+      const prefix = slug ? `client:${slug}:` : 'workshop:';
+      const userKey = user.uid ? `${user.name}::${user.uid}` : user.name;
+      try {
+        const [raw, resetAtRaw] = await Promise.all([
+          r.get(`${prefix}progress:${userKey}`),
+          r.get(`${prefix}resetAt`),
+        ]);
+        let myProgress = null;
+        if (raw) { try { myProgress = JSON.parse(raw); } catch { myProgress = null; } }
+        const resetAt = resetAtRaw ? Number(resetAtRaw) : null;
+        return res.status(200).json({ myProgress, resetAt });
+      } catch (e) {
+        return res.status(500).json({ error: 'Redis error', detail: e.message });
+      }
+    }
+
     // Aggregate mode: `?all=1` returns participants from the default workshop
     // AND every client workshop, merged and sorted by points. Used by the
     // public leaderboard when no specific workshop is selected.

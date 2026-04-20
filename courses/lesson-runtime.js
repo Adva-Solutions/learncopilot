@@ -322,13 +322,27 @@ async function flush() {
 async function loadServerProgress() {
   try {
     const r = await fetch('/api/progress?me=true', { credentials: 'include' });
-    if (!r.ok) return { completed: [] };
+    if (!r.ok) return { completed: [], resetAt: null, hasRecord: false };
     const data = await r.json();
-    const mine = (data && data.myProgress && data.myProgress[state.progressCategory]) || {};
-    return { completed: Array.isArray(mine.completed) ? mine.completed : [] };
+    const hasRecord = !!(data && data.myProgress);
+    const mine = (hasRecord && data.myProgress[state.progressCategory]) || {};
+    const resetAt = (data && typeof data.resetAt === 'number') ? data.resetAt : null;
+    return {
+      completed: Array.isArray(mine.completed) ? mine.completed : [],
+      resetAt,
+      hasRecord,
+    };
   } catch (_) {
-    return { completed: [] };
+    return { completed: [], resetAt: null, hasRecord: false };
   }
+}
+
+function readLocalResetAt(courseId) {
+  try { return Number(localStorage.getItem('resetAt:' + courseId)) || 0; }
+  catch (_) { return 0; }
+}
+function writeLocalResetAt(courseId, value) {
+  try { localStorage.setItem('resetAt:' + courseId, String(value)); } catch (_) {}
 }
 
 function readLocalCompleted(courseId) {
@@ -388,15 +402,35 @@ async function initCourse({ courseId, progressCategory, lessons, coreCount, rend
 
   // Slow path — reconcile with server progress and repaint nav if needed.
   const server = await loadServerProgress();
-  const mig = window.LessonRuntime.computeLocalStorageMigration({
-    localCompleted: local, serverCompleted: server.completed, lessons,
-  });
-  for (const i of server.completed) state.completed.add(i);
-  if (mig.shouldWrite) {
-    for (const i of mig.mergedCompleted) state.completed.add(i);
+
+  // Reset-epoch check. If the workshop has been reset since the last time
+  // we synced (or we have no record of syncing), treat local as stale:
+  // wipe the in-memory state, clear localStorage, and use only server data.
+  // This is what makes admin "Reset" actually stick — otherwise an active
+  // student would re-upload their cached completions seconds later.
+  const localResetAt = readLocalResetAt(courseId);
+  const serverResetAt = server.resetAt || 0;
+  const resetHappenedAfterLastSync = serverResetAt > 0 && serverResetAt > localResetAt;
+
+  if (resetHappenedAfterLastSync) {
+    state.completed.clear();
+    clearLocalCompleted(courseId);
+    for (const i of server.completed) state.completed.add(i);
+    writeLocalResetAt(courseId, serverResetAt);
     scheduleFlush();
+  } else {
+    const mig = window.LessonRuntime.computeLocalStorageMigration({
+      localCompleted: local, serverCompleted: server.completed, lessons,
+    });
+    for (const i of server.completed) state.completed.add(i);
+    if (mig.shouldWrite) {
+      for (const i of mig.mergedCompleted) state.completed.add(i);
+      scheduleFlush();
+    }
+    if (mig.shouldClearLocal) clearLocalCompleted(courseId);
+    if (serverResetAt > 0) writeLocalResetAt(courseId, serverResetAt);
   }
-  if (mig.shouldClearLocal) clearLocalCompleted(courseId);
+
   repaintNav();
   dispatchChange();
 }
