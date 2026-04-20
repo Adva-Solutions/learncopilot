@@ -27,15 +27,20 @@ export default async function handler(req, res) {
       const participants = [];
       for (const key of userKeys) {
         const praw = await r.get(`client:${slug}:progress:${key}`);
+        let participant;
         if (praw) {
-          try { participants.push(JSON.parse(praw)); } catch { /* skip corrupted */ }
+          try { participant = JSON.parse(praw); } catch { continue; }
         } else {
           // User in set but no progress record yet — surface them anyway
           // so a freshly-enrolled or post-delete-record participant still shows.
           const sep = key.indexOf('::');
           const name = sep >= 0 ? key.substring(0, sep) : key;
-          participants.push({ name, totalPoints: 0 });
+          participant = { name, totalPoints: 0 };
         }
+        // Preserve the Redis set member key so admin UI can target individual
+        // deletes via /api/admin/user?slug=X&key=<userKey>.
+        participant.userKey = key;
+        participants.push(participant);
       }
       const persRaw = await r.get(`client:${slug}:personalization`);
       const personalization = persRaw ? JSON.parse(persRaw) : null;
