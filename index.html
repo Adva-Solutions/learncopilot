@@ -455,6 +455,34 @@ function updateDashboardProgress() {
 
 updateDashboardProgress();
 
+/* Reset-epoch reconcile — if admin reset this workshop since our last sync,
+   wipe cached completion/exercise-check state so the dashboard stops showing
+   old progress. Fast path already painted from localStorage; this repaints
+   once we know the server's resetAt. Course pages do the same via
+   lesson-runtime.js, but the dashboard has no course runtime attached. */
+(async function reconcileResetAt() {
+  try {
+    const r = await fetch('/api/progress?me=true', { credentials: 'include' });
+    if (!r.ok) return;
+    const data = await r.json();
+    const serverResetAt = Number(data && data.resetAt) || 0;
+    if (!serverResetAt) return;
+    const localResetAt = Number(localStorage.getItem('resetAt:dashboard')) || 0;
+    if (serverResetAt > localResetAt) {
+      localStorage.removeItem('chat-completed-v2');
+      localStorage.removeItem('apps-completed');
+      localStorage.removeItem('agents-completed');
+      localStorage.removeItem('chat-exercise-checks');
+      localStorage.removeItem('apps-exercise-checks');
+      localStorage.removeItem('agents-exercise-checks');
+      localStorage.setItem('resetAt:dashboard', String(serverResetAt));
+      updateDashboardProgress();
+    } else {
+      localStorage.setItem('resetAt:dashboard', String(serverResetAt));
+    }
+  } catch (_) { /* offline — leave local data alone */ }
+})();
+
 /* Auth check — redirect to login only on explicit 401.
    Other non-ok statuses (500 on config errors, 404 on static dev servers,
    network failures) must NOT bounce the student to login. */
