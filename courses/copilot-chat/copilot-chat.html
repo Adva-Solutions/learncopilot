@@ -319,27 +319,17 @@ body {
 .code-block {
   position: relative;
   background: var(--code-bg);
-  /* Fallback text color on the container. The original hand-authored prompts
-     always wrap content in a <code> child (which .code-block code styles
-     below), but LLM-generated lesson overrides sometimes emit bare text
-     directly inside .code-block — without this rule that text inherits the
-     page's dark body color on a dark background and becomes invisible. */
-  color: #d4d4d4;
-  font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
-  font-size: 13px;
-  line-height: 1.6;
-  white-space: pre-wrap;
   border-radius: var(--radius);
   padding: 18px 90px 18px 20px;
   margin: 14px 0 18px;
   overflow-x: auto;
 }
 .code-block code {
-  color: inherit;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  white-space: inherit;
+  color: #d4d4d4;
+  font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
 }
 .copy-btn {
   position: absolute;

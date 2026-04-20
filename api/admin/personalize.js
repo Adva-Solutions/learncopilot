@@ -177,7 +177,7 @@ Generate a JSON object:
 
 RULES:
 - Override "implement" tab for Chat lessons 1-5, Apps lessons 0-4, and Agents lessons 1-5 (0-indexed).
-- HTML format: <h3> headings, <p> paragraphs, <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>prompt here</code></div> for prompts. ALWAYS wrap the prompt text in an inner <code> tag so it inherits the monospace-light code styling across every course page.
+- HTML format: <h3> headings, <p> paragraphs, <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>prompt here</div> for prompts.
 - Tips: <div class="tip-box"><div class="tip-title">Pro Tip</div><p>text</p></div>
 - Notes: <div class="note-box"><div class="note-title">Note</div><p>text</p></div>
 - End each override with: <button class="mark-complete-btn" id="complete-btn-{index}" onclick="markComplete({index})">Mark Complete</button>
