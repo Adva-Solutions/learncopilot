@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { getRedis } from './lib/redis.js';
 
 function getSecret() {
   const s = process.env.SESSION_SECRET;
@@ -27,7 +28,7 @@ function verifySig(data, sig) {
 
 export function createToken(name, slug, uid) {
   const id = uid || crypto.randomBytes(4).toString('hex');
-  const payload = JSON.stringify({ n: name, s: slug || '', u: id });
+  const payload = JSON.stringify({ n: name, s: slug || '', u: id, t: Date.now() });
   return `${Buffer.from(payload).toString('base64')}.${sign(payload)}`;
 }
 
@@ -38,10 +39,10 @@ function verify(token) {
   if (!verifySig(payload, sig)) return null;
   try {
     const data = JSON.parse(payload);
-    return { name: data.n, slug: data.s || null, uid: data.u || null };
+    return { name: data.n, slug: data.s || null, uid: data.u || null, iat: Number(data.t) || 0 };
   } catch {
     const [name, slug] = payload.split('|');
-    return { name, slug: slug || null };
+    return { name, slug: slug || null, iat: 0 };
   }
 }
 
@@ -52,8 +53,38 @@ export function getUser(req) {
   return verify(decodeURIComponent(match[1]));
 }
 
+// If the workshop has been reset after this session was issued, return the
+// server-side resetAt so callers can treat the session as logged out.
+// A session with no `iat` (pre-iat deploy) is stale as soon as the workshop
+// has ever been reset. Fail-open on Redis error so a transient outage doesn't
+// sign every participant out.
+export async function getStaleReset(user) {
+  if (!user) return 0;
+  try {
+    const r = getRedis();
+    const prefix = user.slug ? `client:${user.slug}:` : 'workshop:';
+    const raw = await r.get(`${prefix}resetAt`);
+    const resetAt = raw ? Number(raw) : 0;
+    if (!resetAt) return 0;
+    const iat = Number(user.iat) || 0;
+    return iat < resetAt ? resetAt : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function clearSessionCookie(req, res) {
+  const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
+  res.setHeader('Set-Cookie', `workshop_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${secure}`);
+}
+
 export default async function handler(req, res) {
   const user = getUser(req);
   if (!user) return res.status(401).json({ error: 'Not logged in' });
+  const staleReset = await getStaleReset(user);
+  if (staleReset) {
+    clearSessionCookie(req, res);
+    return res.status(401).json({ error: 'Session invalidated by workshop reset', reset: true, resetAt: staleReset });
+  }
   return res.status(200).json(user);
 }

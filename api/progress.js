@@ -1,5 +1,5 @@
 import { getRedis } from './lib/redis.js';
-import { getUser } from './me.js';
+import { getUser, getStaleReset } from './me.js';
 import { verifyAdmin } from './admin/auth.js';
 import { checkOrigin } from './lib/csrf.js';
 
@@ -80,6 +80,15 @@ export default async function handler(req, res) {
     }
     const user = getUser(req);
     if (!user) return res.status(401).json({ error: 'Not logged in' });
+
+    // Reject writes from sessions that predate an admin reset so an active
+    // student can't silently repopulate the zeroed leaderboard from a stale tab.
+    const staleReset = await getStaleReset(user);
+    if (staleReset) {
+      const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
+      res.setHeader('Set-Cookie', `workshop_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${secure}`);
+      return res.status(401).json({ error: 'Session invalidated by workshop reset', reset: true, resetAt: staleReset });
+    }
 
     const slug = user.slug || '';
     const prefix = slug ? `client:${slug}:` : 'workshop:';

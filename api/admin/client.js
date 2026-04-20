@@ -23,10 +23,23 @@ export default async function handler(req, res) {
       const raw = await r.get(`client:${slug}`);
       if (!raw) return res.status(404).json({ error: 'Workshop not found' });
       const client = JSON.parse(raw);
-      const userCount = await r.scard(`client:${slug}:users`);
+      const userKeys = await r.smembers(`client:${slug}:users`);
+      const participants = [];
+      for (const key of userKeys) {
+        const praw = await r.get(`client:${slug}:progress:${key}`);
+        if (praw) {
+          try { participants.push(JSON.parse(praw)); } catch { /* skip corrupted */ }
+        } else {
+          // User in set but no progress record yet — surface them anyway
+          // so a freshly-enrolled or post-delete-record participant still shows.
+          const sep = key.indexOf('::');
+          const name = sep >= 0 ? key.substring(0, sep) : key;
+          participants.push({ name, totalPoints: 0 });
+        }
+      }
       const persRaw = await r.get(`client:${slug}:personalization`);
       const personalization = persRaw ? JSON.parse(persRaw) : null;
-      return res.status(200).json({ ...client, slug, participantCount: userCount, personalization });
+      return res.status(200).json({ ...client, slug, participantCount: userKeys.length, participants, personalization });
     } catch (e) {
       return res.status(500).json({ error: 'Redis error', detail: e.message });
     }

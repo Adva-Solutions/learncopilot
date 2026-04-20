@@ -485,13 +485,19 @@ updateDashboardProgress();
 
 /* Auth check — redirect to login only on explicit 401.
    Other non-ok statuses (500 on config errors, 404 on static dev servers,
-   network failures) must NOT bounce the student to login. */
+   network failures) must NOT bounce the student to login.
+   Polled on an interval so that admin Reset Progress (which invalidates
+   pre-reset sessions server-side) kicks active tabs within ~20s, not only
+   on manual refresh. */
+function redirectToLogin() {
+  const s = new URLSearchParams(location.search).get('slug');
+  window.location.href = s ? '/login.html?slug=' + encodeURIComponent(s) : '/login.html';
+}
+setInterval(() => {
+  fetch('/api/me').then(r => { if (r.status === 401) redirectToLogin(); }).catch(() => {});
+}, 20000);
 fetch('/api/me').then(async r => {
-  if (r.status === 401) {
-    const s = new URLSearchParams(location.search).get('slug');
-    window.location.href = s ? '/login.html?slug=' + encodeURIComponent(s) : '/login.html';
-    return;
-  }
+  if (r.status === 401) { redirectToLogin(); return; }
   if (r.ok) {
     // Check if an opportunity map exists for this workshop
     try {
