@@ -114,8 +114,32 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
   background: #fffdf4; border: 1px solid #f0e2b8; border-left: 3px solid #c5973e;
   border-radius: 0 8px 8px 0; padding: 12px 14px; margin-bottom: 10px;
 }
+.agent-card.t-notebook { border-left-color: #217346; background: #f4f9f5; border-color: #c8e0cf; }
+.agent-card.t-page     { border-left-color: #0078d4; background: #f3f8fd; border-color: #c5ddef; }
+.agent-card.t-app      { border-left-color: #7b5ea7; background: #f7f4fb; border-color: #d5c7e6; }
+.agent-card.t-custom   { border-left-color: #b04a2e; background: #fdf4f1; border-color: #e8c4b7; }
+.agent-card.t-instr    { border-left-color: #5a5a6e; background: #f6f6f8; border-color: #dcdce0; }
 .agent-name { font-weight: 700; font-size: 14px; color: #0c1f3f; margin-bottom: 3px; }
+.agent-type {
+  display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 10px;
+  margin-left: 6px; vertical-align: middle;
+}
+.agent-type.t-agent    { background: #c5973e; color: #fff; }
+.agent-type.t-notebook { background: #217346; color: #fff; }
+.agent-type.t-page     { background: #0078d4; color: #fff; }
+.agent-type.t-app      { background: #7b5ea7; color: #fff; }
+.agent-type.t-custom   { background: #b04a2e; color: #fff; }
+.agent-type.t-instr    { background: #5a5a6e; color: #fff; }
 .agent-desc { font-size: 13px; color: #5a5a6e; line-height: 1.5; }
+
+.solution-legend {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: -4px 0 14px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+}
+.solution-legend span {
+  padding: 3px 8px; border-radius: 10px; color: #fff;
+}
 
 .footer-note {
   margin-top: 40px; padding: 20px 24px; background: #0c1f3f; color: rgba(255,255,255,0.8);
@@ -127,13 +151,13 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
 <body>
 
 <div class="kicker">Agent Opportunity Analysis</div>
-<h1>Where agents earn their keep at ODA</h1>
-<p class="sub">Based on a synthesis of AI surveys and in-person meetings and interviews — grouped into per-department pain themes and the agents that directly address them.</p>
+<h1>Where Copilot earns its keep at ODA</h1>
+<p class="sub">Based on a synthesis of AI surveys and in-person meetings and interviews — grouped into per-department pain themes and the Copilot surfaces that directly address them.</p>
 
 <div class="methodology">
   <div><strong>Method.</strong> Responses from ODA staff across all five departments, complemented by in-person conversations with firm leadership.</div>
   <div><strong>Scope.</strong> Every-day admin workflows and recurring deliverables, with an eye to where AI would meaningfully compress time or improve consistency.</div>
-  <div><strong>Agent mapping.</strong> Each department's challenges paired with the agents that most directly address them.</div>
+  <div><strong>Solution mapping.</strong> Each department's challenges paired with the right Copilot surface — Notebook, Page, Copilot-in-App, Custom Agent, Custom Instructions, or Custom Development — depending on the shape of the task.</div>
 </div>
 
 <!-- CHART: department × pain theme heatmap -->
@@ -206,6 +230,21 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
 </div>
 
 
+<!-- SOLUTION-TYPE LEGEND -->
+<div style="background:#fff; border:1px solid #ddd8ce; border-radius:14px; padding:18px 24px; margin-bottom:28px;">
+  <div style="font-family:'Cormorant Garamond', Georgia, serif; font-size:18px; font-weight:700; color:#0c1f3f; margin-bottom:8px;">How to read the right-hand columns</div>
+  <div style="font-size:13px; color:#5a5a6e; margin-bottom:12px;">Each challenge is paired with the Copilot surface most suited to solving it. The right tool depends on the shape of the pain — not every problem wants to be an agent.</div>
+  <div class="solution-legend">
+    <span style="background:#c5973e;">Custom Agent</span>
+    <span style="background:#217346;">Notebook</span>
+    <span style="background:#0078d4;">Page</span>
+    <span style="background:#7b5ea7;">Copilot in App</span>
+    <span style="background:#5a5a6e;">Custom Instructions</span>
+    <span style="background:#b04a2e;">Custom Development</span>
+  </div>
+</div>
+
+
 <!-- ARCHITECTURE -->
 <div class="dept">
   <div class="dept-header">
@@ -245,26 +284,31 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
     </div>
 
     <div>
-      <div class="col-title">Agents that address these</div>
+      <div class="col-title">Copilot solutions</div>
 
-      <div class="agent-card">
-        <div class="agent-name">Code &amp; Zoning Compliance Checker</div>
-        <div class="agent-desc">Reference-loaded with NYC zoning + FHA codes + ODA standard details. Upload a drawing or sketch and it flags the compliance questions a PA would otherwise chase manually.</div>
+      <div class="agent-card t-notebook">
+        <div class="agent-name">Submittal Spec Notebook <span class="agent-type t-notebook">Notebook</span></div>
+        <div class="agent-desc">Project spec sections loaded as Notebook knowledge. Drop in a submittal package and ask "does this cover every attribute required by spec 08 4413?" — Copilot answers with section-by-section citations. Solves the cross-referencing pain directly without building anything custom.</div>
       </div>
 
-      <div class="agent-card">
-        <div class="agent-name">ODA Server Librarian (precedent RAG)</div>
-        <div class="agent-desc">Custom retrieval over the shared server's historical files: "show me every time we used Hammer Bronze on a lobby floor" returns the project, the detail, the photos. Solves the findability pain named across roles.</div>
+      <div class="agent-card t-notebook">
+        <div class="agent-name">Code &amp; Zoning Notebook <span class="agent-type t-notebook">Notebook</span></div>
+        <div class="agent-desc">NYC zoning, NYC building code, FHA, and ODA's standard detail library loaded once. Any PA asks questions like "what's the required egress width for this occupancy?" and gets grounded answers with citations — the blocker named across multiple team leaders.</div>
       </div>
 
-      <div class="agent-card">
-        <div class="agent-name">Drawing Version Diff Agent</div>
-        <div class="agent-desc">Takes two versions of a CD set, produces an annotated diff by discipline — what moved, what was added, what got removed. Cuts the markup-comparison workflow dramatically.</div>
+      <div class="agent-card t-custom">
+        <div class="agent-name">Precedent Library (indexed server) <span class="agent-type t-custom">Custom Development</span></div>
+        <div class="agent-desc">The marketing+project server is far too large for a Notebook. A custom-built indexed retrieval layer (embeddings over files, metadata by project/material/typology) lets any staffer ask "show me every Hammer Bronze lobby floor we've done" — answered in seconds instead of ten minutes per folder crawl.</div>
       </div>
 
-      <div class="agent-card">
-        <div class="agent-name">Inbox Archivist</div>
-        <div class="agent-desc">Runs nightly against Outlook: categorizes email threads by project + topic, files attachments to the project folder, surfaces stale action items. Addresses the top Project-Director pain.</div>
+      <div class="agent-card t-app">
+        <div class="agent-name">Inbox Archivist <span class="agent-type t-app">Copilot in Outlook</span> <span class="agent-type t-instr">Custom Instructions</span></div>
+        <div class="agent-desc">Native Copilot in Outlook handles categorization, thread summary, and attachment filing. A set of ODA-specific Custom Instructions (project-code patterns, consultant names, archive rules) makes the categorization fit the firm's actual folder structure.</div>
+      </div>
+
+      <div class="agent-card t-custom">
+        <div class="agent-name">Drawing Version Diff <span class="agent-type t-custom">Custom Development</span></div>
+        <div class="agent-desc">A CD-set diff tool integrated with Bluebeam — needs custom work because visual-diff over drawings isn't a native Copilot capability. Copilot can then interpret and narrate the diff by discipline, surfacing the non-trivial changes.</div>
       </div>
     </div>
   </div>
@@ -298,16 +342,21 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
     </div>
 
     <div>
-      <div class="col-title">Agents that address these</div>
+      <div class="col-title">Copilot solutions</div>
 
-      <div class="agent-card">
-        <div class="agent-name">Interview Scheduling Assistant</div>
-        <div class="agent-desc">Reads candidate email threads + checks internal Outlook availability, drafts time-slot proposals in HR's voice. Attacks the specific back-and-forth named as #1 tedious.</div>
+      <div class="agent-card t-app">
+        <div class="agent-name">Interview Scheduling <span class="agent-type t-app">Copilot in Outlook</span></div>
+        <div class="agent-desc">Native Copilot in Outlook reads the candidate thread, checks internal availability across the interview panel, and drafts the proposal email in HR's voice. The #1 tedious workflow collapses into one review step.</div>
       </div>
 
-      <div class="agent-card">
-        <div class="agent-name">Policy Comms Drafter</div>
-        <div class="agent-desc">Turns a policy update (parental leave extension; benefits survey results) into the firm-wide employee-facing memo, in ODA's HR voice.</div>
+      <div class="agent-card t-notebook">
+        <div class="agent-name">Benefits &amp; Policies Notebook <span class="agent-type t-notebook">Notebook</span></div>
+        <div class="agent-desc">Full policy corpus loaded once — handbook, benefits guides, compliance docs, leave policies. Managers self-serve the routine "what's our parental leave policy?" questions instead of routing them to HR, while HR retains control over sensitive casework.</div>
+      </div>
+
+      <div class="agent-card t-page">
+        <div class="agent-name">Policy Comms Drafter <span class="agent-type t-page">Page</span></div>
+        <div class="agent-desc">Pages are the right fit for co-authored memos that go firm-wide: HR drafts, a partner reviews inline, People Team finalizes, one link distributes. Turns a policy change into a clean employee-facing announcement in one collaborative flow.</div>
       </div>
     </div>
   </div>
@@ -345,21 +394,26 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
     </div>
 
     <div>
-      <div class="col-title">Agents that address these</div>
+      <div class="col-title">Copilot solutions</div>
 
-      <div class="agent-card">
-        <div class="agent-name">Marketing Server Librarian</div>
-        <div class="agent-desc">Custom RAG over the marketing server. "Find the lobby renders for Wynwood from 2024" returns the files with paths. Dissolves the 10-minute-per-search barrier the Manager named.</div>
+      <div class="agent-card t-custom">
+        <div class="agent-name">Indexed Image &amp; Asset Library <span class="agent-type t-custom">Custom Development</span></div>
+        <div class="agent-desc">The named pain — thousands of files with no structure — cannot be solved by any Copilot surface alone. Requires building an indexed database (on top of OpenAsset, as proposed) with embeddings over image metadata and project context. Once indexed, Copilot becomes the conversational front door: "find all the lobby renders for Wynwood from 2024" in seconds.</div>
+      </div>
+
+      <div class="agent-card t-notebook">
+        <div class="agent-name">Voice &amp; Style Notebook <span class="agent-type t-notebook">Notebook</span></div>
+        <div class="agent-desc">Past approved press releases, AIA jury submissions, newsletter archives, and the firm's core brand-voice guidelines loaded together. Any staffer writing external-facing copy works from this — consistency without a bottleneck through the Marketing Manager.</div>
+      </div>
+
+      <div class="agent-card t-page">
+        <div class="agent-name">Press-Release Drafter <span class="agent-type t-page">Page</span></div>
+        <div class="agent-desc">Milestone (TCO, award, ribbon-cutting) → a Copilot Page where Marketing drafts, a Principal reviews, PR agency adds their edits, all in one link. Faster than email back-and-forth and leaves an audit trail.</div>
       </div>
 
       <div class="agent-card">
-        <div class="agent-name">PR Coordination Assistant</div>
-        <div class="agent-desc">Parses the weekly flow of PR-agency emails, extracts deliverables + deadlines + requests, publishes a rolling task list. Cuts the "constant back-and-forth" into a daily digest.</div>
-      </div>
-
-      <div class="agent-card">
-        <div class="agent-name">Press-Release Drafter</div>
-        <div class="agent-desc">Project milestone (TCO, award, ribbon-cutting) → press-ready announcement draft, matched to Architectural Record / Dezeen / Metropolis editorial tone as needed.</div>
+        <div class="agent-name">PR Coordination Digest <span class="agent-type t-agent">Custom Agent</span></div>
+        <div class="agent-desc">Parses the weekly flow of PR-agency emails, extracts deliverables + deadlines + requests, publishes a rolling task list. An agent (not a Notebook) because the task is inbox-parsing, not knowledge-grounded answering.</div>
       </div>
     </div>
   </div>
@@ -401,21 +455,36 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
     </div>
 
     <div>
-      <div class="col-title">Agents that address these</div>
+      <div class="col-title">Copilot solutions</div>
 
-      <div class="agent-card">
-        <div class="agent-name">Proposal Fee Generator</div>
-        <div class="agent-desc">Size + program + typology → three fee options (percentage-of-construction, time-and-resources, fixed-fee) with comparisons to historical ODA contracts. Answers the intro-call ask directly.</div>
+      <div class="agent-card t-notebook">
+        <div class="agent-name">Firm Voice Notebook <span class="agent-type t-notebook">Notebook</span></div>
+        <div class="agent-desc">Past interviews, podcast transcripts, published essays, and hero project-descriptions loaded as grounded knowledge. When the Principal — or any designer — writes about-us copy, jury submissions, or interview answers, the Notebook keeps the firm's voice consistent without a manual rewrite.</div>
+      </div>
+
+      <div class="agent-card t-app">
+        <div class="agent-name">Inbox Triage <span class="agent-type t-app">Copilot in Outlook</span> <span class="agent-type t-instr">Custom Instructions</span></div>
+        <div class="agent-desc">Native Outlook Copilot handles draft + summarize + prioritize. Custom Instructions tuned to each Principal's voice ("no long dashes," specific sign-offs, preferred formality) turn the drafts into something actually sendable without manual rewrite.</div>
+      </div>
+
+      <div class="agent-card t-app">
+        <div class="agent-name">Proposal Fee Model <span class="agent-type t-app">Copilot in Excel</span> <span class="agent-type t-notebook">+ Notebook</span></div>
+        <div class="agent-desc">Excel's native Copilot drives the model (size + program + typology → fee options). A paired methodology Notebook holds the three pricing frameworks and historical contract benchmarks so the model stays grounded in how ODA actually prices.</div>
+      </div>
+
+      <div class="agent-card t-app">
+        <div class="agent-name">Staffing &amp; Schedule <span class="agent-type t-app">Copilot in Excel</span></div>
+        <div class="agent-desc">The Principal's Excel staffing sheet is the right surface — Copilot in Excel analyzes allocation per studio, flags over/under, and proposes re-balancing inline. No need to rebuild into a new tool; just bring AI to the existing workflow.</div>
       </div>
 
       <div class="agent-card">
-        <div class="agent-name">Staffing &amp; Schedule Builder</div>
-        <div class="agent-desc">Reads the project portfolio's Excel staffing sheet, flags over- and under-allocation by studio, proposes re-balancing. Closes the gap the Principal named between his manual tracking and what he wants.</div>
+        <div class="agent-name">Weekly Proposals-Sent Briefing <span class="agent-type t-agent">Custom Agent</span></div>
+        <div class="agent-desc">Every Monday: a one-page digest of proposals sent last week — client, typology, fee, status. Named as a Principal-morning ritual worth automating; an agent (not a Notebook) because the task is aggregation + structured output.</div>
       </div>
 
       <div class="agent-card">
-        <div class="agent-name">Weekly Proposals-Sent Briefing</div>
-        <div class="agent-desc">Every Monday: a one-page digest of proposals sent last week — client, typology, fee, status. Named by the Principal as a morning ritual he'd like automated.</div>
+        <div class="agent-name">Travel Itinerary Writer <span class="agent-type t-agent">Custom Agent</span></div>
+        <div class="agent-desc">Forwarded booking confirmations + meeting RSVPs + attendee LinkedIns → polished 10–20-page itinerary. The 5–10-hour EA task collapses into a review pass.</div>
       </div>
     </div>
   </div>
@@ -453,21 +522,31 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
     </div>
 
     <div>
-      <div class="col-title">Agents that address these</div>
+      <div class="col-title">Copilot solutions</div>
 
-      <div class="agent-card">
-        <div class="agent-name">Invoice Builder</div>
-        <div class="agent-desc">Given the signed contract + phase-progress input, generates the month's invoice with correct reimbursables and flags duplicate-payment risks before it goes out.</div>
+      <div class="agent-card t-notebook">
+        <div class="agent-name">Contract Terms Notebook <span class="agent-type t-notebook">Notebook</span></div>
+        <div class="agent-desc">ODA standard contract terms, past approved redlines, insurance requirements, and precedent memos loaded together. Before counter-redlining, ask "what's our standard indemnification language?" and get a grounded answer. Dissolves the looking-it-up time that slows every review.</div>
       </div>
 
       <div class="agent-card">
-        <div class="agent-name">Reconciliation Helper</div>
-        <div class="agent-desc">Takes a QuickBooks export + the Excel reconciliation sheet, identifies vendor mismatches and posting-order variances, proposes the adjusting entries.</div>
+        <div class="agent-name">Contract Review Writer <span class="agent-type t-agent">Custom Agent</span></div>
+        <div class="agent-desc">Client redlines → structured review memo flagging every deviation from ODA standard across scope, fee, liability, termination, insurance. An agent is right here because the output is a templated recurring document with strict structure.</div>
       </div>
 
-      <div class="agent-card">
-        <div class="agent-name">Requisition Cost Extractor</div>
-        <div class="agent-desc">Point it at a folder of historical project requisitions and it returns trade-by-trade percentages of construction cost by typology. Feeds the design-for-budget conversation the Ops Director described.</div>
+      <div class="agent-card t-app">
+        <div class="agent-name">Invoicing &amp; Reconciliation <span class="agent-type t-app">Copilot in Excel</span></div>
+        <div class="agent-desc">Cash flow, vendor details, and reimbursable invoicing already live in Excel alongside QuickBooks. Copilot in Excel handles the in-spreadsheet drafting, duplicate-payment checking, and reconciliation narratives natively — no new tool to adopt.</div>
+      </div>
+
+      <div class="agent-card t-custom">
+        <div class="agent-name">QuickBooks Integration <span class="agent-type t-custom">Custom Development</span></div>
+        <div class="agent-desc">To fully close the loop between email-invoices-to-QB data entry and the Excel reconciliation layer, a QuickBooks MCP (or equivalent direct integration) is needed. Allows the accounting lead to tell Copilot "create invoice for 412 Nostrand April phase-complete" and have it land in QB.</div>
+      </div>
+
+      <div class="agent-card t-custom">
+        <div class="agent-name">Requisition Cost Index <span class="agent-type t-custom">Custom Development</span></div>
+        <div class="agent-desc">Hundreds of past requisition PDFs — too many for a Notebook. A custom-indexed retrieval layer extracts trade-by-trade cost breakdowns, then Copilot queries across typology and time to feed the design-for-budget conversation.</div>
       </div>
     </div>
   </div>
@@ -475,7 +554,7 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
 
 
 <div class="footer-note">
-  <strong>A note on reading this.</strong> The chart and text describe the aggregate of what ODA staff said themselves, grouped by role rather than by name. Individual tagline and identity information has intentionally been held out. Each agent listed maps to a specific pain named by one or more ODA voices.
+  <strong>A note on reading this.</strong> The chart and text describe the aggregate of what ODA staff said themselves, grouped by role rather than by name. Individual identity information has intentionally been held out. Each solution listed is matched to the Copilot surface best suited to the shape of the pain — grounded knowledge goes into Notebooks, co-authored drafts into Pages, in-app workflows stay in their app, structured recurring deliverables become Agents, and anything requiring indexed infrastructure (large servers, image libraries, historical PDF corpora) gets flagged as custom development.
 </div>
 
 </body>
