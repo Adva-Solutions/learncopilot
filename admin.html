@@ -1053,7 +1053,10 @@ async function selectStudy(study) {
   try {
     const id = study.linkId || study.id;
     const data = await apiFetch(`${API.listenLabs}?action=study&id=${encodeURIComponent(id)}`);
-    state.wizardResponses = data.responses || data;
+    // /api/admin/listen-labs?action=study returns { participants, rawResponses, ... }.
+    // Personalization needs the raw Listen Labs shape (tagline / bullet_summary /
+    // answers_array); renderStudyDetail shows the parsed `participants` array.
+    state.wizardResponses = data.rawResponses || [];
     renderStudyDetail(detail, data);
     $('#step2-next').disabled = false;
   } catch (err) {
@@ -1062,7 +1065,10 @@ async function selectStudy(study) {
 }
 
 function renderStudyDetail(el, data) {
-  const responses = data.responses || data || [];
+  // Backend returns { participants: [...], rawResponses: [...], responseCount }.
+  // Earlier code read data.responses, which no longer exists — fall through to
+  // data itself (an object, not an array) and crashed in .map.
+  const responses = Array.isArray(data.participants) ? data.participants : [];
   const names = [...new Set(responses.map(r => r.name || r.respondent).filter(Boolean))];
   const roles = [...new Set(responses.map(r => r.role || r.jobTitle).filter(Boolean))];
   const departments = [...new Set(responses.map(r => r.department).filter(Boolean))];
