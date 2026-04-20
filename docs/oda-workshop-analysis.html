@@ -116,11 +116,6 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
 }
 .agent-name { font-weight: 700; font-size: 14px; color: #0c1f3f; margin-bottom: 3px; }
 .agent-desc { font-size: 13px; color: #5a5a6e; line-height: 1.5; }
-.agent-built {
-  display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase; background: #217346; color: #fff;
-  padding: 2px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle;
-}
 
 .footer-note {
   margin-top: 40px; padding: 20px 24px; background: #0c1f3f; color: rgba(255,255,255,0.8);
@@ -138,7 +133,7 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
 <div class="methodology">
   <div><strong>Survey inputs.</strong> 17 Listen Labs responses across all five ODA departments.</div>
   <div><strong>Meeting input.</strong> March 11 in-person intro call with five ODA leaders covering admin automation, contract review, and long-horizon design uses.</div>
-  <div><strong>Agent mapping.</strong> Five lesson-built agents plus follow-on opportunities worth building next.</div>
+  <div><strong>Agent mapping.</strong> Each department's challenges paired with the agents that most directly address them.</div>
 </div>
 
 <!-- CHART: department × pain theme heatmap -->
@@ -253,11 +248,6 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
       <div class="col-title">Agents that address these</div>
 
       <div class="agent-card">
-        <div class="agent-name">CA Submittal Review Writer <span class="agent-built">built in the workshop</span></div>
-        <div class="agent-desc">Ingests a contractor submittal, cross-references against the referenced spec sections, and produces a structured review memo with item-level dispositions. Directly addresses the Technical Director's named pain.</div>
-      </div>
-
-      <div class="agent-card">
         <div class="agent-name">Code &amp; Zoning Compliance Checker</div>
         <div class="agent-desc">Reference-loaded with NYC zoning + FHA codes + ODA standard details. Upload a drawing or sketch and it flags the compliance questions a PA would otherwise chase manually.</div>
       </div>
@@ -311,11 +301,6 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
       <div class="col-title">Agents that address these</div>
 
       <div class="agent-card">
-        <div class="agent-name">Onboarding Memo Writer <span class="agent-built">built in the workshop</span></div>
-        <div class="agent-desc">Hiring-manager intake form → structured 30/60/90 plan. Calibrated per level (junior / senior / director) and anchored on real projects named in the intake.</div>
-      </div>
-
-      <div class="agent-card">
         <div class="agent-name">Interview Scheduling Assistant</div>
         <div class="agent-desc">Reads candidate email threads + checks internal Outlook availability, drafts time-slot proposals in HR's voice. Attacks the specific back-and-forth named as #1 tedious.</div>
       </div>
@@ -361,11 +346,6 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
 
     <div>
       <div class="col-title">Agents that address these</div>
-
-      <div class="agent-card">
-        <div class="agent-name">ODA Newsletter Writer <span class="agent-built">built in the workshop</span></div>
-        <div class="agent-desc">Monthly project-activity log → finished newsletter issue in ODA's voice, with imagery captions referenced from OpenAsset filenames. Directly targets the Principal's named pain.</div>
-      </div>
 
       <div class="agent-card">
         <div class="agent-name">Marketing Server Librarian</div>
@@ -424,16 +404,6 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
       <div class="col-title">Agents that address these</div>
 
       <div class="agent-card">
-        <div class="agent-name">Travel Itinerary Writer <span class="agent-built">built in the workshop</span></div>
-        <div class="agent-desc">Forwarded booking confirmations + meeting RSVPs + attendee LinkedIns → polished 10–20 page itinerary. Collapses the EA's 5–10 hour task into a review pass.</div>
-      </div>
-
-      <div class="agent-card">
-        <div class="agent-name">Write Like Me (Principal voice) <span class="agent-built">built in the workshop</span></div>
-        <div class="agent-desc">Drafts emails, essays, and project write-ups in the Principal's voice. Seeded from his sent mail and published interviews so the voice is grounded in the real corpus.</div>
-      </div>
-
-      <div class="agent-card">
         <div class="agent-name">Proposal Fee Generator</div>
         <div class="agent-desc">Size + program + typology → three fee options (percentage-of-construction, time-and-resources, fixed-fee) with comparisons to historical ODA contracts. Answers the intro-call ask directly.</div>
       </div>
@@ -486,11 +456,6 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
       <div class="col-title">Agents that address these</div>
 
       <div class="agent-card">
-        <div class="agent-name">Contract Review Writer <span class="agent-built">built in the workshop</span></div>
-        <div class="agent-desc">Client redlines or a full contract → structured review memo flagging deviations from ODA standard across scope, fee, liability, termination, insurance. Directly addresses the Ops Director's named #1.</div>
-      </div>
-
-      <div class="agent-card">
         <div class="agent-name">Invoice Builder</div>
         <div class="agent-desc">Given the signed contract + phase-progress input, generates the month's invoice with correct reimbursables and flags duplicate-payment risks before it goes out.</div>
       </div>
@@ -510,7 +475,7 @@ h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-we
 
 
 <div class="footer-note">
-  <strong>A note on reading this.</strong> The chart and text describe the aggregate of what ODA staff said themselves, grouped by role rather than by name. Individual tagline and identity information has intentionally been held out. The five agents tagged <span class="agent-built">built in the workshop</span> are the ones students build by hand during the session; the remainder are follow-on opportunities that the same Report Writer, Researcher, and Write Like Me patterns can be recombined to produce.
+  <strong>A note on reading this.</strong> The chart and text describe the aggregate of what ODA staff said themselves, grouped by role rather than by name. Individual tagline and identity information has intentionally been held out. Each agent listed maps to a specific pain named by one or more ODA voices — built from the same core patterns (Report Writer, Researcher, Voice-Match) recombined for the task.
 </div>
 
 </body>
