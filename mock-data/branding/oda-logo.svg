@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" role="img" aria-label="ODA">
   <g fill="#000000" fill-rule="evenodd">
-    <!-- O: solid ring (annulus). Two concentric circles, evenodd = hole. -->
+    <!-- O: thick ring -->
     <path
       d="M 60 8 a 52 52 0 1 0 0.001 0 Z
          M 60 32 a 28 28 0 1 1 -0.001 0 Z" />
 
-    <!-- D: right-half of an annulus. Flat (vertical) edge on the left,
-         curved edges on the right, with a half-ring hole inside.
-         Outer: straight line down the left + right-bulging semicircle back up.
-         Inner (subtracted via evenodd): same shape, smaller. -->
+    <!-- D: right-half-ring. Flat left edge, curved right, with inner cutout. -->
     <path
       d="M 170 8 L 170 112 A 52 52 0 0 0 170 8 Z
          M 170 32 L 170 88 A 28 28 0 0 0 170 32 Z" />
 
-    <!-- A: solid wedge. Bottom-left to apex (upper-right) to bottom-right. -->
-    <polygon points="258,112 332,8 348,112" />
+    <!-- A: outlined wedge. Outer triangle + inner triangle cut out via evenodd,
+         matching the ring-thickness of the O and D. -->
+    <path
+      d="M 258 112 L 332 8 L 348 112 Z
+         M 278 102 L 326 34 L 336 102 Z" />
   </g>
 </svg>
