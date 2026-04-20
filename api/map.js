@@ -1,5 +1,5 @@
 import { getRedis } from './lib/redis.js';
-import { getUser } from './me.js';
+import { getUser, getStaleReset } from './me.js';
 import { verifyAdmin } from './admin/auth.js';
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -19,6 +19,17 @@ export default async function handler(req, res) {
   const isAdmin = verifyAdmin(req);
   if (!user && !isAdmin) {
     return res.status(401).json({ error: 'Not logged in' });
+  }
+
+  // Reject learner sessions issued before an admin Reset / Remove All so a
+  // still-open tab can't keep reading the map after being kicked off /api/me.
+  if (user && !isAdmin) {
+    const staleReset = await getStaleReset(user);
+    if (staleReset) {
+      const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
+      res.setHeader('Set-Cookie', `workshop_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${secure}`);
+      return res.status(401).json({ error: 'Session invalidated by workshop reset', reset: true, resetAt: staleReset });
+    }
   }
 
   /* Validate slug */

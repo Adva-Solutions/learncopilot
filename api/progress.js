@@ -11,6 +11,19 @@ export default async function handler(req, res) {
     const isAdmin = verifyAdmin(req);
     if (!user && !isAdmin) return res.status(401).json({ error: 'Authentication required' });
 
+    // Learner sessions issued before an admin reset should not keep reading
+    // their own or the leaderboard's progress after being kicked off /api/me.
+    // Admin sessions bypass this check (admins still need to see state after
+    // triggering a reset).
+    if (user && !isAdmin) {
+      const staleReset = await getStaleReset(user);
+      if (staleReset) {
+        const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
+        res.setHeader('Set-Cookie', `workshop_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${secure}`);
+        return res.status(401).json({ error: 'Session invalidated by workshop reset', reset: true, resetAt: staleReset });
+      }
+    }
+
     // Per-user mode: `?me=true` returns the logged-in user's own progress
     // record plus the workshop's current `resetAt` timestamp (if any).
     // Clients use this to decide whether their localStorage is stale --

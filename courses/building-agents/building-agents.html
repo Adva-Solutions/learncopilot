@@ -1007,7 +1007,13 @@ function restoreExerciseChecks(currentLesson, currentTab) {
       const cfg = await r.json();
       const slot = document.getElementById('client-logo-slot');
       if (slot && cfg && cfg.logoUrl) {
-        slot.innerHTML = '<img src="' + cfg.logoUrl + '" alt="' + (cfg.clientName || '') + '">';
+        // Build via DOM APIs so a crafted clientName or logoUrl can't inject
+        // script into the sidebar. Attribute assignment encodes safely without
+        // HTML parsing.
+        const img = document.createElement('img');
+        img.src = cfg.logoUrl;
+        img.alt = cfg.clientName || '';
+        slot.replaceChildren(img);
         slot.style.display = 'block';
       }
     } catch (_) {}

@@ -1,5 +1,5 @@
 import { getRedis } from './lib/redis.js';
-import { getUser } from './me.js';
+import { getUser, getStaleReset } from './me.js';
 
 function mergeOverrides(template, client) {
   const merged = {
@@ -34,6 +34,16 @@ function mergeOverrides(template, client) {
 export default async function handler(req, res) {
   const user = getUser(req);
   if (!user) return res.status(401).json({ error: 'Not logged in' });
+
+  // Reject sessions issued before an admin Reset / Remove All so a stale tab
+  // can't keep hydrating branding / personalization for a workshop whose
+  // participants were supposed to be signed out.
+  const staleReset = await getStaleReset(user);
+  if (staleReset) {
+    const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
+    res.setHeader('Set-Cookie', `workshop_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${secure}`);
+    return res.status(401).json({ error: 'Session invalidated by workshop reset', reset: true, resetAt: staleReset });
+  }
 
   const r = getRedis();
 

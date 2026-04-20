@@ -291,6 +291,15 @@ const currentUser = localStorage.getItem('workshop_user');
 // Core (non-bonus) lesson counts per course. Bonus lessons don't count against %.
 const CHAT_STEPS = 6, APPS_STEPS = 3, AGENTS_STEPS = 4;
 
+// Minimal HTML-escape for user-controlled strings interpolated into innerHTML.
+// Participant names are user input at login — without this a name like
+// `<img src=x onerror=…>` fires on every viewer's 10s poll.
+function esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
 /* Read slug from URL. `?all=1` opts into the aggregate view (admin use);
    with neither present, the leaderboard scopes to the logged-in user's own
    workshop via /api/progress's server-side session fallback. */
@@ -372,7 +381,8 @@ function render(participants) {
 
   container.innerHTML = '<div class="participants">' + sorted.map((p, rank) => {
     const isYou = p.name === currentUser;
-    const initials = p.name.split(' ').map(w => w[0]).join('').slice(0, 2);
+    const safeName = esc(p.name);
+    const safeInitials = esc(String(p.name || '').split(' ').map(w => w[0] || '').join('').slice(0, 2));
     const coreDone = (arr, core) => (arr || []).filter(i => i < core).length;
     const chatDone = coreDone(p.chat?.completed, CHAT_STEPS);
     const appsDone = coreDone(p.apps?.completed, APPS_STEPS);
@@ -385,10 +395,10 @@ function render(participants) {
 
     return `
       <div class="participant-card ${isYou ? 'is-you' : ''}">
-        <div class="participant-avatar">${initials}</div>
+        <div class="participant-avatar">${safeInitials}</div>
         <div class="participant-info">
           <div class="participant-name">
-            ${rankMarker}${p.name}
+            ${rankMarker}${safeName}
             ${isYou ? '<span class="you-badge">You</span>' : ''}
           </div>
           <div class="completion-pill">${chatDone + appsDone + agentsDone} / ${CHAT_STEPS + APPS_STEPS + AGENTS_STEPS} total core steps</div>
