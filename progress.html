@@ -285,8 +285,13 @@ const slug = urlParams.get('slug') || '';
 /* slug (if present) is preserved via data fetches; global nav points to bare routes */
 
 async function loadProgress() {
+  // When an explicit ?slug= is in the URL, scope to that workshop.
+  // Otherwise aggregate across all workshops so admins / visitors see everyone
+  // (the default "workshop:" bucket is frequently empty when all participants
+  // are in client-specific buckets like client:oda:).
+  const query = slug ? '?slug=' + encodeURIComponent(slug) : '?all=1';
   try {
-    const res = await fetch('/api/progress' + (slug ? '?slug=' + encodeURIComponent(slug) : ''));
+    const res = await fetch('/api/progress' + query);
     if (!res.ok) throw new Error('Failed to load');
     const { participants } = await res.json();
     render(participants);

@@ -27,6 +27,8 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
 .sidebar { width: 300px; min-width: 300px; background: #fff; border-right: 1px solid #ddd8ce; padding: 24px 0; display: flex; flex-direction: column; position: fixed; top: 60px; left: 0; bottom: 0; overflow-y: auto; }
 .sidebar-header { padding: 0 24px 24px; border-bottom: 1px solid #ddd8ce; }
 .sidebar-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.client-logo-slot { display: none; padding: 0 0 16px; }
+.client-logo-slot img { max-height: 48px; max-width: 200px; object-fit: contain; }
 .logo { background: #217346; color: #fff; width: 32px; height: 32px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.1rem; }
 .subtitle { font-size: 0.85rem; color: #888; margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
 
@@ -173,6 +175,7 @@ li.has-step-check { list-style: none; margin-left: -20px; padding-left: 0; }
 <div class="app">
 <aside class="sidebar">
   <div class="sidebar-header">
+    <div class="client-logo-slot" id="client-logo-slot"></div>
     <h1><span class="logo">A</span> Copilot in Apps</h1>
     <div class="subtitle">Workshop</div>
   </div>
@@ -362,6 +365,7 @@ async function renderMapCallout(courseId, lessonIdx) {
       if (typeof restoreExerciseChecks === 'function') restoreExerciseChecks(d.currentLesson);
     }
     hydrateSampleFileBanner();
+    hydrateClientLogo();
   });
   let _workshopConfigCache = null;
   async function getWorkshopConfigOnce() {
@@ -372,6 +376,17 @@ async function renderMapCallout(courseId, lessonIdx) {
       _workshopConfigCache = await r.json();
       return _workshopConfigCache;
     } catch (_) { return null; }
+  }
+
+  async function hydrateClientLogo() {
+    const slot = document.getElementById('client-logo-slot');
+    if (!slot || slot.getAttribute('data-hydrated') === '1') return;
+    const cfg = await getWorkshopConfigOnce();
+    if (cfg && cfg.logoUrl) {
+      slot.innerHTML = '<img src="' + cfg.logoUrl + '" alt="' + (cfg.clientName || '') + '">';
+      slot.style.display = 'block';
+    }
+    slot.setAttribute('data-hydrated', '1');
   }
 
   async function hydrateSampleFileBanner() {

@@ -71,6 +71,8 @@ body {
   padding: 28px 24px 18px;
   border-bottom: 1px solid var(--border);
 }
+.client-logo-slot { display: none; padding-bottom: 14px; }
+.client-logo-slot img { max-height: 48px; max-width: 200px; object-fit: contain; }
 .sidebar-header h1 {
   font-family: var(--font-display);
   font-size: 24px;
@@ -554,6 +556,7 @@ li.has-step-check { list-style: none; margin-left: -20px; padding-left: 0; }
 
 <aside class="sidebar">
   <div class="sidebar-header">
+    <div class="client-logo-slot" id="client-logo-slot"></div>
     <h1><span class="logo">C</span> Copilot Chat</h1>
     <div class="subtitle">Workshop</div>
   </div>
@@ -818,6 +821,21 @@ async function renderMapCallout(courseId, lessonIdx) {
     renderLesson: chatRenderLesson,
     renderNav: chatRenderNav,
   });
+
+  // Hydrate the client logo (ODA, etc.) into the sidebar header if the user
+  // is signed in to a client workshop that has a logo uploaded.
+  (async () => {
+    try {
+      const r = await fetch('/api/workshop-config', { credentials: 'include' });
+      if (!r.ok) return;
+      const cfg = await r.json();
+      const slot = document.getElementById('client-logo-slot');
+      if (slot && cfg && cfg.logoUrl) {
+        slot.innerHTML = '<img src="' + cfg.logoUrl + '" alt="' + (cfg.clientName || '') + '">';
+        slot.style.display = 'block';
+      }
+    } catch (_) {}
+  })();
 </script>
 </body>
 </html>

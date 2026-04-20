@@ -710,53 +710,27 @@ When the interview is complete, output the results formatted as a Copilot Custom
   points: 20,
   learn: `
 <h3>From Scratchpad to Shared Artifact</h3>
-<p><em>Chat is your scratchpad. A Page is the document you share with your team.</em></p>
+<p><em>Chat is your scratchpad. A Page is the document you share.</em></p>
 
-<h3>What is a Copilot Page?</h3>
-<p>A Page is a <strong>live document built around a Copilot conversation</strong>. On the left you have the document; on the right you have a dedicated side chat with Copilot, already open. You write, Copilot writes, you both keep editing — and when it reads right, you share it via a link.</p>
+<p>A Copilot Page is a live document with Copilot's side chat attached. Document on the left, chat on the right — you edit, Copilot edits, both stay in sync. When it reads right, you share the link.</p>
 
-<p>That is the shift: instead of copying great Copilot answers out of a chat window into Word or email, the document <em>is</em> the chat, and the chat <em>is</em> the document.</p>
+<p>The shift: instead of copy-pasting great Copilot answers out of a chat into Word, the document <em>is</em> the chat.</p>
 
-<h3>Where Pages Come From</h3>
-<p>A Page can be created from three places. In this workshop we always create one <strong>inside the notebook you just built in Lesson 4</strong>, so the Page inherits the notebook's references and instructions. The other two entry points are useful to know about:</p>
-<ul>
-  <li><strong>From within a Notebook</strong> (what we will do): the Page inherits the notebook's references and instructions — follow-ups stay grounded in your sources.</li>
-  <li><strong>From the Library:</strong> create a blank Page directly from the artifacts list.</li>
-  <li><strong>From general chat:</strong> any Copilot response has an <strong>Edit in Pages</strong> action — great for quick one-offs, but without the notebook's grounding.</li>
-</ul>
+<h3>Create it inside your notebook</h3>
+<p>You can create a Page from general chat or from the Library, but in this workshop we always create one <strong>inside the Lesson 4 notebook</strong>. That way the Page inherits the notebook's references and instructions, so every follow-up stays grounded in your sources.</p>
 
-<h3>A New Page Gets Its Own Chat</h3>
-<p>When you open a new Page, the side Copilot chat on that Page is a <strong>fresh conversation</strong> — it does not inherit the chat thread you were having inside the notebook, and it does not bleed into other chats. The Page's chat history stays attached to the Page, so you can close it, come back tomorrow, and pick up where you left off.</p>
-
-<p>Inside a notebook, this gives you a clean split: keep <strong>exploratory questions</strong> in the notebook's main chat, and open a <strong>Page</strong> the moment the conversation turns into something you want to keep, edit, and share.</p>
-
-<h3>Pages &amp; Notebooks, Back and Forth</h3>
-<p>A Page you create can be <strong>added back to a notebook</strong> as one of its sources. And regardless of where it was created, a Page can be <strong>shared with people inside or outside the notebook</strong> — the notebook's member list does not gate who can see the Page. Link sharing controls that separately (we cover it in the exercises).</p>
+<p>Each Page has its own side-chat history — close it, come back tomorrow, pick up where you left off.</p>
 
 <button class="continue-btn" onclick="switchTab(4,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Create, Edit, and Share a Page — from Inside Your Notebook</h3>
-
-<p>You will work inside the notebook you built in Lesson 3 so the Page inherits your references and stays grounded in the same sources. Pick your department below.</p>
+<h3>Create, Edit, and Share a Page</h3>
+<p>Work inside the notebook you built in Lesson 3 so the Page stays grounded in your references. Pick your department below.</p>
 
 <div class="note-box">
-  <strong>The flow for every Page:</strong> (1) New page inside your notebook → (2) prompt Copilot in the side chat → (3) edit by hand where needed → (4) prompt again to enrich → (5) set link access and share.
-</div>
-
-<div class="tip-box">
-  <div class="tip-title">Formatting: right-click, don't type Markdown</div>
-  <p>Page bodies do not render Markdown. Type plain text, then <strong>right-click</strong> for the Word-style menu — bold, headings, lists, links, insert table. That is the one formatting trick worth remembering.</p>
-</div>
-
-<div class="tip-box">
-  <div class="tip-title">If Copilot replies in chat instead of writing to the Page</div>
-  <p>Sometimes the side chat renders its answer inline in the conversation rather than inserting it into the Page body. When that happens you have two easy fixes:</p>
-  <ol style="margin:8px 0 0 20px;">
-    <li><strong>Click the <em>Add to page</em> button</strong> that appears on the Copilot response — this is the fastest path, it drops the answer straight into the Page.</li>
-    <li><strong>Re-prompt</strong> with something like <em>"Add that response into the Page I have open."</em> and Copilot will insert it.</li>
-  </ol>
-  <p style="margin-top:8px;">Once the content lands on the Page, continue with manual editing (right-click for formatting, reorder, add headings).</p>
+  <p><strong>Flow:</strong> new page in your notebook → prompt Copilot → hand-edit → prompt again to enrich → set link access and share.</p>
+  <p style="margin-top:6px;"><strong>Formatting:</strong> don't type Markdown. Type plain text, then <strong>right-click</strong> for the Word-style menu (bold, headings, lists, insert table).</p>
+  <p style="margin-top:6px;"><strong>If Copilot answers in the side chat</strong> instead of writing to the Page, click the <strong>Add to page</strong> button on that response — or re-prompt: <em>"Add that response into the Page I have open."</em></p>
 </div>
 
 <div class="option-tabs" id="options-4">

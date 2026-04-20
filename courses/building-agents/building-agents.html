@@ -54,6 +54,9 @@
     border-bottom: 1px solid #ddd8ce;
   }
 
+  .client-logo-slot { display: none; padding-bottom: 14px; }
+  .client-logo-slot img { max-height: 48px; max-width: 200px; object-fit: contain; }
+
   .sidebar-header h1 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 22px;
@@ -653,6 +656,7 @@
   <!-- ── Sidebar ── -->
   <aside class="sidebar">
     <div class="sidebar-header">
+      <div class="client-logo-slot" id="client-logo-slot"></div>
       <h1><span class="logo">B</span> Building Agents</h1>
     </div>
     <div class="sidebar-progress">
@@ -984,6 +988,21 @@ function restoreExerciseChecks(currentLesson, currentTab) {
     renderLesson: agentsRenderLesson,
     renderNav: agentsRenderNav,
   });
+
+  // Hydrate the client logo (ODA, etc.) into the sidebar header if the user
+  // is signed in to a client workshop that has a logo uploaded.
+  (async () => {
+    try {
+      const r = await fetch('/api/workshop-config', { credentials: 'include' });
+      if (!r.ok) return;
+      const cfg = await r.json();
+      const slot = document.getElementById('client-logo-slot');
+      if (slot && cfg && cfg.logoUrl) {
+        slot.innerHTML = '<img src="' + cfg.logoUrl + '" alt="' + (cfg.clientName || '') + '">';
+        slot.style.display = 'block';
+      }
+    } catch (_) {}
+  })();
 </script>
 </body>
 </html>

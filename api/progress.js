@@ -10,16 +10,36 @@ export default async function handler(req, res) {
     const user = getUser(req);
     const isAdmin = verifyAdmin(req);
     if (!user && !isAdmin) return res.status(401).json({ error: 'Authentication required' });
-    const slug = req.query.slug || (user && user.slug) || '';
-    const prefix = slug ? `client:${slug}:` : 'workshop:';
+
+    // Aggregate mode: `?all=1` returns participants from the default workshop
+    // AND every client workshop, merged and sorted by points. Used by the
+    // public leaderboard when no specific workshop is selected.
+    const wantAll = req.query.all === '1' || req.query.all === 'true';
 
     try {
-      const keys = await r.smembers(`${prefix}users`);
-      const participants = [];
-      for (const key of keys) {
-        const raw = await r.get(`${prefix}progress:${key}`);
-        if (raw) {
-          try { participants.push(JSON.parse(raw)); } catch { }
+      let participants = [];
+      if (wantAll) {
+        const prefixes = ['workshop:'];
+        const clientSlugs = await r.smembers('clients');
+        for (const s of clientSlugs) prefixes.push(`client:${s}:`);
+        for (const prefix of prefixes) {
+          const keys = await r.smembers(`${prefix}users`);
+          for (const key of keys) {
+            const raw = await r.get(`${prefix}progress:${key}`);
+            if (raw) {
+              try { participants.push(JSON.parse(raw)); } catch { }
+            }
+          }
+        }
+      } else {
+        const slug = req.query.slug || (user && user.slug) || '';
+        const prefix = slug ? `client:${slug}:` : 'workshop:';
+        const keys = await r.smembers(`${prefix}users`);
+        for (const key of keys) {
+          const raw = await r.get(`${prefix}progress:${key}`);
+          if (raw) {
+            try { participants.push(JSON.parse(raw)); } catch { }
+          }
         }
       }
       participants.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));

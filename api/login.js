@@ -17,6 +17,29 @@ async function findOrCreateUid(r, name, slug) {
   return crypto.randomBytes(4).toString('hex');
 }
 
+// Register the user as a workshop participant at login time so they appear on
+// the leaderboard and admin dashboard immediately (not only after completing
+// their first lesson). Idempotent: if the user + progress record already exist,
+// nothing changes.
+async function registerParticipant(r, name, slug, uid) {
+  const prefix = slug ? `client:${slug}:` : 'workshop:';
+  const userKey = uid ? `${name}::${uid}` : name;
+  await r.sadd(`${prefix}users`, userKey);
+  const existing = await r.get(`${prefix}progress:${userKey}`);
+  if (existing) return; // don't overwrite real progress
+  const empty = { completed: [], points: 0 };
+  const initial = {
+    name,
+    slug: slug || '',
+    updatedAt: Date.now(),
+    chat:   empty,
+    apps:   empty,
+    agents: empty,
+    totalPoints: 0,
+  };
+  await r.set(`${prefix}progress:${userKey}`, JSON.stringify(initial));
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
@@ -45,6 +68,7 @@ export default async function handler(req, res) {
     if (password !== client.password) return res.status(401).json({ error: 'Wrong password' });
 
     const uid = await findOrCreateUid(r, trimmed, slug);
+    await registerParticipant(r, trimmed, slug, uid);
     const token = createToken(trimmed, slug, uid);
     const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
     res.setHeader('Set-Cookie', `workshop_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800${secure}`);
@@ -57,6 +81,7 @@ export default async function handler(req, res) {
   if (password !== LEGACY_PASSWORD) return res.status(401).json({ error: 'Wrong password' });
 
   const uid = await findOrCreateUid(r, trimmed, '');
+  await registerParticipant(r, trimmed, '', uid);
   const token = createToken(trimmed, '', uid);
   const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
   res.setHeader('Set-Cookie', `workshop_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800${secure}`);
