@@ -382,10 +382,16 @@ export default async function handler(req, res) {
       }
     }
 
-    // Derive slug from clientName
-    const slug = clientName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    // Prefer ?slug= from the query (the workshop's true slug, unchanged
+    // since creation) — admin.html already sends it. Fall back to deriving
+    // from clientName for callers that don't. Without this, editing the
+    // workshop name later writes the map under a new key that the workshop
+    // detail page (which reads via ?slug=…) can't find.
+    const querySlug = typeof req.query.slug === 'string' ? req.query.slug : '';
+    const derived = clientName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const slug = querySlug || derived;
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
-      return res.status(400).json({ error: 'Could not derive valid slug from clientName' });
+      return res.status(400).json({ error: 'Invalid slug — provide ?slug= or a clientName that derives a valid slug' });
     }
 
     try {

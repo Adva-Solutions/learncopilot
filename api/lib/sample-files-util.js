@@ -48,8 +48,15 @@ function normalizeFileName(name) {
   if (typeof name !== 'string') throw new Error('file name empty');
   const trimmed = name.trim();
   if (trimmed.length === 0) throw new Error('file name empty');
-  const safe = trimmed.replace(/[\\/]/g, '_');
-  return safe.slice(0, 200);
+  // Strip path separators AND ASCII control chars (including CR/LF) so the
+  // sanitized name is safe to embed in a Content-Disposition header — a
+  // literal newline in there would end the header line and let an attacker
+  // inject additional response headers.
+  // eslint-disable-next-line no-control-regex
+  const safe = trimmed.replace(/[\\/]/g, '_').replace(/[\u0000-\u001f\u007f]/g, '');
+  const final = safe.trim();
+  if (final.length === 0) throw new Error('file name empty');
+  return final.slice(0, 200);
 }
 
 function newSampleFileId() {
