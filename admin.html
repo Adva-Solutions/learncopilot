@@ -1057,6 +1057,7 @@ async function selectStudy(study) {
     // Personalization needs the raw Listen Labs shape (tagline / bullet_summary /
     // answers_array); renderStudyDetail shows the parsed `participants` array.
     state.wizardResponses = data.rawResponses || [];
+    state.wizardStudyQuestions = Array.isArray(data.questions) ? data.questions : [];
     renderStudyDetail(detail, data);
     $('#step2-next').disabled = false;
   } catch (err) {
@@ -1141,8 +1142,14 @@ function renderWizardStep3(el) {
     $('#gen-loading').style.display = 'block';
     $('#generate-btn').disabled = true;
     try {
+      // /api/admin/personalize expects a flat payload: clientName, departments,
+      // studyQuestions, responses. The earlier nested { client: wizardData }
+      // shape made the handler 400 with "clientName required".
+      const wd = state.wizardData || {};
       const payload = {
-        client: state.wizardData,
+        clientName: wd.name || '',
+        departments: Array.isArray(wd.departments) ? wd.departments : [],
+        studyQuestions: Array.isArray(state.wizardStudyQuestions) ? state.wizardStudyQuestions : [],
         responses: state.wizardResponses || [],
       };
       const data = await apiFetch(API.personalize, {
