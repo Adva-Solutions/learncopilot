@@ -79,6 +79,26 @@ export default async function handler(req, res) {
       existing.updatedAt = Date.now();
 
       await r.set(`client:${slug}`, JSON.stringify(existing));
+
+      // Personalization lives at a separate Redis key pair, not on the client
+      // record — the admin UI saves it via this same PUT endpoint, so route
+      // the field here. Accepts both a parsed object and a legacy JSON string.
+      if (updates.personalization !== undefined) {
+        let pers = updates.personalization;
+        if (typeof pers === 'string') {
+          try { pers = JSON.parse(pers); } catch {
+            return res.status(400).json({ error: 'personalization must be valid JSON' });
+          }
+        }
+        if (pers === null) {
+          await r.del(`client:${slug}:personalization`);
+          await r.del(`client:${slug}:personalization:status`);
+        } else if (typeof pers === 'object') {
+          await r.set(`client:${slug}:personalization`, JSON.stringify(pers));
+          await r.set(`client:${slug}:personalization:status`, 'approved');
+        }
+      }
+
       return res.status(200).json({ ok: true, client: { ...existing, slug } });
     } catch (e) {
       return res.status(500).json({ error: 'Redis error', detail: e.message });
@@ -98,6 +118,8 @@ export default async function handler(req, res) {
       await r.del(`client:${slug}:users`);
       await r.del(`client:${slug}:personalization`);
       await r.del(`client:${slug}:personalization:status`);
+      await r.del(`client:${slug}:resetAt`);
+      await r.del(`opportunityMap:${slug}`);
       await r.del(`client:${slug}`);
       await r.srem('clients', slug);
 

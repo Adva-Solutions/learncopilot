@@ -392,6 +392,7 @@ let state = {
   wizardStudies: [],
   wizardSelectedStudy: null,
   wizardResponses: null,
+  wizardStudyQuestions: null,
   wizardPersonalization: null,
 };
 
@@ -978,6 +979,7 @@ function renderNewWorkshop(app) {
   // Reset wizard on fresh visit
   if (!window._wizardActive) {
     state.wizardStep = 1;
+    state.wizardStudyQuestions = null;
     state.wizardData = { departments: [] };
     state.wizardStudies = [];
     state.wizardSelectedStudy = null;
@@ -1114,12 +1116,24 @@ async function renderWizardStep2(el) {
     </div>`;
 
   $('#step2-back').onclick = () => { state.wizardStep = 1; renderWizardStep(document.getElementById('app')); };
-  $('#step2-skip').onclick = () => { state.wizardStep = 3; renderWizardStep(document.getElementById('app')); };
+  $('#step2-skip').onclick = () => {
+    // Skipping means "no study": wipe everything we might have loaded so
+    // stale interview data doesn't leak into personalize / the final create.
+    state.wizardSelectedStudy = null;
+    state.wizardResponses = null;
+    state.wizardStudyQuestions = null;
+    if (state.wizardData) state.wizardData.listenLabsStudyId = null;
+    state.wizardStep = 3;
+    renderWizardStep(document.getElementById('app'));
+  };
   $('#step2-next').onclick = () => {
     if (!state.wizardResponses) { toast('Select a study first', true); return; }
     state.wizardStep = 3;
     renderWizardStep(document.getElementById('app'));
   };
+
+  // Returning to Step 2 after already loading a study: keep Next enabled.
+  if (state.wizardResponses) $('#step2-next').disabled = false;
 
   try {
     const data = await apiFetch(`${API.listenLabs}?action=list`);
@@ -1341,9 +1355,12 @@ function renderWizardStep4(el) {
     $('#create-btn').disabled = true;
     $('#create-btn').innerHTML = '<div class="spinner"></div> Creating...';
     try {
+      // api/admin/clients POST only reads clientName, slug, password, industry,
+      // description, departments, logoUrl, personalization, listenLabsStudyId —
+      // raw survey responses aren't persisted on the client record, so don't
+      // bother sending them.
       const payload = {
         ...state.wizardData,
-        responses: state.wizardResponses || undefined,
         personalization: state.wizardPersonalization || undefined,
       };
       const data = await apiFetch(API.clients, {
@@ -1580,13 +1597,17 @@ function renderWorkshopEditor(app, workshop, allSampleFiles = []) {
       const selectedIds = Array.from(document.getElementById('wd-sample-files').selectedOptions).map(o => o.value);
       const body = {
         name: $('#ed-name').value.trim(),
-        password: $('#ed-password').value.trim(),
         industry: $('#ed-industry').value.trim(),
         departments: $('#ed-depts').value.split(',').map(s => s.trim()).filter(Boolean),
         status: $('#ed-status').value,
         listenLabsStudyId: $('#ed-study-id').value.trim() || null,
         sampleFileIds: selectedIds,
       };
+      // Only send password when the admin actually typed one — sending ''
+      // makes client.js reject the whole save with 400 and the other edits
+      // (logo, status, departments, sampleFileIds) are lost.
+      const pwd = $('#ed-password').value.trim();
+      if (pwd) body.password = pwd;
       if (editedLogoUrl !== undefined) body.logoUrl = editedLogoUrl;
       await apiFetch(`${API.client}?slug=${encodeURIComponent(slug)}`, {
         method: 'PUT',
