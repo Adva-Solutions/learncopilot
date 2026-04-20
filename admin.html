@@ -1011,7 +1011,14 @@ function renderStudyGrid() {
 }
 
 async function selectStudy(study) {
-  state.wizardSelectedStudy = study.id || study.linkId;
+  const studyId = study.id || study.linkId;
+  state.wizardSelectedStudy = studyId;
+  // Persist the study ID onto wizardData so it flows through to the POST
+  // payload in Step 4 (create-btn handler). The POST handler at
+  // api/admin/clients.js accepts `listenLabsStudyId` and stores it on the
+  // client record; downstream the opportunity-map generator reads it via
+  // the admin workshop-detail page's data-study-id attribute.
+  state.wizardData.listenLabsStudyId = studyId;
   renderStudyGrid();
 
   const detail = $('#study-detail');
@@ -1288,6 +1295,13 @@ function renderWorkshopEditor(app, workshop, allSampleFiles = []) {
           </select>
         </div>
       </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Listen Labs Study ID</label>
+          <input type="text" id="ed-study-id" value="${esc(studyId)}" placeholder="Optional — used by the Opportunity Map generator">
+          <div class="hint">Paste the study's <code>linkId</code> or <code>id</code> from Listen Labs. Leave blank to generate from a Granola transcript only.</div>
+        </div>
+      </div>
       <div class="form-group" style="margin-top:16px;">
         <label>Sample files assigned to this workshop</label>
         <select id="wd-sample-files" multiple size="6" style="min-height:140px;">
@@ -1385,10 +1399,13 @@ function renderWorkshopEditor(app, workshop, allSampleFiles = []) {
           industry: $('#ed-industry').value.trim(),
           departments: $('#ed-depts').value.split(',').map(s => s.trim()).filter(Boolean),
           status: $('#ed-status').value,
+          listenLabsStudyId: $('#ed-study-id').value.trim() || null,
           sampleFileIds: selectedIds,
         }),
       });
       toast('Settings saved');
+      // Re-render so the data-study-id attribute + Opp Map section pick up the change
+      renderWorkshopDetail(app, slug);
     } catch (err) {
       toast('Save failed: ' + err.message, true);
     }
@@ -1634,9 +1651,9 @@ async function generateOppMap() {
     const oppCount = data.map?.opportunities?.length || 0;
     appendLog(`\u2713 Generated ${oppCount} opportunities`);
     if (data.drops?.length) appendLog(`Validator drops: ${data.drops.length} items cleaned`);
-    if (data.searchOut?.length) {
-      const withResults = data.searchOut.filter(s => s.results?.length > 0).length;
-      appendLog(`Tavily searches: ${data.searchOut.length} queries, ${withResults} with results`);
+    if (data.searchOut) {
+      const { toolSearches = 0, benchmarkSearches = 0, totalSources = 0 } = data.searchOut;
+      appendLog(`Tavily: ${toolSearches} tool queries, ${benchmarkSearches} benchmark queries, ${totalSources} sources`);
     }
     appendLog('Map saved to Redis. Refreshing status...');
 

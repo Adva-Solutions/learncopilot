@@ -46,7 +46,7 @@ export default async function handler(req, res) {
       }
 
       // Only allow updating specific fields
-      const allowed = ['name', 'password', 'industry', 'description', 'departments', 'logoUrl', 'status'];
+      const allowed = ['name', 'password', 'industry', 'description', 'departments', 'logoUrl', 'status', 'listenLabsStudyId'];
       for (const key of allowed) {
         if (updates[key] !== undefined) {
           existing[key] = updates[key];

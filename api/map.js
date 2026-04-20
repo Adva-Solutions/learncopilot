@@ -1,20 +1,23 @@
 import { getRedis } from './lib/redis.js';
 import { getUser } from './me.js';
+import { verifyAdmin } from './admin/auth.js';
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 /**
  * GET /api/map?slug=<slug>
- * Public reader endpoint — returns the opportunity map for a given client slug.
+ * Reader endpoint — returns the opportunity map for a given client slug.
+ * Accepts either a workshop_session (learner) or an admin_session (admin preview).
  */
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  /* Auth: require a valid session cookie */
+  /* Auth: workshop session OR admin session */
   const user = getUser(req);
-  if (!user) {
+  const isAdmin = verifyAdmin(req);
+  if (!user && !isAdmin) {
     return res.status(401).json({ error: 'Not logged in' });
   }
 
@@ -24,14 +27,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid or missing slug parameter' });
   }
 
-  /* Strip trailing -<hash> segment to get the base slug for the Redis key.
-     e.g. "acme-corp-a1b2c3" -> "acme-corp" */
-  const baseSlug = slug.replace(/-[a-z0-9]+$/, '');
-
   const r = getRedis();
 
   try {
-    const raw = await r.get(`opportunityMap:${baseSlug}`);
+    const raw = await r.get(`opportunityMap:${slug}`);
     if (!raw) {
       return res.status(404).json({ error: 'Map not found' });
     }

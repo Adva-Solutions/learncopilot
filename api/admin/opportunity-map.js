@@ -9,7 +9,7 @@ import { checkOrigin } from '../lib/csrf.js';
 
 export const config = { maxDuration: 300 };
 
-const OPUS_MODEL = 'claude-opus-4-6';
+const OPUS_MODEL = 'claude-opus-4-5-20250929';
 
 const LISTEN_LABS_BASE = 'https://listenlabs.ai/api/public';
 
