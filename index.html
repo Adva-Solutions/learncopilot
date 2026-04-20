@@ -483,22 +483,35 @@ fetch('/api/me').then(async r => {
   }
 }).catch(() => { /* network offline — leave the page alone */ });
 
-/* Client logo hydration. Pulls the current user's workshop logo via
-   /api/workshop-config and drops it into the cream chip above the hero
-   headline. Silent no-op if the user is in the default workshop (no
-   client slug) or the client has no logo configured. */
-fetch('/api/workshop-config', { credentials: 'include' })
-  .then(r => r.ok ? r.json() : null)
-  .then(cfg => {
-    if (!cfg || !cfg.logoUrl) return;
-    const chip = document.getElementById('client-logo-hero');
-    const img = document.getElementById('client-logo-img');
-    if (!chip || !img) return;
-    img.src = cfg.logoUrl;
-    img.alt = cfg.clientName || 'Client Logo';
+/* Client logo hydration.
+   Prefer the ?slug= URL param (public /api/client-info endpoint) because
+   it works regardless of session state — the session cookie's slug may
+   differ from the URL (admins cross-viewing; stale sessions; users who
+   landed from a shared workshop link). Fall back to /api/workshop-config
+   for the logged-in user's own workshop when no URL slug is present. */
+(function hydrateClientLogo() {
+  const chip = document.getElementById('client-logo-hero');
+  const img = document.getElementById('client-logo-img');
+  if (!chip || !img) return;
+  const apply = (name, url) => {
+    if (!url) return;
+    img.src = url;
+    img.alt = name || 'Client Logo';
     chip.style.display = 'inline-block';
-  })
-  .catch(() => {});
+  };
+  const urlSlug = new URLSearchParams(window.location.search).get('slug');
+  if (urlSlug) {
+    fetch('/api/client-info?slug=' + encodeURIComponent(urlSlug))
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) apply(d.name, d.logoUrl); })
+      .catch(() => {});
+  } else {
+    fetch('/api/workshop-config', { credentials: 'include' })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) apply(d.clientName, d.logoUrl); })
+      .catch(() => {});
+  }
+})();
 
 function openMap() {
   const btn = document.getElementById('nav-map-link');
