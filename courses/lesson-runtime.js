@@ -42,69 +42,13 @@ function computeLocalStorageMigration({ localCompleted, serverCompleted, lessons
   };
 }
 
-// Build a single regex that matches any personalization key, longest-first so
-// "Finance and Accounting" wins over "Finance". Returns a function that
-// replaces each match with the admin-supplied value, HTML-escaped so a stray
-// `<script>` in a replacement value doesn't execute when re-inserted into a
-// lesson's HTML. Defined at module scope so it's reachable from both the
-// browser path and node:test imports.
-function buildReplacer(replacements) {
-  if (!replacements || typeof replacements !== 'object') return null;
-  const keys = Object.keys(replacements).filter(k => typeof k === 'string' && k.length > 0);
-  if (keys.length === 0) return null;
-  keys.sort((a, b) => b.length - a.length);
-  const pattern = keys.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
-  const re = new RegExp(pattern, 'g');
-  const escapeHtml = (s) => String(s == null ? '' : s)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-  return (s) => s.replace(re, (match) => {
-    const val = replacements[match];
-    return typeof val === 'string' ? escapeHtml(val) : match;
-  });
-}
-
-// Apply admin-generated personalization to a lessons array. Pure (no DOM).
-// Returns a new array with replacements and per-lesson overrides applied,
-// or `null` when nothing to do.
-function applyPersonalization(lessons, progressCategory, cfg) {
-  if (!cfg || !cfg.personalization) return null;
-  const { replacements, lessonOverrides } = cfg.personalization;
-  const courseOverrides = (lessonOverrides && lessonOverrides[progressCategory]) || {};
-  const replacer = buildReplacer(replacements);
-  const hasOverrides = courseOverrides && typeof courseOverrides === 'object' && Object.keys(courseOverrides).length > 0;
-  if (!replacer && !hasOverrides) return null;
-
-  return lessons.map((lesson, i) => {
-    let merged = { ...lesson };
-    const override = courseOverrides[String(i)];
-    if (override && typeof override === 'object') {
-      merged = { ...merged, ...override };
-    } else if (typeof override === 'string') {
-      merged.implement = override;
-    }
-    if (replacer) {
-      for (const key of Object.keys(merged)) {
-        if (typeof merged[key] === 'string') {
-          merged[key] = replacer(merged[key]);
-        }
-      }
-    }
-    return merged;
-  });
-}
-
 // Dual export: <script> loads attach to window; node:test requires via CommonJS.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    buildNav, sumPoints, diffCompleted, computeLocalStorageMigration,
-    buildReplacer, applyPersonalization,
-  };
+  module.exports = { buildNav, sumPoints, diffCompleted, computeLocalStorageMigration };
 }
 if (typeof window !== 'undefined') {
   window.LessonRuntime = Object.assign(window.LessonRuntime || {}, {
     buildNav, sumPoints, diffCompleted, computeLocalStorageMigration,
-    buildReplacer, applyPersonalization,
   });
 }
 
@@ -425,14 +369,6 @@ function installKeybinds() {
   window.addEventListener('beforeunload', () => { if (state && state.flushTimer) flush(); });
 }
 
-async function loadWorkshopConfig() {
-  try {
-    const r = await fetch('/api/workshop-config', { credentials: 'include' });
-    if (!r.ok) return null;
-    return await r.json();
-  } catch (_) { return null; }
-}
-
 async function initCourse({ courseId, progressCategory, lessons, coreCount, renderLesson: customRenderLesson, renderNav: customRenderNav }) {
   // IMPORTANT 6: guard against empty lessons array
   if (!lessons || lessons.length === 0) return;
@@ -464,17 +400,8 @@ async function initCourse({ courseId, progressCategory, lessons, coreCount, rend
   renderLesson(state.currentLesson);
   dispatchChange();
 
-  // Slow path — reconcile with server progress, and apply admin-generated
-  // personalization (replacements + lesson overrides) once /api/workshop-config
-  // returns. Running these in parallel keeps the first-paint time unchanged;
-  // a personalization repaint (if any) lands within one extra RTT.
-  const [wsConfig, server] = await Promise.all([loadWorkshopConfig(), loadServerProgress()]);
-
-  const personalizedLessons = applyPersonalization(state.lessons, state.progressCategory, wsConfig);
-  if (personalizedLessons) {
-    state.lessons = personalizedLessons;
-    renderLesson(state.currentLesson);
-  }
+  // Slow path — reconcile with server progress and repaint nav if needed.
+  const server = await loadServerProgress();
 
   // Reset-epoch check. If the workshop has been reset since the last time
   // we synced (or we have no record of syncing), treat local as stale:
