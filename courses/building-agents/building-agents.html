@@ -741,13 +741,18 @@ function switchOption(lesson, key, btn) {
   }
 }
 
-/* ── Auth gate ── */
-fetch('/api/me').then(r => {
-  if (r.status === 401) {
-    const s = new URLSearchParams(location.search).get('slug');
-    window.location.href = s ? '/login.html?slug=' + encodeURIComponent(s) : '/login.html';
-  }
-}).catch(() => { /* offline — leave the page alone */ });
+/* ── Auth gate ──
+   Polled so admin Reset Progress (which invalidates pre-reset sessions
+   server-side) kicks active tabs within ~20s, not only on manual refresh. */
+function redirectToLogin() {
+  const s = new URLSearchParams(location.search).get('slug');
+  window.location.href = s ? '/login.html?slug=' + encodeURIComponent(s) : '/login.html';
+}
+function authCheck() {
+  fetch('/api/me').then(r => { if (r.status === 401) redirectToLogin(); }).catch(() => {});
+}
+authCheck();
+setInterval(authCheck, 20000);
 
 /* ── Opportunity Map callouts ── */
 const MAP_FEATURE_TAGS = {
