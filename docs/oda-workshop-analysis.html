@@ -3,19 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>ODA Workshop — Agent Opportunity Analysis</title>
-<script>
-/* Admin-only gate. Same pattern as department-narratives.html. */
-(async function () {
-  try {
-    const res = await fetch('/api/admin/auth', { credentials: 'include' });
-    if (!res.ok) { window.location.href = '/admin.html#login'; return; }
-    const data = await res.json();
-    if (!data || !data.authenticated) { window.location.href = '/admin.html#login'; return; }
-    document.documentElement.style.visibility = 'visible';
-  } catch (e) { window.location.href = '/admin.html#login'; }
-})();
-</script>
-<style>html { visibility: hidden; }</style>
+<!-- Publicly viewable — no auth gate. Intended for slide capture + client
+     review. Re-add the admin gate (see department-narratives.html) if
+     this ever needs to be held back. -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
