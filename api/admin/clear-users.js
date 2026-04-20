@@ -34,14 +34,18 @@ export default async function handler(req, res) {
       if (!raw) return res.status(404).json({ error: 'Workshop not found' });
     }
 
+    // Stamp resetAt *before* deleting so any in-flight POST /api/progress
+    // racing this handler is rejected by the iat check in /api/me (and the
+    // POST's own stale-reset guard) instead of sneaking a sadd back into
+    // {prefix}users after we've cleared it. Matches the order in reset.js.
+    const resetAt = Date.now();
+    await r.set(`${prefix}resetAt`, String(resetAt));
+
     const users = await r.smembers(`${prefix}users`);
     for (const userKey of users) {
       await r.del(`${prefix}progress:${userKey}`);
     }
     await r.del(`${prefix}users`);
-
-    const resetAt = Date.now();
-    await r.set(`${prefix}resetAt`, String(resetAt));
 
     return res.status(200).json({
       ok: true,
