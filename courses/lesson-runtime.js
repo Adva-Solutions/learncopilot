@@ -156,10 +156,13 @@ function renderLesson(index) {
   dispatchChange();
 }
 
-// Add a clickable progress checkbox to each step inside the current tab's content.
-// Targets: <h4> elements whose text begins with "Step N" AND direct <li> children of
-// any <ol> inside .content. State is keyed by course + lesson + step index and
-// persists in localStorage so students can see what they've completed in this lesson.
+// Add a clickable progress checkbox to each narrative step inside the current tab's
+// content. Targets <h4> elements whose text begins with "Step N" (e.g. copilot-chat
+// and building-agents formats). Does NOT target <ol><li> steps -- each course already
+// has its own exercise-check transformer (transformExerciseLists) that converts
+// <ol> -> <ul.exercise-check> with native checkboxes and localStorage persistence.
+// Decorating <li> here would produce a double checkbox once that transformer runs.
+// State is keyed by course + lesson + tab + step index, persisted in localStorage.
 function decorateSteps() {
   if (!state) return;
   const container = document.getElementById('lesson-content');
@@ -170,9 +173,8 @@ function decorateSteps() {
   const tab = state.currentTab || 'learn';
   const keyRoot = 'stepcheck:' + courseId + ':L' + lessonIdx + ':' + tab;
 
-  const stepH4s = Array.from(scope.querySelectorAll('h4')).filter(h => /^\s*Step\s+\d+/i.test(h.textContent));
-  const stepLis = Array.from(scope.querySelectorAll('ol > li'));
-  const allSteps = [...stepH4s, ...stepLis];
+  const allSteps = Array.from(scope.querySelectorAll('h4'))
+    .filter(h => /^\s*Step\s+\d+/i.test(h.textContent));
 
   allSteps.forEach((el, i) => {
     if (el.querySelector(':scope > .step-check')) return; // already decorated

@@ -3,9 +3,9 @@
   "configurations": [
     {
       "name": "learncopilot",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "-l", "3847"],
-      "port": 3847
+      "runtimeExecutable": "vercel",
+      "runtimeArgs": ["dev"],
+      "autoPort": true
     }
   ]
 }
