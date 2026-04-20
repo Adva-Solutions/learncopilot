@@ -213,7 +213,7 @@ window.LESSONS = [
 </div>
 <p><strong>Step 3:</strong> Watch the research plan unfold. Note how the Researcher decomposes the question &mdash; it will likely search for "experiential architecture," "spatial narrative," and specific firms known for this approach.</p>
 <p><strong>Step 4:</strong> Review the findings. For each project, verify that the cited spatial decision actually ties to <em>experience</em> rather than generic good design. Click through at least 2 of the source citations to confirm accuracy.</p>
-<p><strong>Step 5 (optional):</strong> Copy the output into a Word doc for editing, or save it as a <strong>Page</strong> (<em>Save to Page</em> in the response menu) so you can feed these finds into the Philosophy Radar Agent's knowledge base later.</p>
+<p><strong>Step 5 (optional):</strong> Copy the output into a Word doc for editing, or save it as a <strong>Page</strong> (<em>Save to Page</em> in the response menu) so the references stay searchable the next time you run a Researcher pass on the same three ideas.</p>
 </div>
 
 <div class="option-content" id="researcher-option-4">
@@ -506,7 +506,7 @@ window.LESSONS = [
 
 <div class="option-content" id="buildType-option-1">
 <h3>Build a Report Writer Agent</h3>
-<p><em>Why this works: instead of writing a template from scratch, you feed an <strong>existing</strong> report you are happy with to AI and ask it to extract the structure as a system prompt. The AI reverse-engineers your headings, section order, tone, and formatting. A good report agent also asks questions before writing &mdash; who is this for, what period does it cover &mdash; so the output is grounded before it starts. Pick the report type most relevant to your role.</em></p>
+<p><em>The idea is simple: instead of describing a template from scratch, hand Copilot a polished report you already like and let it reverse-engineer the structure. Then hand the agent a pile of raw material &mdash; a meeting transcript, a batch of notes &mdash; and it produces a new report in the same shape. Pick your department below; each one comes with two files you'll use in the exercise.</em></p>
 
 <div class="option-tabs" id="reportGroup-options">
   <button class="option-tab active" onclick="switchOption('reportGroup', 0)">Architecture</button>
@@ -519,190 +519,220 @@ window.LESSONS = [
 <div class="option-content active" id="reportGroup-option-0">
 <h4>Architecture: Project Status Report</h4>
 <div class="note-box">
-  <div class="note-title">Need a sample report?</div>
-  <p>If you don't have an existing report to extract from, download the <a href="/mock-data/proposals/oda-rfp-template.pdf" download>RFP Response Template</a> or the <a href="/mock-data/executive/oda-qbr-q1-2025.pdf" download>Quarterly Business Review</a> as a starting point.</p>
+  <div class="note-title">Your two files</div>
+  <ul style="margin-top:6px;">
+    <li><strong>Template source</strong> &mdash; a polished prior-project status report. The agent studies this to learn the structure, headings, and tone. <br><a href="/mock-data/report-writer/architecture-template.pdf" download>Download: 88 Richardson &mdash; Project Status Report</a></li>
+    <li><strong>Raw material</strong> &mdash; a messy meeting transcript from this week's site walkthrough. The agent will turn this into a new status report.<br><a href="/mock-data/report-writer/architecture-source.pdf" download>Download: 412 Nostrand Site Walkthrough transcript</a></li>
+  </ul>
 </div>
 
-<p><strong>Step 1: Benchmark.</strong> Upload an existing Project Status Report to plain Copilot Chat. Ask it to write a new version for a different project. Screenshot the result. This is your "before."</p>
-
-<p><strong>Step 2: Extract your template.</strong> Paste your best existing Project Status Report into Copilot Chat and run this prompt:</p>
+<p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">architecture-template.pdf</span> and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Extract the document structure, chapters, section headings, and writing style of this report. Create a detailed system prompt for an AI agent that will generate new Project Status Reports following this exact structure, tone, and formatting. Include instructions to:
-- Follow the extracted section structure exactly
-- Ask for the recipient name and time period before generating
-- Use active voice and focus on impact
-- Write from the organization's perspective
-- Leave sections blank rather than fabricate content when no source material is provided
-- Always ask for source materials (meeting notes, program updates, etc.) before writing</pre>
-</div>
+  <pre>Analyze the attached report and create a detailed system prompt for an AI agent that will generate new Project Status Reports in this exact format.
 
-<p><strong>Step 3: Create the agent.</strong> New Agent &rarr; Configure:</p>
+The prompt should instruct the agent to:
+- Follow the same section headings, order, and tone as the example
+- Ask me for the project name and reporting period before writing
+- Work from source material I upload at runtime (usually a meeting transcript or raw notes)
+- Leave a section blank rather than invent content when the source doesn't cover it
+- Keep the voice direct and factual, matching the example</pre>
+</div>
+<p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
+
+<p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
 <ul>
-  <li><strong>Name:</strong> "Architecture Report Writer"</li>
-  <li><strong>Description:</strong> "Generates Project Status Reports from raw materials using a consistent template"</li>
-  <li><strong>Instructions:</strong> Paste the system prompt from Step 2</li>
-  <li><strong>Knowledge:</strong> Add relevant website URLs (3-4 pages about your projects or firm). Do NOT pre-upload source materials &mdash; those come at runtime.</li>
-  <li><strong>Suggested prompts:</strong> "I need to write a Project Status Report" / "Here are my raw materials for this month's report"</li>
+  <li><strong>Name:</strong> "Project Status Report Writer"</li>
+  <li><strong>Description:</strong> "Turns raw project material (meeting notes, transcripts) into a structured Project Status Report."</li>
+  <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
+  <li><strong>Suggested prompts:</strong> "Draft a status report from this transcript" / "Start a new status report"</li>
 </ul>
 
-<p><strong>Step 4: Use it.</strong> Upload raw materials (meeting notes, consultant updates, permit status) &rarr; type "Produce the report" &rarr; the agent asks clarifying questions &rarr; generates the full document.</p>
+<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">architecture-source.pdf</span> (the site-walkthrough transcript) and run:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Turn this transcript into a Project Status Report for 412 Nostrand, April 2026. If a section isn't covered in the transcript, leave it blank &mdash; do not invent.</pre>
+</div>
+<p>The agent should produce a full-shape Project Status Report: executive summary, project overview, design highlights pulled from the walkthrough, consultants table, open issues (rebar clash, precast delivery, tenant change order), next steps. Compare to the template &mdash; same shape, different project.</p>
 
-<p><strong>Iteration:</strong> Run the agent 3 times with different input materials. Update the Instructions each time something is off &mdash; missing sections, wrong tone, too long or too short.</p>
-<p class="personalization-note">[PERSONALIZED: Replace project types and section headings with your actual reporting structure.]</p>
+<p><strong>Iterate.</strong> If a section is missing, vague, or invented, add a rule to the Instructions ("Never fabricate numbers," "Always include a Schedule Impact subsection," etc.) and re-run. Usually 2&ndash;3 rounds gets you to a reliable agent.</p>
+<p class="personalization-note">[PERSONALIZED: Replace with your actual status-report sections and reporting cadence once you're back at your desk.]</p>
 </div>
 
 <div class="option-content" id="reportGroup-option-1">
 <h4>HR: Monthly People Report</h4>
 <div class="note-box">
-  <div class="note-title">Need a sample report?</div>
-  <p>If you don't have an existing report, download the <a href="/mock-data/hr/employee-handbook-excerpt.pdf" download>Employee Handbook Excerpt</a> and the <a href="/mock-data/hr/recruiting-pipeline.xlsx" download>Recruiting Pipeline</a> as reference materials.</p>
+  <div class="note-title">Your two files</div>
+  <ul style="margin-top:6px;">
+    <li><strong>Template source</strong> &mdash; a polished prior-month People Report. The agent studies this to learn the structure, headings, and tone. <br><a href="/mock-data/report-writer/hr-template.pdf" download>Download: Monthly People Report &mdash; March 2026</a></li>
+    <li><strong>Raw material</strong> &mdash; a messy HR team sync transcript from this month. The agent will turn this into a new report.<br><a href="/mock-data/report-writer/hr-source.pdf" download>Download: April HR Team Sync transcript</a></li>
+  </ul>
 </div>
 
-<p><strong>Step 1: Benchmark.</strong> Upload an existing Monthly People Report to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>
-
-<p><strong>Step 2: Extract your template.</strong> Paste your best existing Monthly People Report into Copilot Chat and run this prompt:</p>
+<p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">hr-template.pdf</span> and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Extract the document structure, chapters, section headings, and writing style of this report. Create a detailed system prompt for an AI agent that will generate new Monthly People Reports following this exact structure, tone, and formatting. Include instructions to:
-- Follow the extracted section structure exactly
-- Ask for the recipient name and time period before generating
-- Use active voice and focus on impact
-- Write from the organization's perspective
-- Leave sections blank rather than fabricate content when no source material is provided
-- Always ask for source materials (meeting notes, program updates, etc.) before writing</pre>
-</div>
+  <pre>Analyze the attached report and create a detailed system prompt for an AI agent that will generate new Monthly People Reports in this exact format.
 
-<p><strong>Step 3: Create the agent.</strong> New Agent &rarr; Configure:</p>
+The prompt should instruct the agent to:
+- Follow the same section headings, order, and tone as the example
+- Ask me for the reporting month before writing
+- Work from source material I upload at runtime (usually a meeting transcript or raw notes)
+- Leave a section blank rather than invent content when the source doesn't cover it
+- Keep the voice direct and factual, matching the example</pre>
+</div>
+<p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
+
+<p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
 <ul>
-  <li><strong>Name:</strong> "HR Report Writer"</li>
-  <li><strong>Description:</strong> "Generates Monthly People Reports from raw materials using a consistent template"</li>
-  <li><strong>Instructions:</strong> Paste the system prompt from Step 2</li>
-  <li><strong>Knowledge:</strong> Add relevant HR resource URLs (3-4 pages about your people programs). Do NOT pre-upload source materials &mdash; those come at runtime.</li>
-  <li><strong>Suggested prompts:</strong> "I need to write a Monthly People Report" / "Here are my raw materials for this month's report"</li>
+  <li><strong>Name:</strong> "People Report Writer"</li>
+  <li><strong>Description:</strong> "Turns raw HR material (team syncs, recruiter notes) into a structured Monthly People Report."</li>
+  <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
+  <li><strong>Suggested prompts:</strong> "Draft this month's People Report" / "Turn this transcript into a People Report"</li>
 </ul>
 
-<p><strong>Step 4: Use it.</strong> Upload raw materials (headcount data, hiring updates, retention numbers) &rarr; type "Produce the report" &rarr; the agent asks clarifying questions &rarr; generates the full document.</p>
+<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">hr-source.pdf</span> (the HR team sync transcript) and run:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Turn this transcript into a Monthly People Report for April 2026. If a section isn't covered in the transcript, leave it blank &mdash; do not invent.</pre>
+</div>
+<p>The agent should produce a full-shape People Report: headline numbers (where the transcript supports them), hiring &amp; promotions, retention (including the April resignation), benefits (survey results), L&amp;D (cohort 2 progress), risks, looking ahead. Compare to the template &mdash; same shape, different month.</p>
 
-<p><strong>Iteration:</strong> Run the agent 3 times with different input materials. Update the Instructions each time something is off &mdash; missing sections, wrong tone, too long or too short.</p>
-<p class="personalization-note">[PERSONALIZED: Replace department names and HR metrics with your actual organizational structure.]</p>
+<p><strong>Iterate.</strong> If a section is missing, vague, or invented, add a rule to the Instructions ("Never fabricate metrics," "Always include an Exit-Interview Themes subsection," etc.) and re-run. Usually 2&ndash;3 rounds gets you to a reliable agent.</p>
+<p class="personalization-note">[PERSONALIZED: Swap in your real People Report sections and metric set when you rebuild this for your own workflow.]</p>
 </div>
 
 <div class="option-content" id="reportGroup-option-2">
 <h4>Marketing: Campaign Performance Report</h4>
 <div class="note-box">
-  <div class="note-title">Need a sample report?</div>
-  <p>If you don't have an existing report, download the <a href="/mock-data/marketing/oda-awards-tracker.xlsx" download>Awards Tracker</a> and the <a href="/mock-data/marketing/oda-newsletter-sample.pdf" download>Newsletter Sample</a> as reference materials.</p>
+  <div class="note-title">Your two files</div>
+  <ul style="margin-top:6px;">
+    <li><strong>Template source</strong> &mdash; a polished prior-quarter campaign report. The agent studies this to learn the structure, headings, and tone. <br><a href="/mock-data/report-writer/marketing-template.pdf" download>Download: Q1 2026 &ldquo;Waterfront Wins&rdquo; Campaign Report</a></li>
+    <li><strong>Raw material</strong> &mdash; a messy weekly marketing sync transcript. The agent will turn this into a new report.<br><a href="/mock-data/report-writer/marketing-source.pdf" download>Download: Marketing Weekly Sync transcript</a></li>
+  </ul>
 </div>
 
-<p><strong>Step 1: Benchmark.</strong> Upload an existing Campaign Performance Report to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>
-
-<p><strong>Step 2: Extract your template.</strong> Paste your best existing Campaign Performance Report into Copilot Chat and run this prompt:</p>
+<p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">marketing-template.pdf</span> and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Extract the document structure, chapters, section headings, and writing style of this report. Create a detailed system prompt for an AI agent that will generate new Campaign Performance Reports following this exact structure, tone, and formatting. Include instructions to:
-- Follow the extracted section structure exactly
-- Ask for the recipient name and time period before generating
-- Use active voice and focus on impact
-- Write from the organization's perspective
-- Leave sections blank rather than fabricate content when no source material is provided
-- Always ask for source materials (meeting notes, program updates, etc.) before writing</pre>
-</div>
+  <pre>Analyze the attached report and create a detailed system prompt for an AI agent that will generate new Campaign Performance Reports in this exact format.
 
-<p><strong>Step 3: Create the agent.</strong> New Agent &rarr; Configure:</p>
+The prompt should instruct the agent to:
+- Follow the same section headings, order, and tone as the example
+- Ask me for the campaign name and reporting period before writing
+- Work from source material I upload at runtime (usually a meeting transcript or raw notes)
+- Leave a section blank rather than invent content when the source doesn't cover it
+- Keep the voice direct and factual, matching the example</pre>
+</div>
+<p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
+
+<p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
 <ul>
-  <li><strong>Name:</strong> "Marketing Report Writer"</li>
-  <li><strong>Description:</strong> "Generates Campaign Performance Reports from raw materials using a consistent template"</li>
-  <li><strong>Instructions:</strong> Paste the system prompt from Step 2</li>
-  <li><strong>Knowledge:</strong> Add relevant marketing resource URLs (3-4 pages about your brand or campaigns). Do NOT pre-upload source materials &mdash; those come at runtime.</li>
-  <li><strong>Suggested prompts:</strong> "I need to write a Campaign Performance Report" / "Here are my raw materials for this month's report"</li>
+  <li><strong>Name:</strong> "Campaign Report Writer"</li>
+  <li><strong>Description:</strong> "Turns raw marketing material (team syncs, press logs) into a structured Campaign Performance Report."</li>
+  <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
+  <li><strong>Suggested prompts:</strong> "Draft this period's campaign report" / "Turn this sync into a campaign report"</li>
 </ul>
 
-<p><strong>Step 4: Use it.</strong> Upload raw materials (campaign metrics, social data, press mentions) &rarr; type "Produce the report" &rarr; the agent asks clarifying questions &rarr; generates the full document.</p>
+<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">marketing-source.pdf</span> (the marketing weekly transcript) and run:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Turn this transcript into a Campaign Performance Report for the week of April 7, 2026. If a section isn't covered in the transcript, leave it blank &mdash; do not invent.</pre>
+</div>
+<p>The agent should produce a full-shape report: summary, channel breakdown (AIA submission, Dezeen interview, photoshoot, social pivot off Reels), notable moments, what worked / what didn't, next steps. Compare to the template &mdash; same shape, different period.</p>
 
-<p><strong>Iteration:</strong> Run the agent 3 times with different input materials. Update the Instructions each time something is off &mdash; missing sections, wrong tone, too long or too short.</p>
-<p class="personalization-note">[PERSONALIZED: Replace platform names and KPI benchmarks with your actual marketing channels and targets.]</p>
+<p><strong>Iterate.</strong> If a section is missing, vague, or invented, add a rule to the Instructions ("Never invent metrics," "Always include a Channel-Mix Changes subsection," etc.) and re-run. Usually 2&ndash;3 rounds gets you to a reliable agent.</p>
+<p class="personalization-note">[PERSONALIZED: Swap in your actual channel list, KPI set, and reporting cadence when you rebuild this for your own workflow.]</p>
 </div>
 
 <div class="option-content" id="reportGroup-option-3">
-<h4>Executive: Philosophy Radar Agent</h4>
+<h4>Executive: Monthly Board Briefing</h4>
 <div class="note-box">
-  <div class="note-title">What you're building</div>
-  <p>An agent that runs on a daily schedule, scans configured sources (media, competitions, peer-firm announcements), and emails the Principal a concise brief whenever it finds new work that aligns with ODA's three core ideas — <em>form follows experience</em>, <em>porosity for prosperity</em>, <em>architecture as a social technology</em>. The "report" the agent writes is the alignment memo it emails; Report Writer is the pattern we use to build it.</p>
-</div>
-<div class="note-box">
-  <div class="note-title">Reference material</div>
-  <p>Download the <a href="/mock-data/executive/oda-design-philosophy.pdf" download>ODA Design Philosophy</a> doc, the <a href="/mock-data/executive/oda-peer-firms.xlsx" download>Peer Firms</a> list, and the <a href="/mock-data/executive/oda-media-sources.pdf" download>Media Sources</a> list. The philosophy doc is the <em>lens</em>; the two lists are the <em>input surface</em> the agent scans.</p>
+  <div class="note-title">Your two files</div>
+  <ul style="margin-top:6px;">
+    <li><strong>Template source</strong> &mdash; a polished prior-month Board Briefing. The agent studies this to learn the structure, headings, and tone. <br><a href="/mock-data/report-writer/executive-template.pdf" download>Download: Monthly Board Briefing &mdash; March 2026</a></li>
+    <li><strong>Raw material</strong> &mdash; a messy leadership weekly meeting transcript. The agent will turn this into a new briefing.<br><a href="/mock-data/report-writer/executive-source.pdf" download>Download: Leadership Weekly transcript</a></li>
+  </ul>
 </div>
 
-<p><strong>Step 1: Benchmark.</strong> Before building the agent, try the task in plain Copilot Chat: "Scan the web for architecture news from the past 7 days that aligns with ODA's philosophy (attached). Email me a short brief of the top 3 items." Screenshot the result. You'll compare against this to measure whether the agent actually improves it.</p>
-
-<p><strong>Step 2: Extract your alignment-memo template.</strong> Draft one example alignment memo manually — 3–5 items, each with Title, Source + link, Why it aligns (which of the three ideas), Notification tier (flag / log / skip). Then paste that example into Copilot Chat and run:</p>
+<p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">executive-template.pdf</span> and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Extract the structure, section headings, and writing style of this example alignment memo. Create a detailed system prompt for an AI agent that will:
-- Scan configured sources (media feeds, competition calendars, peer-firm announcements) on a daily schedule
-- Evaluate each candidate item against ODA's three core ideas ("form follows experience," "porosity for prosperity," "architecture as a social technology") using the philosophy doc as ground truth
-- Only surface items where alignment is strong enough to clear the notification threshold
-- Produce a memo in the exact structure of this example: item title, source + link, why it aligns (which of the three ideas, with direct reference to the philosophy doc's language), notification tier
-- Skip anything generic; when alignment is ambiguous, log it silently with a [NEEDS REVIEW] flag rather than emailing it
-- Ask me before the first run whether I want a daily digest or immediate alerts, and let me update the cadence later</pre>
-</div>
+  <pre>Analyze the attached report and create a detailed system prompt for an AI agent that will generate new Monthly Board Briefings in this exact format.
 
-<p><strong>Step 3: Create the agent.</strong> New Agent &rarr; Configure:</p>
+The prompt should instruct the agent to:
+- Follow the same section headings, order, and tone as the example
+- Ask me for the reporting month before writing
+- Work from source material I upload at runtime (usually a leadership meeting transcript or raw notes)
+- Leave a section blank rather than invent content when the source doesn't cover it
+- Keep the voice crisp and executive &mdash; no marketing language, no filler</pre>
+</div>
+<p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
+
+<p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
 <ul>
-  <li><strong>Name:</strong> "Philosophy Radar"</li>
-  <li><strong>Description:</strong> "Daily scan of architecture media, competitions, and peer-firm activity — emails only items that align with ODA's three core ideas."</li>
-  <li><strong>Instructions:</strong> Paste the system prompt from Step 2</li>
-  <li><strong>Knowledge:</strong> Upload <span class="inline-code">oda-design-philosophy.pdf</span> (the lens), <span class="inline-code">oda-peer-firms.xlsx</span>, <span class="inline-code">oda-media-sources.pdf</span>. Add 3–4 URLs for publications the agent should check (Dezeen, ArchDaily, Architectural Record).</li>
-  <li><strong>Capabilities:</strong> turn on <em>Web search</em>, <em>Create documents</em>, and if available <em>Scheduled prompts</em> and <em>Email</em> so the agent can both run daily and send you the memo.</li>
-  <li><strong>Suggested prompts:</strong> "Run today's scan" / "What did you find this week that ties to 'porosity for prosperity'?" / "Update the alignment threshold"</li>
+  <li><strong>Name:</strong> "Board Briefing Writer"</li>
+  <li><strong>Description:</strong> "Turns raw leadership-meeting material into a structured Monthly Board Briefing."</li>
+  <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
+  <li><strong>Suggested prompts:</strong> "Draft this month's board briefing" / "Turn this leadership transcript into a briefing"</li>
 </ul>
 
-<p><strong>Step 4: Schedule it.</strong> In the agent's settings, set a daily run (e.g. 7am). On each run the agent scans its configured sources, filters through the philosophy lens, and emails the alignment memo only when something clears the threshold. No alignment = no email.</p>
+<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">executive-source.pdf</span> (the leadership weekly transcript) and run:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Turn this transcript into a Monthly Board Briefing for April 2026. If a section isn't covered in the transcript, leave it blank &mdash; do not invent.</pre>
+</div>
+<p>The agent should produce a full-shape briefing: executive summary, business metrics (where the transcript supports them), major wins (88 Richardson TCO, AIA Merit, Queens shortlist), portfolio health, people (the Wynwood resignation), risks (Q2 commercial backlog), partner decisions requested (Atlanta pursuit, Navy Yard direct-select). Compare to the template &mdash; same shape, different month.</p>
 
-<p><strong>Iteration:</strong> Run manually for 3 days first. Each day, review what the agent flagged and what it logged as [NEEDS REVIEW]. If it's flagging generic stuff, tighten the alignment criteria in the Instructions. If it's missing things you'd have wanted, loosen the threshold or add the missing keywords. The point is to calibrate the lens until the inbox stays quiet except when something genuinely lands.</p>
-<p class="personalization-note">[PERSONALIZED: Swap in your firm's actual core philosophical ideas, peer firm list, and preferred publications. The three-idea structure is a scaffold — use whatever your firm's positioning actually centers on.]</p>
+<p><strong>Iterate.</strong> If a section is missing, vague, or invented, add a rule to the Instructions ("Never fabricate financial numbers," "Always include a Partner Decisions Requested section," etc.) and re-run. Usually 2&ndash;3 rounds gets you to a reliable agent.</p>
+<p class="personalization-note">[PERSONALIZED: Swap in your real briefing sections, metric set, and the decisions your partners actually vote on when you rebuild this.]</p>
 </div>
 
 <div class="option-content" id="reportGroup-option-4">
-<h4>Operations: Operations Dashboard</h4>
+<h4>Operations: Monthly Operations Dashboard</h4>
 <div class="note-box">
-  <div class="note-title">Need a sample report?</div>
-  <p>Download the <a href="/mock-data/financials/oda-project-tracking.xlsx" download>Project Tracking Data</a> and the <a href="/mock-data/staffing/oda-resource-allocation.xlsx" download>Resource Allocation Data</a> to generate an operations dashboard report.</p>
+  <div class="note-title">Your two files</div>
+  <ul style="margin-top:6px;">
+    <li><strong>Template source</strong> &mdash; a polished prior-month Operations Dashboard. The agent studies this to learn the structure, headings, and tone. <br><a href="/mock-data/report-writer/operations-template.pdf" download>Download: Monthly Operations Dashboard &mdash; March 2026</a></li>
+    <li><strong>Raw material</strong> &mdash; a messy weekly ops standup transcript. The agent will turn this into a new dashboard.<br><a href="/mock-data/report-writer/operations-source.pdf" download>Download: Operations Standup transcript</a></li>
+  </ul>
 </div>
 
-<p><strong>Step 1: Benchmark.</strong> Upload an existing Operations Dashboard report to plain Copilot Chat. Ask it to write a new version. Screenshot the result. This is your "before."</p>
-
-<p><strong>Step 2: Extract your template.</strong> Paste your best existing Operations Dashboard into Copilot Chat and run this prompt:</p>
+<p><strong>Step 1: Extract the template.</strong> In plain Copilot Chat, attach <span class="inline-code">operations-template.pdf</span> and run:</p>
 <div class="code-block">
   <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-  <pre>Extract the document structure, chapters, section headings, and writing style of this report. Create a detailed system prompt for an AI agent that will generate new Operations Dashboard reports following this exact structure, tone, and formatting. Include instructions to:
-- Follow the extracted section structure exactly
-- Ask for the recipient name and time period before generating
-- Use active voice and focus on impact
-- Write from the organization's perspective
-- Leave sections blank rather than fabricate content when no source material is provided
-- Always ask for source materials (meeting notes, program updates, etc.) before writing</pre>
-</div>
+  <pre>Analyze the attached report and create a detailed system prompt for an AI agent that will generate new Monthly Operations Dashboards in this exact format.
 
-<p><strong>Step 3: Create the agent.</strong> New Agent &rarr; Configure:</p>
+The prompt should instruct the agent to:
+- Follow the same section headings, order, and tone as the example
+- Ask me for the reporting month before writing
+- Work from source material I upload at runtime (usually an ops-standup transcript or raw notes)
+- Leave a section blank rather than invent content when the source doesn't cover it
+- Keep the voice factual and metric-focused, matching the example</pre>
+</div>
+<p>Copy the full system prompt it produces &mdash; you'll paste it in the next step.</p>
+
+<p><strong>Step 2: Create the agent.</strong> New Agent &rarr; Configure:</p>
 <ul>
   <li><strong>Name:</strong> "Operations Report Writer"</li>
-  <li><strong>Description:</strong> "Generates Operations Dashboard reports from raw materials using a consistent template"</li>
-  <li><strong>Instructions:</strong> Paste the system prompt from Step 2</li>
-  <li><strong>Knowledge:</strong> Add relevant operations resource URLs (3-4 pages about your processes or tools). Do NOT pre-upload source materials &mdash; those come at runtime.</li>
-  <li><strong>Suggested prompts:</strong> "I need to write an Operations Dashboard" / "Here are my raw materials for this month's report"</li>
+  <li><strong>Description:</strong> "Turns raw ops material (standups, invoicing notes) into a structured Monthly Operations Dashboard."</li>
+  <li><strong>Instructions:</strong> paste the system prompt from Step 1</li>
+  <li><strong>Suggested prompts:</strong> "Draft this month's ops dashboard" / "Turn this standup into a dashboard"</li>
 </ul>
 
-<p><strong>Step 4: Use it.</strong> Upload raw materials (utilization data, budget actuals, resource allocations) &rarr; type "Produce the report" &rarr; the agent asks clarifying questions &rarr; generates the full document.</p>
+<p><strong>Step 3: Feed it the raw material.</strong> Open your new agent. Attach <span class="inline-code">operations-source.pdf</span> (the ops standup transcript) and run:</p>
+<div class="code-block">
+  <div class="code-block-header"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+  <pre>Turn this transcript into a Monthly Operations Dashboard for April 2026. If a section isn't covered in the transcript, leave it blank &mdash; do not invent.</pre>
+</div>
+<p>The agent should produce a full-shape dashboard: headline metrics, utilization by studio (residential 81, competitions 83, commercial 60), budget vs. actuals (the Copilot-license variance), invoicing issues (the 412 Nostrand slip), tools update (Deltek phase 2), risks, looking ahead. Compare to the template &mdash; same shape, different month.</p>
 
-<p><strong>Iteration:</strong> Run the agent 3 times with different input materials. Update the Instructions each time something is off &mdash; missing sections, wrong tone, too long or too short.</p>
-<p class="personalization-note">[PERSONALIZED: Replace team names and utilization targets with your actual department structure and benchmarks.]</p>
+<p><strong>Iterate.</strong> If a section is missing, vague, or invented, add a rule to the Instructions ("Never fabricate utilization numbers," "Always include a Time-Entry Compliance callout," etc.) and re-run. Usually 2&ndash;3 rounds gets you to a reliable agent.</p>
+<p class="personalization-note">[PERSONALIZED: Swap in your real dashboard sections, studio list, and metric set when you rebuild this for your own workflow.]</p>
 </div>
 
 <h4>Reflective Check</h4>
-<p>Compare the agent's report to one you wrote manually. Is the structure right? Is the tone right? What sections need more detail? What sections are too long? Update the Instructions accordingly.</p>
+<p>Look at the agent's output next to the template. Same structure? Same tone? Are there sections where the agent invented numbers, or sections where it correctly left gaps? Every invented number is a rule to add to the Instructions. Every correctly-left gap is a win.</p>
 </div>
     `,
     advanced: `
@@ -758,7 +788,7 @@ window.LESSONS = [
 <h3>Three Principles for Production Agents</h3>
 
 <h4>1. Test with Real Scenarios</h4>
-<p>Use 5-10 real inputs from your actual work. Screenshot the results. Compare them to your benchmarks from Lesson 2 ("Build Your Own Agent"). If the agent does not beat the baseline &mdash; the generic Copilot output you captured in Step 0 &mdash; something needs adjusting. Do not deploy an agent that performs worse than plain Copilot.</p>
+<p>Use 5-10 real inputs from your actual work. Screenshot the results. Then run the same inputs through plain Copilot Chat (no agent) and compare. If your agent does not clearly beat that baseline &mdash; same inputs, worse output &mdash; something needs adjusting. Do not deploy an agent that performs worse than plain Copilot.</p>
 
 <h4>2. Iterate from Simple to Complex</h4>
 <p>Start with Instructions only. Get the core behavior right. Then add Knowledge sources. Then add capabilities and tools. Each layer introduces new failure modes, so validate at every step before adding the next.</p>
