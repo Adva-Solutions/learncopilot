@@ -107,15 +107,35 @@ def redline_styles():
 # HELPERS
 # --------------------------------------------------------------------------
 
+# Body-row cell style used by make_table(). Wrapping each non-header cell in a
+# Paragraph gives us two things that raw strings don't: (1) HTML-entity
+# parsing (&mdash;, &amp;, etc.) so they render as real glyphs, and
+# (2) word wrapping within the column width so long strings don't bleed
+# into the neighbour cell.
+_CELL_STYLE = ParagraphStyle(
+    "tblcell", fontName="Times-Roman", fontSize=9.5, textColor=black,
+    leading=12, spaceBefore=0, spaceAfter=0,
+)
+
+
+def _wrap_cell(val):
+    """Wrap a cell value in a Paragraph so HTML entities parse and text wraps.
+    Pass through if the caller already handed us a Paragraph or another flowable."""
+    if isinstance(val, str):
+        return Paragraph(val, _CELL_STYLE)
+    return val
+
+
 def make_table(data, col_widths):
-    t = Table(data, colWidths=col_widths)
+    # Header row stays as raw strings so the TableStyle's bold + cream colour
+    # apply cleanly; body rows get wrapped for entity + wrap support.
+    wrapped = [data[0]] + [[_wrap_cell(c) for c in row] for row in data[1:]]
+    t = Table(wrapped, colWidths=col_widths)
     t.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
         ("TEXTCOLOR",  (0, 0), (-1, 0), CREAM),
         ("FONTNAME",   (0, 0), (-1, 0), "Helvetica-Bold"),
         ("FONTSIZE",   (0, 0), (-1, 0), 9),
-        ("FONTNAME",   (0, 1), (-1, -1), "Times-Roman"),
-        ("FONTSIZE",   (0, 1), (-1, -1), 9.5),
         ("ALIGN",      (0, 0), (-1, -1), "LEFT"),
         ("VALIGN",     (0, 0), (-1, -1), "TOP"),
         ("ROWBACKGROUNDS", (0, 1), (-1, -1), [CREAM, HexColor("#F3EFE0")]),
@@ -479,10 +499,10 @@ def hr_source():
 
     story.append(Paragraph("Projects this role will touch on arrival", F["section"]))
     kv("Primary",
-       "88 Richardson closeout (LEED Gold cert pending); Navy Yard Bldg 284 (pursuit &rarr; SD). "
+       "88 Richardson closeout (LEED Gold cert pending); Navy Yard Bldg 284 (pursuit to SD). "
        "Wynwood Tower (CD phase) &mdash; climate-resilience review at owner's request.")
     kv("Secondary",
-       "412 Nostrand (DD &rarr; CD); Queens City Masterplan if awarded; firm-wide adaptive-reuse "
+       "412 Nostrand (DD to CD); Queens City Masterplan if awarded; firm-wide adaptive-reuse "
        "inquiries (currently 7 open inbound conversations).")
     kv("Longer-horizon",
        "Firm's first embodied-carbon baseline &mdash; target Q4 2026.")
@@ -695,7 +715,7 @@ def marketing_source():
         ["Apr 12", "88 Richardson", "Awards",       "AIA NY Merit, Multi-Family &mdash; WIN",                    "Announce Apr 14 morning",                   "AIA-NY-MERIT-LOGO.png"],
         ["Apr 14", "88 Richardson", "Social",       "LinkedIn post on AIA win &mdash; top week perf 18K reach",  "240 comments; draft in Canva",              "88R-AIA-LI-CARD.png"],
         ["Apr 14", "Firm",          "Social",       "Instagram Reels paused for waterfront projects; pivot LI video","Per Q1 perf read",                       "(strategy)"],
-        ["Apr 15", "412 Nostrand",  "Milestone",    "DD &rarr; CD handoff kickoff internal",                      "Maya, D. Chen, + new hire Priya",          "(internal)"],
+        ["Apr 15", "412 Nostrand",  "Milestone",    "DD to CD handoff kickoff internal",                      "Maya, D. Chen, + new hire Priya",          "(internal)"],
         ["Apr 15", "Navy Yard 284", "Event",        "Van Alen co-program seed convo w/ M. Ortiz",                "Schedule Q3 public event",                  "(none)"],
         ["Apr 16", "Queens City",   "Pursuit",      "Interview day. Final three. 90 min; good energy.",         "Interviewers: Richard, Jing, Maya, Elena",  "(no press yet)"],
         ["Apr 17", "Wynwood",       "Press",        "Ricardo &lt;&gt; Dezeen Amy interview &mdash; 60 min, recorded","Feature due May 6",                      "WYN-RICARDO-PORTRAIT.jpg"],
@@ -711,17 +731,23 @@ def marketing_source():
         ["Apr 26", "412 Nostrand",  "Photoshoot",   "Postponed to Apr 29 (weather)",                             "Rescheduled",                               "(to come)"],
         ["Apr 28", "Firm",          "Hire",         "Director of Sustainability Priya D. hire announced internal","People Team owns; may be in newsletter May","PD-HEADSHOT.jpg"],
         ["Apr 29", "412 Nostrand",  "Photoshoot",   "Shot delivered, 48 images, selects pending",                "M. Salvaing",                               "412N-IMG-001 .. -048"],
-        ["Apr 30", "Firm",          "Finance",      "Q2 marketing reallocation executed ($22K Reels &rarr; LI)",  "Approved by partners",                     "(memo)"],
+        ["Apr 30", "Firm",          "Finance",      "Q2 marketing reallocation executed ($22K Reels to LI)",  "Approved by partners",                     "(memo)"],
     ]
 
-    t = Table(rows, colWidths=[0.55*inch, 1.05*inch, 0.75*inch, 2.25*inch, 1.55*inch, 1.15*inch])
+    # Body cells wrapped in a Paragraph so long notes wrap inside their
+    # column and HTML entities parse. The activity log is 6 narrow columns
+    # with mixed-length free-text fields, so raw-string cells overflow.
+    log_cell = ParagraphStyle(
+        "logcell", fontName="Helvetica", fontSize=7.5, textColor=INK,
+        leading=10, spaceBefore=0, spaceAfter=0,
+    )
+    wrapped = [rows[0]] + [[Paragraph(c, log_cell) if isinstance(c, str) else c for c in row] for row in rows[1:]]
+    t = Table(wrapped, colWidths=[0.55*inch, 1.05*inch, 0.75*inch, 2.25*inch, 1.55*inch, 1.15*inch])
     t.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
         ("TEXTCOLOR",  (0, 0), (-1, 0), CREAM),
         ("FONTNAME",   (0, 0), (-1, 0), "Helvetica-Bold"),
         ("FONTSIZE",   (0, 0), (-1, 0), 8),
-        ("FONTNAME",   (0, 1), (-1, -1), "Helvetica"),
-        ("FONTSIZE",   (0, 1), (-1, -1), 7.5),
         ("ALIGN",      (0, 0), (-1, -1), "LEFT"),
         ("VALIGN",     (0, 0), (-1, -1), "TOP"),
         ("ROWBACKGROUNDS", (0, 1), (-1, -1), [white, HexColor("#F4F0E6")]),
@@ -761,8 +787,8 @@ def executive_template():
     story.append(make_table([
         ["Field", "Value"],
         ["Purpose", "Client meetings (3); site visit (1); panel (1); press (2)"],
-        ["Departure", "Mon Jan 12, 10:45 PM &mdash; EWR &rarr; TLV (EL AL LY 27)"],
-        ["Return", "Fri Jan 16, 11:45 PM &mdash; TLV &rarr; EWR (EL AL LY 28) &mdash; arrives Sat Jan 17, 5:05 AM"],
+        ["Departure", "Mon Jan 12, 10:45 PM &mdash; EWR to TLV (EL AL LY 27)"],
+        ["Return", "Fri Jan 16, 11:45 PM &mdash; TLV to EWR (EL AL LY 28) &mdash; arrives Sat Jan 17, 5:05 AM"],
         ["Hotels", "Beit Yakov (Tel Aviv, Jan 13&ndash;15) &middot; The David Citadel (Jerusalem, Jan 15&ndash;16)"],
         ["Car service", "Limoline Israel &mdash; Driver Tomer, +972-55-555-1301 (bilingual)"],
         ["Local ODA contact", "Lily Golabchi (ODA TLV), +972-54-555-7788"],
@@ -790,7 +816,7 @@ def executive_template():
     ]:
         story.append(Paragraph(f"&bull; {line}", S["bullet"]))
 
-    story.append(Paragraph("Day 3 &mdash; Thu Jan 15 (TLV &rarr; Jerusalem)", S["h1"]))
+    story.append(Paragraph("Day 3 &mdash; Thu Jan 15 (TLV to Jerusalem)", S["h1"]))
     for line in [
         "<b>08:00</b> Check out Beit Yakov. Luggage to Tomer.",
         "<b>09:30</b> Drive to Jerusalem (approx. 1h).",
@@ -803,7 +829,7 @@ def executive_template():
 
     story.append(PageBreak())
 
-    story.append(Paragraph("Day 4 &mdash; Fri Jan 16 (Jerusalem &rarr; TLV &rarr; EWR)", S["h1"]))
+    story.append(Paragraph("Day 4 &mdash; Fri Jan 16 (Jerusalem to TLV to EWR)", S["h1"]))
     for line in [
         "<b>09:00</b> Breakfast with <b>Naama Shapira</b> (Shapira Foundation) &mdash; in-hotel.",
         "<b>11:00</b> Private tour &mdash; <b>Israel Museum</b> Ardon Collection with curator. 60 min.",
@@ -811,7 +837,7 @@ def executive_template():
         "<b>13:30</b> Drive TLV airport (~1h drive to LOD, then airport).",
         "<b>16:00</b> Meeting at TLV airport lounge with <b>Roy Keren</b> (ICL Group, potential campus project). 90 min, no written output planned.",
         "<b>19:00</b> Early dinner, airport.",
-        "<b>21:45</b> Check-in opens. <b>23:45</b> Departure EL AL LY 28 &rarr; EWR. Seat 2A (window, aisle left). Arrives Sat Jan 17, 05:05 AM.",
+        "<b>21:45</b> Check-in opens. <b>23:45</b> Departure EL AL LY 28 to EWR. Seat 2A (window, aisle left). Arrives Sat Jan 17, 05:05 AM.",
     ]:
         story.append(Paragraph(f"&bull; {line}", S["bullet"]))
 
@@ -866,13 +892,13 @@ def executive_source():
         "no-reply@britishairways.com",
         "Mon, Apr 7, 2026, 11:42 AM EDT",
         "thalia@oda-architecture.com",
-        "Your e-ticket &mdash; BA 178  EWR &rarr; LHR  May 18, 2026",
+        "Your e-ticket &mdash; BA 178  EWR to LHR  May 18, 2026",
         [
             "Dear Mr. Eran Chen,",
             "Thank you for booking with British Airways. Your e-ticket is confirmed.",
             "<b>Booking reference:</b> 4QK9PT",
-            "<b>Outbound:</b>  BA 178  Newark (EWR) &rarr; London Heathrow (LHR).  Dep May 18 21:05 EDT / Arr May 19 08:45 BST.  Duration 06:40.  Seat 3K.  Club World.  Aircraft 777-300ER.",
-            "<b>Return:</b>  BA 177  London Heathrow (LHR) &rarr; Newark (EWR).  Dep May 22 14:10 BST / Arr May 22 17:00 EDT.  Duration 07:50.  Seat 1A.  Club World.",
+            "<b>Outbound:</b>  BA 178  Newark (EWR) to London Heathrow (LHR).  Dep May 18 21:05 EDT / Arr May 19 08:45 BST.  Duration 06:40.  Seat 3K.  Club World.  Aircraft 777-300ER.",
+            "<b>Return:</b>  BA 177  London Heathrow (LHR) to Newark (EWR).  Dep May 22 14:10 BST / Arr May 22 17:00 EDT.  Duration 07:50.  Seat 1A.  Club World.",
             "Baggage: 2 x 32 kg.  Lounge access at T5 (Galleries First).",
             "Manage your booking at ba.com. &mdash; British Airways",
         ],
@@ -946,9 +972,9 @@ def executive_source():
         [
             "Dear Ms. Scagliola,",
             "Quoted service for Mr. Chen, May 19&ndash;22:",
-            "- LHR &rarr; The Ned, May 19 morning (meet at arrivals): &pound;120.",
+            "- LHR to The Ned, May 19 morning (meet at arrivals): &pound;120.",
             "- Standby for May 19&ndash;22, dispatched by app: &pound;55/hr, 4 hr minimum per dispatch.",
-            "- The Ned &rarr; LHR, May 22 11:30: &pound;120.",
+            "- The Ned to LHR, May 22 11:30: &pound;120.",
             "Confirming: Driver James Warrington will meet Mr. Chen at Arrivals T5, London Heathrow, morning of May 19. Sign with ODA ARCHITECTURE. Mobile: +44 7700 900 211.",
             "Best regards &mdash; London Chauffeurs reservations.",
         ],
