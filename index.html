@@ -370,7 +370,8 @@ if (user) {
 function logout() {
   fetch('/api/logout').then(() => {
     localStorage.removeItem('workshop_user');
-    window.location.href = '/login.html';
+    const s = new URLSearchParams(location.search).get('slug');
+    window.location.href = s ? '/login.html?slug=' + encodeURIComponent(s) : '/login.html';
   });
 }
 
@@ -439,7 +440,11 @@ updateDashboardProgress();
    Other non-ok statuses (500 on config errors, 404 on static dev servers,
    network failures) must NOT bounce the student to login. */
 fetch('/api/me').then(async r => {
-  if (r.status === 401) { window.location.href = '/login.html'; return; }
+  if (r.status === 401) {
+    const s = new URLSearchParams(location.search).get('slug');
+    window.location.href = s ? '/login.html?slug=' + encodeURIComponent(s) : '/login.html';
+    return;
+  }
   if (r.ok) {
     // Check if an opportunity map exists for this workshop
     try {

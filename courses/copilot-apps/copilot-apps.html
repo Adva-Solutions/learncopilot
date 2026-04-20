@@ -225,13 +225,17 @@ function copyCode(btn) {
 function logout() {
   fetch('/api/logout').then(() => {
     localStorage.removeItem('workshop_user');
-    window.location.href = '/login.html';
+    const s = new URLSearchParams(location.search).get('slug');
+    window.location.href = s ? '/login.html?slug=' + encodeURIComponent(s) : '/login.html';
   });
 }
 
 /* Auth gate — bounce to login if not authenticated */
 fetch('/api/me').then(r => {
-  if (r.status === 401) window.location.href = '/login.html';
+  if (r.status === 401) {
+    const s = new URLSearchParams(location.search).get('slug');
+    window.location.href = s ? '/login.html?slug=' + encodeURIComponent(s) : '/login.html';
+  }
 }).catch(() => { /* offline — leave the page alone */ });
 
 /* ── Opportunity Map callouts ── */
