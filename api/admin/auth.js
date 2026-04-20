@@ -24,6 +24,12 @@ function verifySig(data, sig) {
   return false;
 }
 
+// Admin sessions are valid for 7 days, matching the cookie's Max-Age. The
+// timestamp is embedded in the signed payload so a stolen token can't outlive
+// its cookie attribute — verifyAdmin rejects anything older than this window
+// even if the browser still holds the cookie.
+const ADMIN_SESSION_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
+
 function createAdminToken() {
   const payload = `admin|${Date.now()}`;
   return `${Buffer.from(payload).toString('base64')}.${sign(payload)}`;
@@ -38,7 +44,11 @@ export function verifyAdmin(req) {
   if (!b64 || !sig) return false;
   const payload = Buffer.from(b64, 'base64').toString('utf-8');
   if (!payload.startsWith('admin|')) return false;
-  return verifySig(payload, sig);
+  if (!verifySig(payload, sig)) return false;
+  const issuedAt = Number(payload.slice('admin|'.length));
+  if (!Number.isFinite(issuedAt) || issuedAt <= 0) return false;
+  if (Date.now() - issuedAt > ADMIN_SESSION_MAX_AGE_MS) return false;
+  return true;
 }
 
 export default async function handler(req, res) {
