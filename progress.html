@@ -291,9 +291,12 @@ const currentUser = localStorage.getItem('workshop_user');
 // Core (non-bonus) lesson counts per course. Bonus lessons don't count against %.
 const CHAT_STEPS = 6, APPS_STEPS = 3, AGENTS_STEPS = 4;
 
-/* Read slug from URL */
+/* Read slug from URL. `?all=1` opts into the aggregate view (admin use);
+   with neither present, the leaderboard scopes to the logged-in user's own
+   workshop via /api/progress's server-side session fallback. */
 const urlParams = new URLSearchParams(window.location.search);
 const slug = urlParams.get('slug') || '';
+const wantAll = urlParams.get('all') === '1';
 
 /* Hydrate the client logo banner.
    If ?slug= is in the URL we hit the public /api/client-info endpoint so
@@ -327,11 +330,13 @@ const slug = urlParams.get('slug') || '';
 /* slug (if present) is preserved via data fetches; global nav points to bare routes */
 
 async function loadProgress() {
-  // When an explicit ?slug= is in the URL, scope to that workshop.
-  // Otherwise aggregate across all workshops so admins / visitors see everyone
-  // (the default "workshop:" bucket is frequently empty when all participants
-  // are in client-specific buckets like client:oda:).
-  const query = slug ? '?slug=' + encodeURIComponent(slug) : '?all=1';
+  // Explicit URL controls win: ?slug= scopes to that workshop, ?all=1 aggregates.
+  // With neither, send no query so /api/progress falls back to the logged-in
+  // user's own workshop slug — a participant in client:oda sees only the oda
+  // leaderboard instead of seeing aggregated participants from every workshop
+  // (which made admin Reset Progress look broken: oda was zeroed but the
+  // default workshop + other clients still populated the list).
+  const query = wantAll ? '?all=1' : slug ? '?slug=' + encodeURIComponent(slug) : '';
   try {
     const res = await fetch('/api/progress' + query);
     if (!res.ok) throw new Error('Failed to load');
