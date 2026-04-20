@@ -1368,16 +1368,24 @@ function renderWizardStep4(el) {
         body: JSON.stringify(payload),
       });
       const slug = data.slug || state.wizardData.slug;
+      const loginUrl = `${window.location.origin}/?slug=${encodeURIComponent(slug)}`;
       $('#create-result').innerHTML = `
         <div class="success-box">
           <h3>Workshop Created Successfully</h3>
           <p style="color:var(--text-secondary);">Share this login URL with participants:</p>
-          <code>${window.location.origin}/?slug=${esc(slug)}</code>
-          <div style="margin-top:16px;">
-            <a class="btn btn-primary btn-sm" href="#workshop/${esc(slug)}">Manage Workshop</a>
-            <a class="btn btn-outline btn-sm" href="#dashboard" style="margin-left:8px;">Back to Dashboard</a>
+          <code style="display:block;padding:10px 12px;background:var(--white);border:1px solid var(--border);border-radius:6px;word-break:break-all;">${esc(loginUrl)}</code>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+            <a class="btn btn-primary btn-sm" href="${esc(loginUrl)}" target="_blank" rel="noopener">Open Workshop</a>
+            <button class="btn btn-outline btn-sm" id="copy-created-url" data-url="${esc(loginUrl)}">Copy URL</button>
+            <a class="btn btn-outline btn-sm" href="#workshop/${esc(slug)}">Manage Workshop</a>
+            <a class="btn btn-outline btn-sm" href="#dashboard">Back to Dashboard</a>
           </div>
         </div>`;
+      const copyBtn = $('#copy-created-url');
+      if (copyBtn) copyBtn.onclick = async () => {
+        try { await navigator.clipboard.writeText(copyBtn.dataset.url); toast('URL copied'); }
+        catch { toast('Copy failed', true); }
+      };
       $('#create-btn').style.display = 'none';
       $('#step4-back').style.display = 'none';
       window._wizardActive = false;
@@ -1415,6 +1423,7 @@ function renderWorkshopEditor(app, workshop, allSampleFiles = []) {
 
   const studyId = w.studyId || w.listenLabsStudyId || '';
 
+  const loginUrl = `${window.location.origin}/?slug=${encodeURIComponent(slug)}`;
   app.innerHTML = `
     <div class="page-header" data-client-name="${esc(w.name)}" data-study-id="${esc(studyId)}">
       <div>
@@ -1425,6 +1434,20 @@ function renderWorkshopEditor(app, workshop, allSampleFiles = []) {
         <button class="btn btn-outline btn-sm" id="reset-btn">Reset Progress</button>
         <button class="btn btn-outline btn-sm" id="clear-users-btn">Remove All Participants</button>
         <button class="btn btn-danger btn-sm" id="delete-btn">Delete Workshop</button>
+      </div>
+    </div>
+
+    <!-- Login URL -->
+    <div class="card" style="margin-bottom:20px;padding:14px 18px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <div style="min-width:0;flex:1;">
+          <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-light);margin-bottom:6px;">Participant Login URL</p>
+          <code style="font-size:14px;word-break:break-all;">${esc(loginUrl)}</code>
+        </div>
+        <div style="display:flex;gap:8px;flex-shrink:0;">
+          <a class="btn btn-outline btn-sm" href="${esc(loginUrl)}" target="_blank" rel="noopener">Open</a>
+          <button class="btn btn-outline btn-sm" id="ws-copy-url" data-url="${esc(loginUrl)}">Copy</button>
+        </div>
       </div>
     </div>
 
@@ -1590,6 +1613,12 @@ function renderWorkshopEditor(app, workshop, allSampleFiles = []) {
   // (undefined = unchanged, null = explicit remove, string = new data URL).
   let editedLogoUrl;
   renderLogoUpload('ed-logo-uploader', w.logoUrl || null, (url) => { editedLogoUrl = url; });
+
+  const copyBtn = $('#ws-copy-url');
+  if (copyBtn) copyBtn.onclick = async () => {
+    try { await navigator.clipboard.writeText(copyBtn.dataset.url); toast('URL copied'); }
+    catch { toast('Copy failed', true); }
+  };
 
   // Save settings
   $('#save-settings').onclick = async () => {
