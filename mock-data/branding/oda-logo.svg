@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" role="img" aria-label="ODA">
   <g fill="#000000" fill-rule="evenodd">
-    <!-- O: thick ring -->
+    <!-- O: thick ring. Outer r=52, inner r=24 (ring is ~54% of outer radius). -->
     <path
       d="M 60 8 a 52 52 0 1 0 0.001 0 Z
-         M 60 32 a 28 28 0 1 1 -0.001 0 Z" />
+         M 60 36 a 24 24 0 1 1 -0.001 0 Z" />
 
-    <!-- D: right-half-ring. Flat left edge, curved right, with inner cutout. -->
+    <!-- D: solid letter D.
+         Outer outline: flat left edge at x=170, right-bulging semicircle
+         (radius 52, centered at y=60) gives the D body from (170,8) to (170,112).
+         Inner counter: a small half-disc cut out, inset from the left so the
+         left bar of the D stays thick. Inset ~18 from left, radius 16, centered
+         vertically. This leaves a thick solid left bar + thin top, bottom, and
+         right curves + a small enclosed counter on the right. -->
     <path
       d="M 170 8 L 170 112 A 52 52 0 0 0 170 8 Z
-         M 170 32 L 170 88 A 28 28 0 0 0 170 32 Z" />
+         M 188 44 L 188 76 A 16 16 0 0 0 188 44 Z" />
 
-    <!-- A: outlined wedge. Outer triangle + inner triangle cut out via evenodd,
-         matching the ring-thickness of the O and D. -->
-    <path
-      d="M 258 112 L 332 8 L 348 112 Z
-         M 278 102 L 326 34 L 336 102 Z" />
+    <!-- A: solid filled asymmetric wedge. Bottom-left vertex, apex near
+         upper-right, bottom-right vertex. No inner cutout. -->
+    <polygon points="258,112 332,8 348,112" />
   </g>
 </svg>
