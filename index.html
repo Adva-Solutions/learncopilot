@@ -371,6 +371,22 @@
 </footer>
 
 <script>
+/* Preserve the workshop slug on in-app nav clicks so the login page re-
+   renders branded, the leaderboard URL stays slug-scoped, and a stale-
+   reset 401 redirect lands on /login.html?slug=… instead of the generic
+   login. Runs on every page the learner hits; opts out of hash links,
+   external URLs, and hrefs that already carry a query string. */
+(function preserveSlug(){
+  const s = new URLSearchParams(location.search).get('slug');
+  if (!s) return;
+  const q = '?slug=' + encodeURIComponent(s);
+  document.querySelectorAll('a.global-nav-link, a.global-nav-brand, a.course-pill, a.course-card').forEach(a => {
+    const h = a.getAttribute('href');
+    if (!h || h.startsWith('#') || h.startsWith('http') || h.startsWith('mailto:') || h.startsWith('/api/') || h.includes('?')) return;
+    a.setAttribute('href', h + q);
+  });
+})();
+
 /* Apply tenant config */
 if (typeof TENANT !== 'undefined') {
   document.title = (TENANT.workshopTitle || 'Copilot Workshop') + ' — Adva Academy';

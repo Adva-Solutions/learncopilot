@@ -580,6 +580,20 @@ li.has-step-check { list-style: none; margin-left: -20px; padding-left: 0; }
 </div>
 
 <script>
+/* Preserve the workshop slug on in-app nav clicks. See index.html for
+   details — keeps Home / Leaderboard / Admin / sibling-course links
+   scoped to ?slug= so branding + branded-login-redirect survive. */
+(function preserveSlug(){
+  var s = new URLSearchParams(location.search).get('slug');
+  if (!s) return;
+  var q = '?slug=' + encodeURIComponent(s);
+  document.querySelectorAll('a.global-nav-link, a.global-nav-brand, a.course-pill, a.course-card').forEach(function(a){
+    var h = a.getAttribute('href');
+    if (!h || h.startsWith('#') || h.startsWith('http') || h.startsWith('mailto:') || h.startsWith('/api/') || h.includes('?')) return;
+    a.setAttribute('href', h + q);
+  });
+})();
+
 /* ═══════════════════════════════════════════════════════════
    SLIM SHELL — LESSONS moved to lessons.js
    ═══════════════════════════════════════════════════════════ */

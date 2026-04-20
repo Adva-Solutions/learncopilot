@@ -94,7 +94,9 @@ export default async function handler(req, res) {
           await r.del(`client:${slug}:personalization`);
           await r.del(`client:${slug}:personalization:status`);
         } else if (typeof pers === 'object') {
-          await r.set(`client:${slug}:personalization`, JSON.stringify(pers));
+          // Strip the wizard-only suggestedPassword hint — see clients.js POST.
+          const { suggestedPassword: _unused, ...cleanPers } = pers;
+          await r.set(`client:${slug}:personalization`, JSON.stringify(cleanPers));
           await r.set(`client:${slug}:personalization:status`, 'approved');
         }
       }

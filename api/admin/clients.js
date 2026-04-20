@@ -71,9 +71,13 @@ export default async function handler(req, res) {
       }
       await r.sadd('clients', slug);
 
-      // Store personalization if provided
-      if (personalization) {
-        await r.set(`client:${slug}:personalization`, JSON.stringify(personalization));
+      // Store personalization if provided. /api/admin/personalize returns a
+      // suggestedPassword alongside replacements/lessonOverrides — it's only
+      // meant as a hint for the password field in the wizard and has no
+      // runtime meaning, so strip it before persisting.
+      if (personalization && typeof personalization === 'object') {
+        const { suggestedPassword: _unused, ...cleanPers } = personalization;
+        await r.set(`client:${slug}:personalization`, JSON.stringify(cleanPers));
         await r.set(`client:${slug}:personalization:status`, 'approved');
       }
 

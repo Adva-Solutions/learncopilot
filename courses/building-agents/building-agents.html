@@ -675,6 +675,20 @@
 </div>
 
 <script>
+/* Preserve the workshop slug on in-app nav clicks. See index.html for
+   details — keeps Home / Leaderboard / Admin / sibling-course links
+   scoped to ?slug= so branding + branded-login-redirect survive. */
+(function preserveSlug(){
+  const s = new URLSearchParams(location.search).get('slug');
+  if (!s) return;
+  const q = '?slug=' + encodeURIComponent(s);
+  document.querySelectorAll('a.global-nav-link, a.global-nav-brand, a.course-pill, a.course-card').forEach(a => {
+    const h = a.getAttribute('href');
+    if (!h || h.startsWith('#') || h.startsWith('http') || h.startsWith('mailto:') || h.startsWith('/api/') || h.includes('?')) return;
+    a.setAttribute('href', h + q);
+  });
+})();
+
 /* ================================================================
    ENGINE
    ================================================================ */
