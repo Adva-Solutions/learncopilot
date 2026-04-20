@@ -175,6 +175,12 @@ if (slug) {
         logoImg.src = logoSrc;
         logoImg.alt = data.name || 'Client Logo';
         logoEl.style.display = 'block';
+        // When the client logo is present it fully represents the workshop
+        // owner's brand; the small "adva" platform word below it becomes
+        // redundant, so hide it. (The Adva footer link is still present
+        // under the form, which is where platform attribution belongs.)
+        const brand = document.querySelector('.brand');
+        if (brand) brand.style.display = 'none';
       }
     })
     .catch(() => {});

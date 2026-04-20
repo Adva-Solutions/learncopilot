@@ -518,33 +518,49 @@ fetch('/api/me').then(async r => {
 }).catch(() => { /* network offline — leave the page alone */ });
 
 /* Client logo hydration.
-   Prefer the ?slug= URL param (public /api/client-info endpoint) because
-   it works regardless of session state — the session cookie's slug may
-   differ from the URL (admins cross-viewing; stale sessions; users who
-   landed from a shared workshop link). Fall back to /api/workshop-config
-   for the logged-in user's own workshop when no URL slug is present. */
+   Fires three strategies in priority order so the logo lands even when
+   one path is missing information: (1) URL ?slug= via public
+   /api/client-info — works for admins cross-viewing or shared links;
+   (2) session slug from /api/me + client-info — works when the login
+   redirect dropped the URL param but the cookie knows the workshop;
+   (3) /api/workshop-config — last-resort for anyone logged in without
+   a slug in either place. First strategy that returns a logoUrl wins;
+   later strategies are skipped once the chip is visible. */
 (function hydrateClientLogo() {
   const chip = document.getElementById('client-logo-hero');
   const img = document.getElementById('client-logo-img');
   if (!chip || !img) return;
+
   const apply = (name, url) => {
-    if (!url) return;
+    if (!url || chip.style.display === 'inline-block') return false;
     img.src = url;
     img.alt = name || 'Client Logo';
     chip.style.display = 'inline-block';
+    return true;
   };
-  const urlSlug = new URLSearchParams(window.location.search).get('slug');
-  if (urlSlug) {
-    fetch('/api/client-info?slug=' + encodeURIComponent(urlSlug))
+
+  const tryClientInfo = (slug) =>
+    fetch('/api/client-info?slug=' + encodeURIComponent(slug))
       .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d) apply(d.name, d.logoUrl); })
-      .catch(() => {});
-  } else {
+      .then(d => d && apply(d.name, d.logoUrl))
+      .catch(() => false);
+
+  const tryWorkshopConfig = () =>
     fetch('/api/workshop-config', { credentials: 'include' })
       .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d) apply(d.clientName, d.logoUrl); })
-      .catch(() => {});
-  }
+      .then(d => d && apply(d.clientName, d.logoUrl))
+      .catch(() => false);
+
+  const tryMeSlug = () =>
+    fetch('/api/me', { credentials: 'include' })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => (d && d.slug) ? tryClientInfo(d.slug) : false)
+      .catch(() => false);
+
+  const urlSlug = new URLSearchParams(window.location.search).get('slug');
+  (urlSlug ? tryClientInfo(urlSlug) : Promise.resolve(false))
+    .then(ok => ok || tryMeSlug())
+    .then(ok => ok || tryWorkshopConfig());
 })();
 
 function openMap() {
