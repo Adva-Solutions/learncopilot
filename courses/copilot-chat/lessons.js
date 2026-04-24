@@ -743,7 +743,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <div class="option-content active" id="option-4-arch">
 <h4>Architecture: Design Review Summary Page</h4>
-<p><strong>1. Inside your Building Code &amp; Project Standards notebook</strong> from L3, click <strong>+ New page</strong>. Title it: <strong>Shore Club — Facade Material Review Summary</strong>. Confirm the references attached (spec excerpt, code comparison) — those will ground every answer on this Page. Click <strong>Create</strong>.</p>
+<p><strong>1. Inside your Building Code &amp; Project Standards notebook</strong> from L3, click <strong>+ New page</strong>. Title it: <strong>Shore Club — Facade Material Review Summary</strong>. Confirm the references attached (spec excerpt, code comparison) — those will ground every answer on this Page.</p>
 <p><strong>2.</strong> No need to re-enter instructions — the <strong>Copilot instructions are set on the notebook</strong>, not the page, and they automatically apply to every page created inside it. Your tone, format, and citation rules from Lesson 3 carry over.</p>
 <p><strong>3. Power Prompt #1</strong> — in the side Copilot chat (already open on the Page), send:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a meeting summary for the Shore Club Fort Lauderdale facade material review. Include: decisions made (selected terracotta rainscreen over aluminum curtain wall — cite cost: terracotta $85/SF vs aluminum $62/SF), action items organized by consultant (structural load capacity, envelope details, cost estimator revisions), and next milestones (CD submission in 3 weeks, permit filing in 6 weeks). Cite the specific section of our spec document wherever a material decision is referenced.</code></div>
@@ -756,7 +756,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <div class="option-content" id="option-4-hr" style="display:none">
 <h4>HR: New Hire Onboarding Checklist Page</h4>
-<p><strong>1. Inside your HR Policies &amp; Onboarding notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Designer Onboarding — Residential Studio</strong>. References from L3 (handbook, onboarding checklist) carry over. Click <strong>Create</strong>.</p>
+<p><strong>1. Inside your HR Policies &amp; Onboarding notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Designer Onboarding — Residential Studio</strong>. References from L3 (handbook, onboarding checklist) carry over.</p>
 <p><strong>2.</strong> Instructions live on the notebook, not the page — your L3 HR instructions already apply here. Nothing to re-enter.</p>
 <p><strong>3. Power Prompt #1</strong> — in the side Copilot chat:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using our onboarding checklist and handbook, create an onboarding plan for a Designer joining the Residential Studio. Include: Role Details (title, dept, start date, manager), Software Access (6 tools — Revit, Rhino, Bluebeam, Adobe CS, Microsoft 365, project management), First-Week Meetings (5 — team lead, HR orientation, IT, studio tour, mentor intro), Mentor Assignment (weekly check-ins, 30-60-90 day goals). Cite handbook sections where relevant.</code></div>
@@ -769,7 +769,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <div class="option-content" id="option-4-mktg" style="display:none">
 <h4>Marketing: Award Submission Tracker Page</h4>
-<p><strong>1. Inside your Marketing &amp; Awards Pipeline notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Q2 Award Submission Tracker</strong>. Awards tracker + narrative drafts carry over as references. Click <strong>Create</strong>.</p>
+<p><strong>1. Inside your Marketing &amp; Awards Pipeline notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Q2 Award Submission Tracker</strong>. Awards tracker + narrative drafts carry over as references.</p>
 <p><strong>2.</strong> Instructions live on the notebook, not the page — your L3 marketing instructions already apply here. Nothing to re-enter.</p>
 <p><strong>3. Power Prompt #1</strong>:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the awards tracker in this notebook, build an award submission tracker as a table: Project Name, Award (AIA Design, Architizer A+, CTBUH, SARA NY), Submission Deadline, Status, Materials Needed, Assigned To. Populate with Harbor View (AIA), Wynwood Arts (Architizer A+), Shore Club (CTBUH), Riverside Tower (SARA NY). Pull real submission deadlines from the tracker.</code></div>
@@ -782,7 +782,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <div class="option-content" id="option-4-exec" style="display:none">
 <h4>Executive: Design Radar — Weekly Scan Plan Page</h4>
-<p><strong>1. Inside your Design Philosophy &amp; Peer Landscape notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Design Radar — Weekly Scan Plan</strong>. The philosophy doc + peer firms + media sources carry over as references. Click <strong>Create</strong>.</p>
+<p><strong>1. Inside your Design Philosophy &amp; Peer Landscape notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Design Radar — Weekly Scan Plan</strong>. The philosophy doc + peer firms + media sources carry over as references.</p>
 <p><strong>2.</strong> Instructions live on the notebook, not the page — your L3 philosophy-analyst instructions already apply here. Nothing to re-enter.</p>
 <p><strong>3. Power Prompt #1 — synthesize the scan plan</strong>:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the philosophy doc, the peer-firms list, and the media-sources list in this notebook, draft a Design Radar Weekly Scan Plan. Include these sections: (1) Sources to monitor — broken into Media, Competitions, Peer Firms, with specific names pulled from the lists; (2) Keywords and signals per core idea — concrete phrases and project-type patterns that indicate each of the three ideas; (3) Alignment criteria — what distinguishes a strong match from a weak match; (4) Notification threshold — when something deserves to be flagged to the principal vs. quietly logged.</code></div>
@@ -795,7 +795,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <div class="option-content" id="option-4-ops" style="display:none">
 <h4>Operations: Resource Allocation Overview Page</h4>
-<p><strong>1. Inside your Operations &amp; Resource Planning notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Weekly Resource Overview</strong>. Resource allocation + project tracking spreadsheets carry over. Click <strong>Create</strong>.</p>
+<p><strong>1. Inside your Operations &amp; Resource Planning notebook</strong>, click <strong>+ New page</strong>. Title: <strong>Weekly Resource Overview</strong>. Resource allocation + project tracking spreadsheets carry over.</p>
 <p><strong>2.</strong> Instructions live on the notebook, not the page — your L3 ops instructions already apply here. Nothing to re-enter.</p>
 <p><strong>3. Power Prompt #1</strong>:</p>
 <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Using the resource allocation spreadsheet, build a Team Members table: Name, Role, Current Project Assignment(s), Utilization Rate, Upcoming Availability. Sort by utilization descending. Below the table, add a "Reallocation Opportunities" section identifying team members who could shift to understaffed projects — cite specific projects from the project tracking spreadsheet.</code></div>

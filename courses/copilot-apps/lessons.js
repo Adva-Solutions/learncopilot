@@ -9,7 +9,7 @@ window.LESSONS = [
 <p>The Custom Instructions and Memory you set up in the Chat course follow you into every app — a single configuration shapes every draft, summary, and analysis you produce here.</p>
 
 <div class="note-box" style="background:#fffbf0;border-left:3px solid #c5973e;padding:12px 16px;margin:14px 0 18px;">
-  <strong>How the Apps flow works:</strong> You'll start in <strong>Word</strong> (draft a real deliverable), then <strong>Excel</strong> (analyze your data and produce a dashboard), then link both back into the Chat Page you built. The module ends in <strong>Outlook</strong> — where you share what you made with a colleague. Each step feeds the next.
+  <strong>How the Apps flow works:</strong> You'll start in <strong>Word</strong> (draft a real deliverable), then <strong>Excel</strong> (analyze your data and produce a dashboard), then link both back into the Chat Page you built. The module ends in <strong>Outlook</strong> — where Copilot surfaces commitments you made in email and forgot to follow through on.
 </div>
 
 <div class="note-box" style="background:#fffbf0;border-left:3px solid #c5973e;padding:12px 16px;margin:14px 0 18px;">
@@ -310,98 +310,31 @@ window.LESSONS = [
 </div>
 `,
   implement: `
-<h3>Exercise: Share What You Made</h3>
-<p>This is the <strong>culminating</strong> step of the Apps module. You've drafted a real deliverable in Word, analyzed your data in Excel, and linked both into your Chat Page from the previous course. Now share it with a colleague who'd care — peer to peer, tentative, not a pitch.</p>
+<h3>Exercise: Find Your Own Unfinished Follow-ups</h3>
+<p>This is the <strong>culminating</strong> step of the Apps module. You've drafted a real deliverable in Word, analyzed data in Excel, and linked both into your Chat Page from the previous course. This exercise is different — it's not about sharing what you made. It's about letting Copilot surface something only it can: the commitments you made in email and never followed through on.</p>
 
 <div class="note-box">
-  <div class="note-title">Before you start</div>
-  <p>Make sure your <strong>Word v2 document</strong> and <strong>Excel dashboard</strong> are saved and their share links are pasted into your <strong>L4 Page</strong>. The email you're about to send will reference that Page so the recipient lands in one place and can see everything.</p>
+  <div class="note-title">Why this one</div>
+  <p>Every other Outlook trick (summarize a thread, draft a reply) you could do yourself — just slower. This one you <em>can't</em> do yourself without re-reading 30 days of sent mail. Copilot scans across your inbox <strong>and</strong> sent folder, cross-references the commitments you made against what you actually did, and gives you a list. It's the single most useful prompt in the whole Outlook module.</p>
 </div>
 
-<p>Pick your role below — each option walks you through drafting the retrospective email with Copilot's help:</p>
-
-<div class="option-tabs">
-  <button class="option-tab active" onclick="switchOption('outlook','a',this)">Architecture</button>
-  <button class="option-tab" onclick="switchOption('outlook','b',this)">HR</button>
-  <button class="option-tab" onclick="switchOption('outlook','c',this)">Marketing</button>
-  <button class="option-tab" onclick="switchOption('outlook','d',this)">Executive</button>
-  <button class="option-tab" onclick="switchOption('outlook','e',this)">Operations</button>
-</div>
-
-<div class="option-content active" data-lesson="outlook" data-key="a">
-<h4>Architecture: Share the Shore Club Facade Review</h4>
 <ol>
-<li>Open <strong>Outlook</strong> and click <strong>New email</strong> (not a Reply — this is a fresh note).</li>
-<li>In the compose window, click the <strong>Copilot icon at the top-right of the message body</strong> and choose <strong>Draft with Copilot</strong>.</li>
+<li>Open <strong>Outlook</strong> and click the <strong>Copilot icon in the ribbon</strong> to open the side panel (or use the standalone Copilot Chat app in <strong>Work</strong> mode — both work).</li>
 <li>Paste this prompt:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find ODA architects currently working on projects with curtain wall or facade transition details in CD or permitting phase. Then draft a short peer-to-peer email from me to one of them. Reference the Shore Club facade review we just completed, the waterproofing detail diagram, the consultant responsibility matrix, and the trade cost summary — all linked in my Page. Tone: informal, not a pitch — "sharing because you may be hitting similar transition-joint questions." No claims about time saved or efficiency. Close with an open invitation to compare notes.</code></div></li>
-<li>Review what Copilot drafted. Use the built-in follow-up controls — <em>"Shorter"</em>, <em>"Warmer"</em>, <em>"More formal"</em> — to tighten the tone without retyping.</li>
-<li>Click <strong>Keep it</strong> to place the draft into the email body. Paste the link to your L4 Page in the body so the recipient has one click to see everything.</li>
-<li>Send (or save as draft if this is just practice).</li>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Look through my sent emails over the past 30 days. Find any message where I told someone I would do something — send a draft, follow up, share a file, get back to them, check with the team, review something, confirm a date — and I haven't actually done it yet. For each one, show me: the recipient, the original commitment (in my own words, quoted), the email date, and what the promised follow-up was. Group by recipient. Skip anything I clearly already handled.</code></div></li>
+<li>Read what Copilot returns. Expect 3–8 open items. Spot-check one: click through to the original email and confirm Copilot read it correctly — occasionally it will flag a commitment you quietly handled already in a different channel.</li>
+<li>Pick the <strong>one item</strong> you'd be most embarrassed to have forgotten. Ask Copilot:
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a short follow-up reply for that first item. Acknowledge it's been a couple weeks, don't over-apologize, and deliver on the commitment if I can in the reply itself.</code></div></li>
+<li>Edit the draft inline — tighten the tone, add the file or answer. Send it.</li>
+<li><strong>Optional second pass:</strong> ask Copilot to turn the remaining items into a task list you can paste into Planner or a sticky note.
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Turn the rest of the list into short action items I can paste into my task list. One line each, starting with a verb.</code></div></li>
 </ol>
-</div>
 
-<div class="option-content" data-lesson="outlook" data-key="b">
-<h4>HR: Share the Designer Onboarding Redesign</h4>
-<ol>
-<li>Open <strong>Outlook</strong> and click <strong>New email</strong>.</li>
-<li>In the compose window, click the <strong>Copilot icon at the top-right of the message body</strong> and choose <strong>Draft with Copilot</strong>.</li>
-<li>Paste this prompt:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find ODA hiring managers who have designer roles open or new hires starting in the next 60 days. Then draft a short peer-to-peer email from me to one of them. Reference the 90-day onboarding journey map and the AI policy section we just added to the handbook — both linked in my Page. Tone: tentative and peer — "sharing what we put together this week, still figuring out what's useful vs. noise." No transformation claims. Close with an open invitation if they want to walk through the approach before their new hire lands.</code></div></li>
-<li>Review the draft. Use the follow-up controls to refine tone.</li>
-<li>Click <strong>Keep it</strong>, paste the link to your L4 Page in the body.</li>
-<li>Send or save as draft.</li>
-</ol>
-</div>
-
-<div class="option-content" data-lesson="outlook" data-key="c">
-<h4>Marketing: Share the Q2 Award Submission Tracker</h4>
-<ol>
-<li>Open <strong>Outlook</strong> and click <strong>New email</strong>.</li>
-<li>In the compose window, click the <strong>Copilot icon at the top-right of the message body</strong> and choose <strong>Draft with Copilot</strong>.</li>
-<li>Paste this prompt:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find ODA colleagues who work on award submissions, PR coordination, or the newsletter — a creative director peer, a marketing coordinator, or the PR agency lead. Draft a short peer-to-peer email from me to one of them. Reference the hero composite for our priority submission, the narrative v2 redlined with the creative director, and the campaign dashboard — all linked in my Page. Tone: tentative, no transformation story — "sharing how we assembled the tracker and hero this week, not a silver bullet, just a different way to pull it together." Close inviting them to take a look before their own deadline push.</code></div></li>
-<li>Review the draft. Use the follow-up controls to refine tone.</li>
-<li>Click <strong>Keep it</strong>, paste the link to your L4 Page in the body.</li>
-<li>Send or save as draft.</li>
-</ol>
-</div>
-
-<div class="option-content" data-lesson="outlook" data-key="d">
-<h4>Executive: Share the Design Philosophy Radar</h4>
-<ol>
-<li>Open <strong>Outlook</strong> and click <strong>New email</strong>.</li>
-<li>In the compose window, click the <strong>Copilot icon at the top-right of the message body</strong> and choose <strong>Draft with Copilot</strong>.</li>
-<li>Paste this prompt:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find ODA principals, the creative director, the marketing director, or the business-development lead — anyone who works on strategic positioning, competition pursuits, or client-facing brand narrative. Draft a short peer-to-peer email from me to one of them. Reference the Philosophy Triptych, the Positioning Statement v2 (redlined this week), and the peer-activity radar dashboard — all linked in my Page. Tone: tentative, exploratory — "been experimenting with a research agent that monitors industry work through our three-idea lens… not a silver bullet, still figuring out the alignment threshold." Close with an open invitation to compare notes before the approach gets rolled out more broadly.</code></div></li>
-<li>Review the draft. Use the follow-up controls to refine tone.</li>
-<li>Click <strong>Keep it</strong>, paste the link to your L4 Page in the body.</li>
-<li>Send or save as draft.</li>
-</ol>
-</div>
-
-<div class="option-content" data-lesson="outlook" data-key="e">
-<h4>Operations: Share the Resource Allocation Overview</h4>
-<ol>
-<li>Open <strong>Outlook</strong> and click <strong>New email</strong>.</li>
-<li>In the compose window, click the <strong>Copilot icon at the top-right of the message body</strong> and choose <strong>Draft with Copilot</strong>.</li>
-<li>Paste this prompt:
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Find ODA PMs or studio leads who deal with resource allocation across projects — a studio lead in the hospitality group and two senior PMs. Draft a short peer-to-peer email from me to one of them. Reference the studio-by-week utilization heatmap, the new reallocation workflow we added to the SOP, and the utilization trend charts — all linked in my Page. Tone: tentative — "been working through resource planning this week, not a silver bullet and not sure yet which parts stick." Close with an open invitation to compare notes on how we're sizing capacity.</code></div></li>
-<li>Review the draft. Use the follow-up controls to refine tone.</li>
-<li>Click <strong>Keep it</strong>, paste the link to your L4 Page in the body.</li>
-<li>Send or save as draft.</li>
-</ol>
-</div>
-
-<p><strong>Iterate:</strong> Try one of these refinements on the draft before sending:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Make this more concise — cut any sentence that sounds self-congratulatory or over-explains the AI part.</code></div>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Adjust the tone to be warmer, less formal — but keep the tentative, exploratory framing.</code></div>
-
-<p class="personalization-note">[PERSONALIZED: swap with organization-specific peer roles and output names from Listen Labs interviews]</p>
+<p class="personalization-note">[PERSONALIZED: no department swap needed — this prompt is intentionally universal]</p>
 
 <div class="tip-box">
   <div class="tip-title">Success Check</div>
-  Does the email read like something a peer would actually welcome — curious and tentative, not a sales pitch? Did you include the Page link so the recipient can see the full body of work in one click? Would you press Send, or does it need one more pass?
+  Did Copilot actually find real commitments from your sent folder (not hallucinated)? Did the follow-up draft sound like something you'd send, or did you need to rewrite it? If you sent one reply that closes a loop you'd been sitting on for weeks — that's the whole workshop paying back in a single exercise.
 </div>
 `,
   advanced: `

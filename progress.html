@@ -251,10 +251,34 @@
     <a href="/courses/building-agents/building-agents.html" class="course-pill">Agents</a>
   </div>
   <div class="global-nav-links">
+    <a href="#" class="global-nav-link" id="nav-map-link" style="display:none; background:rgba(0,120,212,0.15); color:#6db3f2;" onclick="openMap(); return false;">Your Map</a>
     <a href="/progress.html" class="global-nav-link active">Leaderboard</a>
     <a href="/admin.html" class="global-nav-link">Admin</a>
   </div>
 </nav>
+<script>
+/* Reveal "Your Map" nav link if a map exists for this workshop. */
+(async function(){
+  try {
+    const meRes = await fetch('/api/me', { credentials: 'include' });
+    if (!meRes.ok) return;
+    const me = await meRes.json();
+    const slug = me && (me.slug || me.clientId);
+    if (!slug) return;
+    const mapRes = await fetch('/api/map?slug=' + encodeURIComponent(slug), { credentials: 'include' });
+    if (!mapRes.ok) return;
+    const data = await mapRes.json();
+    if (!data || !data.map) return;
+    const btn = document.getElementById('nav-map-link');
+    if (btn) { btn.style.display = ''; btn.dataset.slug = slug; }
+  } catch(_){}
+})();
+function openMap(){
+  const btn = document.getElementById('nav-map-link');
+  const slug = btn && btn.dataset && btn.dataset.slug;
+  if (slug) window.open('/map/' + encodeURIComponent(slug), '_blank');
+}
+</script>
 
 <div class="page">
   <div class="page-header">
