@@ -177,7 +177,10 @@ li.has-step-check { list-style: none; margin-left: -20px; padding-left: 0; }
   </div>
 </nav>
 <script>
-/* Reveal "Your Map" nav link if a map exists for this workshop. */
+/* Reveal the Opportunities CTA. Prefers a curated static file at
+   /docs/<slug>-workshop-analysis.html (shipped with the repo), falls
+   back to the dynamic /api/map?slug=<slug> if an admin has generated
+   one. If neither exists the button stays hidden. */
 (async function(){
   try {
     const meRes = await fetch('/api/me', { credentials: 'include' });
@@ -185,23 +188,45 @@ li.has-step-check { list-style: none; margin-left: -20px; padding-left: 0; }
     const me = await meRes.json();
     const slug = me && (me.slug || me.clientId);
     if (!slug) return;
+    const btn = document.getElementById('nav-map-link');
+    if (!btn) return;
+    const labelEl = btn.querySelector('.map-label');
+
+    let clientName = '';
+    try {
+      const ciRes = await fetch('/api/client-info?slug=' + encodeURIComponent(slug));
+      if (ciRes.ok) { const ci = await ciRes.json(); clientName = ci.name || ''; }
+    } catch(_){}
+
+    const staticUrl = '/docs/' + encodeURIComponent(slug) + '-workshop-analysis.html';
+    try {
+      const headRes = await fetch(staticUrl, { method: 'HEAD' });
+      if (headRes.ok) {
+        btn.style.display = '';
+        btn.href = staticUrl;
+        btn.target = '_blank';
+        btn.dataset.url = staticUrl;
+        if (labelEl) labelEl.textContent = (clientName ? clientName + ' ' : '') + 'Opportunities';
+        return;
+      }
+    } catch(_){}
+
     const mapRes = await fetch('/api/map?slug=' + encodeURIComponent(slug), { credentials: 'include' });
     if (!mapRes.ok) return;
     const data = await mapRes.json();
     if (!data || !data.map) return;
-    const btn = document.getElementById('nav-map-link');
-    if (btn) {
-      btn.style.display = '';
-      btn.dataset.slug = slug;
-      const clientName = (data.map && data.map.clientName) || '';
-      const labelEl = btn.querySelector('.map-label');
-      if (labelEl && clientName) labelEl.textContent = clientName + ' Opportunities';
-    }
+    btn.style.display = '';
+    btn.dataset.slug = slug;
+    const nameFromMap = (data.map && data.map.clientName) || clientName;
+    if (labelEl) labelEl.textContent = (nameFromMap ? nameFromMap + ' ' : '') + 'Opportunities';
   } catch(_){}
 })();
 function openMap(){
   const btn = document.getElementById('nav-map-link');
-  const slug = btn && btn.dataset && btn.dataset.slug;
+  if (!btn) return;
+  const staticUrl = btn.dataset && btn.dataset.url;
+  if (staticUrl) { window.open(staticUrl, '_blank'); return; }
+  const slug = btn.dataset && btn.dataset.slug;
   if (slug) window.open('/map/' + encodeURIComponent(slug), '_blank');
 }
 </script>

@@ -528,22 +528,48 @@ setInterval(() => {
 fetch('/api/me').then(async r => {
   if (r.status === 401) { redirectToLogin(); return; }
   if (r.ok) {
-    // Check if an opportunity map exists for this workshop
+    // Reveal the Opportunities CTA. Prefers a curated static file at
+    // /docs/<slug>-workshop-analysis.html, falls back to the dynamic
+    // /api/map?slug=<slug>. Button stays hidden if neither exists.
     try {
       const me = await r.json();
       const slug = me?.slug || me?.clientId;
       if (slug) {
-        const mapRes = await fetch(`/api/map?slug=${slug}`, { credentials: 'include' });
-        if (mapRes.ok) {
-          const mapData = await mapRes.json();
-          if (mapData.map) {
-            const btn = document.getElementById('nav-map-link');
-            if (btn) {
+        const btn = document.getElementById('nav-map-link');
+        const labelEl = btn?.querySelector('.map-label');
+
+        // Fetch client name for the label.
+        let clientName = '';
+        try {
+          const ciRes = await fetch('/api/client-info?slug=' + encodeURIComponent(slug));
+          if (ciRes.ok) { const ci = await ciRes.json(); clientName = ci.name || ''; }
+        } catch(_){}
+
+        // 1) Static curated analysis takes priority.
+        const staticUrl = `/docs/${encodeURIComponent(slug)}-workshop-analysis.html`;
+        let served = false;
+        try {
+          const headRes = await fetch(staticUrl, { method: 'HEAD' });
+          if (headRes.ok && btn) {
+            btn.style.display = '';
+            btn.href = staticUrl;
+            btn.target = '_blank';
+            btn.dataset.url = staticUrl;
+            if (labelEl) labelEl.textContent = (clientName ? clientName + ' ' : '') + 'Opportunities';
+            served = true;
+          }
+        } catch(_){}
+
+        // 2) Fall back to dynamic map.
+        if (!served) {
+          const mapRes = await fetch(`/api/map?slug=${slug}`, { credentials: 'include' });
+          if (mapRes.ok) {
+            const mapData = await mapRes.json();
+            if (mapData.map && btn) {
               btn.style.display = '';
               btn.dataset.slug = slug;
-              const clientName = (mapData.map && mapData.map.clientName) || '';
-              const labelEl = btn.querySelector('.map-label');
-              if (labelEl && clientName) labelEl.textContent = clientName + ' Opportunities';
+              const nameFromMap = (mapData.map && mapData.map.clientName) || clientName;
+              if (labelEl) labelEl.textContent = (nameFromMap ? nameFromMap + ' ' : '') + 'Opportunities';
             }
           }
         }
@@ -600,7 +626,10 @@ fetch('/api/me').then(async r => {
 
 function openMap() {
   const btn = document.getElementById('nav-map-link');
-  const slug = btn?.dataset?.slug;
+  if (!btn) return;
+  const staticUrl = btn.dataset?.url;
+  if (staticUrl) { window.open(staticUrl, '_blank'); return; }
+  const slug = btn.dataset?.slug;
   if (slug) window.open(`/map/${slug}`, '_blank');
 }
 </script>
