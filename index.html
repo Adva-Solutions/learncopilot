@@ -80,6 +80,9 @@
     cursor: pointer; background: none; border: none; font-family: inherit;
   }
   .global-nav-link:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+  .nav-map-cta { background: #fde4d0; border: 1px solid #e8c8a8; color: #5a3821 !important; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; }
+  .nav-map-cta:hover { background: #fdd9bc; border-color: #d9b48a; color: #3d2414 !important; }
+  .nav-map-cta .map-icon { font-size: 14px; line-height: 1; }
   .global-nav-link.active { color: var(--white); background: rgba(255,255,255,0.12); }
   .nav-user {
     font-size: 13px; color: rgba(255,255,255,0.55);
@@ -284,7 +287,7 @@
     <a href="/courses/building-agents/building-agents.html" class="course-pill">Agents</a>
   </div>
   <div class="global-nav-links">
-    <a href="#" class="nav-link" id="nav-map-link" style="display:none; background:rgba(0,120,212,0.15); color:#6db3f2;" onclick="openMap(); return false;">Your Map</a>
+    <a href="#" class="nav-link nav-map-cta" id="nav-map-link" style="display:none;" onclick="openMap(); return false;"><span class="map-icon">&#128214;</span><span class="map-label">Opportunities</span></a>
     <a href="/progress.html" class="global-nav-link">Leaderboard</a>
     <a href="/admin.html" class="global-nav-link">Admin</a>
     <div class="nav-user" id="nav-user"></div>
@@ -535,7 +538,13 @@ fetch('/api/me').then(async r => {
           const mapData = await mapRes.json();
           if (mapData.map) {
             const btn = document.getElementById('nav-map-link');
-            if (btn) { btn.style.display = ''; btn.dataset.slug = slug; }
+            if (btn) {
+              btn.style.display = '';
+              btn.dataset.slug = slug;
+              const clientName = (mapData.map && mapData.map.clientName) || '';
+              const labelEl = btn.querySelector('.map-label');
+              if (labelEl && clientName) labelEl.textContent = clientName + ' Opportunities';
+            }
           }
         }
       }

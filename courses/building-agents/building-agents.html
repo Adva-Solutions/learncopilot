@@ -29,6 +29,9 @@
   .global-nav-links { display: flex; gap: 4px; align-items: center; }
   .global-nav-link { padding: 6px 14px; border-radius: 18px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); text-decoration: none; transition: all 0.15s; }
   .global-nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+  .nav-map-cta { background: #fde4d0; border: 1px solid #e8c8a8; color: #5a3821 !important; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; }
+  .nav-map-cta:hover { background: #fdd9bc; border-color: #d9b48a; color: #3d2414 !important; }
+  .nav-map-cta .map-icon { font-size: 14px; line-height: 1; }
 
   .app {
     display: flex;
@@ -648,7 +651,7 @@
     <a href="/courses/building-agents/building-agents.html" class="course-pill active">Agents</a>
   </div>
   <div class="global-nav-links">
-    <a href="#" class="global-nav-link" id="nav-map-link" style="display:none; background:rgba(0,120,212,0.15); color:#6db3f2;" onclick="openMap(); return false;">Your Map</a>
+    <a href="#" class="global-nav-link nav-map-cta" id="nav-map-link" style="display:none;" onclick="openMap(); return false;"><span class="map-icon">&#128214;</span><span class="map-label">Opportunities</span></a>
     <a href="/progress.html" class="global-nav-link">Leaderboard</a>
     <a href="/admin.html" class="global-nav-link">Admin</a>
   </div>
@@ -667,7 +670,13 @@
     const data = await mapRes.json();
     if (!data || !data.map) return;
     const btn = document.getElementById('nav-map-link');
-    if (btn) { btn.style.display = ''; btn.dataset.slug = slug; }
+    if (btn) {
+      btn.style.display = '';
+      btn.dataset.slug = slug;
+      const clientName = (data.map && data.map.clientName) || '';
+      const labelEl = btn.querySelector('.map-label');
+      if (labelEl && clientName) labelEl.textContent = clientName + ' Opportunities';
+    }
   } catch(_){}
 })();
 function openMap(){
