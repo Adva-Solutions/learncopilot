@@ -659,10 +659,12 @@
   </div>
 </nav>
 <script>
-/* Reveal the Opportunities CTA. Prefers a curated static file at
-   /docs/<slug>-workshop-analysis.html (shipped with the repo), falls
-   back to the dynamic /api/map?slug=<slug> if an admin has generated
-   one. If neither exists the button stays hidden. */
+/* Reveal the Opportunities CTA. Resolution order:
+   1. /docs/<slug>-opportunities-map.html  (slug-based, per workshop)
+   2. /docs/<clientkey>-opportunities-map.html  (client-shared,
+      clientkey = clientName slugified — lets both oda + odaai slugs
+      resolve to one ODA file)
+   3. /api/map?slug=<slug>  (admin-generated dynamic map) */
 (async function(){
   try {
     const meRes = await fetch('/api/me', { credentials: 'include' });
@@ -680,18 +682,26 @@
       if (ciRes.ok) { const ci = await ciRes.json(); clientName = ci.name || ''; }
     } catch(_){}
 
-    const staticUrl = '/docs/' + encodeURIComponent(slug) + '-workshop-analysis.html';
-    try {
-      const headRes = await fetch(staticUrl, { method: 'HEAD' });
-      if (headRes.ok) {
-        btn.style.display = '';
-        btn.href = staticUrl;
-        btn.target = '_blank';
-        btn.dataset.url = staticUrl;
-        if (labelEl) labelEl.textContent = (clientName ? clientName + ' ' : '') + 'Opportunities';
-        return;
-      }
-    } catch(_){}
+    const clientkey = (clientName || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const candidates = [
+      '/docs/' + encodeURIComponent(slug) + '-opportunities-map.html',
+    ];
+    if (clientkey && clientkey !== slug) candidates.push('/docs/' + clientkey + '-opportunities-map.html');
+
+    const setStatic = (url) => {
+      btn.style.display = '';
+      btn.href = url;
+      btn.target = '_blank';
+      btn.dataset.url = url;
+      if (labelEl) labelEl.textContent = (clientName ? clientName + ' ' : '') + 'Opportunities';
+    };
+
+    for (const url of candidates) {
+      try {
+        const headRes = await fetch(url, { method: 'HEAD' });
+        if (headRes.ok) { setStatic(url); return; }
+      } catch(_){}
+    }
 
     const mapRes = await fetch('/api/map?slug=' + encodeURIComponent(slug), { credentials: 'include' });
     if (!mapRes.ok) return;

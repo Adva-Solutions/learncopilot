@@ -530,9 +530,11 @@ setInterval(() => {
 fetch('/api/me').then(async r => {
   if (r.status === 401) { redirectToLogin(); return; }
   if (r.ok) {
-    // Reveal the Opportunities CTA. Prefers a curated static file at
-    // /docs/<slug>-workshop-analysis.html, falls back to the dynamic
-    // /api/map?slug=<slug>. Button stays hidden if neither exists.
+    // Reveal the Opportunities CTA. Resolution order:
+    // 1. /docs/<slug>-opportunities-map.html  (per-workshop)
+    // 2. /docs/<clientkey>-opportunities-map.html  (shared across workshops
+    //    for the same org — clientkey = clientName slugified)
+    // 3. /api/map?slug=<slug>  (dynamic admin-generated)
     try {
       const me = await r.json();
       const slug = me?.slug || me?.clientId;
@@ -540,29 +542,34 @@ fetch('/api/me').then(async r => {
         const btn = document.getElementById('nav-map-link');
         const labelEl = btn?.querySelector('.map-label');
 
-        // Fetch client name for the label.
         let clientName = '';
         try {
           const ciRes = await fetch('/api/client-info?slug=' + encodeURIComponent(slug));
           if (ciRes.ok) { const ci = await ciRes.json(); clientName = ci.name || ''; }
         } catch(_){}
 
-        // 1) Static curated analysis takes priority.
-        const staticUrl = `/docs/${encodeURIComponent(slug)}-workshop-analysis.html`;
-        let served = false;
-        try {
-          const headRes = await fetch(staticUrl, { method: 'HEAD' });
-          if (headRes.ok && btn) {
-            btn.style.display = '';
-            btn.href = staticUrl;
-            btn.target = '_blank';
-            btn.dataset.url = staticUrl;
-            if (labelEl) labelEl.textContent = (clientName ? clientName + ' ' : '') + 'Opportunities';
-            served = true;
-          }
-        } catch(_){}
+        const clientkey = (clientName || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        const candidates = [
+          `/docs/${encodeURIComponent(slug)}-opportunities-map.html`,
+        ];
+        if (clientkey && clientkey !== slug) candidates.push(`/docs/${clientkey}-opportunities-map.html`);
 
-        // 2) Fall back to dynamic map.
+        let served = false;
+        for (const url of candidates) {
+          try {
+            const headRes = await fetch(url, { method: 'HEAD' });
+            if (headRes.ok && btn) {
+              btn.style.display = '';
+              btn.href = url;
+              btn.target = '_blank';
+              btn.dataset.url = url;
+              if (labelEl) labelEl.textContent = (clientName ? clientName + ' ' : '') + 'Opportunities';
+              served = true;
+              break;
+            }
+          } catch(_){}
+        }
+
         if (!served) {
           const mapRes = await fetch(`/api/map?slug=${slug}`, { credentials: 'include' });
           if (mapRes.ok) {

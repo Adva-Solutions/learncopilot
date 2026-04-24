@@ -560,10 +560,15 @@ li.has-step-check { list-style: none; margin-left: -20px; padding-left: 0; }
   </div>
 </nav>
 <script>
-/* Reveal the Opportunities CTA. Prefers a curated static file at
-   /docs/<slug>-workshop-analysis.html (shipped with the repo), falls
-   back to the dynamic /api/map?slug=<slug> if an admin has generated
-   one. If neither exists the button stays hidden. */
+/* Reveal the Opportunities CTA. Resolution order:
+   1. Curated static file at /docs/<slug>-opportunities-map.html
+      (slug-based, one-off per workshop)
+   2. Curated static file at /docs/<clientkey>-opportunities-map.html
+      where clientkey = clientName slugified (shared across workshops
+      for the same org — e.g. ODA has oda + odaai slugs, both resolve
+      to /docs/oda-opportunities-map.html)
+   3. Dynamic /api/map?slug=<slug> admin-generated map.
+   If none exist the button stays hidden. */
 (async function(){
   try {
     const meRes = await fetch('/api/me', { credentials: 'include' });
@@ -575,28 +580,33 @@ li.has-step-check { list-style: none; margin-left: -20px; padding-left: 0; }
     if (!btn) return;
     const labelEl = btn.querySelector('.map-label');
 
-    // Fetch client name for the label (used by both paths).
     let clientName = '';
     try {
       const ciRes = await fetch('/api/client-info?slug=' + encodeURIComponent(slug));
       if (ciRes.ok) { const ci = await ciRes.json(); clientName = ci.name || ''; }
     } catch(_){}
 
-    // 1) Try the static curated analysis first.
-    const staticUrl = '/docs/' + encodeURIComponent(slug) + '-workshop-analysis.html';
-    try {
-      const headRes = await fetch(staticUrl, { method: 'HEAD' });
-      if (headRes.ok) {
-        btn.style.display = '';
-        btn.href = staticUrl;
-        btn.target = '_blank';
-        btn.dataset.url = staticUrl;
-        if (labelEl) labelEl.textContent = (clientName ? clientName + ' ' : '') + 'Opportunities';
-        return;
-      }
-    } catch(_){}
+    const clientkey = (clientName || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const candidates = [
+      '/docs/' + encodeURIComponent(slug) + '-opportunities-map.html',
+    ];
+    if (clientkey && clientkey !== slug) candidates.push('/docs/' + clientkey + '-opportunities-map.html');
 
-    // 2) Fall back to the dynamic admin-generated map.
+    const setStatic = (url) => {
+      btn.style.display = '';
+      btn.href = url;
+      btn.target = '_blank';
+      btn.dataset.url = url;
+      if (labelEl) labelEl.textContent = (clientName ? clientName + ' ' : '') + 'Opportunities';
+    };
+
+    for (const url of candidates) {
+      try {
+        const headRes = await fetch(url, { method: 'HEAD' });
+        if (headRes.ok) { setStatic(url); return; }
+      } catch(_){}
+    }
+
     const mapRes = await fetch('/api/map?slug=' + encodeURIComponent(slug), { credentials: 'include' });
     if (!mapRes.ok) return;
     const data = await mapRes.json();
