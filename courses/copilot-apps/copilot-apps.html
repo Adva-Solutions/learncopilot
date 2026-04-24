@@ -22,10 +22,11 @@ body { font-family: 'Source Sans 3', sans-serif; background: #faf9f6; color: #1a
 .global-nav-links { display: flex; gap: 4px; align-items: center; }
 .global-nav-link { padding: 6px 14px; border-radius: 18px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); text-decoration: none; transition: all 0.15s; }
 .global-nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
-.nav-map-cta { background: rgba(197,151,62,0.12); border: 1px solid rgba(197,151,62,0.4); color: #d4a94d !important; display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; }
-.nav-map-cta:hover { background: rgba(197,151,62,0.22); border-color: rgba(197,151,62,0.65); color: #e6c170 !important; }
+.nav-map-cta { background: rgba(197,151,62,0.12); border: 1px solid rgba(197,151,62,0.4); color: #d4a94d !important; display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 999px; text-decoration: none; }
+.nav-map-cta:hover { background: rgba(197,151,62,0.22); border-color: rgba(197,151,62,0.65); color: #e6c170 !important; text-decoration: none; }
 .nav-map-cta .map-icon { display: inline-flex; align-items: center; line-height: 0; }
 .nav-map-cta .map-icon svg { display: block; }
+.nav-map-cta .map-label { text-decoration: none; }
 
 /* Sidebar */
 .sidebar { width: 300px; min-width: 300px; background: #fff; border-right: 1px solid #ddd8ce; padding: 24px 0; display: flex; flex-direction: column; position: fixed; top: 60px; left: 0; bottom: 0; overflow-y: auto; }
