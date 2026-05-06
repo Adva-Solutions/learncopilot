@@ -203,20 +203,33 @@ async function handleLogin(e) {
     const res = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      // Same-origin already sends cookies by default, but explicitly opting
+      // in avoids edge cases where a strict Chrome policy or extension
+      // treats the Set-Cookie response as third-party and silently drops it.
+      credentials: 'same-origin',
       body: JSON.stringify({ name, password, slug })
     });
-    const data = await res.json();
+    let data = {};
+    try { data = await res.json(); } catch {}
     if (!res.ok) {
-      err.textContent = data.error || 'Login failed';
+      // Surface the HTTP status so a participant can copy/paste it when
+      // reporting trouble. 403 → Origin/CSRF mismatch (often a Chrome
+      // extension stripping the Origin header); 429 → rate limited;
+      // 401 → wrong password; 404 → slug not found.
+      err.textContent = (data.error || 'Login failed') + ' (HTTP ' + res.status + ')';
       err.classList.add('visible');
       btn.disabled = false;
       btn.textContent = 'Enter Workshop';
       return;
     }
     localStorage.setItem('workshop_user', name);
+    if (slug) localStorage.setItem('workshop_slug', slug);
     window.location.href = slug ? '/?slug=' + encodeURIComponent(slug) : '/';
   } catch (e) {
-    err.textContent = 'Connection error. Please try again.';
+    // Reachable when the browser refuses the request entirely (extension
+    // blocking, offline, DNS). Hint at the most common Chrome cause so the
+    // participant can self-recover without filing a ticket.
+    err.textContent = 'Connection error. If you are on Chrome with an ad-blocker or strict privacy extension, try an incognito window or Microsoft Edge.';
     err.classList.add('visible');
     btn.disabled = false;
     btn.textContent = 'Enter Workshop';

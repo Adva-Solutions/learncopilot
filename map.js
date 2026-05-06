@@ -55,7 +55,12 @@ async function boot() {
     });
 
     if (res.status === 401) {
-      window.location.href = '/login.html';
+      // Carry the slug through to the login page so the user lands on the
+      // branded login (and gets bounced back to their workshop on success)
+      // instead of the generic /login.html with no tenant context.
+      window.location.href = slug
+        ? '/login.html?slug=' + encodeURIComponent(slug)
+        : '/login.html';
       return;
     }
 
