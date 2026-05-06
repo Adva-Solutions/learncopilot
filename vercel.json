@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/docs/oda-workshop-analysis.html", "destination": "/docs/oda-opportunities-map.html", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/map/:slug", "destination": "/map.html" },
