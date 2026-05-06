@@ -408,10 +408,19 @@ if (user) {
 }
 
 function logout() {
-  fetch('/api/logout').then(() => {
-    localStorage.removeItem('workshop_user');
-    const s = new URLSearchParams(location.search).get('slug');
-    window.location.href = s ? '/login.html?slug=' + encodeURIComponent(s) : '/login.html';
+  // Capture the user's slug BEFORE clearing the session so we can route them
+  // back to their branded login. URL is the cheap source; if the slug isn't
+  // there (e.g. user landed on /index.html with no query), fall back to the
+  // session slug the server still knows about.
+  const urlSlug = new URLSearchParams(location.search).get('slug');
+  const slugPromise = urlSlug
+    ? Promise.resolve(urlSlug)
+    : fetch('/api/me').then(r => r.ok ? r.json() : null).then(d => (d && d.slug) || '').catch(() => '');
+  slugPromise.then(slug => {
+    fetch('/api/logout').then(() => {
+      localStorage.removeItem('workshop_user');
+      window.location.href = slug ? '/login.html?slug=' + encodeURIComponent(slug) : '/login.html';
+    });
   });
 }
 
