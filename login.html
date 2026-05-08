@@ -236,9 +236,16 @@ async function handleLogin(e) {
   }
 }
 
-// If already logged in, redirect
+// If already logged in, redirect — but only when the URL doesn't ask for
+// a different workshop. A `?slug=…` in the URL is an explicit request for
+// that workshop; redirecting to the session's slug (or to /) would silently
+// drop that intent and bounce participants who hold a stale generic-login
+// cookie back to the generic homepage. In that case, stay on the branded
+// login form — submitting it replaces the old session cookie.
 fetch('/api/me').then(r => r.json()).then(data => {
-  if (data.name) window.location.href = data.slug ? '/?slug=' + data.slug : '/';
+  if (!data.name) return;
+  if (slug && slug !== (data.slug || '')) return;
+  window.location.href = data.slug ? '/?slug=' + data.slug : '/';
 }).catch(() => {});
 </script>
 </body>
