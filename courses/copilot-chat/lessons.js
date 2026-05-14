@@ -23,7 +23,7 @@ window.LESSONS = [
 
 <ol class="region-map">
   <li><strong>Top bar</strong> — the <strong>Work / Web mode toggle</strong> (choose whether Copilot answers from your organization's data or also from the public internet), the model selector (Auto / Quick response / Think Deeper), and the three-dot menu (Settings, temporary chat).</li>
-  <li><strong>Left sidebar</strong> — where you navigate between New chat, Search, Library, Create, Agents, Notebooks, Chats, and Apps.</li>
+  <li><strong>Left sidebar</strong> — where you navigate between New chat, Search, Library, your Agents, and recent Chats. Note that <strong>Create</strong>, <strong>Notebooks</strong>, and the Office apps live in the <strong>App Launcher</strong> (the 3×3 grid icon at the top of the sidebar), not in the sidebar itself.</li>
   <li><strong>Chat area</strong> — the center of the screen: the message box, the <strong>source pills</strong> (Files, Emails, People, Meetings, …) that scope the chat to a specific data type, the prompt gallery, and the microphone.</li>
   <li><strong>Settings</strong> — opened from the three-dot menu. This is where you make Copilot yours (Custom instructions, Sources, Memory).</li>
 </ol>
@@ -95,8 +95,8 @@ window.LESSONS = [
 <div class="exercise-card">
   <div class="exercise-card-num">6</div>
   <div class="exercise-card-body">
-    <h4>Left sidebar — the eight destinations</h4>
-    <p><strong>Do:</strong> Hover (do not click yet) each item in the left sidebar: <strong>New chat</strong>, <strong>Search</strong>, <strong>Library</strong>, <strong>Create</strong>, <strong>Agents</strong>, <strong>Notebooks</strong>, <strong>Chats</strong>, <strong>Apps</strong>. Read the tooltip for each.</p>
+    <h4>Left sidebar + App Launcher — the full map</h4>
+    <p><strong>Do:</strong> Hover (do not click yet) each item in the <strong>left sidebar</strong>: <strong>New chat</strong>, <strong>Search</strong>, <strong>Library</strong>, your pinned <strong>Agents</strong>, recent <strong>Chats</strong>. Then click the <strong>App Launcher</strong> (3×3 grid icon at the top of the sidebar) to see the second layer: <strong>Create</strong>, <strong>Notebooks</strong>, and the Office apps (Outlook, Teams, Word, Excel, PowerPoint, OneNote, OneDrive, SharePoint, More apps). Close it without clicking through.</p>
     <p><strong>Why:</strong> Each of these is a full feature we cover in a later lesson. For now just know they exist so you can recognize them when you get there.</p>
     <label class="exercise-check"><input type="checkbox"> Done</label>
   </div>
@@ -489,7 +489,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 
 <div class="option-content active" id="option-3-arch">
 <h4>Step 1: Create &amp; name the Notebook</h4>
-<p>Click <strong>Notebooks</strong> in the left sidebar → <strong>New Notebook</strong>. Name it: <strong>Building Code &amp; Project Standards</strong>.</p>
+<p>Open the <strong>App Launcher</strong> (3×3 grid icon at the top of the left sidebar) → <strong>Notebooks</strong> → <strong>New Notebook</strong>. Name it: <strong>Building Code &amp; Project Standards</strong>.</p>
 
 <h4>Step 2: Upload References (do this first)</h4>
 <p>Drop in 2-3 ODA architecture references. These download as Word documents so the notebook will accept them:</p>
@@ -821,7 +821,7 @@ When the interview is complete, output the results formatted as a Copilot Custom
 </div>
 
 <div class="note-box">
-  <strong>Success check:</strong> Your Page has AI-generated content from two power prompts, your manual edits, and a share link with a deliberate access scope. It lives inside the notebook so Copilot can still answer follow-ups grounded in the same sources. A teammate should open the link and know what is happening without asking a single question. <em>(Visuals — hero images, diagrams, infographics — come in the next lesson, Copilot Create, where they belong.)</em>
+  <strong>Success check:</strong> Your Page has AI-generated content from two power prompts, your manual edits, and a share link with a deliberate access scope. It lives inside the notebook so Copilot can still answer follow-ups grounded in the same sources. A teammate should open the link and know what is happening without asking a single question. <em>(Packaging this Page as a presentation or Word doc for a wider audience comes in the next lesson, Copilot Create.)</em>
 </div>
 
 <p class="personalization-note">[PERSONALIZED: swap the Page creation topic with organization-specific deliverable types from Listen Labs interviews]</p>
@@ -854,20 +854,22 @@ When the interview is complete, output the results formatted as a Copilot Custom
   points: 15,
   learn: `
 <h3>From Iteration to Publishing</h3>
-<p><em>You have notebooks full of content and Pages summarizing it. Now package that work into the formats your team actually consumes — decks, documents, spreadsheets, visuals, videos.</em></p>
+<p><em>You have notebooks full of content and Pages summarizing it. Now package that work into the format your team actually opens and forwards — a PowerPoint deck, a Word doc, an Excel workbook.</em></p>
 
-<h3>Create Is a Publishing Workspace — for Any Artifact Type</h3>
-<p>Click <strong>Create</strong> in the left sidebar. "What do you want to create?" lines up the output types as pills across the top:</p>
+<h3>Create Is a Publishing Workspace for Office Artifacts</h3>
+<p>Open the <strong>App Launcher</strong> (3×3 grid icon at the top of the left sidebar) and click <strong>Create</strong>. "What do you want to create?" shows the output types as pills across the top:</p>
 <ul>
-  <li><strong>Create an image</strong> — text-to-image, with a full image-editing toolkit once generated.</li>
-  <li><strong>PowerPoint</strong> — a deck from a prompt, a document, or reference material.</li>
-  <li><strong>Word</strong> — long-form documents (reports, memos, briefs, proposals).</li>
-  <li><strong>Excel</strong> — spreadsheets with formulas, pivots, simple models.</li>
-  <li><strong>Create a video</strong> — Frontier. Generate clips, build video projects, or start from a PowerPoint or document.</li>
-  <li><strong>Design an infographic</strong> — stylized single-image summaries of data or concepts.</li>
-  <li><strong>Create a story</strong> — narrative-driven visual output.</li>
-  <li><strong>More…</strong> opens secondary types: <strong>Poster</strong>, <strong>Edit an image</strong>, <strong>Form</strong>, <strong>Banner</strong>, <strong>Draft</strong>, templates (Start from a template / Brand templates / All templates), and <strong>Brand kits</strong>.</li>
+  <li><strong>Create a document</strong> — long-form Word documents (reports, memos, briefs, proposals).</li>
+  <li><strong>Create a presentation</strong> — PowerPoint decks from a prompt, a document, or reference material.</li>
+  <li><strong>Create a workbook</strong> — Excel spreadsheets with formulas, pivots, simple models.</li>
+  <li><strong>Create a form</strong> — Microsoft Forms surveys and intake flows.</li>
+  <li><strong>Browse all templates</strong> — org-approved starting points (categories: Pitch deck, Project report, Business and productivity, Marketing, Calendars and schedules, Planners and trackers, Budgets, Charts, and more).</li>
 </ul>
+<p>Each pill drops you into a template gallery for that artifact type plus a <strong>Blank</strong> tile, which opens the Office app with the Copilot side chat already attached — that is where you actually generate content from your notebook and Page.</p>
+
+<div class="note-box">
+  <strong>Looking for image generation?</strong> The standalone "Create an image" surface inside Copilot has been retired. To generate an image today, prompt Copilot directly in chat (<em>"Create an image of…"</em>) and the generated image lands inline in the response, where you can save it to Library or drop it into a Page.
+</div>
 
 <h4>Create vs. Notebooks</h4>
 <table style="width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;">
@@ -878,28 +880,14 @@ When the interview is complete, output the results formatted as a Copilot Custom
   </tr></thead>
   <tbody>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Purpose</td><td style="padding:8px 12px;">Experimentation and iteration</td><td style="padding:8px 12px;">Publishing and reuse</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Best for</td><td style="padding:8px 12px;">Exploring ideas, drafting, refining</td><td style="padding:8px 12px;">Finalized artifacts — decks, docs, sheets, visuals, videos</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Best for</td><td style="padding:8px 12px;">Exploring ideas, drafting, refining</td><td style="padding:8px 12px;">Finalized Office artifacts — decks, docs, workbooks, forms</td></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Audience</td><td style="padding:8px 12px;">You (and collaborators)</td><td style="padding:8px 12px;">Your organization</td></tr>
     <tr><td style="padding:8px 12px;font-weight:600;">Lifecycle</td><td style="padding:8px 12px;">Fluid, ongoing</td><td style="padding:8px 12px;">Approve → publish → distribute</td></tr>
   </tbody>
 </table>
 
-<h3>Image Editing — Worth Calling Out</h3>
-<p>When you use Create to generate an image, the Image Editing panel gives you a rich toolkit <em>after</em> the first generation — not just "regenerate." You get:</p>
-<ul>
-  <li><strong>Background:</strong> Remove / Blur / Color</li>
-  <li><strong>Object transform:</strong> Erase, Move, Cutout, Crop-to-object, Create sticker</li>
-  <li><strong>Enhancements:</strong> Upscale, Focus, Color pop</li>
-  <li><strong>Filters &amp; Effects:</strong> Punch, Golden, Radiate, and more</li>
-  <li><strong>Crop &amp; rotate, Adjustments, Auto enhance, Erase</strong> along the top toolbar</li>
-</ul>
-<p>Once edited, you can <strong>add the image directly to a Page</strong> — closing the loop with the Pages you built in L4.</p>
-
-<h3>Brand Kits</h3>
-<p>With a Brand Kit configured by your admin, Copilot uses your org's colors, fonts, and logo automatically. Open <strong>More… → Brand kits</strong> or <strong>Manage brand kits</strong> to see what is set up.</p>
-
 <h3>Saving Your Work: the Library</h3>
-<p>Everything you create is saved to the <strong>Library</strong>. Pages, images, drafts, documents, saved prompts — all one asset collection, all searchable. Revisit the Library regularly; it is where Copilot's output accumulates into something reusable.</p>
+<p>Anything you generate through Create (and anything you save from a Copilot response) lands in the <strong>Library</strong> in the left sidebar. Revisit it regularly — it is where Copilot's output accumulates into something reusable.</p>
 
 <div class="tip-box">
   <div class="tip-title">Workflow reminder</div>
@@ -909,137 +897,51 @@ When the interview is complete, output the results formatted as a Copilot Custom
 <button class="continue-btn" onclick="switchTab(5,'implement')">Continue to Exercises &rarr;</button>
 `,
   implement: `
-<h3>Generate an Image Tied to Your Department's Narrative</h3>
+<h3>Turn Your L5 Page into a PowerPoint Deck</h3>
 
-<p>This exercise is all about <strong>image generation</strong> — the artifact type that is hardest to approximate with a Page or a document, and the one Create makes feel like magic. Every department generates an image grounded in the same project arc you have been building: your L3 notebook and your L4 Page set the context, Create produces the visual. Pick your role.</p>
-
-<div class="note-box">
-  <strong>Pattern for every exercise:</strong> (1) Open <strong>Create</strong> → <strong>Create an image</strong> → (2) Run the generation prompt — it must tie to your department's narrative so the visual belongs inside your project, not floating on its own → (3) Work the <strong>Image Editing panel</strong> (Background, Object transform, Enhancements, Filters, Crop) → (4) Iterate with a second prompt if composition is off → (5) Save to <strong>Library</strong> → (6) Link the image into your notebook (see the tip below).
-</div>
-
-<div class="tip-box">
-  <div class="tip-title">How to link an image into your notebook</div>
-  <p>A notebook does not store images directly — it stores <em>pages</em>, and pages hold images. So to land an image inside the notebook you built in L3:</p>
-  <ol style="margin:8px 0 0 20px;">
-    <li><strong>Open the Page inside the notebook</strong> (the one you created in L4).</li>
-    <li><strong>Copy the image from Library</strong> and <strong>paste it into the Page</strong> — or copy the image's <strong>share link</strong> and paste that link into the Page body. Either way the image is now part of the Page.</li>
-    <li>The Page lives inside the notebook, so the image is now reachable the next time you ask the notebook's Copilot anything about the project.</li>
-  </ol>
-  <p style="margin-top:8px;">If the image's share/save menu offers <strong>Add to Page</strong> directly, use that — it is the fastest path and picks the Page for you.</p>
-</div>
-
-<div class="option-tabs" id="options-5">
-  <button class="option-btn active" onclick="switchOption(5,'arch',this)">Architecture</button>
-  <button class="option-btn" onclick="switchOption(5,'hr',this)">HR</button>
-  <button class="option-btn" onclick="switchOption(5,'mktg',this)">Marketing</button>
-  <button class="option-btn" onclick="switchOption(5,'exec',this)">Executive</button>
-  <button class="option-btn" onclick="switchOption(5,'ops',this)">Operations</button>
-</div>
-
-<div class="option-content active" id="option-5-arch">
-<h4>Architecture &rarr; Image: Curtain Wall Waterproofing Detail Diagram</h4>
-<p><strong>Narrative fit:</strong> the Shore Club facade review hinges on a waterproofing failure at the curtain wall transition. The diagram you generate here becomes <em>Figure 1</em> on your L4 "Facade Material Review Summary" Page — so consultants reading the Page see exactly what the review is about.</p>
-<p><strong>1.</strong> In Create, click <strong>Create an image</strong>.</p>
-<p><strong>2. Generation prompt</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a technical cross-section diagram of a curtain wall waterproofing detail at a transition joint. Show: the curtain wall system, the flashing membrane, the drainage / weep path, the backup wall, and an arrow indicating where water infiltration is occurring. Line-drawing style with clean labels, navy stroke on white background, suitable for inclusion in a design review document. Leave space at the bottom for a figure caption.</code></div>
-<p><strong>3. Work the Image Editing panel</strong> — clean it up so it reads on the Page:</p>
-<ul>
-  <li><strong>Crop &amp; rotate</strong> — tighten to the detail, drop any empty margins.</li>
-  <li><strong>Enhancements &rarr; Upscale</strong> — crisp lines for anyone zooming in.</li>
-  <li><strong>Object transform &rarr; Erase</strong> — remove any stray label or artifact Copilot added.</li>
-</ul>
-<p><strong>4. Iterate</strong> if the labels or the infiltration arrow are unclear:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Regenerate with larger, clearer labels and a single bold red arrow at the failure point. Keep everything else the same.</code></div>
-<p><strong>5. Link the diagram into your Shore Club notebook.</strong> Open your L4 Page ("Shore Club — Facade Material Review Summary") inside the notebook, then copy/paste the image (or paste its share link) into the Page as Figure 1 right above the Consultant Responsibility Matrix. Save to Library so the structural and envelope consultants can reuse it.</p>
-</div>
-
-<div class="option-content" id="option-5-hr" style="display:none">
-<h4>HR &rarr; Image: 90-Day Onboarding Journey Map</h4>
-<p><strong>Narrative fit:</strong> the Designer onboarding plan you drafted on the L4 Page is a list. A journey map turns it into something a new hire can actually <em>see</em> — and sits as the hero visual at the top of that same Page.</p>
-<p><strong>1.</strong> In Create, click <strong>Create an image</strong>.</p>
-<p><strong>2. Generation prompt</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a visual 90-day onboarding journey map for a new Designer joining ODA's Residential Studio. Horizontal timeline with week-by-week milestones: Week 1 — IT setup + building access; Week 2 — software training (Revit, Rhino, Bluebeam); Week 3 — studio tour + mentor pairing; Week 4 — first project shadowing; Weeks 5-8 — independent contribution; Week 12 — 90-day review. Clean infographic-illustration style, warm and welcoming, ODA navy + gold accent palette. Leave clean space for a title across the top.</code></div>
-<p><strong>3. Work the Image Editing panel</strong>:</p>
-<ul>
-  <li><strong>Enhancements &rarr; Color pop</strong> — emphasize the checkpoint weeks (30 / 60 / 90).</li>
-  <li><strong>Object transform &rarr; Erase</strong> — remove any milestone that doesn't match our process.</li>
-  <li><strong>Crop &amp; rotate</strong> — format to a wide banner that sits cleanly above the Pre-Start Checklist.</li>
-</ul>
-<p><strong>4. Iterate</strong> if milestones are off:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Regenerate with exactly six milestones on the timeline (Week 1, 2, 4, 8, 12, 90-day review) and move the mentor check-ins as small recurring icons below the line.</code></div>
-<p><strong>5. Link the journey map into your HR notebook.</strong> Open your L4 Page ("Designer Onboarding — Residential Studio") inside the notebook, then copy/paste the image (or paste its share link) into the Page as the banner above the Pre-Start Checklist. Save to Library so other hiring managers in the studio can reuse it.</p>
-</div>
-
-<div class="option-content" id="option-5-mktg" style="display:none">
-<h4>Marketing &rarr; Image (deep dive): Award Announcement Hero</h4>
-<p><strong>Narrative fit:</strong> the highest-priority item on your Q2 Award Submission Tracker is the AIA Design Award for Harbor View Residences. This hero image is the campaign visual announcing the win — and it sits as the headline image on your L4 tracker Page. This is also the department that goes <strong>deepest on image editing</strong> — you will work the full toolkit, then link the finished image into the notebook.</p>
-<p><strong>1.</strong> In Create, click <strong>Create an image</strong>.</p>
-<p><strong>2. Generation prompt</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a square social-media-ready hero image announcing ODA's AIA Design Award win for Harbor View Residences. Show a modern waterfront residential tower at golden hour, viewed from a low angle. Sophisticated, cinematic, award-worthy. Leave the top third clean for text overlay.</code></div>
-<p><strong>3. Open the Image Editing panel</strong> (appears next to the generated image). Work through each cluster — this is the whole point of the exercise:</p>
-<ul>
-  <li><strong>Background &rarr; Blur</strong> or <strong>Color</strong> — try blurring the background and see how it changes the focus.</li>
-  <li><strong>Object transform &rarr; Erase</strong> — remove any stray element (a crane, a sign) that you don't want.</li>
-  <li><strong>Object transform &rarr; Cutout</strong> — isolate the tower from the sky.</li>
-  <li><strong>Enhancements &rarr; Upscale</strong> — push resolution for print use.</li>
-  <li><strong>Enhancements &rarr; Color pop</strong> — desaturate everything except the tower.</li>
-  <li><strong>Filters &amp; Effects &rarr; Golden</strong> or <strong>Radiate</strong> — try one, revert if overkill.</li>
-  <li><strong>Top toolbar</strong> — Crop &amp; rotate into a square, Auto enhance once.</li>
-</ul>
-<p><strong>4. Iterate</strong> with a second prompt if the composition is wrong:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Same tower, but from a further distance with more sky above it for text overlay. Keep the golden-hour mood.</code></div>
-<p><strong>5. Link the hero into your Marketing notebook.</strong> Open your L4 "Q2 Award Submission Tracker" Page inside the notebook, then copy/paste the image (or paste its share link) as the campaign visual at the top of the Page. If the image's share/save menu offers <strong>Add to Page</strong>, use that directly and pick the tracker Page. Save the final image to your Library so the social team can reuse it.</p>
-</div>
-
-<div class="option-content" id="option-5-exec" style="display:none">
-<h4>Executive &rarr; Image: Philosophy Triptych</h4>
-<p><strong>Narrative fit:</strong> your Design Radar Page articulates the three core ideas as a scan filter. The triptych turns those ideas into something you can show — a single editorial image that lives at the top of the Page (and on the cover of the alignment memo).</p>
-<p><strong>1.</strong> In Create, click <strong>Create an image</strong>.</p>
-<p><strong>2. Generation prompt</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a three-panel editorial illustration embodying ODA's core design philosophy. Panel 1 — "form follows experience" — a subtle spatial diagram showing how human movement and sight-lines carve the building's form. Panel 2 — "porosity for prosperity" — a facade dissolving into public realm at the ground plane, people flowing through. Panel 3 — "architecture as a social technology" — a building's roof terrace teeming with civic life at dusk. Navy + white + warm gold palette, restrained, editorial quality, McKinsey-like not advertising. Wide 16:9, each panel clearly delineated. Leave space under each panel for a short caption.</code></div>
-<p><strong>3. Work the Image Editing panel</strong>:</p>
-<ul>
-  <li><strong>Background &rarr; Color</strong> — try a deeper navy if the panels feel too warm for a firm-voice piece.</li>
-  <li><strong>Enhancements &rarr; Color pop</strong> — keep the warm gold accent alive; desaturate the rest.</li>
-  <li><strong>Object transform &rarr; Erase</strong> — remove any stray element that reads as decorative (flourishes, glow, extra figures).</li>
-  <li><strong>Crop &amp; rotate</strong> — confirm the 16:9 with equal panel widths.</li>
-</ul>
-<p><strong>4. Iterate</strong> — push it toward something you'd actually publish:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Regenerate with the three panels rendered more minimal — architectural line-work rather than painterly — and keep the gold accent to a single highlighted detail per panel. The goal is editorial restraint, not drama.</code></div>
-<p><strong>5. Link the triptych into your Radar Page.</strong> Open your L4 "Design Radar — Weekly Scan Plan" Page inside the notebook, then copy/paste the image (or paste its share link) at the top of the Page as the hero. Save to Library so the positioning-statement version and the Radar-Page version stay linked.</p>
-</div>
-
-<div class="option-content" id="option-5-ops" style="display:none">
-<h4>Operations &rarr; Image: Studio Utilization Heatmap Visual</h4>
-<p><strong>Narrative fit:</strong> the Weekly Resource Overview Page reads like a list of numbers. A heatmap turns the staffing picture into something a principal can absorb in two seconds — and sits as the hero visual right above the team roster on the Page.</p>
-<p><strong>1.</strong> In Create, click <strong>Create an image</strong>.</p>
-<p><strong>2. Generation prompt</strong>:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Create a studio-by-week utilization heatmap as a clean infographic-style image. Y-axis: four studios (Residential, Hospitality, Mixed-Use, Interiors). X-axis: the next 12 weeks. Color-code each cell by average utilization — red for &gt;100%, amber for 95–100%, green for 70–95%, gray for &lt;60%. Label axes clearly, include a legend in the top-right, sophisticated navy + warm gold palette with red and amber as the only alert colors. Add a short title "Studio Utilization — Next 12 Weeks".</code></div>
-<p><strong>3. Work the Image Editing panel</strong>:</p>
-<ul>
-  <li><strong>Enhancements &rarr; Color pop</strong> — emphasize the red hotspots so they catch the eye first.</li>
-  <li><strong>Object transform &rarr; Erase</strong> — clean up any cells Copilot mislabeled.</li>
-  <li><strong>Crop &amp; rotate</strong> — format to a wide banner so it sits above the team roster without crowding.</li>
-</ul>
-<p><strong>4. Iterate</strong> if the palette or labeling is off:</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Regenerate with the legend moved to the bottom, axis labels larger, and the week numbers staggered so they don't overlap on narrower screens.</code></div>
-<p><strong>5. Link the heatmap into your Operations notebook.</strong> Open your L4 "Weekly Resource Overview" Page inside the notebook, then copy/paste the image (or paste its share link) at the top of the Page as the hero visual above the Team Members table. Save to Library so the studio leads can reuse it each week.</p>
-</div>
-
-<h4>Last step — save and close the loop</h4>
-<p>Every image you generate lands in the <strong>Library</strong> (left sidebar) automatically. Open it to confirm the image is there. Then make sure the final version is <strong>linked into your notebook</strong> — copy/paste the image (or its share link) inside your L4 Page, which lives inside the notebook. That is how a visual stops being a one-off asset and becomes part of the project's living knowledge base.</p>
+<p>One exercise for every role. You already have a Page in your notebook from L5 — the deliverable a teammate would actually open. Now publish it as a PowerPoint deck: the format that gets forwarded, shown in meetings, and shared with people outside the Copilot app. Same flow whether you are in Architecture, HR, Marketing, Executive, or Operations — the only thing that changes is the Page you point Copilot at.</p>
 
 <div class="note-box">
-  <strong>Success check:</strong> You generated an image that ties directly to your department's narrative, worked the Image Editing toolkit on it, iterated at least once, and linked it into your notebook by pasting it (or its link) inside your L4 Page. The image is also saved in your Library. A teammate opening the Page now sees the visual alongside the text — the narrative and the visual are one artifact.
+  <strong>Why PowerPoint:</strong> a Page is the working document — live, editable, Copilot-attached. A deck is the <em>finished</em> artifact — a snapshot you present, send, and archive. Most teams still consume narrative work as slides; this is how you get there without rebuilding everything from scratch.
 </div>
 
-<p class="personalization-note">[PERSONALIZED: swap the image type per department for the visual each team actually needs — e.g. Architecture may want a material mood board, Marketing may want a carousel set, Operations may want a studio floor map.]</p>
+<h4>Step 1 — Open Create</h4>
+<p>Open the <strong>App Launcher</strong> (3×3 grid icon at the top of the left sidebar) and click <strong>Create</strong>. The "What do you want to create?" surface opens.</p>
+
+<h4>Step 2 — Pick the presentation type</h4>
+<p>Click the <strong>Create a presentation</strong> pill at the top. The template gallery switches to deck templates. Pick one that fits your Page's purpose:</p>
+<ul>
+  <li><strong>Pitch deck</strong> — for narrative/strategy Pages (Marketing's Award Submission Tracker, Executive's Design Radar).</li>
+  <li><strong>Project report</strong> — for status/review Pages (Architecture's Shore Club review, Operations' Weekly Resource Overview).</li>
+  <li><strong>Business and productivity</strong> — for process/onboarding Pages (HR's Designer Onboarding plan).</li>
+  <li><strong>Blank presentation</strong> — when you want Copilot to design from scratch with no template constraints.</li>
+</ul>
+<p>Clicking any of these opens PowerPoint with a starter deck and the <strong>Copilot side chat</strong> already attached on the right — same Page-style chat-next-to-document layout you used in L5.</p>
+
+<h4>Step 3 — Tell Copilot to build from your Page</h4>
+<p>In the side chat, paste this prompt and replace the bracketed bits with your own L5 Page title and a one-line audience descriptor:</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Build this deck from my Copilot Page titled "[paste your L5 Page title here]". The audience is [who will see this — e.g. "design consultants reviewing the facade", "hiring managers in the Residential Studio", "the partner group for Q2 award alignment", "the principal team in Monday's planning meeting"]. Open with a one-slide executive summary, then one slide per major section of the Page (preserve the same order), and close with a slide titled "Decisions / Next Steps" pulled from any action items or open questions on the Page. Keep slide text concise — speaker-ready bullets, not paragraphs. Cite the Page as the source on the final slide.</code></div>
+
+<h4>Step 4 — Iterate on the deck, not the Page</h4>
+<p>Read the generated deck. The first pass will usually have too much text and not enough structure. Sharpen it in the side chat (one prompt per fix, keep them small):</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Cut the body text on every slide to no more than three bullets, max one line each. Move detail into the speaker notes.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Add a "What we are deciding today" callout on slide 2 so the audience knows what the deck is asking of them.</code></div>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Reorder so the highest-stakes item is on slide 3, not slide 7. Move the supporting context to the back.</code></div>
+
+<h4>Step 5 — Save and share</h4>
+<p>The deck is auto-saved in your OneDrive and surfaces in the <strong>Library</strong> in the left sidebar of Copilot. Click <strong>Share</strong> at the top of PowerPoint to send the link with explicit access (People in [your organization] / Only people with existing access / People you choose) and <strong>Can edit</strong> vs <strong>Can view</strong> — exactly the same access pattern you set on the L5 Page. Paste the link into the relevant Teams channel only after you have iterated and locked the scope.</p>
+
+<div class="note-box">
+  <strong>Success check:</strong> You opened Create from the App Launcher, picked the right presentation template for your Page's purpose, generated a deck from your L5 Page in the side chat, iterated at least twice to tighten slide text and reorder for impact, and shared the link with deliberate access scope. The deck and the Page now tell the same story in two formats: live editable for collaborators, ready-to-present for stakeholders.
+</div>
+
+<p class="personalization-note">[PERSONALIZED: swap the Page → deck pairing per department for the specific deliverable each team actually ships — e.g. Architecture's design-review summary as a consultant briefing deck, Marketing's award tracker as a quarterly status deck.]</p>
 
 <button class="mark-complete-btn" id="complete-btn-5" onclick="markComplete(5)">Mark Complete</button>
 `,
   advanced: `
 <h3>Pick the Right Artifact for the Job</h3>
-<p>Create is deceptively broad — people default to images because they are fun, but the other artifact types are where the real time savings are. Quick mental model:</p>
+<p>Create offers four Office artifact types. Quick mental model for choosing:</p>
 <table style="width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;">
   <thead><tr style="border-bottom:2px solid var(--border);">
     <th style="text-align:left;padding:8px 12px;">Artifact</th>
@@ -1047,42 +949,30 @@ When the interview is complete, output the results formatted as a Copilot Custom
     <th style="text-align:left;padding:8px 12px;">Avoid when</th>
   </tr></thead>
   <tbody>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">PowerPoint</td><td style="padding:8px 12px;">Client pitches, internal reviews, any linear narrative</td><td style="padding:8px 12px;">You just want a quick summary (use a Page)</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Word</td><td style="padding:8px 12px;">Formal docs, contracts, onboarding packets, anything signable/printable</td><td style="padding:8px 12px;">The team lives in Pages and will actively edit</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Excel</td><td style="padding:8px 12px;">Models, trackers, anything with formulas or pivots</td><td style="padding:8px 12px;">You want a static read — a table inside a Page is lighter</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Image</td><td style="padding:8px 12px;">Social posts, deck covers, concept visuals, material studies</td><td style="padding:8px 12px;">The content is data — infographic is better</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Infographic</td><td style="padding:8px 12px;">Board summaries, executive dashboards, single-page synthesis</td><td style="padding:8px 12px;">The audience needs to drill in — give them Excel</td></tr>
-    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Video (Frontier)</td><td style="padding:8px 12px;">Training snippets, announcements, deck-to-video</td><td style="padding:8px 12px;">Still in Frontier — may fail; always have a backup</td></tr>
-    <tr><td style="padding:8px 12px;font-weight:600;">Poster / Banner / Form</td><td style="padding:8px 12px;">Events, intake flows, single-purpose assets</td><td style="padding:8px 12px;">Production marketing — use the full tool for final polish</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Presentation (PowerPoint)</td><td style="padding:8px 12px;">Client pitches, internal reviews, any narrative you'll present or forward</td><td style="padding:8px 12px;">You just want a quick summary (use a Page)</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Document (Word)</td><td style="padding:8px 12px;">Formal docs, contracts, onboarding packets, anything signable / printable</td><td style="padding:8px 12px;">The team lives in Pages and will actively edit</td></tr>
+    <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:600;">Workbook (Excel)</td><td style="padding:8px 12px;">Models, trackers, anything with formulas or pivots</td><td style="padding:8px 12px;">You want a static read — a table inside a Page is lighter</td></tr>
+    <tr><td style="padding:8px 12px;font-weight:600;">Form (Microsoft Forms)</td><td style="padding:8px 12px;">Surveys, intake flows, structured-response collection</td><td style="padding:8px 12px;">You need branching logic — use Forms directly for advanced configuration</td></tr>
   </tbody>
 </table>
 
 <h3>Chaining Artifacts Together</h3>
 <p>The real unlock is chaining output formats against one source:</p>
 <ul>
-  <li><strong>Page &rarr; PowerPoint:</strong> from a Page, ask Create to generate a deck that uses the Page as source. The deck inherits the structure.</li>
-  <li><strong>Excel &rarr; Infographic:</strong> build the model, then ask Create for an infographic summarizing the key numbers — board-ready in minutes.</li>
-  <li><strong>Image &rarr; deck / Page:</strong> any image you edit via the Image Editing toolkit can be dropped straight into a PowerPoint slide or pinned into a Page.</li>
-  <li><strong>Word &rarr; Page:</strong> paste a Word doc's content into a Page to kick off collaborative editing, then export back to Word when it is final.</li>
+  <li><strong>Page → Presentation:</strong> from a Page, open Create → Create a presentation and ask Copilot to generate a deck that uses the Page as source. The deck inherits the structure. This is the exercise you just did.</li>
+  <li><strong>Page → Document:</strong> Create a document and prompt Copilot to convert the Page into a formal Word doc — signable, printable, attachable.</li>
+  <li><strong>Workbook → Page:</strong> generate the model in Excel, then drop the link or a chart back into the Page so the narrative and the numbers travel together.</li>
+  <li><strong>Form → Workbook:</strong> Forms responses flow into Excel automatically — use this when an intake flow needs to feed a tracker.</li>
 </ul>
-
-<h3>Image Editing — Power Moves</h3>
-<p>The Image Editing toolkit covered in Learn is more capable than it looks. A few combinations that earn their keep:</p>
-<ul>
-  <li><strong>Cutout + Background color</strong> — isolate a subject and drop a flat brand-color backdrop. Instant marketing asset.</li>
-  <li><strong>Upscale + Crop &amp; rotate</strong> — generate once at default resolution, then upscale + crop for print.</li>
-  <li><strong>Color pop + Erase</strong> — desaturate the scene, erase clutter, and you have a clean hero image with a single color focal point.</li>
-  <li><strong>Create sticker</strong> — generate a transparent-background element (a logo treatment, an icon) for use in Pages or decks.</li>
-</ul>
-
-<h3>Brand Kits</h3>
-<p>If your admin configured a <strong>Brand Kit</strong> (<em>More… &rarr; Brand kits</em>), Copilot applies your org's palette, fonts, and logo across Create outputs automatically. It is worth asking IT about — it is the single biggest lever for making Create outputs look "on brand" without manual rework.</p>
 
 <h3>Templates and Reuse</h3>
-<p><strong>More… &rarr; Start from a template</strong> / <strong>Brand templates</strong> / <strong>All templates</strong> pulls from org-approved starting points. If your team has a shared deck template or Word template, this is where it surfaces. Reuse beats re-create.</p>
+<p>Each Create pill opens a template gallery (Pitch deck, Project report, Business and productivity, Marketing, Calendars and schedules, Planners and trackers, Budgets, Charts, etc.). If your org has shared deck or document templates, this is where they surface — <strong>Browse all templates</strong> shows the full catalog. Reuse beats re-create: a template plus a one-line Copilot prompt produces a finished artifact in minutes.</p>
 
 <h3>The Library Discipline</h3>
-<p>Everything from Create lands in the <strong>Library</strong>. Over a few weeks this becomes your personal studio — saved prompts, generated images, created decks. A small habit that pays off: rename artifacts with a <strong>[Project] — [Type] — [Date]</strong> prefix so the Library stays scannable. The Library is also where you re-share artifacts with different access scopes without opening them.</p>
+<p>Anything you create and anything you save from a Copilot response lands in the <strong>Library</strong> (left sidebar). Over a few weeks this becomes your personal studio — saved prompts, generated artifacts, finished decks and docs. A small habit that pays off: rename artifacts with a <strong>[Project] — [Type] — [Date]</strong> prefix so the Library stays scannable. The Library is also where you re-share artifacts with different access scopes without re-opening them.</p>
+
+<h3>Image generation today</h3>
+<p>The standalone "Create an image" surface is no longer part of Create. To generate an image, prompt Copilot in chat (<em>"Create an image of…"</em>) — the result appears inline in the response and you can save it to Library or paste it into a Page from there. For richer image work (sticker creation, advanced editing, brand-kit-aware visuals), Microsoft Designer at <em>designer.microsoft.com</em> remains the dedicated app.</p>
 `
 },
 
