@@ -24,7 +24,7 @@ window.LESSONS = [
 <ol class="region-map">
   <li><strong>Top bar</strong> — the <strong>Work / Web mode toggle</strong> (choose whether Copilot answers from your organization's data or also from the public internet), the model selector (Auto / Quick response / Think Deeper), and the three-dot menu (Settings, temporary chat).</li>
   <li><strong>Left sidebar</strong> — where you navigate between New chat, Search, Library, Create, Agents, Notebooks, Chats, and Apps.</li>
-  <li><strong>Chat area</strong> — the center of the screen: the message box, quick-action pills, the prompt gallery, and the microphone.</li>
+  <li><strong>Chat area</strong> — the center of the screen: the message box, the <strong>source pills</strong> (Files, Emails, People, Meetings, …) that scope the chat to a specific data type, the prompt gallery, and the microphone.</li>
   <li><strong>Settings</strong> — opened from the three-dot menu. This is where you make Copilot yours (Custom instructions, Sources, Memory).</li>
 </ol>
 
@@ -105,15 +105,15 @@ window.LESSONS = [
 <div class="exercise-card">
   <div class="exercise-card-num">7</div>
   <div class="exercise-card-body">
-    <h4>The chat area — message box and pills</h4>
+    <h4>The chat area — message box, source pills, gallery, microphone</h4>
     <p><strong>Do:</strong></p>
     <ol>
-      <li>Click the <strong>+ button</strong> to the left of the message box. Notice you can attach files or images. Close without attaching.</li>
-      <li>Look at the <strong>quick-action pills</strong>: <strong>Summarize</strong>, <strong>Rewrite</strong>, <strong>Create</strong>, <strong>Learn</strong>, and <strong>…</strong>. Click the caret on <strong>Summarize</strong> — it is a dropdown of suggested prompts.</li>
-      <li>Click the <strong>…</strong> pill to open the full <strong>prompt gallery</strong>.</li>
-      <li>Click the <strong>microphone</strong> and speak one short sentence to see dictation work.</li>
+      <li>Click the <strong>+ button</strong> to the left of the message box. This is <strong>Add and manage sources</strong> — attach a file, pull in an email, or connect a data source. Close without attaching.</li>
+      <li>Look at the pills under the message box: <strong>Files</strong>, <strong>Emails</strong>, <strong>People</strong>, <strong>Meetings</strong>, and <strong>…</strong>. These are <em>source scopes</em> — click <strong>Emails</strong> and Copilot grounds the next answer in your inbox rather than guessing across everything. Click it again to clear.</li>
+      <li>Click the <strong>…</strong> pill to open the <strong>Copilot Prompt Gallery</strong> — a searchable library of suggested prompts you can filter by Task, Job type, and Copilot agent. Close it.</li>
+      <li>Click the <strong>microphone</strong> and speak one short sentence to see dictation transcribe straight into the message box.</li>
     </ol>
-    <p><strong>Why:</strong> Most people type everything from scratch. These pills and the gallery are shortcuts — you will use them constantly once you know they are there.</p>
+    <p><strong>Why:</strong> The source pills are the fastest way to tell Copilot <em>where to look</em> before you tell it what to do — far more reliable than hoping it guesses the right scope. The gallery is where you steal a good prompt instead of writing one from scratch.</p>
     <label class="exercise-check"><input type="checkbox"> Done</label>
   </div>
 </div>
