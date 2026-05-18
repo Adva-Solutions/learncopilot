@@ -382,6 +382,8 @@ const API = {
   user:       '/api/admin/user',
   uploadLogo: '/api/admin/upload-logo',
   sampleFiles: '/api/admin/sample-files',
+  audit:      '/api/admin/audit',
+  restore:    '/api/admin/restore-progress',
 };
 
 let state = {
@@ -590,6 +592,7 @@ function renderNav() {
     <a class="nav-link ${hash === '#new-workshop' ? 'active' : ''}" href="#new-workshop">New</a>
     <a class="nav-link ${hash === '#template' ? 'active' : ''}" href="#template">Template</a>
     <a class="nav-link ${hash === '#sample-files' ? 'active' : ''}" href="#sample-files">Sample Files</a>
+    <a class="nav-link ${hash === '#audit' ? 'active' : ''}" href="#audit">Audit</a>
     <a class="nav-link" href="/docs/department-narratives.html" target="_blank" rel="noopener">Narrative</a>
     <button class="nav-link" id="logout-btn">Logout</button>
   `;
@@ -625,6 +628,7 @@ async function route() {
   if (hash === '#new-workshop') return renderNewWorkshop(app);
   if (hash === '#template') return renderTemplate(app);
   if (hash === '#sample-files') return renderSampleFiles(app);
+  if (hash === '#audit') return renderAudit(app);
   if (hash.startsWith('#workshop/')) {
     const slug = hash.replace('#workshop/', '');
     return renderWorkshopDetail(app, slug);
@@ -675,6 +679,176 @@ function renderLogin(app) {
       errEl.style.display = 'block';
     }
   };
+}
+
+/* ============================
+   AUDIT LOG
+   ============================ */
+const auditState = { stream: '', streams: [], entries: [], filter: { event: '', sinceHours: 24 } };
+
+function fmtAuditTs(ts) {
+  if (!ts) return '';
+  const d = new Date(Number(ts));
+  return d.toISOString().replace('T', ' ').slice(0, 19);
+}
+
+function escapeAttr(s) { return String(s).replace(/"/g, '&quot;'); }
+
+function renderAuditRows() {
+  const tbody = document.getElementById('audit-tbody');
+  if (!tbody) return;
+  if (!auditState.entries.length) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-secondary);padding:20px;">No entries match these filters.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = auditState.entries.map((e, i) => {
+    const eventLabel = e.event || e.kind || '(no event)';
+    const summary = [];
+    if (e.user)      summary.push('user=' + e.user);
+    if (e.slug)      summary.push('slug=' + e.slug);
+    if (e.userKey && !e.user) summary.push('userKey=' + e.userKey);
+    if (e.totalPoints != null) summary.push('points=' + e.totalPoints);
+    if (e.status)    summary.push('status=' + e.status);
+    if (e.cleared != null) summary.push('cleared=' + e.cleared);
+    if (e.removed != null) summary.push('removed=' + e.removed);
+    if (e.ip)        summary.push('ip=' + e.ip);
+    if (e.message)   summary.push(String(e.message).slice(0, 80));
+    const isRestorable = (auditState.stream === 'admin' && Array.isArray(e.snapshot) && e.snapshot.length);
+    const actions = isRestorable
+      ? '<button class="btn btn-link" data-restore-idx="' + i + '" style="padding:0;font-size:12px;">Restore all (' + e.snapshot.length + ')</button>'
+      : '';
+    return (
+      '<tr>' +
+        '<td style="white-space:nowrap;font-family:monospace;font-size:12px;">' + fmtAuditTs(e.ts) + '</td>' +
+        '<td style="font-family:monospace;font-size:12px;">' + escapeAttr(eventLabel) + '</td>' +
+        '<td style="font-size:12px;">' + escapeAttr(summary.join(' · ')) + '</td>' +
+        '<td>' + actions + ' <button class="btn btn-link" data-detail-idx="' + i + '" style="padding:0;font-size:12px;">JSON</button></td>' +
+      '</tr>'
+    );
+  }).join('');
+
+  tbody.querySelectorAll('[data-detail-idx]').forEach((btn) => {
+    btn.onclick = () => {
+      const idx = Number(btn.getAttribute('data-detail-idx'));
+      const detail = document.getElementById('audit-detail');
+      detail.textContent = JSON.stringify(auditState.entries[idx], null, 2);
+      detail.style.display = 'block';
+    };
+  });
+  tbody.querySelectorAll('[data-restore-idx]').forEach((btn) => {
+    btn.onclick = async () => {
+      const idx = Number(btn.getAttribute('data-restore-idx'));
+      const entry = auditState.entries[idx];
+      const count = entry.snapshot.length;
+      if (!confirm('Restore ' + count + ' participant(s) from this snapshot? Each user\'s current state will be overwritten and captured in audit:admin/restore (so this restore is itself undo-able).')) return;
+      btn.disabled = true;
+      btn.textContent = 'Restoring…';
+      let ok = 0, fail = 0;
+      for (const item of entry.snapshot) {
+        if (!item || !item.userKey || !item.prior) { fail++; continue; }
+        try {
+          await apiFetch(API.restore, {
+            method: 'POST',
+            body: JSON.stringify({ slug: entry.slug, userKey: item.userKey, snapshot: item.prior }),
+          });
+          ok++;
+        } catch (_) { fail++; }
+      }
+      btn.textContent = 'Done (' + ok + ' ok, ' + fail + ' failed)';
+    };
+  });
+}
+
+async function loadAuditEntries() {
+  if (!auditState.stream) return;
+  const params = new URLSearchParams({ stream: auditState.stream, limit: '200' });
+  if (auditState.filter.sinceHours) {
+    params.set('since', String(Date.now() - auditState.filter.sinceHours * 3600_000));
+  }
+  if (auditState.filter.event) params.set('event', auditState.filter.event);
+  const tbody = document.getElementById('audit-tbody');
+  if (tbody) tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-secondary);padding:20px;">Loading…</td></tr>';
+  try {
+    const data = await apiFetch(API.audit + '?' + params.toString());
+    auditState.entries = Array.isArray(data.entries) ? data.entries : [];
+    renderAuditRows();
+  } catch (err) {
+    if (tbody) tbody.innerHTML = '<tr><td colspan="4" style="color:var(--red);padding:20px;">' + escapeAttr(err.message || 'Failed to load') + '</td></tr>';
+  }
+}
+
+async function renderAudit(app) {
+  app.innerHTML = `
+    <div class="page-header">
+      <h1>Audit Log</h1>
+      <p style="color:var(--text-secondary);font-size:14px;margin-top:4px;">
+        Append-only event streams from Redis. Snapshots from admin/reset and admin/clear_users can be restored per-user from here.
+      </p>
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <div class="form-row" style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
+        <div class="form-group" style="flex:2;min-width:240px;">
+          <label>Stream</label>
+          <select id="audit-stream"><option value="">(loading…)</option></select>
+        </div>
+        <div class="form-group" style="flex:1;min-width:140px;">
+          <label>Since</label>
+          <select id="audit-since">
+            <option value="1">1 hour</option>
+            <option value="24" selected>24 hours</option>
+            <option value="168">7 days</option>
+            <option value="720">30 days</option>
+            <option value="0">All</option>
+          </select>
+        </div>
+        <div class="form-group" style="flex:1;min-width:160px;">
+          <label>Event contains</label>
+          <input id="audit-event" type="text" placeholder="e.g. write_failed">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" id="audit-refresh">Refresh</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <table style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr style="border-bottom:1px solid var(--border);text-align:left;">
+            <th style="padding:8px;font-size:12px;color:var(--text-secondary);">Time (UTC)</th>
+            <th style="padding:8px;font-size:12px;color:var(--text-secondary);">Event</th>
+            <th style="padding:8px;font-size:12px;color:var(--text-secondary);">Details</th>
+            <th style="padding:8px;font-size:12px;color:var(--text-secondary);">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="audit-tbody">
+          <tr><td colspan="4" style="text-align:center;color:var(--text-secondary);padding:20px;">Pick a stream above.</td></tr>
+        </tbody>
+      </table>
+      <pre id="audit-detail" style="display:none;background:#f6f8fa;padding:12px;margin-top:12px;border-radius:6px;overflow:auto;max-height:400px;font-size:12px;"></pre>
+    </div>
+  `;
+
+  // Load stream list.
+  try {
+    const data = await apiFetch(API.audit + '?streams=1');
+    auditState.streams = Array.isArray(data.streams) ? data.streams : [];
+  } catch (err) {
+    auditState.streams = [];
+  }
+  const sel = $('#audit-stream');
+  const opts = ['<option value="">(select a stream)</option>']
+    .concat(auditState.streams.map(s => '<option value="' + escapeAttr(s) + '">' + escapeAttr(s) + '</option>'));
+  sel.innerHTML = opts.join('');
+
+  sel.onchange = () => { auditState.stream = sel.value; loadAuditEntries(); };
+  $('#audit-since').onchange = () => {
+    auditState.filter.sinceHours = Number($('#audit-since').value) || 0;
+    loadAuditEntries();
+  };
+  $('#audit-event').oninput = (e) => {
+    auditState.filter.event = e.target.value.trim();
+  };
+  $('#audit-refresh').onclick = () => loadAuditEntries();
 }
 
 /* ============================
