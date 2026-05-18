@@ -1738,10 +1738,22 @@ function renderWorkshopEditor(app, workshop, allSampleFiles = []) {
   // Participants table
   if (participants.length) {
     const tbody = $('#participants-tbody');
+    // Core lesson counts match index.html's updateDashboardProgress: only
+    // core lessons (not bonus) count toward the denominator. Keep these in
+    // sync with CHAT_CORE / APPS_CORE / AGENTS_CORE there.
+    const CORE = { chat: 6, apps: 3, agents: 4 };
+    const TOTAL_CORE = CORE.chat + CORE.apps + CORE.agents; // 13
+    const coreDone = (arr, max) => Array.isArray(arr) ? arr.filter(i => i < max).length : 0;
     participants.forEach(p => {
-      const progress = p.progress || p.completedLessons || 0;
-      const total = p.totalLessons || 12;
-      const pct = total > 0 ? Math.round((progress / total) * 100) : 0;
+      // Server schema (api/progress.js): { chat, apps, agents } each { completed:[], points }.
+      // Fall back to the legacy flat fields if any pre-migration record is still around.
+      const progress = (p.chat || p.apps || p.agents)
+        ? coreDone(p.chat   && p.chat.completed,   CORE.chat)
+        + coreDone(p.apps   && p.apps.completed,   CORE.apps)
+        + coreDone(p.agents && p.agents.completed, CORE.agents)
+        : (p.progress || p.completedLessons || 0);
+      const total = p.totalLessons || TOTAL_CORE;
+      const pct = total > 0 ? Math.min(100, Math.round((progress / total) * 100)) : 0;
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${esc(p.name || p.email || 'Anonymous')}</td>

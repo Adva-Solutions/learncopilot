@@ -26,7 +26,10 @@ test('checkOrigin accepts localhost dev origin', async () => {
 
 test('checkOrigin accepts Vercel preview URLs for this project', async () => {
   const { checkOrigin } = await import('../api/lib/csrf.js');
+  // Legacy team (project history) — kept allowlisted so old PR links work.
   assert.strictEqual(checkOrigin({ method: 'POST', headers: { origin: 'https://learncopilot-git-x-matan-5706s-projects.vercel.app' } }), true);
+  // Current team (advasolutions) — every active preview deployment uses this.
+  assert.strictEqual(checkOrigin({ method: 'POST', headers: { origin: 'https://learncopilot-git-claude-review-thalia-bug-hjmn0-advasolutions.vercel.app' } }), true);
 });
 
 test('checkOrigin rejects unknown origins', async () => {
