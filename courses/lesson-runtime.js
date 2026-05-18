@@ -42,13 +42,64 @@ function computeLocalStorageMigration({ localCompleted, serverCompleted, lessons
   };
 }
 
+// --- Durable retry queue helpers ---
+// Pure-functional so they can be unit-tested without a DOM. The DOM layer
+// reads/writes the queue from localStorage; these helpers only transform it.
+//
+// Queue item shape: { payload, ts, retries }
+//   - payload: the body sent to POST /api/progress
+//   - ts:      Date.now() when the attempt was first enqueued
+//   - retries: incremented every time a retry fails
+
+const FLUSH_QUEUE_MAX = 50;
+const FLUSH_QUEUE_MAX_RETRIES = 5;
+// HTTP statuses where retrying will never succeed -- drop the item, don't
+// keep banging on the server. 401 = stale session (cookie cleared); 403 =
+// origin / CSRF rejection; 400/404 = client bug.
+const FLUSH_TERMINAL_STATUSES = new Set([400, 401, 403, 404]);
+
+function enqueueFlush(queue, payload, now) {
+  const next = Array.isArray(queue) ? queue.slice() : [];
+  next.push({ payload, ts: now ?? Date.now(), retries: 0 });
+  if (next.length > FLUSH_QUEUE_MAX) {
+    // Drop oldest first -- newer state is more likely to be wanted.
+    return next.slice(next.length - FLUSH_QUEUE_MAX);
+  }
+  return next;
+}
+
+function dequeueFront(queue) {
+  if (!Array.isArray(queue) || queue.length === 0) return [];
+  return queue.slice(1);
+}
+
+function markAttempt(queue) {
+  if (!Array.isArray(queue) || queue.length === 0) return queue || [];
+  const next = queue.slice();
+  next[0] = { ...next[0], retries: (next[0].retries || 0) + 1 };
+  return next;
+}
+
+function isTerminalStatus(status) {
+  return FLUSH_TERMINAL_STATUSES.has(status);
+}
+
+function shouldDropAfterRetry(item) {
+  return !!item && (item.retries || 0) >= FLUSH_QUEUE_MAX_RETRIES;
+}
+
 // Dual export: <script> loads attach to window; node:test requires via CommonJS.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { buildNav, sumPoints, diffCompleted, computeLocalStorageMigration };
+  module.exports = {
+    buildNav, sumPoints, diffCompleted, computeLocalStorageMigration,
+    enqueueFlush, dequeueFront, markAttempt, isTerminalStatus, shouldDropAfterRetry,
+    FLUSH_QUEUE_MAX, FLUSH_QUEUE_MAX_RETRIES,
+  };
 }
 if (typeof window !== 'undefined') {
   window.LessonRuntime = Object.assign(window.LessonRuntime || {}, {
     buildNav, sumPoints, diffCompleted, computeLocalStorageMigration,
+    enqueueFlush, dequeueFront, markAttempt, isTerminalStatus, shouldDropAfterRetry,
   });
 }
 
@@ -299,13 +350,35 @@ function scheduleFlush() {
   state.flushTimer = setTimeout(flush, 250); // debounce bursts of completes
 }
 
+// localStorage-backed queue so failed writes survive tab close / reload.
+// Keyed per courseId so each course tracks its own pending payloads.
+function flushQueueKey(courseId) { return 'pending-flush:' + courseId; }
+
+function readFlushQueue(courseId) {
+  try { return JSON.parse(localStorage.getItem(flushQueueKey(courseId)) || '[]'); }
+  catch (_) { return []; }
+}
+
+function writeFlushQueue(courseId, queue) {
+  try {
+    if (!queue || queue.length === 0) localStorage.removeItem(flushQueueKey(courseId));
+    else localStorage.setItem(flushQueueKey(courseId), JSON.stringify(queue));
+  } catch (_) { /* quota etc. -- nothing useful to do */ }
+}
+
+// Backoff schedule for transient failures. Index = retries so far.
+// Capped to avoid runaway loops while still recovering quickly from a brief
+// blip (3s) and tolerating a long outage (final 2m attempt).
+const FLUSH_BACKOFF_MS = [3_000, 10_000, 30_000, 60_000, 120_000];
+
 async function flush() {
   if (!state) return;
   const completed = Array.from(state.completed).sort((a,b)=>a-b);
   const points = window.LessonRuntime.sumPoints(state.lessons, completed);
   const body = { [state.progressCategory]: { completed, points } };
+  let r;
   try {
-    const r = await fetch('/api/progress', {
+    r = await fetch('/api/progress', {
       method: 'POST',
       credentials: 'include',
       keepalive: true,
@@ -313,12 +386,84 @@ async function flush() {
       body: JSON.stringify(body),
     });
     if (!r.ok) throw new Error('HTTP ' + r.status);
+    // Success -- if anything is queued, drain it now (the in-flight write is
+    // already up-to-date, so old queued payloads are obsolete: drop them).
+    const queue = readFlushQueue(state.courseId);
+    if (queue.length) writeFlushQueue(state.courseId, []);
+    return;
   } catch (err) {
-    // Report the failure so we stop silently losing writes. Retry stays for
-    // now (the durable queue lands in a follow-up PR).
-    reportClientError('flush_failed', err, { lessonIdx: state.currentLesson, bodyLen: JSON.stringify(body).length });
-    setTimeout(scheduleFlush, 3000);
+    const status = r ? r.status : 0;
+    if (window.LessonRuntime.isTerminalStatus(status)) {
+      // 401/403/etc. -- retrying won't help. Report and drop the in-memory
+      // intent; the next user action will re-fire after they re-auth.
+      reportClientError('flush_drop_terminal', err, {
+        lessonIdx: state.currentLesson, status, bodyLen: JSON.stringify(body).length,
+      });
+      return;
+    }
+    // Persist for next session and schedule a retry now.
+    const queue = window.LessonRuntime.enqueueFlush(readFlushQueue(state.courseId), body, Date.now());
+    writeFlushQueue(state.courseId, queue);
+    reportClientError('flush_failed', err, {
+      lessonIdx: state.currentLesson, status, queueLen: queue.length,
+    });
+    setTimeout(drainFlushQueue, FLUSH_BACKOFF_MS[0]);
   }
+}
+
+// Drains the persisted queue oldest-first. Stops on first transient failure
+// and re-arms a timer; drops items on terminal status or retry exhaustion.
+async function drainFlushQueue() {
+  if (!state) return;
+  const courseId = state.courseId;
+  let queue = readFlushQueue(courseId);
+  while (queue.length) {
+    const item = queue[0];
+    let r;
+    try {
+      r = await fetch('/api/progress', {
+        method: 'POST',
+        credentials: 'include',
+        keepalive: true,
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(item.payload),
+      });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      queue = window.LessonRuntime.dequeueFront(queue);
+      writeFlushQueue(courseId, queue);
+    } catch (err) {
+      const status = r ? r.status : 0;
+      if (window.LessonRuntime.isTerminalStatus(status)) {
+        reportClientError('flush_drop_terminal', err, { status, queuedAt: item.ts });
+        queue = window.LessonRuntime.dequeueFront(queue);
+        writeFlushQueue(courseId, queue);
+        continue;
+      }
+      queue = window.LessonRuntime.markAttempt(queue);
+      writeFlushQueue(courseId, queue);
+      if (window.LessonRuntime.shouldDropAfterRetry(queue[0])) {
+        reportClientError('flush_drop_max_retries', err, { status, queuedAt: item.ts });
+        queue = window.LessonRuntime.dequeueFront(queue);
+        writeFlushQueue(courseId, queue);
+        continue;
+      }
+      const delay = FLUSH_BACKOFF_MS[Math.min(queue[0].retries, FLUSH_BACKOFF_MS.length - 1)];
+      setTimeout(drainFlushQueue, delay);
+      return;
+    }
+  }
+}
+
+function installQueueDrainTriggers() {
+  if (window.__lessonRuntimeDrainInstalled) return;
+  window.__lessonRuntimeDrainInstalled = true;
+  // Network came back -- try the queue immediately.
+  window.addEventListener('online', () => { drainFlushQueue().catch(() => {}); });
+  // Tab regained focus -- a stalled flush may have been queued in the
+  // background; try to clear it now that we're foreground.
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') drainFlushQueue().catch(() => {});
+  });
 }
 
 // Best-effort POST to /api/client-log. Uses sendBeacon when available so the
@@ -411,7 +556,24 @@ function installKeybinds() {
     else if (e.key === '2') switchTab(state.currentLesson, 'implement');
     else if (e.key === '3') switchTab(state.currentLesson, 'advanced');
   });
-  window.addEventListener('beforeunload', () => { if (state && state.flushTimer) flush(); });
+  // On nav/close, fire-and-forget a sendBeacon write of the current state. The
+  // previous code called flush() which would race the unload and frequently
+  // get killed mid-fetch -- sendBeacon is the right primitive here. The
+  // payload is also enqueued so a hard failure is recoverable next session.
+  window.addEventListener('beforeunload', () => {
+    if (!state) return;
+    const completed = Array.from(state.completed).sort((a,b)=>a-b);
+    const points = window.LessonRuntime.sumPoints(state.lessons, completed);
+    const body = { [state.progressCategory]: { completed, points } };
+    // Enqueue first so a sendBeacon that quietly fails still has a recovery path.
+    const queue = window.LessonRuntime.enqueueFlush(readFlushQueue(state.courseId), body, Date.now());
+    writeFlushQueue(state.courseId, queue);
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('/api/progress', new Blob([JSON.stringify(body)], { type: 'application/json' }));
+      }
+    } catch (_) { /* unload context -- nothing to do */ }
+  });
 }
 
 async function initCourse({ courseId, progressCategory, lessons, coreCount, renderLesson: customRenderLesson, renderNav: customRenderNav }) {
@@ -443,6 +605,11 @@ async function initCourse({ courseId, progressCategory, lessons, coreCount, rend
 
   installKeybinds();
   installGlobalErrorHandlers();
+  installQueueDrainTriggers();
+  // Drain anything left over from a previous session before the user does
+  // anything new. Fire-and-forget; new completes will append to the queue
+  // and the drain loop will pick them up.
+  drainFlushQueue().catch(() => {});
   renderLesson(state.currentLesson);
   dispatchChange();
 
