@@ -495,31 +495,36 @@ function updateDashboardProgress() {
 
 updateDashboardProgress();
 
-/* Reset-epoch reconcile — if admin reset this workshop since our last sync,
-   wipe cached completion/exercise-check state so the dashboard stops showing
-   old progress. Fast path already painted from localStorage; this repaints
-   once we know the server's resetAt. Course pages do the same via
-   lesson-runtime.js, but the dashboard has no course runtime attached. */
-(async function reconcileResetAt() {
+/* Hydrate the dashboard from the server record. lesson-runtime.js owns
+   the source of truth (Redis via /api/progress) and no longer writes the
+   legacy localStorage completion keys -- so without this, a returning
+   user sees 0% on the homepage even after completing every lesson.
+   Also honors a server-side workshop reset by wiping stale local caches. */
+(async function hydrateFromServer() {
   try {
     const r = await fetch('/api/progress?me=true', { credentials: 'include' });
     if (!r.ok) return;
     const data = await r.json();
+
     const serverResetAt = Number(data && data.resetAt) || 0;
-    if (!serverResetAt) return;
     const localResetAt = Number(localStorage.getItem('resetAt:dashboard')) || 0;
     if (serverResetAt > localResetAt) {
-      localStorage.removeItem('chat-completed-v2');
-      localStorage.removeItem('apps-completed');
-      localStorage.removeItem('agents-completed');
       localStorage.removeItem('chat-exercise-checks');
       localStorage.removeItem('apps-exercise-checks');
       localStorage.removeItem('agents-exercise-checks');
-      localStorage.setItem('resetAt:dashboard', String(serverResetAt));
-      updateDashboardProgress();
-    } else {
+    }
+    if (serverResetAt > 0) {
       localStorage.setItem('resetAt:dashboard', String(serverResetAt));
     }
+
+    const my = data && data.myProgress;
+    const chat   = Array.isArray(my && my.chat   && my.chat.completed)   ? my.chat.completed   : [];
+    const apps   = Array.isArray(my && my.apps   && my.apps.completed)   ? my.apps.completed   : [];
+    const agents = Array.isArray(my && my.agents && my.agents.completed) ? my.agents.completed : [];
+    localStorage.setItem('chat-completed-v2', JSON.stringify(chat));
+    localStorage.setItem('apps-completed',    JSON.stringify(apps));
+    localStorage.setItem('agents-completed',  JSON.stringify(agents));
+    updateDashboardProgress();
   } catch (_) { /* offline — leave local data alone */ }
 })();
 

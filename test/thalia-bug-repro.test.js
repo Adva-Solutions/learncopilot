@@ -1,206 +1,177 @@
-// Reproduction for Thalia's bug (email thread "Quick check in", 2026-05-18):
-//   "On my end it still looks like it's not nothing my progress although I
-//    have marked things complete."
+// Reproduction for Thalia's bug (Quick check in thread, 2026-05-18):
+//   "On my end it still looks like it's not noting my progress although
+//    I have marked things complete."
 //
-// Hypothesis: when the server responds 401 to POST /api/progress (e.g.
-// because getStaleReset(user) is truthy after an admin reset, or the
-// session cookie was cleared), the client's flush() in lesson-runtime.js
-// treats 401 as a terminal status, REPORTS the error, and returns without
-// enqueuing the payload for retry. Combined with the absence of any local
-// persistence of the completed[] list, the user's "Mark Complete" click is
-// silently lost.
+// Audit data shows her server record is fully populated:
+//   chat   [0,1,2,3,4,5,6]  110 pts
+//   apps   [0,1,2,3,4]       95 pts
+//   agents [0,1,2,3]        100 pts
+//   total                    305 pts
+// (every core lesson + every bonus -- maximum possible)
 //
-// This file drives the real lesson-runtime DOM layer against minimal
-// browser stubs and asserts the observable behavior. It does NOT mock
-// flush() itself -- it mocks fetch and inspects what flush() puts (or
-// fails to put) into localStorage.
+// But the homepage at index.html reads progress from localStorage only
+// (updateDashboardProgress, lines 472-494). courses/lesson-runtime.js no
+// longer writes to those localStorage keys -- it reads them once for
+// legacy migration and clears them. So the homepage shows 0% to every
+// current user regardless of server state.
+//
+// This test loads index.html's inline script in a sandbox and asserts
+// the observable output of the three progress elements: #pct-chat,
+// #pct-apps, #pct-agents.
 
 const test = require('node:test');
 const assert = require('node:assert');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
 
-// ---------- minimal browser stubs ----------
+const INDEX_HTML = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 
-const storage = new Map();
-function makeStorage() {
-  return {
-    getItem: (k) => storage.has(k) ? storage.get(k) : null,
-    setItem: (k, v) => { storage.set(k, String(v)); },
-    removeItem: (k) => { storage.delete(k); },
+// Pull the single inline <script>...</script> block from index.html.
+function extractDashboardScript() {
+  const m = INDEX_HTML.match(/<script>([\s\S]*?)<\/script>/);
+  if (!m) throw new Error('inline <script> not found in index.html');
+  return m[1];
+}
+
+// Thalia's server record, as observed in audit:progress:odaai.
+const THALIA_SERVER = {
+  myProgress: {
+    chat:   { completed: [0, 1, 2, 3, 4, 5, 6], points: 110 },
+    apps:   { completed: [0, 1, 2, 3, 4],       points: 95 },
+    agents: { completed: [0, 1, 2, 3],          points: 100 },
+    totalPoints: 305,
+  },
+  resetAt: null,
+};
+
+// Build a fresh sandbox + stub DOM for each test. Returns the sandbox and
+// a `elements` map so the test can read what the dashboard rendered.
+function buildSandbox({ localCompleted = {} } = {}) {
+  const storage = new Map(Object.entries(localCompleted).map(([k, v]) => [k, JSON.stringify(v)]));
+
+  const elements = {
+    'prog-chat':   { style: { width: '0%' }, textContent: '' },
+    'pct-chat':    { style: {}, textContent: '0%' },
+    'prog-apps':   { style: { width: '0%' }, textContent: '' },
+    'pct-apps':    { style: {}, textContent: '0%' },
+    'prog-agents': { style: { width: '0%' }, textContent: '' },
+    'pct-agents':  { style: {}, textContent: '0%' },
+    'reset-wrap':  { style: { display: 'none' }, textContent: '' },
+    'nav-map-link': null,
+    'client-logo-hero': null,
+    'client-logo-img': null,
+    'branding-link': null,
+    'hero-title': null,
+    'hero-desc': null,
   };
+
+  const sandbox = {
+    console,
+    setTimeout, clearTimeout, setInterval: () => 0, clearInterval: () => {},
+    localStorage: {
+      getItem: (k) => storage.has(k) ? storage.get(k) : null,
+      setItem: (k, v) => storage.set(k, String(v)),
+      removeItem: (k) => storage.delete(k),
+    },
+    document: {
+      getElementById: (id) => elements[id] || null,
+      querySelectorAll: () => [],
+      addEventListener: () => {},
+    },
+    window: {},
+    location: { search: '?slug=odaai', href: 'http://test/', hash: '' },
+    URLSearchParams,
+    // Stub fetch: /api/me returns Thalia, /api/progress?me=true returns server data.
+    fetch: async (url) => {
+      if (url === '/api/me') {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({ name: 'Thalia Scagliola', slug: 'odaai', uid: 'a7f0c536' }),
+        };
+      }
+      if (url === '/api/progress?me=true') {
+        return { ok: true, status: 200, json: async () => THALIA_SERVER };
+      }
+      return { ok: false, status: 404, json: async () => ({}) };
+    },
+  };
+  sandbox.window = sandbox;
+  sandbox.globalThis = sandbox;
+  return { sandbox, elements };
 }
 
-class FakeEl {
-  constructor() {
-    this.innerHTML = '';
-    this.classList = { add: () => {}, remove: () => {}, contains: () => false };
-    this.style = {};
-    this.firstChild = null;
-    this.children = [];
-  }
-  querySelector() { return null; }
-  querySelectorAll() { return []; }
-  setAttribute() {}
-  getAttribute() { return null; }
-  addEventListener() {}
-  insertBefore() {}
+function runDashboardScript(sandbox) {
+  const ctx = vm.createContext(sandbox);
+  vm.runInContext(extractDashboardScript(), ctx, { filename: 'index.html#inline-script' });
 }
 
-const elements = {
-  'lesson-content': new FakeEl(),
-  'lesson-nav': new FakeEl(),
-};
+// Wait two macrotask ticks so the script's await fetch(...) calls settle.
+const settle = () => new Promise(r => setTimeout(r, 30));
 
-globalThis.localStorage = makeStorage();
-globalThis.sessionStorage = { getItem: () => null, setItem: () => {} };
-globalThis.document = {
-  getElementById: (id) => elements[id] || null,
-  querySelector: () => null,
-  querySelectorAll: () => [],
-  addEventListener: () => {},
-  createElement: () => new FakeEl(),
-};
-globalThis.location = { hash: '', href: 'http://test/', search: '' };
-globalThis.history = { replaceState: () => {} };
-globalThis.navigator = { sendBeacon: () => true, userAgent: 'test' };
-globalThis.CustomEvent = class CustomEvent {
-  constructor(name, opts) { this.type = name; this.detail = opts && opts.detail; }
-};
-globalThis.window = globalThis;
-globalThis.window.addEventListener = () => {};
-globalThis.window.dispatchEvent = () => {};
+// Regression guard for Thalia's bug. Before the fix the same test failed
+// (homepage rendered 0% because updateDashboardProgress read localStorage
+// only and lesson-runtime never writes the legacy keys).
+test('homepage hydrates progress from /api/progress?me=true', async () => {
+  const { sandbox, elements } = buildSandbox({ localCompleted: {} });
+  runDashboardScript(sandbox);
+  await settle();
 
-// ---------- fetch mock ----------
-
-const fetchCalls = [];
-let nextProgressPost = { ok: false, status: 401 };
-
-globalThis.fetch = async (url, opts) => {
-  fetchCalls.push({ url, opts });
-  // initCourse calls /api/progress?me=true; return "no record, no reset".
-  if (url === '/api/progress?me=true') {
-    return { ok: true, json: async () => ({ myProgress: null, resetAt: null }) };
-  }
-  // Error-reporting endpoint: succeed so reportClientError stays silent.
-  if (url === '/api/client-log') {
-    return { ok: true };
-  }
-  // POST /api/progress: whatever the test set up.
-  if (url === '/api/progress' && opts && opts.method === 'POST') {
-    return nextProgressPost;
-  }
-  return { ok: true, json: async () => ({}) };
-};
-
-// Now load the module. The DOM layer attaches to window because we've set
-// typeof window !== 'undefined'.
-require('../courses/lesson-runtime.js');
-const LR = globalThis.window.LessonRuntime;
-
-function resetWorld() {
-  storage.clear();
-  fetchCalls.length = 0;
-  // Re-create fake elements so prior renderLesson calls don't leak innerHTML.
-  elements['lesson-content'] = new FakeEl();
-  elements['lesson-nav'] = new FakeEl();
-}
-
-const LESSONS = [
-  { id: 0, title: 'L1', points: 10, learn: '', implement: '', advanced: '' },
-  { id: 1, title: 'L2', points: 20, learn: '', implement: '', advanced: '' },
-];
-
-// 250ms debounce in scheduleFlush + a little headroom for the fetch.
-function waitForFlush() { return new Promise(r => setTimeout(r, 400)); }
-
-// ---------- THE REPRO ----------
-
-test('REPRO: 401 from /api/progress silently drops the completion payload', async () => {
-  resetWorld();
-  nextProgressPost = { ok: false, status: 401 }; // stale-reset or cleared cookie
-
-  await LR.initCourse({
-    courseId: 'copilot-chat',
-    progressCategory: 'chat',
-    lessons: LESSONS,
-    coreCount: LESSONS.length,
-  });
-
-  // User clicks "Mark Complete" on lesson 0.
-  LR.markComplete(0);
-  await waitForFlush();
-
-  // The POST was attempted.
-  const post = fetchCalls.find(c => c.url === '/api/progress' && c.opts && c.opts.method === 'POST');
-  assert.ok(post, 'POST /api/progress should have been attempted');
-  assert.deepStrictEqual(
-    JSON.parse(post.opts.body),
-    { chat: { completed: [0], points: 10 } },
-    'payload reflects the just-completed lesson',
-  );
-
-  // BUG: the dropped payload is NOT in the persistent retry queue.
-  // Anyone who reloads the tab will see zero progress.
-  const queueRaw = globalThis.localStorage.getItem('pending-flush:copilot-chat');
-  const queue = queueRaw ? JSON.parse(queueRaw) : [];
-  assert.strictEqual(
-    queue.length, 0,
-    'CURRENT (buggy) BEHAVIOR: 401 hits the isTerminalStatus branch in ' +
-    'flush() at lesson-runtime.js:396-403 and returns without enqueuing. ' +
-    'The completion is lost on the next page load.',
-  );
-
-  // And nothing was persisted to the legacy local-completed key either.
-  assert.strictEqual(
-    globalThis.localStorage.getItem('chat-completed-v2'), null,
-    'CURRENT BEHAVIOR: lesson-runtime.js never writes the completed[] ' +
-    'list to localStorage during normal use, so there is no client-side ' +
-    'fallback when the server write fails.',
-  );
+  assert.strictEqual(elements['pct-chat'].textContent,   '100%', 'chat % from server');
+  assert.strictEqual(elements['pct-apps'].textContent,   '100%', 'apps % from server');
+  assert.strictEqual(elements['pct-agents'].textContent, '100%', 'agents % from server');
+  assert.strictEqual(elements['prog-chat'].style.width,   '100%');
+  assert.strictEqual(elements['prog-apps'].style.width,   '100%');
+  assert.strictEqual(elements['prog-agents'].style.width, '100%');
 });
 
-test('CONTRAST: 500 (transient) from /api/progress correctly enqueues for retry', async () => {
-  resetWorld();
-  nextProgressPost = { ok: false, status: 500 };
-
-  await LR.initCourse({
-    courseId: 'copilot-chat',
-    progressCategory: 'chat',
-    lessons: LESSONS,
-    coreCount: LESSONS.length,
+// Sanity: calculation logic itself works correctly when given data.
+// This was already true before the fix; included so a regression in the
+// percentage math is caught alongside any regression in the server-hydrate.
+test('homepage renders correctly when localStorage already has the data', async () => {
+  const { sandbox, elements } = buildSandbox({
+    localCompleted: {
+      'chat-completed-v2': [0, 1, 2, 3, 4, 5, 6],
+      'apps-completed':    [0, 1, 2, 3, 4],
+      'agents-completed':  [0, 1, 2, 3],
+    },
   });
+  runDashboardScript(sandbox);
+  await settle();
 
-  LR.markComplete(0);
-  await waitForFlush();
-
-  const queueRaw = globalThis.localStorage.getItem('pending-flush:copilot-chat');
-  const queue = queueRaw ? JSON.parse(queueRaw) : [];
-  assert.strictEqual(queue.length, 1, 'transient error enqueues the payload');
-  assert.deepStrictEqual(
-    queue[0].payload,
-    { chat: { completed: [0], points: 10 } },
-    'queued payload is the user\'s completion',
-  );
+  assert.strictEqual(elements['pct-chat'].textContent,   '100%');
+  assert.strictEqual(elements['pct-apps'].textContent,   '100%');
+  assert.strictEqual(elements['pct-agents'].textContent, '100%');
 });
 
-test('CONTRAST: 200 OK clears any prior queue (sanity)', async () => {
-  resetWorld();
-  // Pre-seed a stale queued payload from a previous failed session.
-  globalThis.localStorage.setItem(
-    'pending-flush:copilot-chat',
-    JSON.stringify([{ payload: { chat: { completed: [0], points: 10 } }, ts: 1, retries: 0 }]),
-  );
-  nextProgressPost = { ok: true, status: 200, json: async () => ({ ok: true }) };
+// A partial record (e.g. only some lessons done) should render the right %.
+test('homepage renders partial progress from server', async () => {
+  const { sandbox, elements } = buildSandbox({ localCompleted: {} });
+  // Override fetch for this test to return a partial record (3/6 chat).
+  sandbox.fetch = async (url) => {
+    if (url === '/api/me') {
+      return { ok: true, status: 200, json: async () => ({ name: 'Test', slug: 'odaai' }) };
+    }
+    if (url === '/api/progress?me=true') {
+      return {
+        ok: true, status: 200,
+        json: async () => ({
+          myProgress: {
+            chat:   { completed: [0, 1, 2], points: 30 },
+            apps:   { completed: [],        points: 0 },
+            agents: { completed: [0],       points: 25 },
+          },
+          resetAt: null,
+        }),
+      };
+    }
+    return { ok: false, status: 404, json: async () => ({}) };
+  };
+  runDashboardScript(sandbox);
+  await settle();
 
-  await LR.initCourse({
-    courseId: 'copilot-chat',
-    progressCategory: 'chat',
-    lessons: LESSONS,
-    coreCount: LESSONS.length,
-  });
-
-  LR.markComplete(1);
-  await waitForFlush();
-
-  const queueRaw = globalThis.localStorage.getItem('pending-flush:copilot-chat');
-  assert.ok(!queueRaw, 'successful flush clears the pending queue');
+  assert.strictEqual(elements['pct-chat'].textContent,   '50%',  '3/6 chat core');
+  assert.strictEqual(elements['pct-apps'].textContent,   '0%',   'no apps done');
+  assert.strictEqual(elements['pct-agents'].textContent, '25%',  '1/4 agents core');
 });
