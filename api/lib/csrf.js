@@ -10,7 +10,13 @@ const ALLOWED_ORIGINS = new Set([
 ]);
 
 // Vercel preview deployments use a predictable host pattern; allow them too.
-const PREVIEW_HOST_REGEX = /^https:\/\/[a-z0-9-]+-matan-5706s-projects\.vercel\.app$/;
+// The project lived under the `matan-5706s-projects` team originally and was
+// transferred to `advasolutions`; both patterns are accepted so historical
+// preview URLs (e.g. cached PR links) still work while current deployments do.
+const PREVIEW_HOST_REGEXES = [
+  /^https:\/\/[a-z0-9-]+-matan-5706s-projects\.vercel\.app$/,
+  /^https:\/\/[a-z0-9-]+-advasolutions\.vercel\.app$/,
+];
 
 /**
  * checkOrigin(req) → boolean
@@ -25,6 +31,6 @@ export function checkOrigin(req) {
   const origin = req.headers.origin;
   if (!origin) return false;                          // explicit origin required for non-safe methods
   if (ALLOWED_ORIGINS.has(origin)) return true;
-  if (PREVIEW_HOST_REGEX.test(origin)) return true;
+  if (PREVIEW_HOST_REGEXES.some(rx => rx.test(origin))) return true;
   return false;
 }
