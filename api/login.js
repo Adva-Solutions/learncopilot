@@ -3,6 +3,8 @@ import { getRedis } from './lib/redis.js';
 import { createToken } from './me.js';
 import { checkRateLimit, getClientIp } from './lib/rate-limit.js';
 import { checkOrigin } from './lib/csrf.js';
+import { log, newRequestId } from './lib/logger.js';
+import { audit } from './lib/audit.js';
 
 async function findOrCreateUid(r, name, slug) {
   const prefix = slug ? `client:${slug}:` : 'workshop:';
@@ -41,9 +43,15 @@ async function registerParticipant(r, name, slug, uid) {
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  const requestId = newRequestId();
+  res.setHeader('x-request-id', requestId);
+  if (req.method !== 'POST') {
+    log.warn('login_method_not_allowed', { requestId, method: req.method });
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
   if (!checkOrigin(req)) {
+    log.warn('login_origin_rejected', { requestId, origin: req.headers.origin || null });
     return res.status(403).json({ error: 'Invalid origin' });
   }
 
@@ -51,47 +59,73 @@ export default async function handler(req, res) {
   const rl = await checkRateLimit(`ratelimit:login:${ip}`, 10, 60);
   if (!rl.allowed) {
     res.setHeader('Retry-After', String(rl.retryAfter));
+    log.warn('login_rate_limited', { requestId, ip, retryAfter: rl.retryAfter });
+    await audit('login:default', { event: 'rate_limited', requestId, ip });
     return res.status(429).json({ error: 'Too many login attempts. Try again shortly.' });
   }
 
   const { name, password, slug } = req.body || {};
-  if (!name || !password) return res.status(400).json({ error: 'Name and password required' });
+  if (!name || !password) {
+    log.info('login_bad_request', { requestId, hasName: !!name, hasPassword: !!password });
+    return res.status(400).json({ error: 'Name and password required' });
+  }
 
   const r = getRedis();
   const trimmed = name.trim();
+  const auditStream = `login:${slug || 'default'}`;
 
   if (slug) {
     const raw = await r.get(`client:${slug}`);
-    if (!raw) return res.status(404).json({ error: 'Workshop not found' });
+    if (!raw) {
+      log.info('login_workshop_not_found', { requestId, slug });
+      await audit(auditStream, { event: 'workshop_not_found', requestId, name: trimmed, slug, ip });
+      return res.status(404).json({ error: 'Workshop not found' });
+    }
     let client;
-    try { client = JSON.parse(raw); } catch { return res.status(500).json({ error: 'Workshop data corrupted' }); }
-    // Gate on admin-controlled status. A workshop in 'draft' or 'inactive' is
-    // closed to participants — the Status dropdown in the admin panel was
-    // purely cosmetic before this. Records without a status field default to
-    // 'active' to avoid locking out workshops created before the field existed.
+    try { client = JSON.parse(raw); } catch {
+      log.error('login_workshop_corrupted', { requestId, slug });
+      return res.status(500).json({ error: 'Workshop data corrupted', requestId });
+    }
     const status = client.status || 'active';
     if (status !== 'active') {
+      log.info('login_workshop_closed', { requestId, slug, status });
+      await audit(auditStream, { event: 'workshop_closed', requestId, name: trimmed, slug, status, ip });
       return res.status(403).json({ error: 'Workshop is not accepting logins' });
     }
-    if (password !== client.password) return res.status(401).json({ error: 'Wrong password' });
+    if (password !== client.password) {
+      log.info('login_wrong_password', { requestId, slug, name: trimmed });
+      await audit(auditStream, { event: 'wrong_password', requestId, name: trimmed, slug, ip });
+      return res.status(401).json({ error: 'Wrong password' });
+    }
 
     const uid = await findOrCreateUid(r, trimmed, slug);
     await registerParticipant(r, trimmed, slug, uid);
     const token = createToken(trimmed, slug, uid);
     const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
     res.setHeader('Set-Cookie', `workshop_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800${secure}`);
+    log.info('login_ok', { requestId, slug, name: trimmed, uid });
+    await audit(auditStream, { event: 'login_ok', requestId, name: trimmed, slug, uid, ip });
     return res.status(200).json({ ok: true, name: trimmed, slug });
   }
 
   // Legacy/default login
   const LEGACY_PASSWORD = process.env.WORKSHOP_PASSWORD;
-  if (!LEGACY_PASSWORD) return res.status(500).json({ error: 'WORKSHOP_PASSWORD not configured' });
-  if (password !== LEGACY_PASSWORD) return res.status(401).json({ error: 'Wrong password' });
+  if (!LEGACY_PASSWORD) {
+    log.error('login_workshop_password_unset', { requestId });
+    return res.status(500).json({ error: 'WORKSHOP_PASSWORD not configured', requestId });
+  }
+  if (password !== LEGACY_PASSWORD) {
+    log.info('login_wrong_password', { requestId, name: trimmed, mode: 'legacy' });
+    await audit(auditStream, { event: 'wrong_password', requestId, name: trimmed, mode: 'legacy', ip });
+    return res.status(401).json({ error: 'Wrong password' });
+  }
 
   const uid = await findOrCreateUid(r, trimmed, '');
   await registerParticipant(r, trimmed, '', uid);
   const token = createToken(trimmed, '', uid);
   const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
   res.setHeader('Set-Cookie', `workshop_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800${secure}`);
+  log.info('login_ok', { requestId, name: trimmed, uid, mode: 'legacy' });
+  await audit(auditStream, { event: 'login_ok', requestId, name: trimmed, uid, mode: 'legacy', ip });
   return res.status(200).json({ ok: true, name: trimmed });
 }
