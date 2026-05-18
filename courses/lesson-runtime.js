@@ -313,10 +313,55 @@ async function flush() {
       body: JSON.stringify(body),
     });
     if (!r.ok) throw new Error('HTTP ' + r.status);
-  } catch (_) {
-    // keep retrying on nav / beforeunload
+  } catch (err) {
+    // Report the failure so we stop silently losing writes. Retry stays for
+    // now (the durable queue lands in a follow-up PR).
+    reportClientError('flush_failed', err, { lessonIdx: state.currentLesson, bodyLen: JSON.stringify(body).length });
     setTimeout(scheduleFlush, 3000);
   }
+}
+
+// Best-effort POST to /api/client-log. Uses sendBeacon when available so the
+// report survives a navigation; falls back to fetch+keepalive. Silent: a
+// failure here cannot recover by reporting itself.
+function reportClientError(kind, err, extra) {
+  try {
+    const payload = {
+      kind,
+      message: err && err.message ? String(err.message) : String(err),
+      stack: err && err.stack ? String(err.stack) : null,
+      url: location.href,
+      userAgent: navigator.userAgent,
+      course: state ? state.courseId : null,
+      lessonIdx: extra && typeof extra.lessonIdx === 'number' ? extra.lessonIdx : null,
+      extra: extra || null,
+    };
+    const data = JSON.stringify(payload);
+    if (navigator.sendBeacon) {
+      // sendBeacon defaults to text/plain. /api/client-log parses both.
+      const ok = navigator.sendBeacon('/api/client-log', new Blob([data], { type: 'application/json' }));
+      if (ok) return;
+    }
+    fetch('/api/client-log', {
+      method: 'POST', credentials: 'include', keepalive: true,
+      headers: { 'content-type': 'application/json' }, body: data,
+    }).catch(() => {});
+  } catch (_) { /* never throw out of error reporter */ }
+}
+
+function installGlobalErrorHandlers() {
+  if (window.__lessonRuntimeErrHandlersInstalled) return;
+  window.__lessonRuntimeErrHandlersInstalled = true;
+  window.addEventListener('error', (e) => {
+    reportClientError('onerror', e.error || new Error(e.message || 'unknown'), {
+      filename: e.filename, lineno: e.lineno, colno: e.colno,
+    });
+  });
+  window.addEventListener('unhandledrejection', (e) => {
+    const reason = e.reason;
+    const err = reason instanceof Error ? reason : new Error(reason ? String(reason) : 'unhandled rejection');
+    reportClientError('unhandledrejection', err, {});
+  });
 }
 
 async function loadServerProgress() {
@@ -397,6 +442,7 @@ async function initCourse({ courseId, progressCategory, lessons, coreCount, rend
   state.currentLesson = startIdx;
 
   installKeybinds();
+  installGlobalErrorHandlers();
   renderLesson(state.currentLesson);
   dispatchChange();
 
