@@ -1,17 +1,24 @@
 import { getRedis } from '../lib/redis.js';
 import { verifyAdmin } from './auth.js';
 import { checkOrigin } from '../lib/csrf.js';
+import { getClientIp } from '../lib/rate-limit.js';
+import { log, newRequestId } from '../lib/logger.js';
+import { audit } from '../lib/audit.js';
 
 export default async function handler(req, res) {
+  const requestId = newRequestId();
+  res.setHeader('x-request-id', requestId);
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   if (!checkOrigin(req)) {
+    log.warn('admin_reset_origin_rejected', { requestId, origin: req.headers.origin || null });
     return res.status(403).json({ error: 'Invalid origin' });
   }
 
   if (!verifyAdmin(req)) {
+    log.warn('admin_reset_unauthenticated', { requestId, ip: getClientIp(req) });
     return res.status(401).json({ error: 'Admin authentication required' });
   }
 
@@ -19,29 +26,36 @@ export default async function handler(req, res) {
   const rawSlug = body.slug;
   const isDefault = rawSlug === '' || rawSlug === null || rawSlug === undefined || rawSlug === '__default__';
   const prefix = isDefault ? 'workshop:' : `client:${rawSlug}:`;
+  const slugLabel = isDefault ? 'default' : rawSlug;
 
   const r = getRedis();
 
   try {
     if (!isDefault) {
       const raw = await r.get(`client:${rawSlug}`);
-      if (!raw) return res.status(404).json({ error: 'Workshop not found' });
+      if (!raw) {
+        log.info('admin_reset_workshop_not_found', { requestId, slug: rawSlug });
+        return res.status(404).json({ error: 'Workshop not found' });
+      }
     }
 
-    // Stamp a reset timestamp. Clients compare this against their last-synced
-    // timestamp; when the server's resetAt is newer they clear their local
-    // cache instead of re-uploading it (otherwise an active student would
-    // silently re-populate the leaderboard seconds after reset).
+    // Snapshot every participant's pre-reset progress so we can restore from
+    // the audit log if this reset was a mistake. The snapshot is the whole
+    // point of audit:admin for destructive operations.
+    const users = await r.smembers(`${prefix}users`);
+    const snapshot = [];
+    for (const userKey of users) {
+      const raw = await r.get(`${prefix}progress:${userKey}`);
+      let parsed = null;
+      if (raw) { try { parsed = JSON.parse(raw); } catch { parsed = { _raw: raw }; } }
+      snapshot.push({ userKey, prior: parsed });
+    }
+
     const resetAt = Date.now();
     await r.set(`${prefix}resetAt`, String(resetAt));
 
-    // Rewrite each participant's progress record to zero instead of deleting.
-    // Keeping the user in the set means active students stay visible on the
-    // leaderboard with 0 points -- they don't silently disappear mid-session.
-    const users = await r.smembers(`${prefix}users`);
     const emptyCategory = { completed: [], points: 0 };
     for (const userKey of users) {
-      // Reconstruct a display name from the user key (name::uid or name).
       const sep = userKey.indexOf('::');
       const name = sep >= 0 ? userKey.substring(0, sep) : userKey;
       const zeroed = {
@@ -56,13 +70,26 @@ export default async function handler(req, res) {
       await r.set(`${prefix}progress:${userKey}`, JSON.stringify(zeroed));
     }
 
+    log.info('admin_reset_ok', { requestId, slug: slugLabel, cleared: users.length, resetAt });
+    await audit('admin', {
+      event: 'reset',
+      requestId,
+      slug: slugLabel,
+      cleared: users.length,
+      resetAt,
+      ip: getClientIp(req),
+      snapshot, // full pre-reset state for recovery
+    });
+
     return res.status(200).json({
       ok: true,
       cleared: users.length,
       slug: isDefault ? null : rawSlug,
       resetAt,
+      requestId,
     });
   } catch (e) {
-    return res.status(500).json({ error: 'Redis error', detail: e.message });
+    log.error('admin_reset_failed', { requestId, slug: slugLabel, err: e });
+    return res.status(500).json({ error: 'Redis error', detail: e.message, requestId });
   }
 }
